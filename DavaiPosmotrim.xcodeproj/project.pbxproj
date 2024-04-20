@@ -15,6 +15,12 @@
 		C9C4D5B42BD3B3810081CD23 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = C9C4D5B32BD3B3810081CD23 /* Kingfisher */; };
 		C9C4D5B72BD3B4280081CD23 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = C9C4D5B62BD3B4280081CD23 /* Swinject */; };
 		C9C4D5B92BD3B4280081CD23 /* Swinject-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = C9C4D5B82BD3B4280081CD23 /* Swinject-Dynamic */; };
+		C9FCE9662BD3E4CF00FE655D /* DaysOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9FCE9522BD3E22B00FE655D /* DaysOne-Regular.ttf */; };
+		C9FCE9672BD3E4D200FE655D /* Inter-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9FCE95E2BD3E25C00FE655D /* Inter-Bold.otf */; };
+		C9FCE9682BD3E4D300FE655D /* Inter-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9FCE9612BD3E25D00FE655D /* Inter-Medium.otf */; };
+		C9FCE9692BD3E4D600FE655D /* Inter-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9FCE9582BD3E25900FE655D /* Inter-Regular.otf */; };
+		C9FCE96A2BD3E4D800FE655D /* Inter-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9FCE9562BD3E25800FE655D /* Inter-SemiBold.otf */; };
+		C9FCE96D2BD3E53C00FE655D /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCE96C2BD3E53C00FE655D /* UIFont+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +31,12 @@
 		C9C4D5A62BD3A3CB0081CD23 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9C4D5A92BD3A3CB0081CD23 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C9C4D5AB2BD3A3CB0081CD23 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C9FCE9522BD3E22B00FE655D /* DaysOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DaysOne-Regular.ttf"; sourceTree = "<group>"; };
+		C9FCE9562BD3E25800FE655D /* Inter-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-SemiBold.otf"; sourceTree = "<group>"; };
+		C9FCE9582BD3E25900FE655D /* Inter-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Regular.otf"; sourceTree = "<group>"; };
+		C9FCE95E2BD3E25C00FE655D /* Inter-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Bold.otf"; sourceTree = "<group>"; };
+		C9FCE9612BD3E25D00FE655D /* Inter-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Medium.otf"; sourceTree = "<group>"; };
+		C9FCE96C2BD3E53C00FE655D /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,14 +72,44 @@
 		C9C4D59C2BD3A3C70081CD23 /* DavaiPosmotrim */ = {
 			isa = PBXGroup;
 			children = (
+				C9C4D5AB2BD3A3CB0081CD23 /* Info.plist */,
 				C9C4D59D2BD3A3C70081CD23 /* AppDelegate.swift */,
 				C9C4D59F2BD3A3C70081CD23 /* SceneDelegate.swift */,
 				C9C4D5A12BD3A3C70081CD23 /* ViewController.swift */,
-				C9C4D5A62BD3A3CB0081CD23 /* Assets.xcassets */,
-				C9C4D5A82BD3A3CB0081CD23 /* LaunchScreen.storyboard */,
-				C9C4D5AB2BD3A3CB0081CD23 /* Info.plist */,
+				C9FCE96B2BD3E52700FE655D /* Helpers */,
+				C9FCE9502BD3E05400FE655D /* Resources */,
 			);
 			path = DavaiPosmotrim;
+			sourceTree = "<group>";
+		};
+		C9FCE9502BD3E05400FE655D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C9FCE9512BD3E11600FE655D /* Fonts */,
+				C9C4D5A62BD3A3CB0081CD23 /* Assets.xcassets */,
+				C9C4D5A82BD3A3CB0081CD23 /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C9FCE9512BD3E11600FE655D /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				C9FCE9522BD3E22B00FE655D /* DaysOne-Regular.ttf */,
+				C9FCE95E2BD3E25C00FE655D /* Inter-Bold.otf */,
+				C9FCE9612BD3E25D00FE655D /* Inter-Medium.otf */,
+				C9FCE9582BD3E25900FE655D /* Inter-Regular.otf */,
+				C9FCE9562BD3E25800FE655D /* Inter-SemiBold.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		C9FCE96B2BD3E52700FE655D /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				C9FCE96C2BD3E53C00FE655D /* UIFont+Extension.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,7 +181,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9FCE9662BD3E4CF00FE655D /* DaysOne-Regular.ttf in Resources */,
+				C9FCE96A2BD3E4D800FE655D /* Inter-SemiBold.otf in Resources */,
+				C9FCE9692BD3E4D600FE655D /* Inter-Regular.otf in Resources */,
+				C9FCE9672BD3E4D200FE655D /* Inter-Bold.otf in Resources */,
 				C9C4D5A72BD3A3CB0081CD23 /* Assets.xcassets in Resources */,
+				C9FCE9682BD3E4D300FE655D /* Inter-Medium.otf in Resources */,
 				C9C4D5AA2BD3A3CB0081CD23 /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -175,6 +222,7 @@
 			files = (
 				C9C4D5A22BD3A3C70081CD23 /* ViewController.swift in Sources */,
 				C9C4D59E2BD3A3C70081CD23 /* AppDelegate.swift in Sources */,
+				C9FCE96D2BD3E53C00FE655D /* UIFont+Extension.swift in Sources */,
 				C9C4D5A02BD3A3C70081CD23 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
