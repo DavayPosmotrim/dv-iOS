@@ -21,6 +21,8 @@
 		C9FCE9692BD3E4D600FE655D /* Inter-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9FCE9582BD3E25900FE655D /* Inter-Regular.otf */; };
 		C9FCE96A2BD3E4D800FE655D /* Inter-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9FCE9562BD3E25800FE655D /* Inter-SemiBold.otf */; };
 		C9FCE96D2BD3E53C00FE655D /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCE96C2BD3E53C00FE655D /* UIFont+Extension.swift */; };
+		E2B9BF872BD7B8EF00592578 /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BF862BD7B8EF00592578 /* CoordinatorProtocol.swift */; };
+		E2B9BF892BD7BA2C00592578 /* AppCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BF882BD7BA2C00592578 /* AppCoordinatorProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +39,8 @@
 		C9FCE95E2BD3E25C00FE655D /* Inter-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Bold.otf"; sourceTree = "<group>"; };
 		C9FCE9612BD3E25D00FE655D /* Inter-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Medium.otf"; sourceTree = "<group>"; };
 		C9FCE96C2BD3E53C00FE655D /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
+		E2B9BF862BD7B8EF00592578 /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
+		E2B9BF882BD7BA2C00592578 /* AppCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinatorProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +76,8 @@
 		C9C4D59C2BD3A3C70081CD23 /* DavaiPosmotrim */ = {
 			isa = PBXGroup;
 			children = (
+				E2B9BF912BD7BF2300592578 /* NavigationLayer */,
+				E2B9BF8C2BD7BD0900592578 /* Application */,
 				C9C4D5AB2BD3A3CB0081CD23 /* Info.plist */,
 				C9C4D59D2BD3A3C70081CD23 /* AppDelegate.swift */,
 				C9C4D59F2BD3A3C70081CD23 /* SceneDelegate.swift */,
@@ -110,6 +116,22 @@
 				C9FCE96C2BD3E53C00FE655D /* UIFont+Extension.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		E2B9BF8C2BD7BD0900592578 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		E2B9BF912BD7BF2300592578 /* NavigationLayer */ = {
+			isa = PBXGroup;
+			children = (
+				E2B9BF862BD7B8EF00592578 /* CoordinatorProtocol.swift */,
+				E2B9BF882BD7BA2C00592578 /* AppCoordinatorProtocol.swift */,
+			);
+			path = NavigationLayer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -211,7 +233,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "echo \"PATH is $PATH\"\nif [ -x /opt/homebrew/bin/swiftlint ]; then\n   /opt/homebrew/bin/swiftlint\nelse\n   echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -222,6 +244,8 @@
 			files = (
 				C9C4D5A22BD3A3C70081CD23 /* ViewController.swift in Sources */,
 				C9C4D59E2BD3A3C70081CD23 /* AppDelegate.swift in Sources */,
+				E2B9BF892BD7BA2C00592578 /* AppCoordinatorProtocol.swift in Sources */,
+				E2B9BF872BD7B8EF00592578 /* CoordinatorProtocol.swift in Sources */,
 				C9FCE96D2BD3E53C00FE655D /* UIFont+Extension.swift in Sources */,
 				C9C4D5A02BD3A3C70081CD23 /* SceneDelegate.swift in Sources */,
 			);
