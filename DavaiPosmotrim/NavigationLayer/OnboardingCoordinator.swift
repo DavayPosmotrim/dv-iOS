@@ -9,7 +9,7 @@ import Foundation
 
 final class OnboardingCoordinator: BaseCoordinator {
     override func start() {
-        let viewController = ViewController()
+        let viewController = OnboardingViewController()
         navigationController.pushViewController(viewController, animated: true)
     }
 }
