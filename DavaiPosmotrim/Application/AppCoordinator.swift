@@ -18,6 +18,7 @@ final class AppCoordinator: BaseCoordinator {
 }
 
 private extension AppCoordinator {
+
     func showOnboardingFlow() {
         let onboardingCoordinator = OnboardingCoordinator(
             type: .onboarding,
@@ -29,7 +30,8 @@ private extension AppCoordinator {
     }
 
     func showAuthFlow() {
-
+        let authViewController = AuthViewController()
+        navigationController.setViewControllers([authViewController], animated: true)
     }
 
     func showMainFlow() {
@@ -43,8 +45,10 @@ extension AppCoordinator: CoordinatorFinishDelegate {
         switch coordinator.type {
         case .app:
             return
+        case .onboarding:
+            showAuthFlow()
         default:
-            navigationController.popViewController(animated: false)
+            navigationController.popToRootViewController(animated: false)
         }
     }
 }

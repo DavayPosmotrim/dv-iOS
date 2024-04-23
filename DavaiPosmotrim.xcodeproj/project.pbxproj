@@ -31,6 +31,8 @@
 		E2B9BFA62BD7CF3000592578 /* CreateSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFA52BD7CF3000592578 /* CreateSessionViewController.swift */; };
 		E2B9BFA82BD7CF4F00592578 /* JoinSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFA72BD7CF4F00592578 /* JoinSessionViewController.swift */; };
 		E2B9BFAA2BD7CF7A00592578 /* FavoriteMoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFA92BD7CF7A00592578 /* FavoriteMoviesViewController.swift */; };
+		E2B9BFAC2BD8034C00592578 /* OnboardingPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFAB2BD8034C00592578 /* OnboardingPresenterProtocol.swift */; };
+		E2B9BFAE2BD8080100592578 /* OnboardingSceneFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFAD2BD8080100592578 /* OnboardingSceneFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +59,8 @@
 		E2B9BFA52BD7CF3000592578 /* CreateSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionViewController.swift; sourceTree = "<group>"; };
 		E2B9BFA72BD7CF4F00592578 /* JoinSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinSessionViewController.swift; sourceTree = "<group>"; };
 		E2B9BFA92BD7CF7A00592578 /* FavoriteMoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMoviesViewController.swift; sourceTree = "<group>"; };
+		E2B9BFAB2BD8034C00592578 /* OnboardingPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPresenterProtocol.swift; sourceTree = "<group>"; };
+		E2B9BFAD2BD8080100592578 /* OnboardingSceneFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSceneFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,14 +96,14 @@
 		C9C4D59C2BD3A3C70081CD23 /* DavaiPosmotrim */ = {
 			isa = PBXGroup;
 			children = (
+				E2B9BF8C2BD7BD0900592578 /* Application */,
+				E2B9BF912BD7BF2300592578 /* Protocols */,
 				E2B9BFA02BD7CDE500592578 /* FavoriteMoviesFlow */,
 				E2B9BF9F2BD7CDDE00592578 /* JoinSesseionFlow */,
 				E2B9BF9E2BD7CDCB00592578 /* CreateSessionFlow */,
 				E2B9BF9C2BD7CDB800592578 /* AuthFLow */,
 				E2B9BF9B2BD7CDAD00592578 /* OnboardingFlow */,
 				E2B9BF9A2BD7CDA600592578 /* MainFlow */,
-				E2B9BF912BD7BF2300592578 /* NavigationLayer */,
-				E2B9BF8C2BD7BD0900592578 /* Application */,
 				C9C4D5AB2BD3A3CB0081CD23 /* Info.plist */,
 				C9C4D59D2BD3A3C70081CD23 /* AppDelegate.swift */,
 				C9C4D59F2BD3A3C70081CD23 /* SceneDelegate.swift */,
@@ -142,20 +146,19 @@
 		E2B9BF8C2BD7BD0900592578 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				E2B9BF942BD7C58F00592578 /* AppCoordinator.swift */,
+				E2B9BF922BD7C45B00592578 /* BaseCoordinator.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
 		};
-		E2B9BF912BD7BF2300592578 /* NavigationLayer */ = {
+		E2B9BF912BD7BF2300592578 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
 				E2B9BF862BD7B8EF00592578 /* CoordinatorProtocol.swift */,
 				E2B9BF882BD7BA2C00592578 /* AppCoordinatorProtocol.swift */,
-				E2B9BF922BD7C45B00592578 /* BaseCoordinator.swift */,
-				E2B9BF942BD7C58F00592578 /* AppCoordinator.swift */,
-				E2B9BF962BD7C67600592578 /* OnboardingCoordinator.swift */,
 			);
-			path = NavigationLayer;
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		E2B9BF9A2BD7CDA600592578 /* MainFlow */ = {
@@ -169,7 +172,10 @@
 		E2B9BF9B2BD7CDAD00592578 /* OnboardingFlow */ = {
 			isa = PBXGroup;
 			children = (
+				E2B9BF962BD7C67600592578 /* OnboardingCoordinator.swift */,
 				C9C4D5A12BD3A3C70081CD23 /* OnboardingViewController.swift */,
+				E2B9BFAB2BD8034C00592578 /* OnboardingPresenterProtocol.swift */,
+				E2B9BFAD2BD8080100592578 /* OnboardingSceneFactory.swift */,
 			);
 			path = OnboardingFlow;
 			sourceTree = "<group>";
@@ -320,12 +326,14 @@
 				C9C4D59E2BD3A3C70081CD23 /* AppDelegate.swift in Sources */,
 				E2B9BFA22BD7CEC300592578 /* AuthViewController.swift in Sources */,
 				E2B9BFAA2BD7CF7A00592578 /* FavoriteMoviesViewController.swift in Sources */,
+				E2B9BFAE2BD8080100592578 /* OnboardingSceneFactory.swift in Sources */,
 				E2B9BF892BD7BA2C00592578 /* AppCoordinatorProtocol.swift in Sources */,
 				E2B9BFA62BD7CF3000592578 /* CreateSessionViewController.swift in Sources */,
 				E2B9BF872BD7B8EF00592578 /* CoordinatorProtocol.swift in Sources */,
 				E2B9BF972BD7C67600592578 /* OnboardingCoordinator.swift in Sources */,
 				E2B9BF952BD7C58F00592578 /* AppCoordinator.swift in Sources */,
 				E2B9BF932BD7C45B00592578 /* BaseCoordinator.swift in Sources */,
+				E2B9BFAC2BD8034C00592578 /* OnboardingPresenterProtocol.swift in Sources */,
 				C9FCE96D2BD3E53C00FE655D /* UIFont+Extension.swift in Sources */,
 				C9C4D5A02BD3A3C70081CD23 /* SceneDelegate.swift in Sources */,
 			);
