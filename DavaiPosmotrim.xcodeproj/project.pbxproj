@@ -23,6 +23,9 @@
 		C9FCE96D2BD3E53C00FE655D /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCE96C2BD3E53C00FE655D /* UIFont+Extension.swift */; };
 		E2B9BF872BD7B8EF00592578 /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BF862BD7B8EF00592578 /* CoordinatorProtocol.swift */; };
 		E2B9BF892BD7BA2C00592578 /* AppCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BF882BD7BA2C00592578 /* AppCoordinatorProtocol.swift */; };
+		E2B9BF932BD7C45B00592578 /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BF922BD7C45B00592578 /* BaseCoordinator.swift */; };
+		E2B9BF952BD7C58F00592578 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BF942BD7C58F00592578 /* AppCoordinator.swift */; };
+		E2B9BF972BD7C67600592578 /* OnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BF962BD7C67600592578 /* OnboardingCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +44,9 @@
 		C9FCE96C2BD3E53C00FE655D /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		E2B9BF862BD7B8EF00592578 /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
 		E2B9BF882BD7BA2C00592578 /* AppCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinatorProtocol.swift; sourceTree = "<group>"; };
+		E2B9BF922BD7C45B00592578 /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
+		E2B9BF942BD7C58F00592578 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		E2B9BF962BD7C67600592578 /* OnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +136,9 @@
 			children = (
 				E2B9BF862BD7B8EF00592578 /* CoordinatorProtocol.swift */,
 				E2B9BF882BD7BA2C00592578 /* AppCoordinatorProtocol.swift */,
+				E2B9BF922BD7C45B00592578 /* BaseCoordinator.swift */,
+				E2B9BF942BD7C58F00592578 /* AppCoordinator.swift */,
+				E2B9BF962BD7C67600592578 /* OnboardingCoordinator.swift */,
 			);
 			path = NavigationLayer;
 			sourceTree = "<group>";
@@ -246,6 +255,9 @@
 				C9C4D59E2BD3A3C70081CD23 /* AppDelegate.swift in Sources */,
 				E2B9BF892BD7BA2C00592578 /* AppCoordinatorProtocol.swift in Sources */,
 				E2B9BF872BD7B8EF00592578 /* CoordinatorProtocol.swift in Sources */,
+				E2B9BF972BD7C67600592578 /* OnboardingCoordinator.swift in Sources */,
+				E2B9BF952BD7C58F00592578 /* AppCoordinator.swift in Sources */,
+				E2B9BF932BD7C45B00592578 /* BaseCoordinator.swift in Sources */,
 				C9FCE96D2BD3E53C00FE655D /* UIFont+Extension.swift in Sources */,
 				C9C4D5A02BD3A3C70081CD23 /* SceneDelegate.swift in Sources */,
 			);

@@ -17,7 +17,7 @@ enum CoordinatorType {
     case favoriteMovies
 }
 
-protocol CoordinatorFinishDelegate {
+protocol CoordinatorFinishDelegate: AnyObject {
     func didFinish(_ coordinator: CoordinatorProtocol)
 }
 
@@ -39,10 +39,5 @@ extension CoordinatorProtocol {
 
     func removeChild(_ coordinator: CoordinatorProtocol) {
         childCoordinators = childCoordinators.filter { $0 !== coordinator }
-    }
-
-    func finish() {
-        childCoordinators.removeAll()
-        finishDelegate?.didFinish(self)
     }
 }
