@@ -21,6 +21,7 @@
 		C9FCE9692BD3E4D600FE655D /* Inter-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9FCE9582BD3E25900FE655D /* Inter-Regular.otf */; };
 		C9FCE96A2BD3E4D800FE655D /* Inter-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9FCE9562BD3E25800FE655D /* Inter-SemiBold.otf */; };
 		C9FCE96D2BD3E53C00FE655D /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCE96C2BD3E53C00FE655D /* UIFont+Extension.swift */; };
+		E26592CD2BDBA4CF009F1185 /* OnboardingViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26592CC2BDBA4CF009F1185 /* OnboardingViewProtocol.swift */; };
 		E2B9BF872BD7B8EF00592578 /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BF862BD7B8EF00592578 /* CoordinatorProtocol.swift */; };
 		E2B9BF892BD7BA2C00592578 /* AppCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BF882BD7BA2C00592578 /* AppCoordinatorProtocol.swift */; };
 		E2B9BF932BD7C45B00592578 /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BF922BD7C45B00592578 /* BaseCoordinator.swift */; };
@@ -49,6 +50,7 @@
 		C9FCE95E2BD3E25C00FE655D /* Inter-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Bold.otf"; sourceTree = "<group>"; };
 		C9FCE9612BD3E25D00FE655D /* Inter-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Medium.otf"; sourceTree = "<group>"; };
 		C9FCE96C2BD3E53C00FE655D /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
+		E26592CC2BDBA4CF009F1185 /* OnboardingViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewProtocol.swift; sourceTree = "<group>"; };
 		E2B9BF862BD7B8EF00592578 /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
 		E2B9BF882BD7BA2C00592578 /* AppCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		E2B9BF922BD7C45B00592578 /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 		E2B9BF9B2BD7CDAD00592578 /* OnboardingFlow */ = {
 			isa = PBXGroup;
 			children = (
+				E26592CC2BDBA4CF009F1185 /* OnboardingViewProtocol.swift */,
 				E2B9BF962BD7C67600592578 /* OnboardingCoordinator.swift */,
 				C9C4D5A12BD3A3C70081CD23 /* OnboardingViewController.swift */,
 				E2B9BFAB2BD8034C00592578 /* OnboardingPresenterProtocol.swift */,
@@ -325,6 +328,7 @@
 				E2B9BFA42BD7CF0300592578 /* MainViewController.swift in Sources */,
 				C9C4D59E2BD3A3C70081CD23 /* AppDelegate.swift in Sources */,
 				E2B9BFA22BD7CEC300592578 /* AuthViewController.swift in Sources */,
+				E26592CD2BDBA4CF009F1185 /* OnboardingViewProtocol.swift in Sources */,
 				E2B9BFAA2BD7CF7A00592578 /* FavoriteMoviesViewController.swift in Sources */,
 				E2B9BFAE2BD8080100592578 /* OnboardingSceneFactory.swift in Sources */,
 				E2B9BF892BD7BA2C00592578 /* AppCoordinatorProtocol.swift in Sources */,

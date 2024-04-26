@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol OnboardingViewProtocol: AnyObject {
-
-}
-
 final class OnboardingViewController: UIViewController {
 
     // MARK: - Public Properties
