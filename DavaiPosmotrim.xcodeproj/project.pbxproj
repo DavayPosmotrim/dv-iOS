@@ -12,7 +12,6 @@
 		C964B7122BD9A74400CF9AF0 /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C964B7112BD9A74400CF9AF0 /* OnboardingCollectionViewCell.swift */; };
 		C9C4D59E2BD3A3C70081CD23 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4D59D2BD3A3C70081CD23 /* AppDelegate.swift */; };
 		C9C4D5A02BD3A3C70081CD23 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4D59F2BD3A3C70081CD23 /* SceneDelegate.swift */; };
-		C9C4D5A22BD3A3C70081CD23 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4D5A12BD3A3C70081CD23 /* ViewController.swift */; };
 		C9C4D5A72BD3A3CB0081CD23 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9C4D5A62BD3A3CB0081CD23 /* Assets.xcassets */; };
 		C9C4D5AA2BD3A3CB0081CD23 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = C9C4D5A92BD3A3CB0081CD23 /* Base */; };
 		C9C4D5B42BD3B3810081CD23 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = C9C4D5B32BD3B3810081CD23 /* Kingfisher */; };
@@ -24,6 +23,19 @@
 		C9FCE9692BD3E4D600FE655D /* Inter-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9FCE9582BD3E25900FE655D /* Inter-Regular.otf */; };
 		C9FCE96A2BD3E4D800FE655D /* Inter-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9FCE9562BD3E25800FE655D /* Inter-SemiBold.otf */; };
 		C9FCE96D2BD3E53C00FE655D /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCE96C2BD3E53C00FE655D /* UIFont+Extension.swift */; };
+		E26592CD2BDBA4CF009F1185 /* OnboardingViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26592CC2BDBA4CF009F1185 /* OnboardingViewProtocol.swift */; };
+		E2B9BF872BD7B8EF00592578 /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BF862BD7B8EF00592578 /* CoordinatorProtocol.swift */; };
+		E2B9BF892BD7BA2C00592578 /* AppCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BF882BD7BA2C00592578 /* AppCoordinatorProtocol.swift */; };
+		E2B9BF932BD7C45B00592578 /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BF922BD7C45B00592578 /* BaseCoordinator.swift */; };
+		E2B9BF952BD7C58F00592578 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BF942BD7C58F00592578 /* AppCoordinator.swift */; };
+		E2B9BF972BD7C67600592578 /* OnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BF962BD7C67600592578 /* OnboardingCoordinator.swift */; };
+		E2B9BFA22BD7CEC300592578 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFA12BD7CEC300592578 /* AuthViewController.swift */; };
+		E2B9BFA42BD7CF0300592578 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFA32BD7CF0300592578 /* MainViewController.swift */; };
+		E2B9BFA62BD7CF3000592578 /* CreateSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFA52BD7CF3000592578 /* CreateSessionViewController.swift */; };
+		E2B9BFA82BD7CF4F00592578 /* JoinSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFA72BD7CF4F00592578 /* JoinSessionViewController.swift */; };
+		E2B9BFAA2BD7CF7A00592578 /* FavoriteMoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFA92BD7CF7A00592578 /* FavoriteMoviesViewController.swift */; };
+		E2B9BFAC2BD8034C00592578 /* OnboardingPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFAB2BD8034C00592578 /* OnboardingPresenterProtocol.swift */; };
+		E2B9BFAE2BD8080100592578 /* OnboardingSceneFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFAD2BD8080100592578 /* OnboardingSceneFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +45,6 @@
 		C9C4D59A2BD3A3C70081CD23 /* DavaiPosmotrim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DavaiPosmotrim.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9C4D59D2BD3A3C70081CD23 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9C4D59F2BD3A3C70081CD23 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C9C4D5A12BD3A3C70081CD23 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C9C4D5A62BD3A3CB0081CD23 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9C4D5A92BD3A3CB0081CD23 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C9C4D5AB2BD3A3CB0081CD23 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -43,6 +54,19 @@
 		C9FCE95E2BD3E25C00FE655D /* Inter-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Bold.otf"; sourceTree = "<group>"; };
 		C9FCE9612BD3E25D00FE655D /* Inter-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Medium.otf"; sourceTree = "<group>"; };
 		C9FCE96C2BD3E53C00FE655D /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
+		E26592CC2BDBA4CF009F1185 /* OnboardingViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewProtocol.swift; sourceTree = "<group>"; };
+		E2B9BF862BD7B8EF00592578 /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
+		E2B9BF882BD7BA2C00592578 /* AppCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinatorProtocol.swift; sourceTree = "<group>"; };
+		E2B9BF922BD7C45B00592578 /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
+		E2B9BF942BD7C58F00592578 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		E2B9BF962BD7C67600592578 /* OnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCoordinator.swift; sourceTree = "<group>"; };
+		E2B9BFA12BD7CEC300592578 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
+		E2B9BFA32BD7CF0300592578 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		E2B9BFA52BD7CF3000592578 /* CreateSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionViewController.swift; sourceTree = "<group>"; };
+		E2B9BFA72BD7CF4F00592578 /* JoinSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinSessionViewController.swift; sourceTree = "<group>"; };
+		E2B9BFA92BD7CF7A00592578 /* FavoriteMoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMoviesViewController.swift; sourceTree = "<group>"; };
+		E2B9BFAB2BD8034C00592578 /* OnboardingPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPresenterProtocol.swift; sourceTree = "<group>"; };
+		E2B9BFAD2BD8080100592578 /* OnboardingSceneFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSceneFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,10 +119,17 @@
 		C9C4D59C2BD3A3C70081CD23 /* DavaiPosmotrim */ = {
 			isa = PBXGroup;
 			children = (
+				E2B9BF8C2BD7BD0900592578 /* Application */,
+				E2B9BF912BD7BF2300592578 /* Protocols */,
+				E2B9BFA02BD7CDE500592578 /* FavoriteMoviesFlow */,
+				E2B9BF9F2BD7CDDE00592578 /* JoinSesseionFlow */,
+				E2B9BF9E2BD7CDCB00592578 /* CreateSessionFlow */,
+				E2B9BF9C2BD7CDB800592578 /* AuthFLow */,
+				E2B9BF9B2BD7CDAD00592578 /* OnboardingFlow */,
+				E2B9BF9A2BD7CDA600592578 /* MainFlow */,
 				C9C4D5AB2BD3A3CB0081CD23 /* Info.plist */,
 				C9C4D59D2BD3A3C70081CD23 /* AppDelegate.swift */,
 				C9C4D59F2BD3A3C70081CD23 /* SceneDelegate.swift */,
-				C9C4D5A12BD3A3C70081CD23 /* ViewController.swift */,
 				C9FCE96B2BD3E52700FE655D /* Helpers */,
 				C964B70B2BD812F800CF9AF0 /* OnboardingViewController */,
 				C9FCE9502BD3E05400FE655D /* Resources */,
@@ -135,6 +166,75 @@
 				C9FCE96C2BD3E53C00FE655D /* UIFont+Extension.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		E2B9BF8C2BD7BD0900592578 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				E2B9BF942BD7C58F00592578 /* AppCoordinator.swift */,
+				E2B9BF922BD7C45B00592578 /* BaseCoordinator.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		E2B9BF912BD7BF2300592578 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				E2B9BF862BD7B8EF00592578 /* CoordinatorProtocol.swift */,
+				E2B9BF882BD7BA2C00592578 /* AppCoordinatorProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		E2B9BF9A2BD7CDA600592578 /* MainFlow */ = {
+			isa = PBXGroup;
+			children = (
+				E2B9BFA32BD7CF0300592578 /* MainViewController.swift */,
+			);
+			path = MainFlow;
+			sourceTree = "<group>";
+		};
+		E2B9BF9B2BD7CDAD00592578 /* OnboardingFlow */ = {
+			isa = PBXGroup;
+			children = (
+				E26592CC2BDBA4CF009F1185 /* OnboardingViewProtocol.swift */,
+				E2B9BF962BD7C67600592578 /* OnboardingCoordinator.swift */,
+				E2B9BFAB2BD8034C00592578 /* OnboardingPresenterProtocol.swift */,
+				E2B9BFAD2BD8080100592578 /* OnboardingSceneFactory.swift */,
+			);
+			path = OnboardingFlow;
+			sourceTree = "<group>";
+		};
+		E2B9BF9C2BD7CDB800592578 /* AuthFLow */ = {
+			isa = PBXGroup;
+			children = (
+				E2B9BFA12BD7CEC300592578 /* AuthViewController.swift */,
+			);
+			path = AuthFLow;
+			sourceTree = "<group>";
+		};
+		E2B9BF9E2BD7CDCB00592578 /* CreateSessionFlow */ = {
+			isa = PBXGroup;
+			children = (
+				E2B9BFA52BD7CF3000592578 /* CreateSessionViewController.swift */,
+			);
+			path = CreateSessionFlow;
+			sourceTree = "<group>";
+		};
+		E2B9BF9F2BD7CDDE00592578 /* JoinSesseionFlow */ = {
+			isa = PBXGroup;
+			children = (
+				E2B9BFA72BD7CF4F00592578 /* JoinSessionViewController.swift */,
+			);
+			path = JoinSesseionFlow;
+			sourceTree = "<group>";
+		};
+		E2B9BFA02BD7CDE500592578 /* FavoriteMoviesFlow */ = {
+			isa = PBXGroup;
+			children = (
+				E2B9BFA92BD7CF7A00592578 /* FavoriteMoviesViewController.swift */,
+			);
+			path = FavoriteMoviesFlow;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -236,7 +336,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "echo \"PATH is $PATH\"\nif [ -x /opt/homebrew/bin/swiftlint ]; then\n   /opt/homebrew/bin/swiftlint\nelse\n   echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -245,8 +345,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9C4D5A22BD3A3C70081CD23 /* ViewController.swift in Sources */,
+				E2B9BFA82BD7CF4F00592578 /* JoinSessionViewController.swift in Sources */,
+				E2B9BFA42BD7CF0300592578 /* MainViewController.swift in Sources */,
 				C9C4D59E2BD3A3C70081CD23 /* AppDelegate.swift in Sources */,
+				E2B9BFA22BD7CEC300592578 /* AuthViewController.swift in Sources */,
+				E26592CD2BDBA4CF009F1185 /* OnboardingViewProtocol.swift in Sources */,
+				E2B9BFAA2BD7CF7A00592578 /* FavoriteMoviesViewController.swift in Sources */,
+				E2B9BFAE2BD8080100592578 /* OnboardingSceneFactory.swift in Sources */,
+				E2B9BF892BD7BA2C00592578 /* AppCoordinatorProtocol.swift in Sources */,
+				E2B9BFA62BD7CF3000592578 /* CreateSessionViewController.swift in Sources */,
+				E2B9BF872BD7B8EF00592578 /* CoordinatorProtocol.swift in Sources */,
+				E2B9BF972BD7C67600592578 /* OnboardingCoordinator.swift in Sources */,
+				E2B9BF952BD7C58F00592578 /* AppCoordinator.swift in Sources */,
+				E2B9BF932BD7C45B00592578 /* BaseCoordinator.swift in Sources */,
+				E2B9BFAC2BD8034C00592578 /* OnboardingPresenterProtocol.swift in Sources */,
 				C964B70D2BD8135400CF9AF0 /* OnboardingViewController.swift in Sources */,
 				C9FCE96D2BD3E53C00FE655D /* UIFont+Extension.swift in Sources */,
 				C964B7102BD813B500CF9AF0 /* CustomButtons.swift in Sources */,

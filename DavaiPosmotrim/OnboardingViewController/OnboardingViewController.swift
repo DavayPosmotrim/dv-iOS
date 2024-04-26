@@ -18,6 +18,8 @@ final class OnboardingViewController: UIViewController {
 
     // MARK: - Stored properties
 
+    var presenter: OnboardingPresenterProtocol?
+
     private struct Keys {
         static let nextButtonText = "ПРОДОЛЖИТЬ"
         static let beginButtonText = "НАЧАТЬ"
@@ -122,9 +124,20 @@ final class OnboardingViewController: UIViewController {
 
     // MARK: - Lifecycle
 
+    init(presenter: OnboardingPresenter) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .baseBackground
+
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
 
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -205,8 +218,10 @@ final class OnboardingViewController: UIViewController {
     }
 
     @objc func didTapBeginButton(sender: AnyObject) {
-        // TODO: - add code to go to next viewController
-         UserDefaults.standard.setValue(true, forKey: "isOnboardingShown")
+        UserDefaults.standard.setValue(true, forKey: "isOnboardingShown")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.presenter?.onboardingFinish()
+        }
     }
 
     @objc func pageChanged(sender: AnyObject) {
@@ -277,6 +292,8 @@ extension OnboardingViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+    // MARK: - UIScrollViewDelegate
+
 extension OnboardingViewController: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let pageWidth = scrollView.frame.size.width
@@ -284,4 +301,10 @@ extension OnboardingViewController: UIScrollViewDelegate {
         pageControl.currentPage = currentPage
         toogleButtons()
     }
+}
+
+    // MARK: - OnboardingViewProtocol
+
+extension OnboardingViewController: OnboardingViewProtocol {
+
 }
