@@ -12,7 +12,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
         let viewController = ViewController()
-        window?.rootViewController = viewController
+        let onboarding = OnboardingViewController()
+        if UserDefaults.standard.value(forKey: "isOnboardingShown") == nil {
+            window?.rootViewController = onboarding
+        } else {
+            window?.rootViewController = viewController
+        }
         window?.makeKeyAndVisible()
 
     }
