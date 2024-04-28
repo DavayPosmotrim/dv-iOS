@@ -35,7 +35,8 @@ private extension AppCoordinator {
     }
 
     func showMainFlow() {
-
+        let mainViewController = MainViewController()
+        navigationController.setViewControllers([mainViewController], animated: true)
     }
 }
 
