@@ -121,7 +121,6 @@ final class OnboardingCollectionViewCell: UICollectionViewCell {
             value: paragraphStyle,
             range: NSRange(location: .zero, length: attrString.length)
         )
-
         return attrString
     }
 
