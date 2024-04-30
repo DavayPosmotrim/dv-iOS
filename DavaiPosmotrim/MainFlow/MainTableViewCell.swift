@@ -40,25 +40,6 @@ final class MainTableViewCell: UITableViewCell {
         return button
     }()
 
-    // MARK: - Lifecycle
-
-    func configureCell(
-        titleLabelText: String,
-        textColor: UIColor,
-        paddingBackgroundColor: UIColor,
-        buttonImage: UIImage?,
-        buttonColor: UIColor
-    ) {
-        titleLabel.text = titleLabelText
-        titleLabel.textColor = textColor
-        menuButton.setImage(buttonImage, for: .normal)
-        menuButton.tintColor = buttonColor
-        paddingView.backgroundColor = paddingBackgroundColor
-        addSubViews()
-        applyConstraints()
-        selectionStyle = .none
-    }
-
     // MARK: - IBAction
 
     @objc func didTapMenuButton() {
@@ -80,9 +61,28 @@ final class MainTableViewCell: UITableViewCell {
         }
     }
 
+    // MARK: - Public Methods
+
+    func configureCell(
+        titleLabelText: String,
+        textColor: UIColor,
+        paddingBackgroundColor: UIColor,
+        buttonImage: UIImage?,
+        buttonColor: UIColor
+    ) {
+        titleLabel.text = titleLabelText
+        titleLabel.textColor = textColor
+        menuButton.setImage(buttonImage, for: .normal)
+        menuButton.tintColor = buttonColor
+        paddingView.backgroundColor = paddingBackgroundColor
+        setupSubviews()
+        setupConstraints()
+        selectionStyle = .none
+    }
+
     // MARK: - Private Methods
 
-    private func addSubViews() {
+    private func setupSubviews() {
         [paddingView].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             contentView.addSubview($0)
@@ -94,7 +94,7 @@ final class MainTableViewCell: UITableViewCell {
         }
     }
 
-    private func applyConstraints() {
+    private func setupConstraints() {
         NSLayoutConstraint.activate([
             paddingView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             paddingView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),

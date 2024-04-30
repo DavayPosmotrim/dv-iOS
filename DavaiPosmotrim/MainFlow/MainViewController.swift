@@ -24,7 +24,7 @@ final class MainViewController: UIViewController {
         static let titleLabelTextCellThree = "Присоединиться к сеансу"
     }
 
-    // MARK: - Computed properties
+    // MARK: - Layout variables
 
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
@@ -41,7 +41,8 @@ final class MainViewController: UIViewController {
         label.textAlignment = .right
         label.numberOfLines = 0
 
-        if let labelText = label.text, let range = labelText.range(of: "Наслаждайтесь моментами") {
+        if let labelText = label.text,
+            let range = labelText.range(of: "Наслаждайтесь моментами") {
             let attributedString = NSMutableAttributedString(string: labelText)
             attributedString.addAttribute(
                 .foregroundColor,
@@ -96,7 +97,7 @@ final class MainViewController: UIViewController {
         return tableView
     }()
 
-    // MARK: - Lifecycle
+    // MARK: - Initializers
 
     init(presenter: MainPresenter) {
         self.presenter = presenter
@@ -107,12 +108,14 @@ final class MainViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .baseBackground
         tableView.register(MainTableViewCell.self, forCellReuseIdentifier: MainTableViewCell.reuseIdentifier)
-        addSubviews()
-        constraintsSetup()
+        setupSubviews()
+        setupConstraints()
     }
 
     // MARK: - IBAction
@@ -129,19 +132,25 @@ final class MainViewController: UIViewController {
 
     // MARK: - Private methods
 
-    private func addSubviews() {
-        [imageView, descriptionLabel, paddingView].forEach {
+    private func setupSubviews() {
+        [imageView,
+         descriptionLabel,
+         paddingView
+        ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
         }
 
-        [nameLabel, editButton, tableView].forEach {
+        [nameLabel,
+         editButton,
+         tableView
+        ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             paddingView.addSubview($0)
         }
     }
 
-    private func constraintsSetup() {
+    private func setupConstraints() {
         NSLayoutConstraint.activate([
             imageView.heightAnchor.constraint(equalToConstant: 53),
             imageView.widthAnchor.constraint(equalToConstant: 122),
@@ -228,8 +237,10 @@ extension MainViewController: UITableViewDataSource {
 // MARK: - MainViewProtocol
 
 extension MainViewController: MainViewProtocol {
-
+    // Пустое расширение без реализации методов делегата
 }
+
+// MARK: - UITableViewDelegate
 
 extension MainViewController: UITableViewDelegate {
     // Пустое расширение без реализации методов делегата

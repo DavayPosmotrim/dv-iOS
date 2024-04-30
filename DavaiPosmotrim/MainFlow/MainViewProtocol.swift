@@ -8,5 +8,5 @@
 import Foundation
 
 protocol MainViewProtocol: AnyObject {
-
+    // Пустое расширение без реализации методов делегата
 }
