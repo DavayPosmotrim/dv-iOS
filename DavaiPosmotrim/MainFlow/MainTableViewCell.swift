@@ -63,20 +63,18 @@ final class MainTableViewCell: UITableViewCell {
 
     @objc func didTapMenuButton() {
         guard let tableView = superview as? UITableView,
-              let indexPath = tableView.indexPath(for: self) else {
+              let indexPath = tableView.indexPath(for: self),
+              let mainViewController = tableView.delegate as? MainViewController else {
             return
         }
 
         switch indexPath.row {
         case 0:
-            // TODO: Go to screen "Creating_a_session"
-            break
+            mainViewController.navigateTo(screen: "CreateSessionViewController")
         case 1:
-            // TODO: Go to screen "List_of_sessions"
-            break
+            mainViewController.navigateTo(screen: "FavoriteMoviesViewController")
         case 2:
-            // TODO: Go to screen "Connecting_to_a_session"
-            break
+            mainViewController.navigateTo(screen: "JoinSessionViewController")
         default:
             break
         }

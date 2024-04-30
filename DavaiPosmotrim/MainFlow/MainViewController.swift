@@ -9,6 +9,8 @@ import UIKit
 
 final class MainViewController: UIViewController {
 
+    var presenter: MainPresenterProtocol?
+
     // MARK: - Private Properties
 
     private struct Keys {
@@ -89,11 +91,21 @@ final class MainViewController: UIViewController {
         tableView.isScrollEnabled = false
         tableView.separatorStyle = .none
         tableView.dataSource = self
+        tableView.delegate = self
 
         return tableView
     }()
 
     // MARK: - Lifecycle
+
+    init(presenter: MainPresenter) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,7 +118,13 @@ final class MainViewController: UIViewController {
     // MARK: - IBAction
 
     @objc func didTapBackButton() {
-        // TODO: Go to screen "Edit_name"
+        navigateTo(screen: "AuthViewController")
+    }
+
+    // MARK: - Public Methods
+
+    func navigateTo(screen: String) {
+        self.presenter?.mainFinish(screen: screen)
     }
 
     // MARK: - Private methods
@@ -205,4 +223,14 @@ extension MainViewController: UITableViewDataSource {
 
         return mainTableViewCell
     }
+}
+
+// MARK: - MainViewProtocol
+
+extension MainViewController: MainViewProtocol {
+
+}
+
+extension MainViewController: UITableViewDelegate {
+    // Пустое расширение без реализации методов делегата
 }
