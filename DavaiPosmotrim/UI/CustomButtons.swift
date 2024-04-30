@@ -9,7 +9,7 @@ import UIKit
 
 final class CustomButtons: UIView {
 
-    // MARK: - Computed properties
+    // MARK: - Lazy properties
 
     lazy var purpleButton: UIButton = {
         let button = UIButton()
@@ -20,7 +20,7 @@ final class CustomButtons: UIView {
         return button
     }()
 
-    // MARK: - Lifecycle
+    // MARK: - Initializers
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,7 +32,7 @@ final class CustomButtons: UIView {
 
     // MARK: - Public methods
 
-    func viewSetup(with button: UIButton) {
+    func setupView(with button: UIButton) {
         addSubview(button)
         button.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

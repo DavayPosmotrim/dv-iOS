@@ -60,7 +60,7 @@ final class OnboardingViewController: UIViewController {
         )
     ]
 
-    // MARK: - Computed properties
+    // MARK: - Lazy properties
 
     private lazy var upperPaddingView: UIView = {
         let view = UIView()
@@ -82,7 +82,7 @@ final class OnboardingViewController: UIViewController {
 
     private lazy var nextButton: UIView = {
         let button = CustomButtons()
-        button.viewSetup(with: button.purpleButton)
+        button.setupView(with: button.purpleButton)
         button.purpleButton.setTitle(Keys.nextButtonText, for: .normal)
         button.purpleButton.addTarget(self, action: #selector(didTapNextButton(sender:)), for: .touchUpInside)
         return button
@@ -90,7 +90,7 @@ final class OnboardingViewController: UIViewController {
 
     private lazy var beginButton: UIView = {
         let button = CustomButtons()
-        button.viewSetup(with: button.purpleButton)
+        button.setupView(with: button.purpleButton)
         button.purpleButton.setTitle(Keys.beginButtonText, for: .normal)
         button.purpleButton.addTarget(self, action: #selector(didTapBeginButton(sender:)), for: .touchUpInside)
         return button
@@ -103,7 +103,8 @@ final class OnboardingViewController: UIViewController {
         collectionView.backgroundColor = .clear
         collectionView.register(
             OnboardingCollectionViewCell.self,
-            forCellWithReuseIdentifier: OnboardingCollectionViewCell.reuseIdentifier)
+            forCellWithReuseIdentifier: OnboardingCollectionViewCell.reuseIdentifier
+        )
         collectionView.isPagingEnabled = true
         collectionView.bouncesZoom = true
         collectionView.showsHorizontalScrollIndicator = false
@@ -122,7 +123,7 @@ final class OnboardingViewController: UIViewController {
         return pageControl
     }()
 
-    // MARK: - Lifecycle
+    // MARK: - Initializers
 
     init(presenter: OnboardingPresenter) {
         self.presenter = presenter
@@ -133,6 +134,8 @@ final class OnboardingViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .baseBackground
@@ -142,14 +145,14 @@ final class OnboardingViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
 
-        addSubviews()
-        constraintsSetup()
-        toogleButtons()
+        setupSubviews()
+        setupConstraints()
+        toggleButtons()
     }
 
     // MARK: - Private methods
 
-    private func addSubviews() {
+    private func setupSubviews() {
         [upperPaddingView,
          collectionView,
          pageControl,
@@ -162,7 +165,7 @@ final class OnboardingViewController: UIViewController {
         }
     }
 
-    private func constraintsSetup() {
+    private func setupConstraints() {
         NSLayoutConstraint.activate([
             upperPaddingView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
             upperPaddingView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
@@ -194,7 +197,7 @@ final class OnboardingViewController: UIViewController {
         ])
     }
 
-    private func toogleButtons() {
+    private func toggleButtons() {
         if pageControl.currentPage == pageControl.numberOfPages - 1 {
             beginButton.isHidden = false
             nextButton.isHidden = true
@@ -214,7 +217,7 @@ final class OnboardingViewController: UIViewController {
             collectionView.scrollToItem(at: newIndexPath, at: .centeredHorizontally, animated: true)
             pageControl.currentPage += 1
         }
-        toogleButtons()
+        toggleButtons()
     }
 
     @objc func didTapBeginButton(sender: AnyObject) {
@@ -231,7 +234,7 @@ final class OnboardingViewController: UIViewController {
             at: .centeredHorizontally,
             animated: true
         )
-        toogleButtons()
+        toggleButtons()
     }
 }
 
@@ -299,12 +302,12 @@ extension OnboardingViewController: UIScrollViewDelegate {
         let pageWidth = scrollView.frame.size.width
         let currentPage = Int((scrollView.contentOffset.x + pageWidth / 2) / pageWidth)
         pageControl.currentPage = currentPage
-        toogleButtons()
+        toggleButtons()
     }
 }
 
     // MARK: - OnboardingViewProtocol
 
 extension OnboardingViewController: OnboardingViewProtocol {
-
+    // TODO: - add code to use viewControllers method in presenter
 }

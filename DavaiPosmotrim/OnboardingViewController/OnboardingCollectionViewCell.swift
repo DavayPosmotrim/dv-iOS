@@ -14,7 +14,7 @@ final class OnboardingCollectionViewCell: UICollectionViewCell {
     static let reuseIdentifier = "OnboardingCollectionViewCell"
     private var cellConstraints = [NSLayoutConstraint]()
 
-    // MARK: - Computed proprties
+    // MARK: - Computed properties
 
     private lazy var cellImageView: UIImageView = {
         let imageView = UIImageView()
@@ -40,14 +40,14 @@ final class OnboardingCollectionViewCell: UICollectionViewCell {
         return label
     }()
 
-    // MARK: - Lifecycle
+    // MARK: - Initializers
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.contentView.backgroundColor = .clear
 
-        addSubviews()
-        constraintsSetup()
+        setupSubviews()
+        setupConstraints()
     }
 
     required init?(coder: NSCoder) {
@@ -61,12 +61,12 @@ final class OnboardingCollectionViewCell: UICollectionViewCell {
         cellLowerLabel.text = page.lowerText
         cellUpperLabel.attributedText = adjustCellUpperLabel(with: page.upperText, and: page.upperColoredText)
 
-        addImageViewConstraints(using: indexPath)
+        setupImageViewConstraints(using: indexPath)
     }
 
     // MARK: - Private methods
 
-    private func addSubviews() {
+    private func setupSubviews() {
         [cellImageView,
         cellLowerLabel,
         cellUpperLabel
@@ -76,7 +76,7 @@ final class OnboardingCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    private func constraintsSetup() {
+    private func setupConstraints() {
         cellConstraints = [
             cellImageView.topAnchor.constraint(equalTo: cellUpperLabel.bottomAnchor, constant: 33),
             cellImageView.heightAnchor.constraint(equalToConstant: 275),
@@ -92,18 +92,17 @@ final class OnboardingCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate(cellConstraints)
     }
 
-    private func addImageViewConstraints(using indexPath: IndexPath) {
-        if indexPath.row == 1 {
-            cellConstraints += [
-                cellImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-                cellImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
-            ]
-        } else {
-            cellConstraints += [
-                cellImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 32),
-                cellImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -32)
-            ]
-        }
+    private func setupImageViewConstraints(using indexPath: IndexPath) {
+        cellConstraints += [
+            cellImageView.leadingAnchor.constraint(
+                equalTo: contentView.leadingAnchor,
+                constant: indexPath.row == 1 ? 0 : 32
+            ),
+            cellImageView.trailingAnchor.constraint(
+                equalTo: contentView.trailingAnchor,
+                constant: indexPath.row == 1 ? 0 : -32
+            )
+        ]
         NSLayoutConstraint.activate(cellConstraints)
     }
 
