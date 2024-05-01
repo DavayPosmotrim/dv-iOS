@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C964B70D2BD8135400CF9AF0 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C964B70C2BD8135400CF9AF0 /* OnboardingViewController.swift */; };
+		C964B7102BD813B500CF9AF0 /* CustomButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = C964B70F2BD813B500CF9AF0 /* CustomButtons.swift */; };
+		C964B7122BD9A74400CF9AF0 /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C964B7112BD9A74400CF9AF0 /* OnboardingCollectionViewCell.swift */; };
 		C9C4D59E2BD3A3C70081CD23 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4D59D2BD3A3C70081CD23 /* AppDelegate.swift */; };
 		C9C4D5A02BD3A3C70081CD23 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4D59F2BD3A3C70081CD23 /* SceneDelegate.swift */; };
-		C9C4D5A22BD3A3C70081CD23 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4D5A12BD3A3C70081CD23 /* OnboardingViewController.swift */; };
 		C9C4D5A72BD3A3CB0081CD23 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9C4D5A62BD3A3CB0081CD23 /* Assets.xcassets */; };
 		C9C4D5AA2BD3A3CB0081CD23 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = C9C4D5A92BD3A3CB0081CD23 /* Base */; };
 		C9C4D5B42BD3B3810081CD23 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = C9C4D5B32BD3B3810081CD23 /* Kingfisher */; };
@@ -37,10 +39,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C964B70C2BD8135400CF9AF0 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		C964B70F2BD813B500CF9AF0 /* CustomButtons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButtons.swift; sourceTree = "<group>"; };
+		C964B7112BD9A74400CF9AF0 /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
 		C9C4D59A2BD3A3C70081CD23 /* DavaiPosmotrim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DavaiPosmotrim.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9C4D59D2BD3A3C70081CD23 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9C4D59F2BD3A3C70081CD23 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C9C4D5A12BD3A3C70081CD23 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		C9C4D5A62BD3A3CB0081CD23 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9C4D5A92BD3A3CB0081CD23 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C9C4D5AB2BD3A3CB0081CD23 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -79,6 +83,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C964B70B2BD812F800CF9AF0 /* OnboardingViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C964B70C2BD8135400CF9AF0 /* OnboardingViewController.swift */,
+				C964B7112BD9A74400CF9AF0 /* OnboardingCollectionViewCell.swift */,
+			);
+			path = OnboardingViewController;
+			sourceTree = "<group>";
+		};
+		C964B70E2BD8137800CF9AF0 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				C964B70F2BD813B500CF9AF0 /* CustomButtons.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		C9C4D5912BD3A3C70081CD23 = {
 			isa = PBXGroup;
 			children = (
@@ -110,7 +131,9 @@
 				C9C4D59D2BD3A3C70081CD23 /* AppDelegate.swift */,
 				C9C4D59F2BD3A3C70081CD23 /* SceneDelegate.swift */,
 				C9FCE96B2BD3E52700FE655D /* Helpers */,
+				C964B70B2BD812F800CF9AF0 /* OnboardingViewController */,
 				C9FCE9502BD3E05400FE655D /* Resources */,
+				C964B70E2BD8137800CF9AF0 /* UI */,
 			);
 			path = DavaiPosmotrim;
 			sourceTree = "<group>";
@@ -176,7 +199,6 @@
 			children = (
 				E26592CC2BDBA4CF009F1185 /* OnboardingViewProtocol.swift */,
 				E2B9BF962BD7C67600592578 /* OnboardingCoordinator.swift */,
-				C9C4D5A12BD3A3C70081CD23 /* OnboardingViewController.swift */,
 				E2B9BFAB2BD8034C00592578 /* OnboardingPresenterProtocol.swift */,
 				E2B9BFAD2BD8080100592578 /* OnboardingSceneFactory.swift */,
 			);
@@ -324,7 +346,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E2B9BFA82BD7CF4F00592578 /* JoinSessionViewController.swift in Sources */,
-				C9C4D5A22BD3A3C70081CD23 /* OnboardingViewController.swift in Sources */,
 				E2B9BFA42BD7CF0300592578 /* MainViewController.swift in Sources */,
 				C9C4D59E2BD3A3C70081CD23 /* AppDelegate.swift in Sources */,
 				E2B9BFA22BD7CEC300592578 /* AuthViewController.swift in Sources */,
@@ -338,7 +359,10 @@
 				E2B9BF952BD7C58F00592578 /* AppCoordinator.swift in Sources */,
 				E2B9BF932BD7C45B00592578 /* BaseCoordinator.swift in Sources */,
 				E2B9BFAC2BD8034C00592578 /* OnboardingPresenterProtocol.swift in Sources */,
+				C964B70D2BD8135400CF9AF0 /* OnboardingViewController.swift in Sources */,
 				C9FCE96D2BD3E53C00FE655D /* UIFont+Extension.swift in Sources */,
+				C964B7102BD813B500CF9AF0 /* CustomButtons.swift in Sources */,
+				C964B7122BD9A74400CF9AF0 /* OnboardingCollectionViewCell.swift in Sources */,
 				C9C4D5A02BD3A3C70081CD23 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
