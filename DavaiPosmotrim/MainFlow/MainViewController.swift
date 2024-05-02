@@ -9,6 +9,8 @@ import UIKit
 
 final class MainViewController: UIViewController, UITableViewDelegate {
 
+    // MARK: - Public Properties
+
     var presenter: MainPresenterProtocol?
 
     // MARK: - Private Properties
@@ -19,8 +21,35 @@ final class MainViewController: UIViewController, UITableViewDelegate {
     Наслаждайтесь моментами, выбрав вместе идеальный фильм
     """
         static let nameLabelText = "Артем_Test"
+        static let titleLabelTextCellOne = "Создать сеанс"
+        static let titleLabelTextCellTwo = "Понравившиеся фильмы"
+        static let titleLabelTextCellThree = "Присоединиться к сеансу"
         static let authViewController = "AuthViewController"
     }
+
+    private let mainCellModels: [MainCellModel] = [
+        MainCellModel(
+            title: Keys.titleLabelTextCellOne,
+            textColor: .whiteText,
+            paddingBackgroundColor: .basePrimaryAccent,
+            buttonImage: UIImage.circledForwardIcon.withRenderingMode(.alwaysTemplate),
+            buttonColor: .whiteBackground
+        ),
+        MainCellModel(
+            title: Keys.titleLabelTextCellTwo,
+            textColor: .baseText,
+            paddingBackgroundColor: .baseSecondaryAccent,
+            buttonImage: UIImage.circledHeartIcon.withRenderingMode(.alwaysTemplate),
+            buttonColor: .baseTertiaryAccent
+        ),
+        MainCellModel(
+            title: Keys.titleLabelTextCellThree,
+            textColor: .whiteText,
+            paddingBackgroundColor: .baseTertiaryAccent,
+            buttonImage: UIImage.circledForwardIcon.withRenderingMode(.alwaysTemplate),
+            buttonColor: .whiteBackground
+        )
+    ]
 
     // MARK: - Layout variables
 
@@ -63,7 +92,7 @@ final class MainViewController: UIViewController, UITableViewDelegate {
         let label = UILabel()
         label.text = Keys.nameLabelText
         label.textColor = .headingText
-        label.font = .textHeadingFont
+        label.font = .textLabelFont
         return label
     }()
 
@@ -194,19 +223,8 @@ extension MainViewController: UITableViewDataSource {
             return UITableViewCell()
         }
 
-        switch indexPath.row {
-        case 0 ..< mainCellModels.count:
-            let model = mainCellModels[indexPath.row]
-            mainTableViewCell.configureCell(
-                titleLabelText: model.title,
-                textColor: model.textColor,
-                paddingBackgroundColor: model.paddingBackgroundColor,
-                buttonImage: model.buttonImage,
-                buttonColor: model.buttonColor
-            )
-        default:
-            break
-        }
+        let model = mainCellModels[indexPath.row]
+        mainTableViewCell.configureCell(model: model)
         return mainTableViewCell
     }
 }

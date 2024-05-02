@@ -69,18 +69,12 @@ final class MainTableViewCell: UITableViewCell {
 
     // MARK: - Public Methods
 
-    func configureCell(
-        titleLabelText: String,
-        textColor: UIColor,
-        paddingBackgroundColor: UIColor,
-        buttonImage: UIImage?,
-        buttonColor: UIColor
-    ) {
-        titleLabel.text = titleLabelText
-        titleLabel.textColor = textColor
-        menuButton.setImage(buttonImage, for: .normal)
-        menuButton.tintColor = buttonColor
-        paddingView.backgroundColor = paddingBackgroundColor
+    func configureCell(model: MainCellModel) {
+        titleLabel.text = model.title
+        titleLabel.textColor = model.textColor
+        menuButton.setImage(model.buttonImage, for: .normal)
+        menuButton.tintColor = model.buttonColor
+        paddingView.backgroundColor = model.paddingBackgroundColor
         setupSubviews()
         setupConstraints()
         selectionStyle = .none
