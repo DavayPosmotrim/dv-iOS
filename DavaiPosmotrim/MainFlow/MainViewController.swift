@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class MainViewController: UIViewController {
+final class MainViewController: UIViewController, UITableViewDelegate {
 
     var presenter: MainPresenterProtocol?
 
@@ -19,9 +19,7 @@ final class MainViewController: UIViewController {
     Наслаждайтесь моментами, выбрав вместе идеальный фильм
     """
         static let nameLabelText = "Артем_Test"
-        static let titleLabelTextCellOne = "Создать сеанс"
-        static let titleLabelTextCellTwo = "Понравившиеся фильмы"
-        static let titleLabelTextCellThree = "Присоединиться к сеансу"
+        static let authViewController = "AuthViewController"
     }
 
     // MARK: - Layout variables
@@ -29,20 +27,19 @@ final class MainViewController: UIViewController {
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage.smallLogo
-
         return imageView
     }()
 
-    lazy var descriptionLabel: UILabel = {
+    private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.text = Keys.descriptionLabelText
         label.textColor = .captionDarkText
-        label.font = UIFont(name: "Inter-Regular", size: 12)
+        label.font = .textCaptionRegularFont
         label.textAlignment = .right
         label.numberOfLines = 0
 
         if let labelText = label.text,
-            let range = labelText.range(of: "Наслаждайтесь моментами") {
+           let range = labelText.range(of: "Наслаждайтесь моментами") {
             let attributedString = NSMutableAttributedString(string: labelText)
             attributedString.addAttribute(
                 .foregroundColor,
@@ -51,7 +48,6 @@ final class MainViewController: UIViewController {
             )
             label.attributedText = attributedString
         }
-
         return label
     }()
 
@@ -67,8 +63,7 @@ final class MainViewController: UIViewController {
         let label = UILabel()
         label.text = Keys.nameLabelText
         label.textColor = .headingText
-        label.font = UIFont(name: "DaysOne-Regular", size: 16)
-
+        label.font = .textHeadingFont
         return label
     }()
 
@@ -81,7 +76,6 @@ final class MainViewController: UIViewController {
             action: #selector(didTapBackButton),
             for: .touchUpInside
         )
-
         return button
     }()
 
@@ -93,7 +87,6 @@ final class MainViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.dataSource = self
         tableView.delegate = self
-
         return tableView
     }()
 
@@ -118,15 +111,15 @@ final class MainViewController: UIViewController {
         setupConstraints()
     }
 
-    // MARK: - IBAction
+    // MARK: - Actions
 
     @objc func didTapBackButton() {
-        navigateTo(screen: "AuthViewController")
+        nameButtonPressed(screen: Keys.authViewController)
     }
 
     // MARK: - Public Methods
 
-    func navigateTo(screen: String) {
+    func nameButtonPressed(screen: String) {
         self.presenter?.mainFinish(screen: screen)
     }
 
@@ -191,7 +184,7 @@ final class MainViewController: UIViewController {
 extension MainViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return mainCellModels.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -202,34 +195,18 @@ extension MainViewController: UITableViewDataSource {
         }
 
         switch indexPath.row {
-        case 0:
+        case 0 ..< mainCellModels.count:
+            let model = mainCellModels[indexPath.row]
             mainTableViewCell.configureCell(
-                titleLabelText: Keys.titleLabelTextCellOne,
-                textColor: .whiteText,
-                paddingBackgroundColor: .basePrimaryAccent,
-                buttonImage: UIImage.circledForwardIcon.withRenderingMode(.alwaysTemplate),
-                buttonColor: .whiteBackground
-            )
-        case 1:
-            mainTableViewCell.configureCell(
-                titleLabelText: Keys.titleLabelTextCellTwo,
-                textColor: .baseText,
-                paddingBackgroundColor: .baseSecondaryAccent,
-                buttonImage: UIImage.circledHeartIcon.withRenderingMode(.alwaysTemplate),
-                buttonColor: .baseTertiaryAccent
-            )
-        case 2:
-            mainTableViewCell.configureCell(
-                titleLabelText: Keys.titleLabelTextCellThree,
-                textColor: .whiteText,
-                paddingBackgroundColor: .baseTertiaryAccent,
-                buttonImage: UIImage.circledForwardIcon.withRenderingMode(.alwaysTemplate),
-                buttonColor: .whiteBackground
+                titleLabelText: model.title,
+                textColor: model.textColor,
+                paddingBackgroundColor: model.paddingBackgroundColor,
+                buttonImage: model.buttonImage,
+                buttonColor: model.buttonColor
             )
         default:
             break
         }
-
         return mainTableViewCell
     }
 }
@@ -237,11 +214,5 @@ extension MainViewController: UITableViewDataSource {
 // MARK: - MainViewProtocol
 
 extension MainViewController: MainViewProtocol {
-    // Пустое расширение без реализации методов делегата
-}
-
-// MARK: - UITableViewDelegate
-
-extension MainViewController: UITableViewDelegate {
-    // Пустое расширение без реализации методов делегата
+    // TODO: - add code to use viewControllers method in presenter
 }

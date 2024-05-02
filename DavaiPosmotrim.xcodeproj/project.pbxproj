@@ -10,8 +10,10 @@
 		4A6280322BDE846900102304 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6280312BDE846900102304 /* MainTableViewCell.swift */; };
 		4A6280342BDED4E500102304 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6280332BDED4E500102304 /* MainCoordinator.swift */; };
 		4A6280362BDED59F00102304 /* MainSceneFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6280352BDED59F00102304 /* MainSceneFactory.swift */; };
-		4A6280382BDED62600102304 /* MainPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6280372BDED62600102304 /* MainPresenterProtocol.swift */; };
+		4A6280382BDED62600102304 /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6280372BDED62600102304 /* MainPresenter.swift */; };
 		4A62803A2BDED8EB00102304 /* MainViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6280392BDED8EB00102304 /* MainViewProtocol.swift */; };
+		4A62803C2BE2BFDC00102304 /* MainCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A62803B2BE2BFDC00102304 /* MainCellModel.swift */; };
+		4A62803E2BE2C72B00102304 /* MainPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A62803D2BE2C72B00102304 /* MainPresenterProtocol.swift */; };
 		C9C4D59E2BD3A3C70081CD23 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4D59D2BD3A3C70081CD23 /* AppDelegate.swift */; };
 		C9C4D5A02BD3A3C70081CD23 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4D59F2BD3A3C70081CD23 /* SceneDelegate.swift */; };
 		C9C4D5A22BD3A3C70081CD23 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4D5A12BD3A3C70081CD23 /* OnboardingViewController.swift */; };
@@ -45,8 +47,10 @@
 		4A6280312BDE846900102304 /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
 		4A6280332BDED4E500102304 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		4A6280352BDED59F00102304 /* MainSceneFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSceneFactory.swift; sourceTree = "<group>"; };
-		4A6280372BDED62600102304 /* MainPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenterProtocol.swift; sourceTree = "<group>"; };
+		4A6280372BDED62600102304 /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
 		4A6280392BDED8EB00102304 /* MainViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewProtocol.swift; sourceTree = "<group>"; };
+		4A62803B2BE2BFDC00102304 /* MainCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCellModel.swift; sourceTree = "<group>"; };
+		4A62803D2BE2C72B00102304 /* MainPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenterProtocol.swift; sourceTree = "<group>"; };
 		C9C4D59A2BD3A3C70081CD23 /* DavaiPosmotrim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DavaiPosmotrim.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9C4D59D2BD3A3C70081CD23 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9C4D59F2BD3A3C70081CD23 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -176,12 +180,14 @@
 		E2B9BF9A2BD7CDA600592578 /* MainFlow */ = {
 			isa = PBXGroup;
 			children = (
+				4A62803B2BE2BFDC00102304 /* MainCellModel.swift */,
 				4A6280392BDED8EB00102304 /* MainViewProtocol.swift */,
+				4A62803D2BE2C72B00102304 /* MainPresenterProtocol.swift */,
 				E2B9BFA32BD7CF0300592578 /* MainViewController.swift */,
 				4A6280312BDE846900102304 /* MainTableViewCell.swift */,
+				4A6280372BDED62600102304 /* MainPresenter.swift */,
 				4A6280332BDED4E500102304 /* MainCoordinator.swift */,
 				4A6280352BDED59F00102304 /* MainSceneFactory.swift */,
-				4A6280372BDED62600102304 /* MainPresenterProtocol.swift */,
 			);
 			path = MainFlow;
 			sourceTree = "<group>";
@@ -341,7 +347,7 @@
 				4A6280362BDED59F00102304 /* MainSceneFactory.swift in Sources */,
 				E2B9BFA82BD7CF4F00592578 /* JoinSessionViewController.swift in Sources */,
 				C9C4D5A22BD3A3C70081CD23 /* OnboardingViewController.swift in Sources */,
-				4A6280382BDED62600102304 /* MainPresenterProtocol.swift in Sources */,
+				4A6280382BDED62600102304 /* MainPresenter.swift in Sources */,
 				E2B9BFA42BD7CF0300592578 /* MainViewController.swift in Sources */,
 				C9C4D59E2BD3A3C70081CD23 /* AppDelegate.swift in Sources */,
 				E2B9BFA22BD7CEC300592578 /* AuthViewController.swift in Sources */,
@@ -356,8 +362,10 @@
 				E2B9BF952BD7C58F00592578 /* AppCoordinator.swift in Sources */,
 				4A6280342BDED4E500102304 /* MainCoordinator.swift in Sources */,
 				E2B9BF932BD7C45B00592578 /* BaseCoordinator.swift in Sources */,
+				4A62803C2BE2BFDC00102304 /* MainCellModel.swift in Sources */,
 				E2B9BFAC2BD8034C00592578 /* OnboardingPresenterProtocol.swift in Sources */,
 				C9FCE96D2BD3E53C00FE655D /* UIFont+Extension.swift in Sources */,
+				4A62803E2BE2C72B00102304 /* MainPresenterProtocol.swift in Sources */,
 				C9C4D5A02BD3A3C70081CD23 /* SceneDelegate.swift in Sources */,
 				4A62803A2BDED8EB00102304 /* MainViewProtocol.swift in Sources */,
 			);

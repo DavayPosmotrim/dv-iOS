@@ -13,6 +13,14 @@ final class MainTableViewCell: UITableViewCell {
 
     static let reuseIdentifier = "MainTableViewCell"
 
+    // MARK: - Private Properties
+
+    private struct Keys {
+        static let createSessionViewController = "CreateSessionViewController"
+        static let favoriteMoviesViewController = "FavoriteMoviesViewController"
+        static let joinSessionViewController = "JoinSessionViewController"
+    }
+
     // MARK: - Layout variables
 
     private lazy var paddingView: UIView = {
@@ -21,11 +29,10 @@ final class MainTableViewCell: UITableViewCell {
         return view
     }()
 
-    lazy var titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = UIFont(name: "DaysOne-Regular", size: 16)
-
+        label.font = .textLabelFont
         return label
     }()
 
@@ -36,11 +43,10 @@ final class MainTableViewCell: UITableViewCell {
             action: #selector(didTapMenuButton),
             for: .touchUpInside
         )
-
         return button
     }()
 
-    // MARK: - IBAction
+    // MARK: - Actions
 
     @objc func didTapMenuButton() {
         guard let tableView = superview as? UITableView,
@@ -51,11 +57,11 @@ final class MainTableViewCell: UITableViewCell {
 
         switch indexPath.row {
         case 0:
-            mainViewController.navigateTo(screen: "CreateSessionViewController")
+            mainViewController.nameButtonPressed(screen: Keys.createSessionViewController)
         case 1:
-            mainViewController.navigateTo(screen: "FavoriteMoviesViewController")
+            mainViewController.nameButtonPressed(screen: Keys.favoriteMoviesViewController)
         case 2:
-            mainViewController.navigateTo(screen: "JoinSessionViewController")
+            mainViewController.nameButtonPressed(screen: Keys.joinSessionViewController)
         default:
             break
         }

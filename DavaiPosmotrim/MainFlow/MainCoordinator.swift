@@ -9,6 +9,13 @@ import Foundation
 
 final class MainCoordinator: BaseCoordinator {
 
+    private struct Keys {
+        static let authViewController = "AuthViewController"
+        static let createSessionViewController = "CreateSessionViewController"
+        static let favoriteMoviesViewController = "FavoriteMoviesViewController"
+        static let joinSessionViewController = "JoinSessionViewController"
+    }
+
     override func start() {
         showMain()
     }
@@ -18,14 +25,16 @@ final class MainCoordinator: BaseCoordinator {
     }
 
     func showNextScreen(screen: String) {
+        finish()
+
         switch screen {
-        case "AuthViewController":
+        case Keys.authViewController:
             showAuthFlow()
-        case "CreateSessionViewController":
+        case Keys.createSessionViewController:
             showCreateSessionFlow()
-        case "FavoriteMoviesViewController":
+        case Keys.favoriteMoviesViewController:
             showFavoriteMoviesFlow()
-        case "JoinSessionViewController":
+        case Keys.joinSessionViewController:
             showJoinSessionFlow()
         default:
             break
@@ -36,7 +45,7 @@ final class MainCoordinator: BaseCoordinator {
 private extension MainCoordinator {
     func showMain() {
         let viewController =  MainSceneFactory.makeMainViewController(with: self)
-        navigationController.pushViewController(viewController, animated: true)
+        navigationController.setViewControllers([viewController], animated: true)
     }
 
     func showAuthFlow() {

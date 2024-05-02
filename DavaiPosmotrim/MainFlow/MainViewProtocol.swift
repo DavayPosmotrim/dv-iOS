@@ -8,5 +8,5 @@
 import Foundation
 
 protocol MainViewProtocol: AnyObject {
-    // Пустое расширение без реализации методов делегата
+    // TODO: - add code to use viewControllers method in presenter
 }
