@@ -7,6 +7,14 @@
 
 import UIKit
 
+struct MainCellModel {
+    let title: String
+    let textColor: UIColor
+    let paddingBackgroundColor: UIColor
+    let buttonImage: UIImage
+    let buttonColor: UIColor
+}
+
 final class MainViewController: UIViewController, UITableViewDelegate {
 
     // MARK: - Public Properties
