@@ -83,15 +83,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C964B70B2BD812F800CF9AF0 /* OnboardingViewController */ = {
-			isa = PBXGroup;
-			children = (
-				C964B70C2BD8135400CF9AF0 /* OnboardingViewController.swift */,
-				C964B7112BD9A74400CF9AF0 /* OnboardingCollectionViewCell.swift */,
-			);
-			path = OnboardingViewController;
-			sourceTree = "<group>";
-		};
 		C964B70E2BD8137800CF9AF0 /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -131,7 +122,6 @@
 				C9C4D59D2BD3A3C70081CD23 /* AppDelegate.swift */,
 				C9C4D59F2BD3A3C70081CD23 /* SceneDelegate.swift */,
 				C9FCE96B2BD3E52700FE655D /* Helpers */,
-				C964B70B2BD812F800CF9AF0 /* OnboardingViewController */,
 				C9FCE9502BD3E05400FE655D /* Resources */,
 				C964B70E2BD8137800CF9AF0 /* UI */,
 			);
@@ -197,10 +187,12 @@
 		E2B9BF9B2BD7CDAD00592578 /* OnboardingFlow */ = {
 			isa = PBXGroup;
 			children = (
-				E26592CC2BDBA4CF009F1185 /* OnboardingViewProtocol.swift */,
+				C964B70C2BD8135400CF9AF0 /* OnboardingViewController.swift */,
+				C964B7112BD9A74400CF9AF0 /* OnboardingCollectionViewCell.swift */,
 				E2B9BF962BD7C67600592578 /* OnboardingCoordinator.swift */,
 				E2B9BFAB2BD8034C00592578 /* OnboardingPresenterProtocol.swift */,
 				E2B9BFAD2BD8080100592578 /* OnboardingSceneFactory.swift */,
+				E26592CC2BDBA4CF009F1185 /* OnboardingViewProtocol.swift */,
 			);
 			path = OnboardingFlow;
 			sourceTree = "<group>";
