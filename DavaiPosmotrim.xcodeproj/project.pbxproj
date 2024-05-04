@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C917E3F52BE6CED000B34639 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C917E3F42BE6CED000B34639 /* AuthCoordinator.swift */; };
+		C917E3F72BE6CF8200B34639 /* AuthViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C917E3F62BE6CF8200B34639 /* AuthViewProtocol.swift */; };
+		C917E3F92BE6CFC700B34639 /* AuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C917E3F82BE6CFC700B34639 /* AuthPresenter.swift */; };
+		C917E3FB2BE6D12000B34639 /* AuthSceneFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C917E3FA2BE6D12000B34639 /* AuthSceneFactory.swift */; };
 		C964B70D2BD8135400CF9AF0 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C964B70C2BD8135400CF9AF0 /* OnboardingViewController.swift */; };
 		C964B7102BD813B500CF9AF0 /* CustomButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = C964B70F2BD813B500CF9AF0 /* CustomButtons.swift */; };
 		C964B7122BD9A74400CF9AF0 /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C964B7112BD9A74400CF9AF0 /* OnboardingCollectionViewCell.swift */; };
@@ -39,6 +43,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C917E3F42BE6CED000B34639 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
+		C917E3F62BE6CF8200B34639 /* AuthViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewProtocol.swift; sourceTree = "<group>"; };
+		C917E3F82BE6CFC700B34639 /* AuthPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenter.swift; sourceTree = "<group>"; };
+		C917E3FA2BE6D12000B34639 /* AuthSceneFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSceneFactory.swift; sourceTree = "<group>"; };
 		C964B70C2BD8135400CF9AF0 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		C964B70F2BD813B500CF9AF0 /* CustomButtons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButtons.swift; sourceTree = "<group>"; };
 		C964B7112BD9A74400CF9AF0 /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -201,6 +209,10 @@
 			isa = PBXGroup;
 			children = (
 				E2B9BFA12BD7CEC300592578 /* AuthViewController.swift */,
+				C917E3F42BE6CED000B34639 /* AuthCoordinator.swift */,
+				C917E3F82BE6CFC700B34639 /* AuthPresenter.swift */,
+				C917E3FA2BE6D12000B34639 /* AuthSceneFactory.swift */,
+				C917E3F62BE6CF8200B34639 /* AuthViewProtocol.swift */,
 			);
 			path = AuthFLow;
 			sourceTree = "<group>";
@@ -346,11 +358,15 @@
 				E2B9BFAE2BD8080100592578 /* OnboardingSceneFactory.swift in Sources */,
 				E2B9BF892BD7BA2C00592578 /* AppCoordinatorProtocol.swift in Sources */,
 				E2B9BFA62BD7CF3000592578 /* CreateSessionViewController.swift in Sources */,
+				C917E3F72BE6CF8200B34639 /* AuthViewProtocol.swift in Sources */,
 				E2B9BF872BD7B8EF00592578 /* CoordinatorProtocol.swift in Sources */,
+				C917E3F52BE6CED000B34639 /* AuthCoordinator.swift in Sources */,
 				E2B9BF972BD7C67600592578 /* OnboardingCoordinator.swift in Sources */,
 				E2B9BF952BD7C58F00592578 /* AppCoordinator.swift in Sources */,
 				E2B9BF932BD7C45B00592578 /* BaseCoordinator.swift in Sources */,
+				C917E3FB2BE6D12000B34639 /* AuthSceneFactory.swift in Sources */,
 				E2B9BFAC2BD8034C00592578 /* OnboardingPresenterProtocol.swift in Sources */,
+				C917E3F92BE6CFC700B34639 /* AuthPresenter.swift in Sources */,
 				C964B70D2BD8135400CF9AF0 /* OnboardingViewController.swift in Sources */,
 				C9FCE96D2BD3E53C00FE655D /* UIFont+Extension.swift in Sources */,
 				C964B7102BD813B500CF9AF0 /* CustomButtons.swift in Sources */,

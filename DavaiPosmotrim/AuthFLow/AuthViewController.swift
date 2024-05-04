@@ -11,6 +11,8 @@ final class AuthViewController: UIViewController {
 
     // MARK: - Stored properties
 
+    var presenter: AuthPresenter?
+
     private var lowerLabelHeightAnchor = NSLayoutConstraint()
     private var enterButtonBottomAnchor = NSLayoutConstraint()
 
@@ -93,6 +95,15 @@ final class AuthViewController: UIViewController {
 
     // MARK: - Initializers
 
+    init(presenter: AuthPresenter) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -163,7 +174,12 @@ final class AuthViewController: UIViewController {
     }
 
     @objc func enterButtonDidTap(sender: AnyObject) {
-        // TODO: - add code to jump to next viewController and pass user name
+
+        // TODO: - add code to pass user name to MainViewController and save it on server
+
+        DispatchQueue.main.async {
+            self.presenter?.authFinish()
+        }
     }
 
     @objc func keyboardWillShow(notification: NSNotification) {
@@ -200,4 +216,10 @@ extension AuthViewController: UITextFieldDelegate {
         return false
     }
 
+}
+
+    // MARK: - AuthViewProtocol
+
+extension AuthViewController: AuthViewProtocol {
+    // TODO: - add code to use viewControllers method in presenter
 }

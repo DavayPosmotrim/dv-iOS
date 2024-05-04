@@ -34,12 +34,17 @@ private extension AppCoordinator {
     }
 
     func showAuthFlow() {
-        let authViewController = AuthViewController()
-        navigationController.setViewControllers([authViewController], animated: true)
+        let authCoordinator = AuthCoordinator(
+            type: .auth,
+            finishDelegate: self,
+            navigationController: navigationController)
+        addChild(authCoordinator)
+        authCoordinator.start()
     }
 
     func showMainFlow() {
-
+        let authViewController = MainViewController()
+        navigationController.setViewControllers([authViewController], animated: true)
     }
 }
 
@@ -51,6 +56,8 @@ extension AppCoordinator: CoordinatorFinishDelegate {
             return
         case .onboarding:
             showAuthFlow()
+        case .auth:
+            showMainFlow()
         default:
             navigationController.popToRootViewController(animated: false)
         }
