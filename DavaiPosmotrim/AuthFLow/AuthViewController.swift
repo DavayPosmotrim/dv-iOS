@@ -20,7 +20,7 @@ final class AuthViewController: UIViewController {
     private let charactersMaxNumber = 16
     private let charactersBarrierNumber = 12
 
-    private struct Keys {
+    private enum Keys {
         static let upperLabelText = "Введите ваше имя"
         static let lowerLabelInputNameWarningText = "Введите имя"
         static let lowerLabelLengthWarhingText = "Минимум две буквы"
