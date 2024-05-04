@@ -25,8 +25,6 @@ final class MainCoordinator: BaseCoordinator {
     }
 
     func showNextScreen(screen: String) {
-        finish()
-
         switch screen {
         case Keys.authViewController:
             showAuthFlow()
