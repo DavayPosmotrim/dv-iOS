@@ -9,41 +9,48 @@ import UIKit
 
 final class MistakesViewController: UIViewController {
 
+    // MARK: - Enum
+
     enum MistakeType {
         case noInternet
         case serviceUnavailable
         case oldVersion
     }
 
+    // MARK: - Private properties
+
     private lazy var vStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
         stack.distribution = .fill
         stack.alignment = .center
-         stack.spacing = 12
+        stack.spacing = .spacingBase
         return stack
     }()
 
-    private lazy var image = UIImageView(image: .noInternetPlug)
+    private lazy var image = UIImageView()
 
     private lazy var header: UILabel = {
         let label = UILabel()
+        label.textAlignment = .center
         label.textColor = .headingText
         label.font = .textLabelFont
-        label.text = Resources.Strings.Mistakes.noInternetHeader
         return label
     }()
 
     private lazy var text: UILabel = {
         let label = UILabel()
+        label.textAlignment = .center
+        label.numberOfLines = 2
         label.textColor = .baseText
         label.font = .textParagraphRegularFont
-        label.text = Resources.Strings.Mistakes.noInternetText
-        label.numberOfLines = 2
         return label
     }()
 
     private lazy var button: RoundedButton = RoundedButton()
+
+    // MARK: - Public property
+
     var type: MistakeType
 
     // MARK: - Inits
@@ -52,15 +59,17 @@ final class MistakesViewController: UIViewController {
         self.type = type
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupLabels()
         setupButton()
     }
 }
@@ -68,9 +77,19 @@ final class MistakesViewController: UIViewController {
 // MARK: - Private methods
 
 private extension MistakesViewController {
-    @objc func didTapButton(sender: AnyObject) {
-        print("Button tapped")
+    // MARK: - Actions
+
+    @objc func didTapNoInternetButton(sender: AnyObject) {
+        print("Button NoInternet tapped")
+        // TODO: - add code later
     }
+
+    @objc func didTapOldVersionButton(sender: AnyObject) {
+        print("Button OldVersion tapped")
+        // TODO: - add code later
+    }
+
+    // MARK: - Setup UI
 
     func setupUI() {
         view.backgroundColor = .whiteBackground
@@ -92,24 +111,49 @@ private extension MistakesViewController {
             vStack.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor, constant: -72),
 
             image.topAnchor.constraint(equalTo: vStack.topAnchor),
-            image.heightAnchor.constraint(equalToConstant: 200),
-            image.widthAnchor.constraint(equalToConstant: 200),
+            image.heightAnchor.constraint(equalToConstant: .placeholderSize),
+            image.widthAnchor.constraint(equalToConstant: .placeholderSize),
 
-            header.heightAnchor.constraint(equalToConstant: 24),
-            header.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 36),
+            header.heightAnchor.constraint(equalToConstant: .textHeadingHeight),
 
-            text.heightAnchor.constraint(equalToConstant: 40),
-            text.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 12),
+            text.heightAnchor.constraint(equalToConstant: .textParagraphHeightTwoLines),
 
-            button.heightAnchor.constraint(equalToConstant: 48),
-            button.topAnchor.constraint(equalTo: text.bottomAnchor, constant: 32),
-            button.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
-            button.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16)
+            button.heightAnchor.constraint(equalToConstant: .buttonHeight),
+            button.topAnchor.constraint(equalTo: text.bottomAnchor, constant: .spacingExtraLarge),
+            button.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: .spacingMedium),
+            button.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -.spacingMedium)
         ])
     }
 
+    func setupLabels() {
+        switch type {
+        case .noInternet:
+            image.image = UIImage(resource: .noInternetPlug)
+            header.text = Resources.Mistakes.noInternetHeader
+            text.text = Resources.Mistakes.noInternetText
+        case .serviceUnavailable:
+            image.image = UIImage(resource: .unavailableServicePlug)
+            header.text = Resources.Mistakes.serviceUnavailableHeader
+            text.text = Resources.Mistakes.serviceUnavailableText
+        case .oldVersion:
+            image.image = UIImage(resource: .oldAppVersionPlug)
+            header.text = Resources.Mistakes.oldVersionHeader
+            text.text = Resources.Mistakes.oldVersionText
+        }
+    }
+
     func setupButton() {
-        button.configure(title: Resources.Strings.Mistakes.noInternetButtonTitle, type: .accentPrimary)
-        button.addTarget(self, action: #selector(didTapButton(sender:)), for: .touchUpInside)
+        switch type {
+        case .noInternet:
+            button.isHidden = false
+            button.configure(title: Resources.Mistakes.noInternetButtonTitle, type: .accentPrimary)
+            button.addTarget(self, action: #selector(didTapNoInternetButton(sender:)), for: .touchUpInside)
+        case .serviceUnavailable:
+            button.isHidden = true
+        case .oldVersion:
+            button.isHidden = false
+            button.configure(title: Resources.Mistakes.oldVersionButtonTitle, type: .accentPrimary)
+            button.addTarget(self, action: #selector(didTapOldVersionButton(sender:)), for: .touchUpInside)
+        }
     }
 }
