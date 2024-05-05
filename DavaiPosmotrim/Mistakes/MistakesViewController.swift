@@ -7,6 +7,8 @@
 
 import UIKit
 
+// MARK: - Class
+
 final class MistakesViewController: UIViewController {
 
     // MARK: - Enum
@@ -16,6 +18,10 @@ final class MistakesViewController: UIViewController {
         case serviceUnavailable
         case oldVersion
     }
+
+    // MARK: - Public property
+
+    var type: MistakeType
 
     // MARK: - Private properties
 
@@ -47,11 +53,7 @@ final class MistakesViewController: UIViewController {
         return label
     }()
 
-    private lazy var button: RoundedButton = RoundedButton()
-
-    // MARK: - Public property
-
-    var type: MistakeType
+    private lazy var button = RoundedButton()
 
     // MARK: - Inits
 
