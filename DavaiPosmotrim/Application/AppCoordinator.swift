@@ -9,7 +9,11 @@ import UIKit
 
 final class AppCoordinator: BaseCoordinator {
     override func start() {
-        showOnboardingFlow()
+        if UserDefaults.standard.value(forKey: "isOnboardingShown") == nil {
+            showOnboardingFlow()
+        } else {
+            showAuthFlow()
+        }
     }
 
     override func finish() {
