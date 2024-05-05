@@ -39,6 +39,7 @@
 		E9A2701F2BE4C2940088652B /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A2701E2BE4C2940088652B /* CGFloat+Extensions.swift */; };
 		E9A270222BE52BC20088652B /* MistakesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A270212BE52BC20088652B /* MistakesViewController.swift */; };
 		E9BEFD802BE7D53A002E940B /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BEFD7F2BE7D53A002E940B /* RoundedButton.swift */; };
+		E9BEFD822BE7E4EF002E940B /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BEFD812BE7E4EF002E940B /* Resources.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +74,7 @@
 		E9A2701E2BE4C2940088652B /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
 		E9A270212BE52BC20088652B /* MistakesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MistakesViewController.swift; sourceTree = "<group>"; };
 		E9BEFD7F2BE7D53A002E940B /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
+		E9BEFD812BE7E4EF002E940B /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +154,7 @@
 				C9FCE9512BD3E11600FE655D /* Fonts */,
 				C9C4D5A62BD3A3CB0081CD23 /* Assets.xcassets */,
 				C9C4D5A82BD3A3CB0081CD23 /* LaunchScreen.storyboard */,
+				E9BEFD812BE7E4EF002E940B /* Resources.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -376,6 +379,7 @@
 				E2B9BF972BD7C67600592578 /* OnboardingCoordinator.swift in Sources */,
 				E2B9BF952BD7C58F00592578 /* AppCoordinator.swift in Sources */,
 				E2B9BF932BD7C45B00592578 /* BaseCoordinator.swift in Sources */,
+				E9BEFD822BE7E4EF002E940B /* Resources.swift in Sources */,
 				E2B9BFAC2BD8034C00592578 /* OnboardingPresenterProtocol.swift in Sources */,
 				C964B70D2BD8135400CF9AF0 /* OnboardingViewController.swift in Sources */,
 				C9FCE96D2BD3E53C00FE655D /* UIFont+Extension.swift in Sources */,
