@@ -13,7 +13,7 @@ final class AuthViewController: UIViewController {
 
     var presenter: AuthPresenter?
 
-    private var lowerLabelHeightAnchor = NSLayoutConstraint()
+    private var userName: String
     private var enterButtonBottomAnchor = NSLayoutConstraint()
 
     private let charactersMinNumber = 2
@@ -40,6 +40,7 @@ final class AuthViewController: UIViewController {
 
     private lazy var nameTextField: UITextField = {
         let textField = UITextField()
+        textField.text = userName
         textField.tintColor = .basePrimaryAccent
         textField.textColor = .headingText
         textField.backgroundColor = .clear
@@ -95,8 +96,9 @@ final class AuthViewController: UIViewController {
 
     // MARK: - Initializers
 
-    init(presenter: AuthPresenter) {
+    init(presenter: AuthPresenter, userName: String) {
         self.presenter = presenter
+        self.userName = userName
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -175,7 +177,9 @@ final class AuthViewController: UIViewController {
 
     @objc func enterButtonDidTap(sender: AnyObject) {
 
-        // TODO: - add code to pass user name to MainViewController and save it on server
+        // TODO: - add code to pass userName to MainViewController and save it on server
+
+        userName = nameTextField.text ?? ""
 
         DispatchQueue.main.async {
             self.presenter?.authFinish()

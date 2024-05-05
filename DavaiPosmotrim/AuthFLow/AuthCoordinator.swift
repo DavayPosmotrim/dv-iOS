@@ -10,7 +10,7 @@ import Foundation
 final class AuthCoordinator: BaseCoordinator {
 
     override func start() {
-        showAuthentification()
+        showAuthentication()
     }
 
     override func finish() {
@@ -21,7 +21,7 @@ final class AuthCoordinator: BaseCoordinator {
 
 private extension AuthCoordinator {
 
-    func showAuthentification() {
+    func showAuthentication() {
         let viewController = AuthSceneFactory.makeAuthViewController(with: self)
         navigationController.pushViewController(viewController, animated: true)
     }
