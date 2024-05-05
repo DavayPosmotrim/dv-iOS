@@ -123,7 +123,6 @@ final class AuthViewController: UIViewController {
     }
 
     private func setupConstraints() {
-        lowerLabelHeightAnchor = lowerLabel.heightAnchor.constraint(equalToConstant: .zero)
         enterButtonBottomAnchor = enterButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
 
         NSLayoutConstraint.activate([
@@ -138,7 +137,7 @@ final class AuthViewController: UIViewController {
 
             lowerLabel.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 12),
             lowerLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            lowerLabelHeightAnchor,
+            lowerLabel.heightAnchor.constraint(equalToConstant: 16),
 
             enterButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             enterButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
@@ -149,12 +148,12 @@ final class AuthViewController: UIViewController {
 
     private func showLowerLabel(with text: String) {
         lowerLabel.text = text
-        lowerLabelHeightAnchor.constant = 16
+        lowerLabel.isHidden = false
     }
 
     private func hideLowerLabel() {
         lowerLabel.text = ""
-        lowerLabelHeightAnchor.constant = .zero
+        lowerLabel.isHidden = true
     }
 
     // MARK: - Handlers
