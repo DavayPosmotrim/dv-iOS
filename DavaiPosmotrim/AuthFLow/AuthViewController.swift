@@ -23,7 +23,7 @@ final class AuthViewController: UIViewController {
     private enum Keys {
         static let upperLabelText = "Введите ваше имя"
         static let lowerLabelInputNameWarningText = "Введите имя"
-        static let lowerLabelLengthWarhingText = "Минимум две буквы"
+        static let lowerLabelLengthWarningText = "Минимум две буквы"
         static let lowerLabelNumbersWarningText = "Только буквы"
         static let enterButtonLabelText = "ВОЙТИ"
     }
@@ -111,10 +111,11 @@ final class AuthViewController: UIViewController {
     // MARK: - Private methods
 
     private func setupSubviews() {
-        [upperLabel,
-         nameTextField,
-         lowerLabel,
-         enterButton
+        [
+            upperLabel,
+            nameTextField,
+            lowerLabel,
+            enterButton
         ].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -163,7 +164,7 @@ final class AuthViewController: UIViewController {
         if text.isEmpty {
             showLowerLabel(with: Keys.lowerLabelInputNameWarningText)
         } else if text.count < charactersMinNumber {
-            showLowerLabel(with: Keys.lowerLabelLengthWarhingText)
+            showLowerLabel(with: Keys.lowerLabelLengthWarningText)
         } else if text.count > charactersBarrierNumber {
             nameTextField.font = .textLabelFont
             hideLowerLabel()
@@ -203,8 +204,8 @@ extension AuthViewController: UITextFieldDelegate {
         replacementString string: String
     ) -> Bool {
         let maximumLength = charactersMaxNumber
-        let currentstring = (nameTextField.text ?? "") as NSString
-        let updatedString = currentstring.replacingCharacters(in: range, with: string)
+        let currentString = (nameTextField.text ?? "") as NSString
+        let updatedString = currentString.replacingCharacters(in: range, with: string)
         if updatedString.rangeOfCharacter(from: CharacterSet.decimalDigits) != nil {
             showLowerLabel(with: Keys.lowerLabelNumbersWarningText)
             return false

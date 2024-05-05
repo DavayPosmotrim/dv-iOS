@@ -7,10 +7,6 @@
 
 import Foundation
 
-protocol AuthPresenterProtocol: AnyObject {
-    func authFinish()
-}
-
 final class AuthPresenter: AuthPresenterProtocol {
 
     // MARK: - Public Properties
@@ -26,4 +22,5 @@ final class AuthPresenter: AuthPresenterProtocol {
         guard let coordinator else { return }
         coordinator.finish()
     }
+    
 }

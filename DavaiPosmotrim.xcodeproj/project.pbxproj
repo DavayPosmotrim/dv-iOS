@@ -14,6 +14,7 @@
 		C964B70D2BD8135400CF9AF0 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C964B70C2BD8135400CF9AF0 /* OnboardingViewController.swift */; };
 		C964B7102BD813B500CF9AF0 /* CustomButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = C964B70F2BD813B500CF9AF0 /* CustomButtons.swift */; };
 		C964B7122BD9A74400CF9AF0 /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C964B7112BD9A74400CF9AF0 /* OnboardingCollectionViewCell.swift */; };
+		C96895CF2BE835EA002A99E6 /* AuthPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96895CE2BE835EA002A99E6 /* AuthPresenterProtocol.swift */; };
 		C9C4D59E2BD3A3C70081CD23 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4D59D2BD3A3C70081CD23 /* AppDelegate.swift */; };
 		C9C4D5A02BD3A3C70081CD23 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4D59F2BD3A3C70081CD23 /* SceneDelegate.swift */; };
 		C9C4D5A72BD3A3CB0081CD23 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9C4D5A62BD3A3CB0081CD23 /* Assets.xcassets */; };
@@ -50,6 +51,7 @@
 		C964B70C2BD8135400CF9AF0 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		C964B70F2BD813B500CF9AF0 /* CustomButtons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButtons.swift; sourceTree = "<group>"; };
 		C964B7112BD9A74400CF9AF0 /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
+		C96895CE2BE835EA002A99E6 /* AuthPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenterProtocol.swift; sourceTree = "<group>"; };
 		C9C4D59A2BD3A3C70081CD23 /* DavaiPosmotrim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DavaiPosmotrim.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9C4D59D2BD3A3C70081CD23 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9C4D59F2BD3A3C70081CD23 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 				E2B9BFA12BD7CEC300592578 /* AuthViewController.swift */,
 				C917E3F42BE6CED000B34639 /* AuthCoordinator.swift */,
 				C917E3F82BE6CFC700B34639 /* AuthPresenter.swift */,
+				C96895CE2BE835EA002A99E6 /* AuthPresenterProtocol.swift */,
 				C917E3FA2BE6D12000B34639 /* AuthSceneFactory.swift */,
 				C917E3F62BE6CF8200B34639 /* AuthViewProtocol.swift */,
 			);
@@ -351,6 +354,7 @@
 			files = (
 				E2B9BFA82BD7CF4F00592578 /* JoinSessionViewController.swift in Sources */,
 				E2B9BFA42BD7CF0300592578 /* MainViewController.swift in Sources */,
+				C96895CF2BE835EA002A99E6 /* AuthPresenterProtocol.swift in Sources */,
 				C9C4D59E2BD3A3C70081CD23 /* AppDelegate.swift in Sources */,
 				E2B9BFA22BD7CEC300592578 /* AuthViewController.swift in Sources */,
 				E26592CD2BDBA4CF009F1185 /* OnboardingViewProtocol.swift in Sources */,
