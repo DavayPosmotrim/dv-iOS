@@ -136,6 +136,20 @@ final class AuthViewController: UIViewController {
         ])
     }
 
+    func updateUIElements(
+        text: String?,
+        font: UIFont?,
+        labelProperty: Bool?,
+        buttonProperty: Bool?
+    ) {
+        lowerLabel.text = text ?? ""
+        lowerLabel.isHidden = labelProperty ?? true
+        enterButton.isEnabled = buttonProperty ?? false
+        if let font {
+            nameTextField.font = font
+        }
+    }
+
     // MARK: - Handlers
 
     @objc func textFieldDidChange(sender: UITextField) {
@@ -215,19 +229,5 @@ extension AuthViewController: UITextFieldDelegate {
     // MARK: - AuthViewProtocol
 
 extension AuthViewController: AuthViewProtocol {
-    
-    func updateUIElements(
-        text: String?,
-        font: UIFont?,
-        labelProperty: Bool?,
-        buttonProperty: Bool?
-    ) {
-        lowerLabel.text = text ?? ""
-        lowerLabel.isHidden = labelProperty ?? true
-        enterButton.isEnabled = buttonProperty ?? false
-        if let font {
-            nameTextField.font = font
-        }
-    }
-    
+    // TODO: - add code to use viewControllers method in presenter
 }
