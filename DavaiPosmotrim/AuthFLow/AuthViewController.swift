@@ -148,14 +148,17 @@ final class AuthViewController: UIViewController {
         ])
     }
 
-    private func showLowerLabel(with text: String) {
-        lowerLabel.text = text
-        lowerLabel.isHidden = false
-    }
+    private func updateUIElements(
+        text: String? = nil,
+        font: UIFont? = nil,
+        labelProperty: Bool? = nil,
+        buttonProperty: Bool? = nil
+    ) {
+        lowerLabel.text = text ?? ""
+        nameTextField.font = font ?? .textHeadingFont
+        lowerLabel.isHidden = labelProperty ?? true
+        enterButton.isEnabled = buttonProperty ?? false
 
-    private func hideLowerLabel() {
-        lowerLabel.text = ""
-        lowerLabel.isHidden = true
     }
 
     // MARK: - Handlers
@@ -163,26 +166,29 @@ final class AuthViewController: UIViewController {
     @objc func textFieldDidChange(sender: UITextField) {
         guard let text = sender.text else { return }
         if text.isEmpty {
-            showLowerLabel(with: Keys.lowerLabelInputNameWarningText)
+            updateUIElements(text: Keys.lowerLabelInputNameWarningText, labelProperty: false)
         } else if text.count < charactersMinNumber {
-            showLowerLabel(with: Keys.lowerLabelLengthWarningText)
+            updateUIElements(text: Keys.lowerLabelLengthWarningText, labelProperty: false)
         } else if text.count > charactersBarrierNumber {
-            nameTextField.font = .textLabelFont
-            hideLowerLabel()
+            updateUIElements(font: .textLabelFont, buttonProperty: true)
         } else {
-            nameTextField.font = .textHeadingFont
-            hideLowerLabel()
+            updateUIElements(buttonProperty: true)
         }
     }
 
     @objc func enterButtonDidTap(sender: AnyObject) {
 
         // TODO: - add code to pass userName to MainViewController and save it on server
-
-        userName = nameTextField.text ?? ""
-
-        DispatchQueue.main.async {
-            self.presenter?.authFinish()
+        
+        if let name = nameTextField.text {
+            if name.isEmpty {
+                updateUIElements(text: Keys.lowerLabelInputNameWarningText, labelProperty: false)
+            } else {
+                userName = name
+                DispatchQueue.main.async {
+                    self.presenter?.authFinish()
+                }
+            }
         }
     }
 
@@ -209,8 +215,8 @@ extension AuthViewController: UITextFieldDelegate {
         let maximumLength = charactersMaxNumber
         let currentString = (nameTextField.text ?? "") as NSString
         let updatedString = currentString.replacingCharacters(in: range, with: string)
-        if updatedString.rangeOfCharacter(from: CharacterSet.decimalDigits) != nil {
-            showLowerLabel(with: Keys.lowerLabelNumbersWarningText)
+        if updatedString.rangeOfCharacter(from: CharacterSet.letters.inverted) != nil {
+            updateUIElements(text: Keys.lowerLabelNumbersWarningText, labelProperty: false, buttonProperty: true)
             return false
         }
         return updatedString.count <= maximumLength
@@ -218,6 +224,13 @@ extension AuthViewController: UITextFieldDelegate {
 
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         return false
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if enterButton.isEnabled {
+            enterButtonDidTap(sender: textField)
+        }
+        return true
     }
 
 }
