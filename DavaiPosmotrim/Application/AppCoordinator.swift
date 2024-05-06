@@ -43,8 +43,13 @@ private extension AppCoordinator {
     }
 
     func showMainFlow() {
-        let authViewController = MainViewController()
-        navigationController.setViewControllers([authViewController], animated: true)
+        let mainCoordinator = MainCoordinator(
+            type: .main,
+            finishDelegate: self,
+            navigationController: navigationController
+        )
+        addChild(mainCoordinator)
+        mainCoordinator.start()
     }
 }
 
@@ -58,6 +63,8 @@ extension AppCoordinator: CoordinatorFinishDelegate {
             showAuthFlow()
         case .auth:
             showMainFlow()
+        case .main:
+            print("MainCoordinator finished")
         default:
             navigationController.popToRootViewController(animated: false)
         }
