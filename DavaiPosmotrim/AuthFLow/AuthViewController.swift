@@ -155,10 +155,11 @@ final class AuthViewController: UIViewController {
         buttonProperty: Bool? = nil
     ) {
         lowerLabel.text = text ?? ""
-        nameTextField.font = font ?? .textHeadingFont
         lowerLabel.isHidden = labelProperty ?? true
         enterButton.isEnabled = buttonProperty ?? false
-
+        if let font {
+            nameTextField.font = font
+        }
     }
 
     // MARK: - Handlers
@@ -172,7 +173,7 @@ final class AuthViewController: UIViewController {
         } else if text.count > charactersBarrierNumber {
             updateUIElements(font: .textLabelFont, buttonProperty: true)
         } else {
-            updateUIElements(buttonProperty: true)
+            updateUIElements(font: .textHeadingFont, buttonProperty: true)
         }
     }
 
