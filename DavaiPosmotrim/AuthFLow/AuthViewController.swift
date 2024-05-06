@@ -146,7 +146,7 @@ final class AuthViewController: UIViewController {
     @objc func enterButtonDidTap(sender: AnyObject) {
 
         // TODO: - add code to pass userName to MainViewController and save it on server
-        
+
         if let name = nameTextField.text {
             if name.isEmpty {
                 updateUIElements(
@@ -157,6 +157,7 @@ final class AuthViewController: UIViewController {
                 )
             } else {
                 userName = name
+                UserDefaults.standard.setValue(userName, forKey: "userName")
                 DispatchQueue.main.async {
                     self.presenter?.authFinish()
                 }
@@ -197,10 +198,6 @@ extension AuthViewController: UITextFieldDelegate {
             return false
         }
         return updatedString.count <= maximumLength
-    }
-
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        return false
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

@@ -11,8 +11,10 @@ final class AppCoordinator: BaseCoordinator {
     override func start() {
         if UserDefaults.standard.value(forKey: "isOnboardingShown") == nil {
             showOnboardingFlow()
-        } else {
+        } else if UserDefaults.standard.value(forKey: "userName") == nil {
             showAuthFlow()
+        } else {
+            showMainFlow()
         }
     }
 

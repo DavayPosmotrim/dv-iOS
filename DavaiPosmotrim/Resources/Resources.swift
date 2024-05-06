@@ -11,7 +11,7 @@ enum Resources {
     enum Authentication {
         static let upperLabelText = "Введите ваше имя"
         static let enterButtonLabelText = "Войти".uppercased()
-        
+
         static let lowerLabelInputNameWarningText = "Введите имя"
         static let lowerLabelLengthWarningText = "Минимум две буквы"
         static let lowerLabelNumbersWarningText = "Только буквы"
