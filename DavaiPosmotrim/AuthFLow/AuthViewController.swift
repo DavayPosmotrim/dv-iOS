@@ -214,7 +214,7 @@ extension AuthViewController: UITextFieldDelegate {
         replacementString string: String
     ) -> Bool {
         let maximumLength = charactersMaxNumber
-        let currentString = (nameTextField.text ?? "") as NSString
+        let currentString = (textField.text ?? "") as NSString
         let updatedString = currentString.replacingCharacters(in: range, with: string)
         if updatedString.rangeOfCharacter(from: CharacterSet.letters.inverted) != nil {
             updateUIElements(
