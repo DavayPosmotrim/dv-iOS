@@ -16,25 +16,13 @@ final class AuthViewController: UIViewController {
     private var userName: String
     private var enterButtonBottomAnchor = NSLayoutConstraint()
 
-    private let charactersMinNumber = 2
-    private let charactersMaxNumber = 16
-    private let charactersBarrierNumber = 12
-
-    private enum Keys {
-        static let upperLabelText = "Введите ваше имя"
-        static let lowerLabelInputNameWarningText = "Введите имя"
-        static let lowerLabelLengthWarningText = "Минимум две буквы"
-        static let lowerLabelNumbersWarningText = "Только буквы"
-        static let enterButtonLabelText = "ВОЙТИ"
-    }
-
     // MARK: - Lazy properties
 
     private lazy var upperLabel: UILabel = {
         let label = UILabel()
         label.font = .textCaptionRegularFont
         label.textColor = .captionDarkText
-        label.text = Keys.upperLabelText
+        label.text = Resources.Authentication.upperLabelText
         return label
     }()
 
@@ -67,7 +55,7 @@ final class AuthViewController: UIViewController {
         let button = UIButton()
         button.backgroundColor = .basePrimaryAccent
         button.titleLabel?.font = .textButtonMediumFont
-        button.setTitle(Keys.enterButtonLabelText, for: .normal)
+        button.setTitle(Resources.Authentication.enterButtonLabelText, for: .normal)
         button.setTitleColor(.whiteText, for: .normal)
         button.addTarget(
             self,
@@ -148,11 +136,11 @@ final class AuthViewController: UIViewController {
         ])
     }
 
-    private func updateUIElements(
-        text: String? = nil,
-        font: UIFont? = nil,
-        labelProperty: Bool? = nil,
-        buttonProperty: Bool? = nil
+    func updateUIElements(
+        text: String?,
+        font: UIFont?,
+        labelProperty: Bool?,
+        buttonProperty: Bool?
     ) {
         lowerLabel.text = text ?? ""
         lowerLabel.isHidden = labelProperty ?? true
@@ -166,15 +154,7 @@ final class AuthViewController: UIViewController {
 
     @objc func textFieldDidChange(sender: UITextField) {
         guard let text = sender.text else { return }
-        if text.isEmpty {
-            updateUIElements(text: Keys.lowerLabelInputNameWarningText, labelProperty: false)
-        } else if text.count < charactersMinNumber {
-            updateUIElements(text: Keys.lowerLabelLengthWarningText, labelProperty: false)
-        } else if text.count > charactersBarrierNumber {
-            updateUIElements(font: .textLabelFont, buttonProperty: true)
-        } else {
-            updateUIElements(font: .textHeadingFont, buttonProperty: true)
-        }
+        presenter?.calculateCharactersNumber(with: text)
     }
 
     @objc func enterButtonDidTap(sender: AnyObject) {
@@ -183,7 +163,12 @@ final class AuthViewController: UIViewController {
         
         if let name = nameTextField.text {
             if name.isEmpty {
-                updateUIElements(text: Keys.lowerLabelInputNameWarningText, labelProperty: false)
+                updateUIElements(
+                    text: Resources.Authentication.lowerLabelInputNameWarningText,
+                    font: nil,
+                    labelProperty: false,
+                    buttonProperty: nil
+                )
             } else {
                 userName = name
                 DispatchQueue.main.async {
@@ -213,12 +198,13 @@ extension AuthViewController: UITextFieldDelegate {
         shouldChangeCharactersIn range: NSRange,
         replacementString string: String
     ) -> Bool {
-        let maximumLength = charactersMaxNumber
+        let maximumLength = 16
         let currentString = (textField.text ?? "") as NSString
         let updatedString = currentString.replacingCharacters(in: range, with: string)
         if updatedString.rangeOfCharacter(from: CharacterSet.letters.inverted) != nil {
             updateUIElements(
-                text: Keys.lowerLabelNumbersWarningText,
+                text: Resources.Authentication.lowerLabelNumbersWarningText,
+                font: nil,
                 labelProperty: false,
                 buttonProperty: true
             )

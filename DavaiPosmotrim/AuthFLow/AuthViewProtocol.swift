@@ -5,8 +5,13 @@
 //  Created by Эльдар Айдумов on 04.05.2024.
 //
 
-import Foundation
+import UIKit
 
 protocol AuthViewProtocol: AnyObject {
-    // TODO: - add code to use viewControllers method in presenter
+    func updateUIElements(
+        text: String?,
+        font: UIFont?,
+        labelProperty: Bool?,
+        buttonProperty: Bool?
+    )
 }

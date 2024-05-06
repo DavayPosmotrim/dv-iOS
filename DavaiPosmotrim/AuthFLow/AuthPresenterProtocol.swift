@@ -9,4 +9,5 @@ import Foundation
 
 protocol AuthPresenterProtocol: AnyObject {
     func authFinish()
+    func calculateCharactersNumber(with text: String)
 }
