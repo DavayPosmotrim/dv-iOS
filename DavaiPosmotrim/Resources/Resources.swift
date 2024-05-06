@@ -15,5 +15,6 @@ enum Resources {
         static let lowerLabelInputNameWarningText = "Введите имя"
         static let lowerLabelLengthWarningText = "Минимум две буквы"
         static let lowerLabelNumbersWarningText = "Только буквы"
+        static let lowerLabelMaxCharactersText = "Достигнуто максимальное количество символов"
     }
 }

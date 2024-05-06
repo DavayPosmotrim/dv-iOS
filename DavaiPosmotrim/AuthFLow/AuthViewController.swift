@@ -196,6 +196,15 @@ extension AuthViewController: UITextFieldDelegate {
                 buttonProperty: true
             )
             return false
+        } 
+        else if updatedString.count == maximumLength {
+            updateUIElements(
+                text: Resources.Authentication.lowerLabelMaxCharactersText,
+                font: nil,
+                labelProperty: false,
+                buttonProperty: true
+            )
+            return false
         }
         return updatedString.count <= maximumLength
     }
