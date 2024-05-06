@@ -14,7 +14,6 @@ final class AuthViewController: UIViewController {
     var presenter: AuthPresenter?
 
     private var userName: String
-    private var enterButtonBottomAnchor = NSLayoutConstraint()
 
     // MARK: - Lazy properties
 
@@ -35,6 +34,7 @@ final class AuthViewController: UIViewController {
         textField.font = .textHeadingFont
         textField.textAlignment = .center
         textField.becomeFirstResponder()
+        textField.inputAccessoryView = enterButton
         textField.addTarget(
             self,
             action: #selector(textFieldDidChange(sender:)),
@@ -73,13 +73,6 @@ final class AuthViewController: UIViewController {
 
         setupSubviews()
         setupConstraints()
-
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(keyboardWillShow(notification:)),
-            name: UIResponder.keyboardWillShowNotification,
-            object: nil
-        )
     }
 
     // MARK: - Initializers
@@ -92,10 +85,6 @@ final class AuthViewController: UIViewController {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
     }
 
     // MARK: - Private methods
@@ -113,8 +102,6 @@ final class AuthViewController: UIViewController {
     }
 
     private func setupConstraints() {
-        enterButtonBottomAnchor = enterButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-
         NSLayoutConstraint.activate([
             upperLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 159),
             upperLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -132,7 +119,7 @@ final class AuthViewController: UIViewController {
             enterButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             enterButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             enterButton.heightAnchor.constraint(equalToConstant: 64),
-            enterButtonBottomAnchor
+            enterButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 
@@ -162,16 +149,6 @@ final class AuthViewController: UIViewController {
                     self.presenter?.authFinish()
                 }
             }
-        }
-    }
-
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-            let keyboardHeight = keyboardFrame.cgRectValue.height
-            let safeAreaBottom = view.safeAreaInsets.bottom
-            var newButtonOffset = keyboardHeight - safeAreaBottom
-            newButtonOffset = max(0, newButtonOffset)
-            enterButtonBottomAnchor.constant = -newButtonOffset
         }
     }
 
