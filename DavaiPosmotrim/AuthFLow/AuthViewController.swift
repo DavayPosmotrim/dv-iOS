@@ -216,7 +216,11 @@ extension AuthViewController: UITextFieldDelegate {
         let currentString = (nameTextField.text ?? "") as NSString
         let updatedString = currentString.replacingCharacters(in: range, with: string)
         if updatedString.rangeOfCharacter(from: CharacterSet.letters.inverted) != nil {
-            updateUIElements(text: Keys.lowerLabelNumbersWarningText, labelProperty: false, buttonProperty: true)
+            updateUIElements(
+                text: Keys.lowerLabelNumbersWarningText,
+                labelProperty: false,
+                buttonProperty: true
+            )
             return false
         }
         return updatedString.count <= maximumLength
