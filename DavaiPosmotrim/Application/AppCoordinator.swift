@@ -34,7 +34,6 @@ private extension AppCoordinator {
     }
 
     func showAuthFlow() {
-//        let authViewController = AuthViewController()
         let authViewController = MistakesViewController(type: .oldVersion)
         navigationController.setViewControllers([authViewController], animated: true)
     }

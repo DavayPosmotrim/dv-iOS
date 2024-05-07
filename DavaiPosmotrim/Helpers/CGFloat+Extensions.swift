@@ -8,6 +8,7 @@
 import Foundation
 
 extension CGFloat {
+
     // MARK: - CornerRadius
 
     /// CornerRadius/Base = 12px
@@ -59,4 +60,5 @@ extension CGFloat {
 
     /// Placeholder size (square) = 200px
     static let placeholderSize = 200.0
+
 }

@@ -74,11 +74,13 @@ final class MistakesViewController: UIViewController {
         setupLabels()
         setupButton()
     }
+
 }
 
 // MARK: - Private methods
 
 private extension MistakesViewController {
+
     // MARK: - Actions
 
     @objc func didTapNoInternetButton(sender: AnyObject) {
@@ -158,4 +160,5 @@ private extension MistakesViewController {
             button.addTarget(self, action: #selector(didTapOldVersionButton(sender:)), for: .touchUpInside)
         }
     }
+
 }

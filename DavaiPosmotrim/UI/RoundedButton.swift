@@ -8,6 +8,7 @@
 import UIKit
 
 final class RoundedButton: UIButton {
+
     // MARK: - Enum
 
     enum ButtonType {
@@ -44,11 +45,13 @@ final class RoundedButton: UIButton {
         case .backgroundBase: backgroundColor = .baseBackground
         }
     }
+
 }
 
 // MARK: - Private methods
 
 private extension RoundedButton {
+
     func setupButton() {
         layer.cornerRadius = .radiusBase
         layer.masksToBounds = true
@@ -63,4 +66,5 @@ private extension RoundedButton {
     @objc func untapped() {
         self.alpha = 1
     }
+
 }
