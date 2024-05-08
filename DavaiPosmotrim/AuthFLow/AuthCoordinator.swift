@@ -23,7 +23,7 @@ private extension AuthCoordinator {
 
     func showAuthentication() {
         let viewController = AuthSceneFactory.makeAuthViewController(with: self)
-        navigationController.pushViewController(viewController, animated: true)
+        navigationController.setViewControllers([viewController], animated: true)
     }
 
 }

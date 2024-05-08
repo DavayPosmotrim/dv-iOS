@@ -64,4 +64,27 @@ final class AuthPresenter: AuthPresenterProtocol {
         }
     }
 
+    func handleEnterButtonTap(with name: String) -> String {
+        if name.isEmpty {
+            view?.updateUIElements(
+                text: Resources.Authentication.lowerLabelInputNameWarningText,
+                font: nil,
+                labelProperty: false,
+                buttonProperty: nil
+            )
+            return ""
+        } else {
+            UserDefaults.standard.setValue(name, forKey: "userName")
+            DispatchQueue.main.async {
+                self.authFinish()
+            }
+            return checkUserNameProperty()
+        }
+    }
+
+    func checkUserNameProperty() -> String {
+        guard let savedName = UserDefaults.standard.string(forKey: "userName") else { return "" }
+        return savedName
+    }
+
 }

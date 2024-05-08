@@ -11,7 +11,7 @@ final class AuthViewController: UIViewController {
 
     // MARK: - Stored properties
 
-    var presenter: AuthPresenter?
+    var presenter: AuthPresenterProtocol?
 
     private var userName: String
 
@@ -134,21 +134,8 @@ final class AuthViewController: UIViewController {
 
         // TODO: - add code to pass userName to MainViewController and save it on server
 
-        if let name = nameTextField.text {
-            if name.isEmpty {
-                updateUIElements(
-                    text: Resources.Authentication.lowerLabelInputNameWarningText,
-                    font: nil,
-                    labelProperty: false,
-                    buttonProperty: nil
-                )
-            } else {
-                userName = name
-                UserDefaults.standard.setValue(userName, forKey: "userName")
-                DispatchQueue.main.async {
-                    self.presenter?.authFinish()
-                }
-            }
+        if let name = nameTextField.text, let presenter = presenter {
+            userName = presenter.handleEnterButtonTap(with: name)
         }
     }
 
@@ -173,8 +160,7 @@ extension AuthViewController: UITextFieldDelegate {
                 buttonProperty: true
             )
             return false
-        } 
-        else if updatedString.count == maximumLength {
+        } else if updatedString.count == maximumLength {
             updateUIElements(
                 text: Resources.Authentication.lowerLabelMaxCharactersText,
                 font: nil,
