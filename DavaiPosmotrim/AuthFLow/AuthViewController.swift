@@ -198,5 +198,5 @@ extension AuthViewController: AuthViewProtocol {
             nameTextField.font = font
         }
     }
-    
+
 }
