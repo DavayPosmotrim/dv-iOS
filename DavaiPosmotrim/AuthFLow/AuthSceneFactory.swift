@@ -10,8 +10,7 @@ import Foundation
 struct AuthSceneFactory {
     static func makeAuthViewController(with coordinator: AuthCoordinator) -> AuthViewController {
         let presenter = AuthPresenter(coordinator: coordinator)
-        let savedUserName = presenter.checkUserNameProperty()
-        let viewController = AuthViewController(presenter: presenter, userName: savedUserName)
+        let viewController = AuthViewController(presenter: presenter)
         presenter.view = viewController
         return viewController
     }

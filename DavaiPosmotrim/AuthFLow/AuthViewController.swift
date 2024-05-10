@@ -13,7 +13,7 @@ final class AuthViewController: UIViewController {
 
     var presenter: AuthPresenterProtocol?
 
-    private var userName: String
+    private var userName = String()
 
     // MARK: - Lazy properties
 
@@ -73,13 +73,17 @@ final class AuthViewController: UIViewController {
 
         setupSubviews()
         setupConstraints()
+
+        if let presenter {
+            userName = presenter.checkUserNameProperty()
+            presenter.calculateCharactersNumber(with: userName)
+        }
     }
 
     // MARK: - Initializers
 
-    init(presenter: AuthPresenter, userName: String) {
+    init(presenter: AuthPresenter) {
         self.presenter = presenter
-        self.userName = userName
         super.init(nibName: nil, bundle: nil)
     }
 
