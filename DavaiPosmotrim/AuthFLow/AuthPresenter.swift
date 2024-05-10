@@ -74,7 +74,7 @@ final class AuthPresenter: AuthPresenterProtocol {
             )
             return ""
         } else {
-            UserDefaults.standard.setValue(name, forKey: "userName")
+            UserDefaults.standard.setValue(name, forKey: Resources.Authentication.savedNameUserDefaultsKey)
             DispatchQueue.main.async {
                 self.authFinish()
             }
@@ -83,7 +83,7 @@ final class AuthPresenter: AuthPresenterProtocol {
     }
 
     func checkUserNameProperty() -> String {
-        guard let savedName = UserDefaults.standard.string(forKey: "userName") else { return "" }
+        guard let savedName = UserDefaults.standard.string(forKey: Resources.Authentication.savedNameUserDefaultsKey) else { return "" }
         return savedName
     }
 
