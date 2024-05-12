@@ -149,43 +149,30 @@ final class CreateSessionViewController: UIViewController {
     }
 
     @objc func didTapNextButton() {
+        let notificationTitle = segmentControl.selectedSegmentIndex == 0 ?
+        Keys.collectionNotificationTitle : Keys.genreNotificationTitle
         if createSession.collections.isEmpty && createSession.genres.isEmpty {
-            if segmentControl.selectedSegmentIndex == 0 {
-                customWarningNotification.setupNotification(
-                    title: Keys.collectionNotificationTitle,
-                    imageView: .infoIcon,
-                    color: .attentionAdditional
-                )
-            } else {
-                customWarningNotification.setupNotification(
-                    title: Keys.genreNotificationTitle,
-                    imageView: .infoIcon,
-                    color: .attentionAdditional
-                )
-            }
-            self.customWarningNotification.isHidden = false
-            self.customNavBar.isHidden = true
+            customWarningNotification.setupNotification(
+                title: notificationTitle,
+                imageView: .infoIcon,
+                color: .attentionAdditional
+            )
+            customWarningNotification.isHidden = false
+            customNavBar.isHidden = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                 self.customWarningNotification.isHidden = true
                 self.customNavBar.isHidden = false
             }
             return
         }
-        guard let navigationController = navigationController else {
-            return
-        }
+        guard let navigationController = navigationController else { return }
         let invitingUsersViewController = InvitingUsersViewController()
         navigationController.pushViewController(invitingUsersViewController, animated: true)
     }
 
     @objc private func segmentControlValueChanged(_ sender: UISegmentedControl) {
-        if sender.selectedSegmentIndex == 0 {
-            tableView.isHidden = false
-            collectionView.isHidden = true
-        } else {
-            tableView.isHidden = true
-            collectionView.isHidden = false
-        }
+        tableView.isHidden = sender.selectedSegmentIndex != 0
+        collectionView.isHidden = sender.selectedSegmentIndex == 0
     }
 
     // MARK: - Private methods
