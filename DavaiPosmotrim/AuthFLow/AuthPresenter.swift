@@ -38,27 +38,27 @@ final class AuthPresenter: AuthPresenterProtocol {
                 text: Resources.Authentication.lowerLabelInputNameWarningText,
                 font: nil,
                 labelProperty: false,
-                buttonProperty: nil
+                buttonProperty: false
             )
         } else if text.count < charactersMinNumber {
             view?.updateUIElements(
                 text: Resources.Authentication.lowerLabelLengthWarningText,
                 font: nil,
                 labelProperty: false,
-                buttonProperty: nil
+                buttonProperty: false
             )
         } else if text.count > charactersBarrierNumber {
             view?.updateUIElements(
                 text: nil,
                 font: .textLabelFont,
-                labelProperty: nil,
+                labelProperty: true,
                 buttonProperty: true
             )
         } else {
             view?.updateUIElements(
                 text: nil,
                 font: .textHeadingFont,
-                labelProperty: nil,
+                labelProperty: true,
                 buttonProperty: true
             )
         }
@@ -70,7 +70,7 @@ final class AuthPresenter: AuthPresenterProtocol {
                 text: Resources.Authentication.lowerLabelInputNameWarningText,
                 font: nil,
                 labelProperty: false,
-                buttonProperty: nil
+                buttonProperty: false
             )
             return ""
         } else {
@@ -83,7 +83,11 @@ final class AuthPresenter: AuthPresenterProtocol {
     }
 
     func checkUserNameProperty() -> String {
-        guard let savedName = UserDefaults.standard.string(forKey: Resources.Authentication.savedNameUserDefaultsKey) else { return "" }
+        guard let savedName = UserDefaults.standard.string(
+            forKey: Resources.Authentication.savedNameUserDefaultsKey
+        ) else {
+            return ""
+        }
         return savedName
     }
 

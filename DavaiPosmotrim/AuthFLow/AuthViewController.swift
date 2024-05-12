@@ -71,13 +71,13 @@ final class AuthViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .whiteBackground
 
-        setupSubviews()
-        setupConstraints()
-
         if let presenter {
             userName = presenter.checkUserNameProperty()
             presenter.calculateCharactersNumber(with: userName)
         }
+
+        setupSubviews()
+        setupConstraints()
     }
 
     // MARK: - Initializers
@@ -161,7 +161,7 @@ extension AuthViewController: UITextFieldDelegate {
                 text: Resources.Authentication.lowerLabelNumbersWarningText,
                 font: nil,
                 labelProperty: false,
-                buttonProperty: true
+                buttonProperty: false
             )
             return false
         } else if updatedString.count == maximumLength {
@@ -169,7 +169,7 @@ extension AuthViewController: UITextFieldDelegate {
                 text: Resources.Authentication.lowerLabelMaxCharactersText,
                 font: nil,
                 labelProperty: false,
-                buttonProperty: true
+                buttonProperty: false
             )
             return false
         }
@@ -192,12 +192,12 @@ extension AuthViewController: AuthViewProtocol {
     func updateUIElements(
         text: String?,
         font: UIFont?,
-        labelProperty: Bool?,
-        buttonProperty: Bool?
+        labelProperty: Bool,
+        buttonProperty: Bool
     ) {
         lowerLabel.text = text ?? ""
-        lowerLabel.isHidden = labelProperty ?? true
-        enterButton.isEnabled = buttonProperty ?? false
+        lowerLabel.isHidden = labelProperty
+        enterButton.isEnabled = buttonProperty
         if let font {
             nameTextField.font = font
         }
