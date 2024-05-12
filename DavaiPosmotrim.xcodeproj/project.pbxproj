@@ -14,6 +14,13 @@
 		4A62803A2BDED8EB00102304 /* MainViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6280392BDED8EB00102304 /* MainViewProtocol.swift */; };
 		4A62803E2BE2C72B00102304 /* MainPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A62803D2BE2C72B00102304 /* MainPresenterProtocol.swift */; };
 		4A6280402BE3F23100102304 /* MainCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A62803F2BE3F23100102304 /* MainCellModel.swift */; };
+		4A6280422BE9001200102304 /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6280412BE9001200102304 /* CustomNavigationBar.swift */; };
+		4A6280442BEAAC3800102304 /* CreateSessionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6280432BEAAC3800102304 /* CreateSessionTableViewCell.swift */; };
+		4A6280462BEAB02E00102304 /* CreateSesseionCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6280452BEAB02E00102304 /* CreateSesseionCellModel.swift */; };
+		4A6280482BEAB1FA00102304 /* MovieMockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6280472BEAB1FA00102304 /* MovieMockData.swift */; };
+		4A62804A2BECEB2300102304 /* CreateSessionCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6280492BECEB2300102304 /* CreateSessionCollectionCell.swift */; };
+		4A62804C2BF0EB7300102304 /* CustomWarningNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A62804B2BF0EB7300102304 /* CustomWarningNotification.swift */; };
+		4A62804F2BF13DBE00102304 /* InvitingUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A62804E2BF13DBE00102304 /* InvitingUsersViewController.swift */; };
 		C964B70D2BD8135400CF9AF0 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C964B70C2BD8135400CF9AF0 /* OnboardingViewController.swift */; };
 		C964B7102BD813B500CF9AF0 /* CustomButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = C964B70F2BD813B500CF9AF0 /* CustomButtons.swift */; };
 		C964B7122BD9A74400CF9AF0 /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C964B7112BD9A74400CF9AF0 /* OnboardingCollectionViewCell.swift */; };
@@ -53,6 +60,13 @@
 		4A6280392BDED8EB00102304 /* MainViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewProtocol.swift; sourceTree = "<group>"; };
 		4A62803D2BE2C72B00102304 /* MainPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenterProtocol.swift; sourceTree = "<group>"; };
 		4A62803F2BE3F23100102304 /* MainCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCellModel.swift; sourceTree = "<group>"; };
+		4A6280412BE9001200102304 /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
+		4A6280432BEAAC3800102304 /* CreateSessionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionTableViewCell.swift; sourceTree = "<group>"; };
+		4A6280452BEAB02E00102304 /* CreateSesseionCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSesseionCellModel.swift; sourceTree = "<group>"; };
+		4A6280472BEAB1FA00102304 /* MovieMockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieMockData.swift; sourceTree = "<group>"; };
+		4A6280492BECEB2300102304 /* CreateSessionCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionCollectionCell.swift; sourceTree = "<group>"; };
+		4A62804B2BF0EB7300102304 /* CustomWarningNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWarningNotification.swift; sourceTree = "<group>"; };
+		4A62804E2BF13DBE00102304 /* InvitingUsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitingUsersViewController.swift; sourceTree = "<group>"; };
 		C964B70C2BD8135400CF9AF0 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		C964B70F2BD813B500CF9AF0 /* CustomButtons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButtons.swift; sourceTree = "<group>"; };
 		C964B7112BD9A74400CF9AF0 /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -97,6 +111,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4A62804D2BF13D7400102304 /* InvitingUsersFlow */ = {
+			isa = PBXGroup;
+			children = (
+				4A62804E2BF13DBE00102304 /* InvitingUsersViewController.swift */,
+			);
+			path = InvitingUsersFlow;
+			sourceTree = "<group>";
+		};
 		C964B70B2BD812F800CF9AF0 /* OnboardingViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -110,6 +132,8 @@
 			isa = PBXGroup;
 			children = (
 				C964B70F2BD813B500CF9AF0 /* CustomButtons.swift */,
+				4A6280412BE9001200102304 /* CustomNavigationBar.swift */,
+				4A62804B2BF0EB7300102304 /* CustomWarningNotification.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -133,6 +157,7 @@
 		C9C4D59C2BD3A3C70081CD23 /* DavaiPosmotrim */ = {
 			isa = PBXGroup;
 			children = (
+				4A62804D2BF13D7400102304 /* InvitingUsersFlow */,
 				E2B9BF8C2BD7BD0900592578 /* Application */,
 				E2B9BF912BD7BF2300592578 /* Protocols */,
 				E2B9BFA02BD7CDE500592578 /* FavoriteMoviesFlow */,
@@ -237,7 +262,11 @@
 		E2B9BF9E2BD7CDCB00592578 /* CreateSessionFlow */ = {
 			isa = PBXGroup;
 			children = (
+				4A6280472BEAB1FA00102304 /* MovieMockData.swift */,
+				4A6280452BEAB02E00102304 /* CreateSesseionCellModel.swift */,
 				E2B9BFA52BD7CF3000592578 /* CreateSessionViewController.swift */,
+				4A6280432BEAAC3800102304 /* CreateSessionTableViewCell.swift */,
+				4A6280492BECEB2300102304 /* CreateSessionCollectionCell.swift */,
 			);
 			path = CreateSessionFlow;
 			sourceTree = "<group>";
@@ -369,15 +398,22 @@
 				4A6280362BDED59F00102304 /* MainSceneFactory.swift in Sources */,
 				E2B9BFA82BD7CF4F00592578 /* JoinSessionViewController.swift in Sources */,
 				4A6280382BDED62600102304 /* MainPresenter.swift in Sources */,
+				4A6280422BE9001200102304 /* CustomNavigationBar.swift in Sources */,
+				4A62804F2BF13DBE00102304 /* InvitingUsersViewController.swift in Sources */,
+				4A6280462BEAB02E00102304 /* CreateSesseionCellModel.swift in Sources */,
 				E2B9BFA42BD7CF0300592578 /* MainViewController.swift in Sources */,
 				C9C4D59E2BD3A3C70081CD23 /* AppDelegate.swift in Sources */,
 				E2B9BFA22BD7CEC300592578 /* AuthViewController.swift in Sources */,
 				E26592CD2BDBA4CF009F1185 /* OnboardingViewProtocol.swift in Sources */,
+				4A6280482BEAB1FA00102304 /* MovieMockData.swift in Sources */,
 				E2B9BFAA2BD7CF7A00592578 /* FavoriteMoviesViewController.swift in Sources */,
 				E2B9BFAE2BD8080100592578 /* OnboardingSceneFactory.swift in Sources */,
 				E2B9BF892BD7BA2C00592578 /* AppCoordinatorProtocol.swift in Sources */,
 				E2B9BFA62BD7CF3000592578 /* CreateSessionViewController.swift in Sources */,
+				4A62804A2BECEB2300102304 /* CreateSessionCollectionCell.swift in Sources */,
+				4A6280442BEAAC3800102304 /* CreateSessionTableViewCell.swift in Sources */,
 				4A6280322BDE846900102304 /* MainTableViewCell.swift in Sources */,
+				4A62804C2BF0EB7300102304 /* CustomWarningNotification.swift in Sources */,
 				E2B9BF872BD7B8EF00592578 /* CoordinatorProtocol.swift in Sources */,
 				E2B9BF972BD7C67600592578 /* OnboardingCoordinator.swift in Sources */,
 				E2B9BF952BD7C58F00592578 /* AppCoordinator.swift in Sources */,

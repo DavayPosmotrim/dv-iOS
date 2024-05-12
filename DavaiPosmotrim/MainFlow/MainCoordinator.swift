@@ -53,7 +53,7 @@ private extension MainCoordinator {
 
     func showCreateSessionFlow() {
         let createSessionViewController = CreateSessionViewController()
-        navigationController.setViewControllers([createSessionViewController], animated: true)
+        navigationController.pushViewController(createSessionViewController, animated: true)
     }
 
     func showFavoriteMoviesFlow() {
