@@ -157,9 +157,9 @@
 		C9C4D59C2BD3A3C70081CD23 /* DavaiPosmotrim */ = {
 			isa = PBXGroup;
 			children = (
-				4A62804D2BF13D7400102304 /* InvitingUsersFlow */,
 				E2B9BF8C2BD7BD0900592578 /* Application */,
 				E2B9BF912BD7BF2300592578 /* Protocols */,
+				4A62804D2BF13D7400102304 /* InvitingUsersFlow */,
 				E2B9BFA02BD7CDE500592578 /* FavoriteMoviesFlow */,
 				E2B9BF9F2BD7CDDE00592578 /* JoinSesseionFlow */,
 				E2B9BF9E2BD7CDCB00592578 /* CreateSessionFlow */,

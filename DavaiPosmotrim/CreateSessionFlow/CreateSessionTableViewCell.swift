@@ -135,7 +135,7 @@ final class CreateSessionTableViewCell: UITableViewCell {
         gradientLayer.frame = CGRect(
             x: 0,
             y: 0,
-            width: view.bounds.width, 
+            width: view.bounds.width,
             height: view.bounds.height
         )
         view.layer.insertSublayer(gradientLayer, at: 0)
