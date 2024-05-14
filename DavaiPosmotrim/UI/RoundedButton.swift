@@ -48,9 +48,14 @@ final class RoundedButton: UIButton {
 
 }
 
-// MARK: - Private methods
+// MARK: - Private extension for enum & methods
 
 private extension RoundedButton {
+
+    enum ButtonTransparent {
+        static let partOpaque: CGFloat = 0.7
+        static let fullOpaque: CGFloat = 1
+    }
 
     func setupButton() {
         layer.cornerRadius = .radiusBase
@@ -60,11 +65,11 @@ private extension RoundedButton {
     // MARK: - Animation effects for custom buttons
 
     @objc func tapped() {
-        self.alpha = 0.7
+        self.alpha = ButtonTransparent.partOpaque
     }
 
     @objc func untapped() {
-        self.alpha = 1
+        self.alpha = ButtonTransparent.fullOpaque
     }
 
 }
