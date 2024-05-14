@@ -90,5 +90,4 @@ final class AuthPresenter: AuthPresenterProtocol {
         }
         return savedName
     }
-
 }

@@ -142,7 +142,6 @@ final class AuthViewController: UIViewController {
             userName = presenter.handleEnterButtonTap(with: name)
         }
     }
-
 }
     // MARK: - UITextFieldDelegate
 
@@ -182,7 +181,6 @@ extension AuthViewController: UITextFieldDelegate {
         }
         return true
     }
-
 }
 
     // MARK: - AuthViewProtocol
@@ -202,5 +200,4 @@ extension AuthViewController: AuthViewProtocol {
             nameTextField.font = font
         }
     }
-
 }

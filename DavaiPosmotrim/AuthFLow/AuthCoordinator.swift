@@ -16,7 +16,6 @@ final class AuthCoordinator: BaseCoordinator {
     override func finish() {
         finishDelegate?.didFinish(self)
     }
-
 }
 
 private extension AuthCoordinator {
@@ -25,5 +24,4 @@ private extension AuthCoordinator {
         let viewController = AuthSceneFactory.makeAuthViewController(with: self)
         navigationController.setViewControllers([viewController], animated: true)
     }
-
 }
