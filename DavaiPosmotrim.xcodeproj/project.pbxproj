@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A2FB3A82BF362EA0048F5B9 /* CreateSessionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2FB3A72BF362EA0048F5B9 /* CreateSessionPresenter.swift */; };
+		4A2FB3AC2BF373A10048F5B9 /* UICollectionViewLayout+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2FB3AB2BF373A10048F5B9 /* UICollectionViewLayout+Extension.swift */; };
+		4A2FB3AE2BF374F60048F5B9 /* CreateSessionPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2FB3AD2BF374F60048F5B9 /* CreateSessionPresenterProtocol.swift */; };
 		4A6280322BDE846900102304 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6280312BDE846900102304 /* MainTableViewCell.swift */; };
 		4A6280342BDED4E500102304 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6280332BDED4E500102304 /* MainCoordinator.swift */; };
 		4A6280362BDED59F00102304 /* MainSceneFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6280352BDED59F00102304 /* MainSceneFactory.swift */; };
@@ -53,6 +56,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4A2FB3A72BF362EA0048F5B9 /* CreateSessionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionPresenter.swift; sourceTree = "<group>"; };
+		4A2FB3AB2BF373A10048F5B9 /* UICollectionViewLayout+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewLayout+Extension.swift"; sourceTree = "<group>"; };
+		4A2FB3AD2BF374F60048F5B9 /* CreateSessionPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionPresenterProtocol.swift; sourceTree = "<group>"; };
 		4A6280312BDE846900102304 /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
 		4A6280332BDED4E500102304 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		4A6280352BDED59F00102304 /* MainSceneFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSceneFactory.swift; sourceTree = "<group>"; };
@@ -203,6 +209,7 @@
 			isa = PBXGroup;
 			children = (
 				C9FCE96C2BD3E53C00FE655D /* UIFont+Extension.swift */,
+				4A2FB3AB2BF373A10048F5B9 /* UICollectionViewLayout+Extension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -263,8 +270,10 @@
 			isa = PBXGroup;
 			children = (
 				4A6280472BEAB1FA00102304 /* MovieMockData.swift */,
+				4A2FB3AD2BF374F60048F5B9 /* CreateSessionPresenterProtocol.swift */,
 				4A6280452BEAB02E00102304 /* CreateSesseionCellModel.swift */,
 				E2B9BFA52BD7CF3000592578 /* CreateSessionViewController.swift */,
+				4A2FB3A72BF362EA0048F5B9 /* CreateSessionPresenter.swift */,
 				4A6280432BEAAC3800102304 /* CreateSessionTableViewCell.swift */,
 				4A6280492BECEB2300102304 /* CreateSessionCollectionCell.swift */,
 			);
@@ -410,7 +419,9 @@
 				E2B9BFAE2BD8080100592578 /* OnboardingSceneFactory.swift in Sources */,
 				E2B9BF892BD7BA2C00592578 /* AppCoordinatorProtocol.swift in Sources */,
 				E2B9BFA62BD7CF3000592578 /* CreateSessionViewController.swift in Sources */,
+				4A2FB3A82BF362EA0048F5B9 /* CreateSessionPresenter.swift in Sources */,
 				4A62804A2BECEB2300102304 /* CreateSessionCollectionCell.swift in Sources */,
+				4A2FB3AC2BF373A10048F5B9 /* UICollectionViewLayout+Extension.swift in Sources */,
 				4A6280442BEAAC3800102304 /* CreateSessionTableViewCell.swift in Sources */,
 				4A6280322BDE846900102304 /* MainTableViewCell.swift in Sources */,
 				4A62804C2BF0EB7300102304 /* CustomWarningNotification.swift in Sources */,
@@ -426,6 +437,7 @@
 				4A62803E2BE2C72B00102304 /* MainPresenterProtocol.swift in Sources */,
 				C964B7102BD813B500CF9AF0 /* CustomButtons.swift in Sources */,
 				C964B7122BD9A74400CF9AF0 /* OnboardingCollectionViewCell.swift in Sources */,
+				4A2FB3AE2BF374F60048F5B9 /* CreateSessionPresenterProtocol.swift in Sources */,
 				C9C4D5A02BD3A3C70081CD23 /* SceneDelegate.swift in Sources */,
 				4A62803A2BDED8EB00102304 /* MainViewProtocol.swift in Sources */,
 			);

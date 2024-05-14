@@ -52,7 +52,7 @@ private extension MainCoordinator {
     }
 
     func showCreateSessionFlow() {
-        let createSessionViewController = CreateSessionViewController()
+        let createSessionViewController = CreateSessionViewController(presenter: CreateSessionPresenter())
         navigationController.pushViewController(createSessionViewController, animated: true)
     }
 

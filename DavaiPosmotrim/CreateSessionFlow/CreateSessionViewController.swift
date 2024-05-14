@@ -9,9 +9,12 @@ import UIKit
 
 final class CreateSessionViewController: UIViewController {
 
+    // MARK: - Public Properties
+
+    var presenter: CreateSessionPresenterProtocol?
+
     // MARK: - Private Properties
 
-    private var createSession = CreateSesseionModel(collections: [], genres: [])
     private struct Keys {
         static let nextButtonText = "ПРОДОЛЖИТЬ"
         static let customNavBarTitle = "Создать сеанс"
@@ -85,8 +88,7 @@ final class CreateSessionViewController: UIViewController {
     }()
 
     private lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
+        let layout = UICollectionViewLayout.createLeftAlignedLayout()
         let collectionView = UICollectionView(
             frame: .zero,
             collectionViewLayout: layout
@@ -126,6 +128,17 @@ final class CreateSessionViewController: UIViewController {
         return segmentControl
     }()
 
+    // MARK: - Initializers
+
+    init(presenter: CreateSessionPresenter) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
@@ -139,19 +152,17 @@ final class CreateSessionViewController: UIViewController {
         collectionView.delegate = self
         setupSubviews()
         setupConstraints()
-        collectionView.collectionViewLayout = createLeftAlignedLayout()
     }
 
     // MARK: - Actions
 
-    @objc func didTapBackButton() {
-        navigationController?.popViewController(animated: true)
-    }
-
     @objc func didTapNextButton() {
         let notificationTitle = segmentControl.selectedSegmentIndex == 0 ?
         Keys.collectionNotificationTitle : Keys.genreNotificationTitle
-        if createSession.collections.isEmpty && createSession.genres.isEmpty {
+        guard let presenter = presenter else {
+            return
+        }
+        if presenter.createSession.collections.isEmpty && presenter.createSession.genres.isEmpty {
             customWarningNotification.setupNotification(
                 title: notificationTitle,
                 imageView: .infoIcon,
@@ -165,9 +176,7 @@ final class CreateSessionViewController: UIViewController {
             }
             return
         }
-        guard let navigationController = navigationController else { return }
-        let invitingUsersViewController = InvitingUsersViewController()
-        navigationController.pushViewController(invitingUsersViewController, animated: true)
+        presenter.showNextScreen(navigationController: navigationController)
     }
 
     @objc private func segmentControlValueChanged(_ sender: UISegmentedControl) {
@@ -245,32 +254,6 @@ final class CreateSessionViewController: UIViewController {
             nextButton.trailingAnchor.constraint(equalTo: lowerPaddingView.trailingAnchor, constant: -16)
         ])
     }
-
-    private func createLeftAlignedLayout() -> UICollectionViewLayout {
-        let item = NSCollectionLayoutItem(
-            layoutSize: NSCollectionLayoutSize(widthDimension: .estimated(40), heightDimension: .absolute(36))
-        )
-        let group = NSCollectionLayoutGroup.horizontal(
-            layoutSize: .init(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(50)),
-            subitems: [item]
-        )
-        group.contentInsets = .init(
-            top: 0,
-            leading: 16,
-            bottom: 0,
-            trailing: 16
-        )
-        group.interItemSpacing = .fixed(8)
-        let section = NSCollectionLayoutSection(group: group)
-        section.interGroupSpacing = 8
-        section.contentInsets = .init(
-            top: 16,
-            leading: 0,
-            bottom: 16,
-            trailing: 0
-        )
-        return UICollectionViewCompositionalLayout(section: section)
-    }
 }
 
 // MARK: - CustomNavigationBarDelegate
@@ -278,7 +261,7 @@ final class CreateSessionViewController: UIViewController {
 extension CreateSessionViewController: CustomNavigationBarDelegate {
 
     func backButtonTapped() {
-        navigationController?.popViewController(animated: true)
+        presenter?.showPreviousScreen(navigationController: navigationController)
     }
 }
 
@@ -287,18 +270,11 @@ extension CreateSessionViewController: CustomNavigationBarDelegate {
 extension CreateSessionViewController: CreateSessionTableViewCellDelegate {
 
     func tableViewCellTitleAdded(title: String?) {
-        guard let title = title else {
-            return
-        }
-        createSession.collections.append(title)
+        self.presenter?.didAddCollection(title: title)
     }
 
     func tableViewCellTitleRemoved(title: String?) {
-        guard let title = title,
-              let index = createSession.collections.firstIndex(of: title) else {
-            return
-        }
-        createSession.collections.remove(at: index)
+        self.presenter?.didRemoveCollection(title: title)
     }
 }
 
@@ -307,18 +283,11 @@ extension CreateSessionViewController: CreateSessionTableViewCellDelegate {
 extension CreateSessionViewController: CreateSessionCollectionCellDelegate {
 
     func collectionCellTitleAdded(title: String?) {
-        guard let title = title else {
-            return
-        }
-        createSession.genres.append(title)
+        self.presenter?.didAddGenres(title: title)
     }
 
     func collectionCellTitleRemoved(title: String?) {
-        guard let title = title,
-              let index = createSession.genres.firstIndex(of: title) else {
-            return
-        }
-        createSession.genres.remove(at: index)
+        self.presenter?.didRemoveGenres(title: title)
     }
 }
 
@@ -406,12 +375,10 @@ extension CreateSessionViewController: UICollectionViewDataSource {
             withReuseIdentifier: CreateSessionCollectionCell.reuseIdentifier,
             for: indexPath
         )
-
         guard let collectionCell = cell as? CreateSessionCollectionCell else {
             assertionFailure("Warning: type cast error, empty cells")
             return UICollectionViewCell()
         }
-
         collectionCell.configure(title: genreMockData[indexPath.row])
         collectionCell.delegate = self
         return collectionCell
