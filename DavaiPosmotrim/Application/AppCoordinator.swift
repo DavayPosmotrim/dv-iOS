@@ -11,8 +11,10 @@ final class AppCoordinator: BaseCoordinator {
     override func start() {
         if UserDefaults.standard.value(forKey: "isOnboardingShown") == nil {
             showOnboardingFlow()
-        } else {
+        } else if UserDefaults.standard.value(forKey: Resources.Authentication.savedNameUserDefaultsKey) == nil {
             showAuthFlow()
+        } else {
+            showMainFlow()
         }
     }
 
@@ -34,8 +36,12 @@ private extension AppCoordinator {
     }
 
     func showAuthFlow() {
-        let authViewController = AuthViewController()
-        navigationController.setViewControllers([authViewController], animated: true)
+        let authCoordinator = AuthCoordinator(
+            type: .auth,
+            finishDelegate: self,
+            navigationController: navigationController)
+        addChild(authCoordinator)
+        authCoordinator.start()
     }
 
     func showMainFlow() {
