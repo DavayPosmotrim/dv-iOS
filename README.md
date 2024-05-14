@@ -92,7 +92,6 @@ set2
 class A {
 
 func set() {}
-
 }
 ```
 **Пример использования расширения:** <br>
@@ -100,7 +99,6 @@ func set() {}
 extension A {
 
 func set() {}
-
 }
 ```
 
@@ -121,7 +119,6 @@ class A {
 enum Constants {
     static let num = 1
 }
-
 }
 ```
 
