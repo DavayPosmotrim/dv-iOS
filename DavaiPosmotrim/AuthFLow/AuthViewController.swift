@@ -146,6 +146,7 @@ final class AuthViewController: UIViewController {
         }
     }
 }
+
     // MARK: - UITextFieldDelegate
 
 extension AuthViewController: UITextFieldDelegate {
