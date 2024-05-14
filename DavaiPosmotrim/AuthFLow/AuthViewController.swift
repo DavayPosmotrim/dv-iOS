@@ -140,6 +140,9 @@ final class AuthViewController: UIViewController {
 
         if let name = nameTextField.text, let presenter = presenter {
             userName = presenter.handleEnterButtonTap(with: name)
+            DispatchQueue.main.async {
+                presenter.authFinish()
+            }
         }
     }
 }

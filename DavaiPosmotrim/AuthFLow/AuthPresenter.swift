@@ -75,9 +75,6 @@ final class AuthPresenter: AuthPresenterProtocol {
             return ""
         } else {
             UserDefaults.standard.setValue(name, forKey: Resources.Authentication.savedNameUserDefaultsKey)
-            DispatchQueue.main.async {
-                self.authFinish()
-            }
             return checkUserNameProperty()
         }
     }
