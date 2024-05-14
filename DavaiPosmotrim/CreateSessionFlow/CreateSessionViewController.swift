@@ -103,7 +103,7 @@ final class CreateSessionViewController: UIViewController {
 
     private lazy var segmentControl: UISegmentedControl = {
         let segmentControl = UISegmentedControl(items: [Keys.collectionTitle, Keys.genreTitle])
-        segmentControl.layer.cornerRadius = segmentControl.bounds.height / 2
+        segmentControl.layer.cornerRadius = 15
         segmentControl.layer.masksToBounds = true
         segmentControl.selectedSegmentIndex = 0
         segmentControl.backgroundColor = UIColor.baseBackground
@@ -271,7 +271,6 @@ final class CreateSessionViewController: UIViewController {
         )
         return UICollectionViewCompositionalLayout(section: section)
     }
-
 }
 
 // MARK: - CustomNavigationBarDelegate
@@ -281,7 +280,6 @@ extension CreateSessionViewController: CustomNavigationBarDelegate {
     func backButtonTapped() {
         navigationController?.popViewController(animated: true)
     }
-
 }
 
 // MARK: - CreateSessionTableViewCellDelegate
@@ -302,7 +300,6 @@ extension CreateSessionViewController: CreateSessionTableViewCellDelegate {
         }
         createSession.collections.remove(at: index)
     }
-
 }
 
 // MARK: - CreateSessionCollectionCellDelegate
@@ -323,7 +320,6 @@ extension CreateSessionViewController: CreateSessionCollectionCellDelegate {
         }
         createSession.genres.remove(at: index)
     }
-
 }
 
 // MARK: - UITableViewDataSource
@@ -360,7 +356,6 @@ extension CreateSessionViewController: UITableViewDataSource {
             return createSessionTableViewCell
         }
     }
-
 }
 
 // MARK: - UITableViewDelegate
@@ -390,7 +385,6 @@ extension CreateSessionViewController: UITableViewDelegate {
         cell.handleTableCellSelected()
         tableView.deselectRow(at: indexPath, animated: false)
     }
-
 }
 
 // MARK: - UICollectionViewDataSource
@@ -422,7 +416,6 @@ extension CreateSessionViewController: UICollectionViewDataSource {
         collectionCell.delegate = self
         return collectionCell
     }
-
 }
 
 // MARK: - UICollectionViewDelegate
@@ -437,5 +430,4 @@ extension CreateSessionViewController: UICollectionViewDelegate {
         }
         cell.handleCollectionCellSelected()
     }
-
 }

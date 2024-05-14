@@ -77,5 +77,4 @@ final class CreateSessionCollectionCell: UICollectionViewCell {
             titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
         ])
     }
-
 }

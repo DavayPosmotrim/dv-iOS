@@ -140,5 +140,4 @@ final class CreateSessionTableViewCell: UITableViewCell {
         )
         view.layer.insertSublayer(gradientLayer, at: 0)
     }
-
 }

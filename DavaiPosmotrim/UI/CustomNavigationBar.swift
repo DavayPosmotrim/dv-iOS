@@ -93,5 +93,4 @@ class CustomNavigationBar: UIView {
             subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor)
         ])
     }
-
 }

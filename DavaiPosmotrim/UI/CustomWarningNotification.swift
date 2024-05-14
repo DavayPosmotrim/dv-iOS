@@ -89,5 +89,4 @@ class CustomWarningNotification: UIView {
             titleLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 10)
         ])
     }
-
 }
