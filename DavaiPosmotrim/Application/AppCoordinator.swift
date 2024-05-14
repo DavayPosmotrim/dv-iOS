@@ -34,8 +34,8 @@ private extension AppCoordinator {
     }
 
     func showAuthFlow() {
-        let authViewController = MistakesViewController(type: .oldVersion)
-        navigationController.setViewControllers([authViewController], animated: true)
+        // FIXME: - It's only to check that MistakesViewController is running
+        navigationController.setViewControllers([MistakesViewController(type: .oldVersion)], animated: true)
     }
 
     func showMainFlow() {
