@@ -74,7 +74,6 @@ final class MistakesViewController: UIViewController {
         setupLabels()
         setupButton()
     }
-
 }
 
 // MARK: - Private methods
@@ -160,5 +159,4 @@ private extension MistakesViewController {
             button.addTarget(self, action: #selector(didTapOldVersionButton(sender:)), for: .touchUpInside)
         }
     }
-
 }

@@ -9,12 +9,17 @@ import UIKit
 
 final class RoundedButton: UIButton {
 
-    // MARK: - Enum
+    // MARK: - Enums
 
     enum ButtonType {
         case accentPrimary
         case accentTertiary
         case backgroundBase
+    }
+
+    private enum ButtonTransparent {
+        static let partOpaque: CGFloat = 0.7
+        static let fullOpaque: CGFloat = 1
     }
 
     // MARK: - Inits
@@ -45,17 +50,11 @@ final class RoundedButton: UIButton {
         case .backgroundBase: backgroundColor = .baseBackground
         }
     }
-
 }
 
-// MARK: - Private extension for enum & methods
+// MARK: - Private methods
 
 private extension RoundedButton {
-
-    enum ButtonTransparent {
-        static let partOpaque: CGFloat = 0.7
-        static let fullOpaque: CGFloat = 1
-    }
 
     func setupButton() {
         layer.cornerRadius = .radiusBase
@@ -71,5 +70,4 @@ private extension RoundedButton {
     @objc func untapped() {
         self.alpha = ButtonTransparent.fullOpaque
     }
-
 }
