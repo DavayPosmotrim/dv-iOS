@@ -49,6 +49,9 @@
 		E2B9BFAA2BD7CF7A00592578 /* FavoriteMoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFA92BD7CF7A00592578 /* FavoriteMoviesViewController.swift */; };
 		E2B9BFAC2BD8034C00592578 /* OnboardingPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFAB2BD8034C00592578 /* OnboardingPresenterProtocol.swift */; };
 		E2B9BFAE2BD8080100592578 /* OnboardingSceneFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFAD2BD8080100592578 /* OnboardingSceneFactory.swift */; };
+		E9A2701F2BE4C2940088652B /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A2701E2BE4C2940088652B /* CGFloat+Extensions.swift */; };
+		E9A270222BE52BC20088652B /* MistakesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A270212BE52BC20088652B /* MistakesViewController.swift */; };
+		E9BEFD802BE7D53A002E940B /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BEFD7F2BE7D53A002E940B /* RoundedButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -93,6 +96,9 @@
 		E2B9BFA92BD7CF7A00592578 /* FavoriteMoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMoviesViewController.swift; sourceTree = "<group>"; };
 		E2B9BFAB2BD8034C00592578 /* OnboardingPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPresenterProtocol.swift; sourceTree = "<group>"; };
 		E2B9BFAD2BD8080100592578 /* OnboardingSceneFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSceneFactory.swift; sourceTree = "<group>"; };
+		E9A2701E2BE4C2940088652B /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
+		E9A270212BE52BC20088652B /* MistakesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MistakesViewController.swift; sourceTree = "<group>"; };
+		E9BEFD7F2BE7D53A002E940B /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				C964B70F2BD813B500CF9AF0 /* CustomButtons.swift */,
+				E9BEFD7F2BE7D53A002E940B /* RoundedButton.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -148,6 +155,7 @@
 				C9C4D59D2BD3A3C70081CD23 /* AppDelegate.swift */,
 				C9C4D59F2BD3A3C70081CD23 /* SceneDelegate.swift */,
 				C9FCE96B2BD3E52700FE655D /* Helpers */,
+				E9A270202BE52B980088652B /* Mistakes */,
 				C9FCE9502BD3E05400FE655D /* Resources */,
 				C964B70E2BD8137800CF9AF0 /* UI */,
 			);
@@ -181,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				C9FCE96C2BD3E53C00FE655D /* UIFont+Extension.swift */,
+				E9A2701E2BE4C2940088652B /* CGFloat+Extensions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -266,6 +275,14 @@
 				E2B9BFA92BD7CF7A00592578 /* FavoriteMoviesViewController.swift */,
 			);
 			path = FavoriteMoviesFlow;
+			sourceTree = "<group>";
+		};
+		E9A270202BE52B980088652B /* Mistakes */ = {
+			isa = PBXGroup;
+			children = (
+				E9A270212BE52BC20088652B /* MistakesViewController.swift */,
+			);
+			path = Mistakes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -385,6 +402,7 @@
 				E2B9BFA22BD7CEC300592578 /* AuthViewController.swift in Sources */,
 				E26592CD2BDBA4CF009F1185 /* OnboardingViewProtocol.swift in Sources */,
 				E2B9BFAA2BD7CF7A00592578 /* FavoriteMoviesViewController.swift in Sources */,
+				E9A2701F2BE4C2940088652B /* CGFloat+Extensions.swift in Sources */,
 				E2B9BFAE2BD8080100592578 /* OnboardingSceneFactory.swift in Sources */,
 				E2B9BF892BD7BA2C00592578 /* AppCoordinatorProtocol.swift in Sources */,
 				E2B9BFA62BD7CF3000592578 /* CreateSessionViewController.swift in Sources */,
@@ -401,9 +419,11 @@
 				C917E3F92BE6CFC700B34639 /* AuthPresenter.swift in Sources */,
 				C964B70D2BD8135400CF9AF0 /* OnboardingViewController.swift in Sources */,
 				C9FCE96D2BD3E53C00FE655D /* UIFont+Extension.swift in Sources */,
+				E9BEFD802BE7D53A002E940B /* RoundedButton.swift in Sources */,
 				4A6280402BE3F23100102304 /* MainCellModel.swift in Sources */,
 				4A62803E2BE2C72B00102304 /* MainPresenterProtocol.swift in Sources */,
 				C964B7102BD813B500CF9AF0 /* CustomButtons.swift in Sources */,
+				E9A270222BE52BC20088652B /* MistakesViewController.swift in Sources */,
 				C964B7122BD9A74400CF9AF0 /* OnboardingCollectionViewCell.swift in Sources */,
 				C96895D12BE88E4B002A99E6 /* Resources.swift in Sources */,
 				C9C4D5A02BD3A3C70081CD23 /* SceneDelegate.swift in Sources */,

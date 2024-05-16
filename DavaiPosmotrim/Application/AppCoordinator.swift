@@ -36,12 +36,14 @@ private extension AppCoordinator {
     }
 
     func showAuthFlow() {
-        let authCoordinator = AuthCoordinator(
-            type: .auth,
-            finishDelegate: self,
-            navigationController: navigationController)
-        addChild(authCoordinator)
-        authCoordinator.start()
+        // FIXME: - It's only to check that MistakesViewController is running
+        navigationController.setViewControllers([MistakesViewController(type: .noInternet)], animated: true)
+//        let authCoordinator = AuthCoordinator(
+//            type: .auth,
+//            finishDelegate: self,
+//            navigationController: navigationController)
+//        addChild(authCoordinator)
+//        authCoordinator.start()
     }
 
     func showMainFlow() {
