@@ -11,12 +11,16 @@ import UIKit
 
 final class MistakesViewController: UIViewController {
 
-    // MARK: - Enum
+    // MARK: - Constants
 
     enum MistakeType {
         case noInternet
         case serviceUnavailable
         case oldVersion
+    }
+
+    enum Constants {
+        static let verticalShift: CGFloat = -72.0
     }
 
     // MARK: - Public property
@@ -111,7 +115,7 @@ private extension MistakesViewController {
 
         NSLayoutConstraint.activate([
             vStack.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
-            vStack.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor, constant: -72),
+            vStack.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor, constant: Constants.verticalShift),
 
             image.topAnchor.constraint(equalTo: vStack.topAnchor),
             image.heightAnchor.constraint(equalToConstant: .placeholderSize),

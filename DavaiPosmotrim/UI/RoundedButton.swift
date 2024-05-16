@@ -71,19 +71,3 @@ private extension RoundedButton {
         self.alpha = ButtonTransparent.fullOpaque
     }
 }
-
-
-enum Resources {
-    enum Mistakes {
-        static let noInternetHeader = "Нет соединения с интернетом"
-        static let noInternetText = "Интернет не бом-бом,\n проверьте соединение"
-        static let noInternetButtonTitle = "повторное подключение".uppercased()
-
-        static let serviceUnavailableHeader = "Сервис временно недоступен"
-        static let serviceUnavailableText = "Дождитесь, пока мы сделаем магию.\n Вжух!"
-
-        static let oldVersionHeader = "Версия приложения устарела"
-        static let oldVersionText = "Сначала сломали, потом починили.\n Скачайте, обновлённую версию."
-        static let oldVersionButtonTitle = "Перейти в магазин".uppercased()
-    }
-}
