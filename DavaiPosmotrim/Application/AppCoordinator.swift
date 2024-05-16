@@ -11,8 +11,10 @@ final class AppCoordinator: BaseCoordinator {
     override func start() {
         if UserDefaults.standard.value(forKey: "isOnboardingShown") == nil {
             showOnboardingFlow()
-        } else {
+        } else if UserDefaults.standard.value(forKey: Resources.Authentication.savedNameUserDefaultsKey) == nil {
             showAuthFlow()
+        } else {
+            showMainFlow()
         }
     }
 
@@ -36,6 +38,12 @@ private extension AppCoordinator {
     func showAuthFlow() {
         // FIXME: - It's only to check that MistakesViewController is running
         navigationController.setViewControllers([MistakesViewController(type: .oldVersion)], animated: true)
+        let authCoordinator = AuthCoordinator(
+            type: .auth,
+            finishDelegate: self,
+            navigationController: navigationController)
+        addChild(authCoordinator)
+        authCoordinator.start()
     }
 
     func showMainFlow() {

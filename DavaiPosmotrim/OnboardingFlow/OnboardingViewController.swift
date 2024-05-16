@@ -20,7 +20,7 @@ final class OnboardingViewController: UIViewController {
 
     var presenter: OnboardingPresenterProtocol?
 
-    private struct Keys {
+    private enum Keys {
         static let nextButtonText = "ПРОДОЛЖИТЬ"
         static let beginButtonText = "НАЧАТЬ"
 
@@ -222,7 +222,7 @@ final class OnboardingViewController: UIViewController {
 
     @objc func didTapBeginButton(sender: AnyObject) {
         UserDefaults.standard.setValue(true, forKey: "isOnboardingShown")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.main.async {
             self.presenter?.onboardingFinish()
         }
     }
@@ -248,8 +248,8 @@ extension OnboardingViewController: UICollectionViewDataSource {
 
     func collectionView(
         _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath)
-    -> UICollectionViewCell {
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: OnboardingCollectionViewCell.reuseIdentifier,
             for: indexPath) as? OnboardingCollectionViewCell else {
@@ -270,8 +270,8 @@ extension OnboardingViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAt indexPath: IndexPath)
-    -> CGSize {
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
         return CGSize(
             width: collectionView.frame.width,
             height: collectionView.frame.height
@@ -281,16 +281,16 @@ extension OnboardingViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
-        minimumLineSpacingForSectionAt section: Int)
-    -> CGFloat {
+        minimumLineSpacingForSectionAt section: Int
+    ) -> CGFloat {
         return .zero
     }
 
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
-        minimumInteritemSpacingForSectionAt section: Int)
-    -> CGFloat {
+        minimumInteritemSpacingForSectionAt section: Int
+    ) -> CGFloat {
         return .zero
     }
 }

@@ -47,8 +47,7 @@ private extension MainCoordinator {
     }
 
     func showAuthFlow() {
-        let authViewController = AuthViewController()
-        navigationController.setViewControllers([authViewController], animated: true)
+        // TODO: - add code to show authentication modally with different buttonTitle
     }
 
     func showCreateSessionFlow() {
