@@ -167,7 +167,7 @@ final class AuthViewController: UIViewController {
                 presenter.authFinish()
             }
         }
-        view.endEditing(true)
+        nameTextField.resignFirstResponder()
         self.dismiss(animated: true)
     }
 }
