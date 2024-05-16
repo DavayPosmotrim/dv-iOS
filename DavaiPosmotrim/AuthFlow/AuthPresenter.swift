@@ -25,6 +25,10 @@ final class AuthPresenter: AuthPresenterProtocol {
         self.coordinator = coordinator
     }
 
+    init(editCoordinator: EditCoordinator) {
+        self.coordinator = editCoordinator
+    }
+
     // MARK: - Public methods
 
     func authFinish() {
