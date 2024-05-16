@@ -13,6 +13,7 @@ enum Resources {
 
         static let upperLabelText = "Введите ваше имя"
         static let enterButtonLabelText = "Войти".uppercased()
+        static let editButtonLabelText = "Сохранить".uppercased()
 
         static let lowerLabelInputNameWarningText = "Введите имя"
         static let lowerLabelLengthWarningText = "Минимум две буквы"

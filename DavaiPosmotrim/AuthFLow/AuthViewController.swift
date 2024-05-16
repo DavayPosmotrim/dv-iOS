@@ -7,6 +7,27 @@
 
 import UIKit
 
+enum Event {
+    case auth
+    case edit
+
+    var titleText: String {
+        switch self {
+        case .auth, .edit:
+            return Resources.Authentication.upperLabelText
+        }
+    }
+
+    var buttonLabelText: String {
+        switch self {
+        case .auth:
+            return Resources.Authentication.enterButtonLabelText
+        case .edit:
+            return Resources.Authentication.editButtonLabelText
+        }
+    }
+}
+
 final class AuthViewController: UIViewController {
 
     // MARK: - Stored properties
@@ -14,6 +35,7 @@ final class AuthViewController: UIViewController {
     var presenter: AuthPresenterProtocol?
 
     private var userName = String()
+    private let event: Event
 
     // MARK: - Lazy properties
 
@@ -21,7 +43,7 @@ final class AuthViewController: UIViewController {
         let label = UILabel()
         label.font = .textCaptionRegularFont
         label.textColor = .captionDarkText
-        label.text = Resources.Authentication.upperLabelText
+        label.text = event.titleText
         return label
     }()
 
@@ -55,7 +77,7 @@ final class AuthViewController: UIViewController {
         let button = UIButton()
         button.backgroundColor = .basePrimaryAccent
         button.titleLabel?.font = .textButtonMediumFont
-        button.setTitle(Resources.Authentication.enterButtonLabelText, for: .normal)
+        button.setTitle(event.buttonLabelText, for: .normal)
         button.setTitleColor(.whiteText, for: .normal)
         button.addTarget(
             self,
@@ -82,8 +104,9 @@ final class AuthViewController: UIViewController {
 
     // MARK: - Initializers
 
-    init(presenter: AuthPresenter) {
+    init(presenter: AuthPresenter, event: Event) {
         self.presenter = presenter
+        self.event = event
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -144,6 +167,8 @@ final class AuthViewController: UIViewController {
                 presenter.authFinish()
             }
         }
+        view.endEditing(true)
+        self.dismiss(animated: true)
     }
 }
 
