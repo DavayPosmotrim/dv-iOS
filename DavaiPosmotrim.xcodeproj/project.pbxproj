@@ -10,6 +10,7 @@
 		4A2FB3A82BF362EA0048F5B9 /* CreateSessionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2FB3A72BF362EA0048F5B9 /* CreateSessionPresenter.swift */; };
 		4A2FB3AC2BF373A10048F5B9 /* UICollectionViewLayout+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2FB3AB2BF373A10048F5B9 /* UICollectionViewLayout+Extension.swift */; };
 		4A2FB3AE2BF374F60048F5B9 /* CreateSessionPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2FB3AD2BF374F60048F5B9 /* CreateSessionPresenterProtocol.swift */; };
+		4A2FB3B02BF780150048F5B9 /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2FB3AF2BF780150048F5B9 /* CustomSegmentedControl.swift */; };
 		4A6280322BDE846900102304 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6280312BDE846900102304 /* MainTableViewCell.swift */; };
 		4A6280342BDED4E500102304 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6280332BDED4E500102304 /* MainCoordinator.swift */; };
 		4A6280362BDED59F00102304 /* MainSceneFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6280352BDED59F00102304 /* MainSceneFactory.swift */; };
@@ -19,7 +20,7 @@
 		4A6280402BE3F23100102304 /* MainCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A62803F2BE3F23100102304 /* MainCellModel.swift */; };
 		4A6280422BE9001200102304 /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6280412BE9001200102304 /* CustomNavigationBar.swift */; };
 		4A6280442BEAAC3800102304 /* CreateSessionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6280432BEAAC3800102304 /* CreateSessionTableViewCell.swift */; };
-		4A6280462BEAB02E00102304 /* CreateSesseionCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6280452BEAB02E00102304 /* CreateSesseionCellModel.swift */; };
+		4A6280462BEAB02E00102304 /* CreateSessionCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6280452BEAB02E00102304 /* CreateSessionCellModel.swift */; };
 		4A6280482BEAB1FA00102304 /* MovieMockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6280472BEAB1FA00102304 /* MovieMockData.swift */; };
 		4A62804A2BECEB2300102304 /* CreateSessionCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6280492BECEB2300102304 /* CreateSessionCollectionCell.swift */; };
 		4A62804C2BF0EB7300102304 /* CustomWarningNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A62804B2BF0EB7300102304 /* CustomWarningNotification.swift */; };
@@ -59,6 +60,7 @@
 		4A2FB3A72BF362EA0048F5B9 /* CreateSessionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionPresenter.swift; sourceTree = "<group>"; };
 		4A2FB3AB2BF373A10048F5B9 /* UICollectionViewLayout+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewLayout+Extension.swift"; sourceTree = "<group>"; };
 		4A2FB3AD2BF374F60048F5B9 /* CreateSessionPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionPresenterProtocol.swift; sourceTree = "<group>"; };
+		4A2FB3AF2BF780150048F5B9 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
 		4A6280312BDE846900102304 /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
 		4A6280332BDED4E500102304 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		4A6280352BDED59F00102304 /* MainSceneFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSceneFactory.swift; sourceTree = "<group>"; };
@@ -68,7 +70,7 @@
 		4A62803F2BE3F23100102304 /* MainCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCellModel.swift; sourceTree = "<group>"; };
 		4A6280412BE9001200102304 /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 		4A6280432BEAAC3800102304 /* CreateSessionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionTableViewCell.swift; sourceTree = "<group>"; };
-		4A6280452BEAB02E00102304 /* CreateSesseionCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSesseionCellModel.swift; sourceTree = "<group>"; };
+		4A6280452BEAB02E00102304 /* CreateSessionCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionCellModel.swift; sourceTree = "<group>"; };
 		4A6280472BEAB1FA00102304 /* MovieMockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieMockData.swift; sourceTree = "<group>"; };
 		4A6280492BECEB2300102304 /* CreateSessionCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionCollectionCell.swift; sourceTree = "<group>"; };
 		4A62804B2BF0EB7300102304 /* CustomWarningNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWarningNotification.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 				C964B70F2BD813B500CF9AF0 /* CustomButtons.swift */,
 				4A6280412BE9001200102304 /* CustomNavigationBar.swift */,
 				4A62804B2BF0EB7300102304 /* CustomWarningNotification.swift */,
+				4A2FB3AF2BF780150048F5B9 /* CustomSegmentedControl.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -271,7 +274,7 @@
 			children = (
 				4A6280472BEAB1FA00102304 /* MovieMockData.swift */,
 				4A2FB3AD2BF374F60048F5B9 /* CreateSessionPresenterProtocol.swift */,
-				4A6280452BEAB02E00102304 /* CreateSesseionCellModel.swift */,
+				4A6280452BEAB02E00102304 /* CreateSessionCellModel.swift */,
 				E2B9BFA52BD7CF3000592578 /* CreateSessionViewController.swift */,
 				4A2FB3A72BF362EA0048F5B9 /* CreateSessionPresenter.swift */,
 				4A6280432BEAAC3800102304 /* CreateSessionTableViewCell.swift */,
@@ -409,7 +412,7 @@
 				4A6280382BDED62600102304 /* MainPresenter.swift in Sources */,
 				4A6280422BE9001200102304 /* CustomNavigationBar.swift in Sources */,
 				4A62804F2BF13DBE00102304 /* InvitingUsersViewController.swift in Sources */,
-				4A6280462BEAB02E00102304 /* CreateSesseionCellModel.swift in Sources */,
+				4A6280462BEAB02E00102304 /* CreateSessionCellModel.swift in Sources */,
 				E2B9BFA42BD7CF0300592578 /* MainViewController.swift in Sources */,
 				C9C4D59E2BD3A3C70081CD23 /* AppDelegate.swift in Sources */,
 				E2B9BFA22BD7CEC300592578 /* AuthViewController.swift in Sources */,
@@ -427,6 +430,7 @@
 				4A62804C2BF0EB7300102304 /* CustomWarningNotification.swift in Sources */,
 				E2B9BF872BD7B8EF00592578 /* CoordinatorProtocol.swift in Sources */,
 				E2B9BF972BD7C67600592578 /* OnboardingCoordinator.swift in Sources */,
+				4A2FB3B02BF780150048F5B9 /* CustomSegmentedControl.swift in Sources */,
 				E2B9BF952BD7C58F00592578 /* AppCoordinator.swift in Sources */,
 				4A6280342BDED4E500102304 /* MainCoordinator.swift in Sources */,
 				E2B9BF932BD7C45B00592578 /* BaseCoordinator.swift in Sources */,

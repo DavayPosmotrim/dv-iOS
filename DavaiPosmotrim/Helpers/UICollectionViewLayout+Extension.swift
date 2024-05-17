@@ -8,7 +8,7 @@
 import UIKit
 
 extension UICollectionViewLayout {
-    
+
     static func createLeftAlignedLayout() -> UICollectionViewLayout {
         let item = NSCollectionLayoutItem(
             layoutSize: NSCollectionLayoutSize(widthDimension: .estimated(40), heightDimension: .absolute(36))

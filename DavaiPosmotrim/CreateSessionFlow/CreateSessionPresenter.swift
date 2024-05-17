@@ -11,38 +11,68 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
 
     // MARK: - Public Properties
 
-    var createSession = CreateSesseionModel(collections: [], genres: [])
+    var isSessionEmpty: Bool {
+        return createSession.collectionsMovie.isEmpty && createSession.genresMovie.isEmpty
+    }
+
+    // MARK: - Public Properties
+
+    private var createSession = CreateSessionModel(collectionsMovie: [], genresMovie: [])
+    private var selectionsMovies = selectionsMockData
+    private var genresMovies = genreMockData
 
     // MARK: - Public Methods
 
-    func didAddCollection(title: String?) {
-        guard let title = title else {
-            return
-        }
-        createSession.collections.append(title)
+    func getSelectionsMoviesCount() -> Int {
+        return selectionsMovies.count
     }
 
-    func didRemoveCollection(title: String?) {
-        guard let title = title,
-              let index = createSession.collections.firstIndex(of: title) else {
-            return
-        }
-        createSession.collections.remove(at: index)
+    func getGenresMoviesCount() -> Int {
+        return genreMockData.count
     }
 
-    func didAddGenres(title: String?) {
-        guard let title = title else {
-            return
-        }
-        createSession.genres.append(title)
+    func getSelectionsMovie(index: Int) -> TableViewCellModel {
+        return selectionsMovies[index]
     }
 
-    func didRemoveGenres(title: String?) {
-        guard let title = title,
-              let index = createSession.genres.firstIndex(of: title) else {
+    func getGenreAtIndex(index: Int) -> CollectionsCellModel {
+        return genreMockData[index]
+    }
+
+    func didAddCollection(id: UUID?) {
+        guard let id,
+        let collection = selectionsMovies.first(where: { $0.id == id }) else {
             return
         }
-        createSession.genres.remove(at: index)
+        let newCollection = CollectionsMovie(id: collection.id, title: collection.title)
+        createSession.collectionsMovie.append(newCollection)
+        print(createSession)
+    }
+
+    func didRemoveCollection(id: UUID?) {
+        guard let id else {
+            return
+        }
+        createSession.collectionsMovie.removeAll { $0.id == id }
+        print(createSession)
+    }
+
+    func didAddGenres(id: UUID?) {
+        guard let id,
+        let genres = genresMovies.first(where: { $0.id == id }) else {
+            return
+        }
+        let newGenres = GenresMovie(id: genres.id, title: genres.title)
+        createSession.genresMovie.append(newGenres)
+        print(createSession)
+    }
+
+    func didRemoveGenres(id: UUID?) {
+        guard let id else {
+            return
+        }
+        createSession.genresMovie.removeAll { $0.id == id }
+        print(createSession)
     }
 
     func showPreviousScreen(navigationController: UINavigationController?) {

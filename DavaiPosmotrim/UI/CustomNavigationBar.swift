@@ -68,9 +68,10 @@ class CustomNavigationBar: UIView {
     // MARK: - Private methods
 
     private func setupSubviews() {
-        [titleLabel,
-         subtitleLabel,
-         backButton
+        [
+            titleLabel,
+            subtitleLabel,
+            backButton
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             addSubview($0)

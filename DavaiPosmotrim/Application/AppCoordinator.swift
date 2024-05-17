@@ -12,7 +12,7 @@ final class AppCoordinator: BaseCoordinator {
         if UserDefaults.standard.value(forKey: "isOnboardingShown") == nil {
             showOnboardingFlow()
         } else {
-            showAuthFlow()
+            showMainFlow()
         }
     }
 

@@ -8,11 +8,20 @@
 import UIKit
 
 protocol CreateSessionCollectionCellDelegate: AnyObject {
-    func collectionCellTitleAdded(title: String?)
-    func collectionCellTitleRemoved(title: String?)
+    func collectionCellTitleAdded(id: UUID?)
+    func collectionCellTitleRemoved(id: UUID?)
 }
 
 final class CreateSessionCollectionCell: UICollectionViewCell {
+
+    // MARK: - Public Properties
+
+    var isSelectedCollectionCell: Bool = false {
+        didSet {
+            updateCellAppearance(isSelectedCollectionCell)
+        }
+    }
+    private var modelId: UUID?
 
     // MARK: - Stored Properties
 
@@ -44,20 +53,9 @@ final class CreateSessionCollectionCell: UICollectionViewCell {
 
     // MARK: - Public Methods
 
-    func configure(title: String) {
-        titleLabel.text = title
-    }
-
-    func handleCollectionCellSelected() {
-        if contentView.backgroundColor == .baseBackground {
-            delegate?.collectionCellTitleAdded(title: titleLabel.text)
-            contentView.backgroundColor = .baseSecondaryAccent
-            titleLabel.textColor = .baseText
-        } else {
-            delegate?.collectionCellTitleRemoved(title: titleLabel.text)
-            contentView.backgroundColor = .baseBackground
-            titleLabel.textColor = .captionDarkText
-        }
+    func configure(model: CollectionsCellModel) {
+        modelId = model.id
+        titleLabel.text = model.title
     }
 
     // MARK: - Private Methods
@@ -76,5 +74,17 @@ final class CreateSessionCollectionCell: UICollectionViewCell {
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
         ])
+    }
+
+    private func updateCellAppearance(_ isSelected: Bool) {
+        if isSelected {
+            delegate?.collectionCellTitleAdded(id: modelId)
+            contentView.backgroundColor = .baseSecondaryAccent
+            titleLabel.textColor = .baseText
+        } else {
+            delegate?.collectionCellTitleRemoved(id: modelId)
+            contentView.backgroundColor = .baseBackground
+            titleLabel.textColor = .captionDarkText
+        }
     }
 }

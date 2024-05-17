@@ -8,11 +8,21 @@
 import UIKit
 
 protocol CreateSessionTableViewCellDelegate: AnyObject {
-    func tableViewCellTitleAdded(title: String?)
-    func tableViewCellTitleRemoved(title: String?)
+    func tableViewCellTitleAdded(id: UUID?)
+    func tableViewCellTitleRemoved(id: UUID?)
 }
 
 final class CreateSessionTableViewCell: UITableViewCell {
+
+    // MARK: - Properties
+
+    var isSelectedTableViewCell: Bool = false {
+        didSet {
+            updateCellAppearance(isSelectedTableViewCell)
+        }
+    }
+    private var modelId: UUID?
+    private let indicatorImageName = "doneFilledIcon"
 
     // MARK: - Stored Properties
 
@@ -39,7 +49,7 @@ final class CreateSessionTableViewCell: UITableViewCell {
 
     private lazy var indicatorImageView: UIImageView = {
         let imageView = UIImageView()
-        let templateImage = UIImage(named: "doneFilledIcon")?.withRenderingMode(.alwaysTemplate)
+        let templateImage = UIImage(named: indicatorImageName)?.withRenderingMode(.alwaysTemplate)
         imageView.image = templateImage
         imageView.tintColor = .baseSecondaryAccent
         imageView.isHidden = true
@@ -62,31 +72,23 @@ final class CreateSessionTableViewCell: UITableViewCell {
     }
 
     func configureCell(model: TableViewCellModel) {
+        let image = UIImage(named: model.movieImage)
+        modelId = model.id
+        movieImageView.image = image
         titleLabel.text = model.title
-        movieImageView.image = model.movieImage
         contentView.backgroundColor = .baseBackground
         setupSubviews()
         setupConstraints()
     }
 
-    func handleTableCellSelected() {
-        indicatorImageView.isHidden = !indicatorImageView.isHidden
-        if indicatorImageView.isHidden == false {
-            delegate?.tableViewCellTitleAdded(title: titleLabel.text)
-            movieImageView.layer.borderColor = UIColor.baseSecondaryAccent.cgColor
-        } else {
-            delegate?.tableViewCellTitleRemoved(title: titleLabel.text)
-            movieImageView.layer.borderColor = UIColor.whiteBackground.cgColor
-        }
-    }
-
     // MARK: - Private Methods
 
     private func setupSubviews() {
-        [movieImageView,
-         linearGradientView,
-         titleLabel,
-         indicatorImageView
+        [
+            movieImageView,
+            linearGradientView,
+            titleLabel,
+            indicatorImageView
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             contentView.addSubview($0)
@@ -116,20 +118,22 @@ final class CreateSessionTableViewCell: UITableViewCell {
         ])
     }
 
+    private func updateCellAppearance(_ isSelected: Bool) {
+        if isSelected {
+            delegate?.tableViewCellTitleAdded(id: modelId)
+            indicatorImageView.isHidden = false
+            movieImageView.layer.borderColor = UIColor.baseSecondaryAccent.cgColor
+        } else {
+            delegate?.tableViewCellTitleRemoved(id: modelId)
+            indicatorImageView.isHidden = true
+            movieImageView.layer.borderColor = UIColor.whiteBackground.cgColor
+        }
+    }
+
     private func gradientLayer(_ view: UIView) {
         let gradientLayer = CAGradientLayer()
-        let startColor: UIColor = UIColor(
-            red: 0.0,
-            green: 0.0,
-            blue: 0.0,
-            alpha: 0.0
-        )
-        let endColor: UIColor = UIColor(
-            red: 0.0,
-            green: 0.0,
-            blue: 0.0,
-            alpha: 1.0
-        )
+        let startColor: UIColor = .black.withAlphaComponent(.zero)
+        let endColor: UIColor = .black
         let gradientColors: [CGColor] = [startColor.cgColor, endColor.cgColor]
         gradientLayer.colors = gradientColors
         gradientLayer.frame = CGRect(

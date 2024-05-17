@@ -8,11 +8,15 @@
 import UIKit
 
 protocol CreateSessionPresenterProtocol: AnyObject {
-    var createSession: CreateSesseionModel { get set }
+    var isSessionEmpty: Bool { get }
+    func getSelectionsMoviesCount() -> Int
+    func getGenresMoviesCount() -> Int
+    func getSelectionsMovie(index: Int) -> TableViewCellModel
+    func getGenreAtIndex(index: Int) -> CollectionsCellModel
     func showPreviousScreen(navigationController: UINavigationController?)
     func showNextScreen(navigationController: UINavigationController?)
-    func didAddCollection(title: String?)
-    func didRemoveCollection(title: String?)
-    func didAddGenres(title: String?)
-    func didRemoveGenres(title: String?)
+    func didAddCollection(id: UUID?)
+    func didRemoveCollection(id: UUID?)
+    func didAddGenres(id: UUID?)
+    func didRemoveGenres(id: UUID?)
 }
