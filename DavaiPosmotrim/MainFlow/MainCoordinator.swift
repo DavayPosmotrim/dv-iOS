@@ -47,7 +47,12 @@ private extension MainCoordinator {
     }
 
     func showAuthFlow() {
-        // TODO: - add code to show authentication modally with different buttonTitle
+        let editCoordinator = AuthCoordinator(
+            type: .edit,
+            navigationController: navigationController
+        )
+        addChild(editCoordinator)
+        editCoordinator.start()
     }
 
     func showCreateSessionFlow() {

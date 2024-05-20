@@ -7,6 +7,27 @@
 
 import UIKit
 
+enum AuthEvent {
+    case auth
+    case edit
+
+    var titleText: String {
+        switch self {
+        case .auth, .edit:
+            return Resources.Authentication.upperLabelText
+        }
+    }
+
+    var buttonLabelText: String {
+        switch self {
+        case .auth:
+            return Resources.Authentication.enterButtonLabelText
+        case .edit:
+            return Resources.Authentication.editButtonLabelText
+        }
+    }
+}
+
 final class AuthViewController: UIViewController {
 
     // MARK: - Stored properties
@@ -14,6 +35,7 @@ final class AuthViewController: UIViewController {
     var presenter: AuthPresenterProtocol?
 
     private var userName = String()
+    private let authEvent: AuthEvent
 
     // MARK: - Lazy properties
 
@@ -21,7 +43,7 @@ final class AuthViewController: UIViewController {
         let label = UILabel()
         label.font = .textCaptionRegularFont
         label.textColor = .captionDarkText
-        label.text = Resources.Authentication.upperLabelText
+        label.text = authEvent.titleText
         return label
     }()
 
@@ -55,7 +77,7 @@ final class AuthViewController: UIViewController {
         let button = UIButton()
         button.backgroundColor = .basePrimaryAccent
         button.titleLabel?.font = .textButtonMediumFont
-        button.setTitle(Resources.Authentication.enterButtonLabelText, for: .normal)
+        button.setTitle(authEvent.buttonLabelText, for: .normal)
         button.setTitleColor(.whiteText, for: .normal)
         button.addTarget(
             self,
@@ -71,19 +93,16 @@ final class AuthViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .whiteBackground
 
-        if let presenter {
-            userName = presenter.checkUserNameProperty()
-            presenter.calculateCharactersNumber(with: userName)
-        }
-
+        setupTextFieldProperties()
         setupSubviews()
         setupConstraints()
     }
 
     // MARK: - Initializers
 
-    init(presenter: AuthPresenter) {
+    init(presenter: AuthPresenter, authEvent: AuthEvent) {
         self.presenter = presenter
+        self.authEvent = authEvent
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -126,6 +145,12 @@ final class AuthViewController: UIViewController {
             enterButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
+    
+    private func setupTextFieldProperties() {
+        guard let presenter else { return }
+        userName = presenter.checkUserNameProperty()
+        presenter.calculateCharactersNumber(with: userName)
+    }
 
     // MARK: - Handlers
 
@@ -144,6 +169,8 @@ final class AuthViewController: UIViewController {
                 presenter.authFinish()
             }
         }
+        nameTextField.resignFirstResponder()
+        self.dismiss(animated: true)
     }
 }
 

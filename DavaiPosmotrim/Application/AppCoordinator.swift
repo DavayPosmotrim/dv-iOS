@@ -36,14 +36,22 @@ private extension AppCoordinator {
     }
 
     func showAuthFlow() {
-        // FIXME: - It's only to check that MistakesViewController is running
-        navigationController.setViewControllers([MistakesViewController(type: .noInternet)], animated: true)
-//        let authCoordinator = AuthCoordinator(
-//            type: .auth,
-//            finishDelegate: self,
-//            navigationController: navigationController)
-//        addChild(authCoordinator)
-//        authCoordinator.start()
+        let authCoordinator = AuthCoordinator(
+            type: .auth,
+            finishDelegate: self,
+            navigationController: navigationController)
+        addChild(authCoordinator)
+        authCoordinator.start()
+    }
+
+    func showEditFlow() {
+        let editCoordinator = AuthCoordinator(
+            type: .edit,
+            finishDelegate: self,
+            navigationController: navigationController
+        )
+        addChild(editCoordinator)
+        editCoordinator.start()
     }
 
     func showMainFlow() {
@@ -66,6 +74,8 @@ extension AppCoordinator: CoordinatorFinishDelegate {
         case .onboarding:
             showAuthFlow()
         case .auth:
+            showMainFlow()
+        case .edit:
             showMainFlow()
         case .main:
             print("MainCoordinator finished")
