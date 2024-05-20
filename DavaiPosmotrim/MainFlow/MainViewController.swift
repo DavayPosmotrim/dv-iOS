@@ -140,6 +140,11 @@ final class MainViewController: UIViewController, UITableViewDelegate {
         setupConstraints()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+    }
+
     // MARK: - Actions
 
     @objc func didTapBackButton() {
