@@ -93,11 +93,7 @@ final class AuthViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .whiteBackground
 
-        if let presenter {
-            userName = presenter.checkUserNameProperty()
-            presenter.calculateCharactersNumber(with: userName)
-        }
-
+        setupTextFieldProperties()
         setupSubviews()
         setupConstraints()
     }
@@ -148,6 +144,12 @@ final class AuthViewController: UIViewController {
             enterButton.heightAnchor.constraint(equalToConstant: 64),
             enterButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+    
+    private func setupTextFieldProperties() {
+        guard let presenter else { return }
+        userName = presenter.checkUserNameProperty()
+        presenter.calculateCharactersNumber(with: userName)
     }
 
     // MARK: - Handlers
