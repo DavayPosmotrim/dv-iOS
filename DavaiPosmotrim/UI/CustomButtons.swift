@@ -20,6 +20,15 @@ final class CustomButtons: UIView {
         return button
     }()
 
+    lazy var blackButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .baseTertiaryAccent
+        button.setTitleColor(.whiteText, for: .normal)
+        button.titleLabel?.font = .textButtonMediumFont
+        button.layer.cornerRadius = 14
+        return button
+    }()
+
     // MARK: - Initializers
 
     override init(frame: CGRect) {
