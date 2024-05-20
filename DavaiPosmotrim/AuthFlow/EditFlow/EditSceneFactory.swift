@@ -10,7 +10,7 @@ import Foundation
 struct EditSceneFactory {
     static func makeAuthViewController(with coordinator: EditCoordinator) -> AuthViewController {
         let presenter = AuthPresenter(editCoordinator: coordinator)
-        let viewController = AuthViewController(presenter: presenter, event: .edit)
+        let viewController = AuthViewController(presenter: presenter, authEvent: .edit)
         presenter.view = viewController
         return viewController
     }

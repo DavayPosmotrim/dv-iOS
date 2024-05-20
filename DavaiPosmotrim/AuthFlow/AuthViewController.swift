@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum Event {
+enum AuthEvent {
     case auth
     case edit
 
@@ -35,7 +35,7 @@ final class AuthViewController: UIViewController {
     var presenter: AuthPresenterProtocol?
 
     private var userName = String()
-    private let event: Event
+    private let authEvent: AuthEvent
 
     // MARK: - Lazy properties
 
@@ -43,7 +43,7 @@ final class AuthViewController: UIViewController {
         let label = UILabel()
         label.font = .textCaptionRegularFont
         label.textColor = .captionDarkText
-        label.text = event.titleText
+        label.text = authEvent.titleText
         return label
     }()
 
@@ -77,7 +77,7 @@ final class AuthViewController: UIViewController {
         let button = UIButton()
         button.backgroundColor = .basePrimaryAccent
         button.titleLabel?.font = .textButtonMediumFont
-        button.setTitle(event.buttonLabelText, for: .normal)
+        button.setTitle(authEvent.buttonLabelText, for: .normal)
         button.setTitleColor(.whiteText, for: .normal)
         button.addTarget(
             self,
@@ -104,9 +104,9 @@ final class AuthViewController: UIViewController {
 
     // MARK: - Initializers
 
-    init(presenter: AuthPresenter, event: Event) {
+    init(presenter: AuthPresenter, authEvent: AuthEvent) {
         self.presenter = presenter
-        self.event = event
+        self.authEvent = authEvent
         super.init(nibName: nil, bundle: nil)
     }
 
