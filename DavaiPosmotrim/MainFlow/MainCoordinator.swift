@@ -47,8 +47,8 @@ private extension MainCoordinator {
     }
 
     func showAuthFlow() {
-        let editCoordinator = EditCoordinator(
-            type: .auth,
+        let editCoordinator = AuthCoordinator(
+            type: .edit,
             navigationController: navigationController
         )
         addChild(editCoordinator)

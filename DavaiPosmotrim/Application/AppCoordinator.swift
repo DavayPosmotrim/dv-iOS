@@ -44,6 +44,16 @@ private extension AppCoordinator {
         authCoordinator.start()
     }
 
+    func showEditFlow() {
+        let editCoordinator = AuthCoordinator(
+            type: .edit,
+            finishDelegate: self,
+            navigationController: navigationController
+        )
+        addChild(editCoordinator)
+        editCoordinator.start()
+    }
+
     func showMainFlow() {
         let mainCoordinator = MainCoordinator(
             type: .main,
@@ -64,6 +74,8 @@ extension AppCoordinator: CoordinatorFinishDelegate {
         case .onboarding:
             showAuthFlow()
         case .auth:
+            showMainFlow()
+        case .edit:
             showMainFlow()
         case .main:
             print("MainCoordinator finished")

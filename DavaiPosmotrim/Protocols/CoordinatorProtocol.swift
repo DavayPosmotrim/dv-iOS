@@ -11,6 +11,7 @@ enum CoordinatorType {
     case app
     case onboarding
     case auth
+    case edit
     case main
     case makeSession
     case joinSession
