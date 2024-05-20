@@ -14,6 +14,8 @@
 		4A62803A2BDED8EB00102304 /* MainViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6280392BDED8EB00102304 /* MainViewProtocol.swift */; };
 		4A62803E2BE2C72B00102304 /* MainPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A62803D2BE2C72B00102304 /* MainPresenterProtocol.swift */; };
 		4A6280402BE3F23100102304 /* MainCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A62803F2BE3F23100102304 /* MainCellModel.swift */; };
+		C90CAB342BFAFA1100B42456 /* JoinSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90CAB322BFAFA1100B42456 /* JoinSessionViewController.swift */; };
+		C90CAB372BFAFA6B00B42456 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = C90CAB362BFAFA6B00B42456 /* Swinject */; };
 		C917E3F52BE6CED000B34639 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C917E3F42BE6CED000B34639 /* AuthCoordinator.swift */; };
 		C917E3F72BE6CF8200B34639 /* AuthViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C917E3F62BE6CF8200B34639 /* AuthViewProtocol.swift */; };
 		C917E3F92BE6CFC700B34639 /* AuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C917E3F82BE6CFC700B34639 /* AuthPresenter.swift */; };
@@ -30,8 +32,6 @@
 		C9C4D5A72BD3A3CB0081CD23 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9C4D5A62BD3A3CB0081CD23 /* Assets.xcassets */; };
 		C9C4D5AA2BD3A3CB0081CD23 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = C9C4D5A92BD3A3CB0081CD23 /* Base */; };
 		C9C4D5B42BD3B3810081CD23 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = C9C4D5B32BD3B3810081CD23 /* Kingfisher */; };
-		C9C4D5B72BD3B4280081CD23 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = C9C4D5B62BD3B4280081CD23 /* Swinject */; };
-		C9C4D5B92BD3B4280081CD23 /* Swinject-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = C9C4D5B82BD3B4280081CD23 /* Swinject-Dynamic */; };
 		C9FCE9662BD3E4CF00FE655D /* DaysOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9FCE9522BD3E22B00FE655D /* DaysOne-Regular.ttf */; };
 		C9FCE9672BD3E4D200FE655D /* Inter-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9FCE95E2BD3E25C00FE655D /* Inter-Bold.otf */; };
 		C9FCE9682BD3E4D300FE655D /* Inter-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9FCE9612BD3E25D00FE655D /* Inter-Medium.otf */; };
@@ -47,7 +47,6 @@
 		E2B9BFA22BD7CEC300592578 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFA12BD7CEC300592578 /* AuthViewController.swift */; };
 		E2B9BFA42BD7CF0300592578 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFA32BD7CF0300592578 /* MainViewController.swift */; };
 		E2B9BFA62BD7CF3000592578 /* CreateSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFA52BD7CF3000592578 /* CreateSessionViewController.swift */; };
-		E2B9BFA82BD7CF4F00592578 /* JoinSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFA72BD7CF4F00592578 /* JoinSessionViewController.swift */; };
 		E2B9BFAA2BD7CF7A00592578 /* FavoriteMoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFA92BD7CF7A00592578 /* FavoriteMoviesViewController.swift */; };
 		E2B9BFAC2BD8034C00592578 /* OnboardingPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFAB2BD8034C00592578 /* OnboardingPresenterProtocol.swift */; };
 		E2B9BFAE2BD8080100592578 /* OnboardingSceneFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFAD2BD8080100592578 /* OnboardingSceneFactory.swift */; };
@@ -64,6 +63,7 @@
 		4A6280392BDED8EB00102304 /* MainViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewProtocol.swift; sourceTree = "<group>"; };
 		4A62803D2BE2C72B00102304 /* MainPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenterProtocol.swift; sourceTree = "<group>"; };
 		4A62803F2BE3F23100102304 /* MainCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCellModel.swift; sourceTree = "<group>"; };
+		C90CAB322BFAFA1100B42456 /* JoinSessionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinSessionViewController.swift; sourceTree = "<group>"; };
 		C917E3F42BE6CED000B34639 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		C917E3F62BE6CF8200B34639 /* AuthViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewProtocol.swift; sourceTree = "<group>"; };
 		C917E3F82BE6CFC700B34639 /* AuthPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenter.swift; sourceTree = "<group>"; };
@@ -96,7 +96,6 @@
 		E2B9BFA12BD7CEC300592578 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		E2B9BFA32BD7CF0300592578 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		E2B9BFA52BD7CF3000592578 /* CreateSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionViewController.swift; sourceTree = "<group>"; };
-		E2B9BFA72BD7CF4F00592578 /* JoinSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinSessionViewController.swift; sourceTree = "<group>"; };
 		E2B9BFA92BD7CF7A00592578 /* FavoriteMoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMoviesViewController.swift; sourceTree = "<group>"; };
 		E2B9BFAB2BD8034C00592578 /* OnboardingPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPresenterProtocol.swift; sourceTree = "<group>"; };
 		E2B9BFAD2BD8080100592578 /* OnboardingSceneFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSceneFactory.swift; sourceTree = "<group>"; };
@@ -110,15 +109,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9C4D5B92BD3B4280081CD23 /* Swinject-Dynamic in Frameworks */,
 				C9C4D5B42BD3B3810081CD23 /* Kingfisher in Frameworks */,
-				C9C4D5B72BD3B4280081CD23 /* Swinject in Frameworks */,
+				C90CAB372BFAFA6B00B42456 /* Swinject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C90CAB332BFAFA1100B42456 /* JoinSessionFlow */ = {
+			isa = PBXGroup;
+			children = (
+				C90CAB322BFAFA1100B42456 /* JoinSessionViewController.swift */,
+			);
+			path = JoinSessionFlow;
+			sourceTree = "<group>";
+		};
 		C92D63F72BF6C95300EBA986 /* EditFlow */ = {
 			isa = PBXGroup;
 			children = (
@@ -159,9 +165,9 @@
 				E2B9BF8C2BD7BD0900592578 /* Application */,
 				E2B9BF912BD7BF2300592578 /* Protocols */,
 				E2B9BFA02BD7CDE500592578 /* FavoriteMoviesFlow */,
-				E2B9BF9F2BD7CDDE00592578 /* JoinSesseionFlow */,
 				E2B9BF9E2BD7CDCB00592578 /* CreateSessionFlow */,
 				E2B9BF9C2BD7CDB800592578 /* AuthFlow */,
+				C90CAB332BFAFA1100B42456 /* JoinSessionFlow */,
 				E2B9BF9B2BD7CDAD00592578 /* OnboardingFlow */,
 				E2B9BF9A2BD7CDA600592578 /* MainFlow */,
 				C9C4D5AB2BD3A3CB0081CD23 /* Info.plist */,
@@ -275,14 +281,6 @@
 			path = CreateSessionFlow;
 			sourceTree = "<group>";
 		};
-		E2B9BF9F2BD7CDDE00592578 /* JoinSesseionFlow */ = {
-			isa = PBXGroup;
-			children = (
-				E2B9BFA72BD7CF4F00592578 /* JoinSessionViewController.swift */,
-			);
-			path = JoinSesseionFlow;
-			sourceTree = "<group>";
-		};
 		E2B9BFA02BD7CDE500592578 /* FavoriteMoviesFlow */ = {
 			isa = PBXGroup;
 			children = (
@@ -318,8 +316,7 @@
 			name = DavaiPosmotrim;
 			packageProductDependencies = (
 				C9C4D5B32BD3B3810081CD23 /* Kingfisher */,
-				C9C4D5B62BD3B4280081CD23 /* Swinject */,
-				C9C4D5B82BD3B4280081CD23 /* Swinject-Dynamic */,
+				C90CAB362BFAFA6B00B42456 /* Swinject */,
 			);
 			productName = DavaiPosmotrim;
 			productReference = C9C4D59A2BD3A3C70081CD23 /* DavaiPosmotrim.app */;
@@ -352,7 +349,7 @@
 			packageReferences = (
 				C9C4D5B12BD3B27D0081CD23 /* XCRemoteSwiftPackageReference "Moya" */,
 				C9C4D5B22BD3B3810081CD23 /* XCRemoteSwiftPackageReference "Kingfisher" */,
-				C9C4D5B52BD3B4280081CD23 /* XCRemoteSwiftPackageReference "Swinject" */,
+				C90CAB352BFAFA6B00B42456 /* XCRemoteSwiftPackageReference "Swinject" */,
 			);
 			productRefGroup = C9C4D59B2BD3A3C70081CD23 /* Products */;
 			projectDirPath = "";
@@ -408,7 +405,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A6280362BDED59F00102304 /* MainSceneFactory.swift in Sources */,
-				E2B9BFA82BD7CF4F00592578 /* JoinSessionViewController.swift in Sources */,
 				4A6280382BDED62600102304 /* MainPresenter.swift in Sources */,
 				E2B9BFA42BD7CF0300592578 /* MainViewController.swift in Sources */,
 				C96895CF2BE835EA002A99E6 /* AuthPresenterProtocol.swift in Sources */,
@@ -420,6 +416,7 @@
 				E2B9BFAE2BD8080100592578 /* OnboardingSceneFactory.swift in Sources */,
 				E2B9BF892BD7BA2C00592578 /* AppCoordinatorProtocol.swift in Sources */,
 				E2B9BFA62BD7CF3000592578 /* CreateSessionViewController.swift in Sources */,
+				C90CAB342BFAFA1100B42456 /* JoinSessionViewController.swift in Sources */,
 				C917E3F72BE6CF8200B34639 /* AuthViewProtocol.swift in Sources */,
 				C92D63FB2BF6C99E00EBA986 /* EditSceneFactory.swift in Sources */,
 				4A6280322BDE846900102304 /* MainTableViewCell.swift in Sources */,
@@ -674,6 +671,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		C90CAB352BFAFA6B00B42456 /* XCRemoteSwiftPackageReference "Swinject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Swinject/Swinject.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.8.8;
+			};
+		};
 		C9C4D5B12BD3B27D0081CD23 /* XCRemoteSwiftPackageReference "Moya" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Moya/Moya.git";
@@ -690,31 +695,18 @@
 				minimumVersion = 7.11.0;
 			};
 		};
-		C9C4D5B52BD3B4280081CD23 /* XCRemoteSwiftPackageReference "Swinject" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Swinject/Swinject.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.8.6;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		C90CAB362BFAFA6B00B42456 /* Swinject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C90CAB352BFAFA6B00B42456 /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = Swinject;
+		};
 		C9C4D5B32BD3B3810081CD23 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C9C4D5B22BD3B3810081CD23 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
-		};
-		C9C4D5B62BD3B4280081CD23 /* Swinject */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C9C4D5B52BD3B4280081CD23 /* XCRemoteSwiftPackageReference "Swinject" */;
-			productName = Swinject;
-		};
-		C9C4D5B82BD3B4280081CD23 /* Swinject-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C9C4D5B52BD3B4280081CD23 /* XCRemoteSwiftPackageReference "Swinject" */;
-			productName = "Swinject-Dynamic";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
