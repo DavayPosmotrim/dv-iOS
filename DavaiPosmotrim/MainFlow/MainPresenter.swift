@@ -21,4 +21,21 @@ final class MainPresenter: MainPresenterProtocol {
         guard let coordinator else { return }
         coordinator.showNextScreen(screen: screen)
     }
+
+    func checkUserNameProperty() -> String {
+        guard let savedName = UserDefaults.standard.string(
+            forKey: Resources.Authentication.savedNameUserDefaultsKey
+        ) else {
+            return ""
+        }
+        return savedName
+    }
+
+    func getUserName(_ notification: Notification) -> String? {
+        guard let userInfo = notification.userInfo,
+              let userName = userInfo[Resources.Authentication.savedNameUserDefaultsKey] as? String else {
+            return nil
+        }
+        return userName
+    }
 }

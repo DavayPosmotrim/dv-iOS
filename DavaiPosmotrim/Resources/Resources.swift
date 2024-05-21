@@ -10,6 +10,7 @@ import Foundation
 enum Resources {
     enum Authentication {
         static let savedNameUserDefaultsKey = "userName"
+        static let authDidFinishNotification = "AuthDidFinishNotification"
 
         static let upperLabelText = "Введите ваше имя"
         static let enterButtonLabelText = "Войти".uppercased()

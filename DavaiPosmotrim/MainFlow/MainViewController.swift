@@ -20,7 +20,7 @@ final class MainViewController: UIViewController {
     Забудьте о бесконечных спорах и компромиссах
     Наслаждайтесь моментами, выбрав вместе идеальный фильм
     """
-        static let nameLabelText = "Артем_Test"
+//        static let nameLabelText = "Артем_Test"
         static let titleLabelTextCellOne = "Создать сеанс"
         static let titleLabelTextCellTwo = "Понравившиеся фильмы"
         static let titleLabelTextCellThree = "Присоединиться к сеансу"
@@ -93,7 +93,7 @@ final class MainViewController: UIViewController {
 
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.text = Keys.nameLabelText
+        label.text = presenter?.checkUserNameProperty()
         label.textColor = .headingText
         label.font = .textLabelFont
         return label
@@ -141,6 +141,7 @@ final class MainViewController: UIViewController {
         tableView.register(MainTableViewCell.self, forCellReuseIdentifier: MainTableViewCell.reuseIdentifier)
         setupSubviews()
         setupConstraints()
+        setupNotificationObserver()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -150,11 +151,32 @@ final class MainViewController: UIViewController {
 
     // MARK: - Actions
 
-    @objc func didTapBackButton() {
+    @objc private func didTapBackButton() {
         presenter?.showNextScreen(screen: Keys.authViewController)
     }
 
     // MARK: - Private methods
+
+    private func setupNotificationObserver() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updateUserName(_:)),
+            name: Notification.Name(Resources.Authentication.authDidFinishNotification),
+            object: nil
+        )
+    }
+
+    @objc private func updateUserName(_ notification: Notification) {
+        nameLabel.text = presenter?.getUserName(notification)
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(
+            self,
+            name: Notification.Name(Resources.Authentication.authDidFinishNotification),
+            object: nil
+        )
+    }
 
     private func setupSubviews() {
         [

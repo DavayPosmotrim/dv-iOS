@@ -12,4 +12,5 @@ protocol AuthPresenterProtocol: AnyObject {
     func calculateCharactersNumber(with text: String)
     func handleEnterButtonTap(with name: String) -> String
     func checkUserNameProperty() -> String
+    func authDidFinishNotification(userName: String)
 }
