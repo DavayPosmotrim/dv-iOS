@@ -12,13 +12,16 @@ enum Resources {
         static let savedNameUserDefaultsKey = "userName"
 
         static let upperLabelText = "Введите ваше имя"
+        static let joinSessionUpperText = "Код сеанса"
         static let enterButtonLabelText = "Войти".uppercased()
         static let editButtonLabelText = "Сохранить".uppercased()
+        static let joinSessionButtonLabelText = "Присоединиться".uppercased()
 
         static let lowerLabelInputNameWarningText = "Введите имя"
         static let lowerLabelLengthWarningText = "Минимум две буквы"
         static let lowerLabelNumbersWarningText = "Только буквы"
         static let lowerLabelMaxCharactersText = "Не более 16 символов"
+        static let lowerLabelSessionNotFound = "Сеанс не найден"
     }
 
     enum Mistakes {
