@@ -13,14 +13,6 @@ final class MainTableViewCell: UITableViewCell {
 
     static let reuseIdentifier = "MainTableViewCell"
 
-    // MARK: - Private Properties
-
-    private struct Keys {
-        static let createSessionViewController = "CreateSessionViewController"
-        static let favoriteMoviesViewController = "FavoriteMoviesViewController"
-        static let joinSessionViewController = "JoinSessionViewController"
-    }
-
     // MARK: - Layout variables
 
     private lazy var paddingView: UIView = {
@@ -36,44 +28,18 @@ final class MainTableViewCell: UITableViewCell {
         return label
     }()
 
-    private lazy var menuButton: UIButton = {
-        let button = UIButton(type: .custom)
-        button.addTarget(
-            self,
-            action: #selector(didTapMenuButton),
-            for: .touchUpInside
-        )
-        return button
+    private lazy var menuImageView: UIImageView = {
+        let imageView = UIImageView()
+        return imageView
     }()
-
-    // MARK: - Actions
-
-    @objc func didTapMenuButton() {
-        guard let tableView = superview as? UITableView,
-              let indexPath = tableView.indexPath(for: self),
-              let mainViewController = tableView.delegate as? MainViewController else {
-            return
-        }
-
-        switch indexPath.row {
-        case 0:
-            mainViewController.nameButtonPressed(screen: Keys.createSessionViewController)
-        case 1:
-            mainViewController.nameButtonPressed(screen: Keys.favoriteMoviesViewController)
-        case 2:
-            mainViewController.nameButtonPressed(screen: Keys.joinSessionViewController)
-        default:
-            break
-        }
-    }
 
     // MARK: - Public Methods
 
     func configureCell(model: MainCellModel) {
         titleLabel.text = model.title
         titleLabel.textColor = model.textColor
-        menuButton.setImage(model.buttonImage, for: .normal)
-        menuButton.tintColor = model.buttonColor
+        menuImageView.image = model.menuImage
+        menuImageView.tintColor = model.menuImageColor
         paddingView.backgroundColor = model.paddingBackgroundColor
         setupSubviews()
         setupConstraints()
@@ -88,7 +54,7 @@ final class MainTableViewCell: UITableViewCell {
             contentView.addSubview($0)
         }
 
-        [titleLabel, menuButton].forEach {
+        [titleLabel, menuImageView].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             paddingView.addSubview($0)
         }
@@ -104,11 +70,11 @@ final class MainTableViewCell: UITableViewCell {
             titleLabel.leadingAnchor.constraint(equalTo: paddingView.leadingAnchor, constant: 16),
             titleLabel.topAnchor.constraint(equalTo: paddingView.topAnchor, constant: 16),
 
-            menuButton.heightAnchor.constraint(equalToConstant: 40),
-            menuButton.widthAnchor.constraint(equalToConstant: 40),
-            menuButton.topAnchor.constraint(equalTo: paddingView.topAnchor, constant: 20),
-            menuButton.trailingAnchor.constraint(equalTo: paddingView.trailingAnchor, constant: -16),
-            menuButton.bottomAnchor.constraint(equalTo: paddingView.bottomAnchor, constant: -20)
+            menuImageView.heightAnchor.constraint(equalToConstant: 40),
+            menuImageView.widthAnchor.constraint(equalToConstant: 40),
+            menuImageView.topAnchor.constraint(equalTo: paddingView.topAnchor, constant: 20),
+            menuImageView.trailingAnchor.constraint(equalTo: paddingView.trailingAnchor, constant: -16),
+            menuImageView.bottomAnchor.constraint(equalTo: paddingView.bottomAnchor, constant: -20)
         ])
     }
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class MainViewController: UIViewController, UITableViewDelegate {
+final class MainViewController: UIViewController {
 
     // MARK: - Public Properties
 
@@ -25,6 +25,9 @@ final class MainViewController: UIViewController, UITableViewDelegate {
         static let titleLabelTextCellTwo = "Понравившиеся фильмы"
         static let titleLabelTextCellThree = "Присоединиться к сеансу"
         static let authViewController = "AuthViewController"
+        static let createSessionViewController = "CreateSessionViewController"
+        static let favoriteMoviesViewController = "FavoriteMoviesViewController"
+        static let joinSessionViewController = "JoinSessionViewController"
     }
 
     private let mainCellModels: [MainCellModel] = [
@@ -32,22 +35,22 @@ final class MainViewController: UIViewController, UITableViewDelegate {
             title: Keys.titleLabelTextCellOne,
             textColor: .whiteText,
             paddingBackgroundColor: .basePrimaryAccent,
-            buttonImage: UIImage.circledForwardIcon.withRenderingMode(.alwaysTemplate),
-            buttonColor: .whiteBackground
+            menuImage: UIImage.circledForwardIcon.withRenderingMode(.alwaysTemplate),
+            menuImageColor: .whiteBackground
         ),
         MainCellModel(
             title: Keys.titleLabelTextCellTwo,
             textColor: .baseText,
             paddingBackgroundColor: .baseSecondaryAccent,
-            buttonImage: UIImage.circledHeartIcon.withRenderingMode(.alwaysTemplate),
-            buttonColor: .baseTertiaryAccent
+            menuImage: UIImage.circledHeartIcon.withRenderingMode(.alwaysTemplate),
+            menuImageColor: .baseTertiaryAccent
         ),
         MainCellModel(
             title: Keys.titleLabelTextCellThree,
             textColor: .whiteText,
             paddingBackgroundColor: .baseTertiaryAccent,
-            buttonImage: UIImage.circledForwardIcon.withRenderingMode(.alwaysTemplate),
-            buttonColor: .whiteBackground
+            menuImage: UIImage.circledForwardIcon.withRenderingMode(.alwaysTemplate),
+            menuImageColor: .whiteBackground
         )
     ]
 
@@ -148,29 +151,24 @@ final class MainViewController: UIViewController, UITableViewDelegate {
     // MARK: - Actions
 
     @objc func didTapBackButton() {
-        nameButtonPressed(screen: Keys.authViewController)
-    }
-
-    // MARK: - Public Methods
-
-    func nameButtonPressed(screen: String) {
-        self.presenter?.mainFinish(screen: screen)
+        presenter?.showNextScreen(screen: Keys.authViewController)
     }
 
     // MARK: - Private methods
 
     private func setupSubviews() {
-        [imageView,
-         descriptionLabel,
-         paddingView
+        [
+            imageView,
+            descriptionLabel,
+            paddingView
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
         }
-
-        [nameLabel,
-         editButton,
-         tableView
+        [
+            nameLabel,
+            editButton,
+            tableView
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             paddingView.addSubview($0)
@@ -220,19 +218,29 @@ extension MainViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MainTableViewCell.reuseIdentifier, for: indexPath)
-
         guard let mainTableViewCell = cell as? MainTableViewCell else {
             return UITableViewCell()
         }
-
         let model = mainCellModels[indexPath.row]
         mainTableViewCell.configureCell(model: model)
         return mainTableViewCell
     }
 }
 
-// MARK: - MainViewProtocol
+// MARK: - UITableViewDelegate
 
-extension MainViewController: MainViewProtocol {
-    // TODO: - add code to use viewControllers method in presenter
+extension MainViewController: UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.row {
+        case 0:
+            presenter?.showNextScreen(screen: Keys.createSessionViewController)
+        case 1:
+            presenter?.showNextScreen(screen: Keys.favoriteMoviesViewController)
+        case 2:
+            presenter?.showNextScreen(screen: Keys.joinSessionViewController)
+        default:
+            break
+        }
+    }
 }

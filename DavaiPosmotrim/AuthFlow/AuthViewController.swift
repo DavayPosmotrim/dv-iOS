@@ -145,7 +145,7 @@ final class AuthViewController: UIViewController {
             enterButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
-    
+
     private func setupTextFieldProperties() {
         guard let presenter else { return }
         userName = presenter.checkUserNameProperty()
