@@ -183,7 +183,6 @@ final class MainViewController: UIViewController, UITableViewDelegate {
             imageView.widthAnchor.constraint(equalToConstant: 122),
             imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
-            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -229),
 
             descriptionLabel.heightAnchor.constraint(equalToConstant: 48),
             descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 64),
@@ -203,8 +202,6 @@ final class MainViewController: UIViewController, UITableViewDelegate {
             editButton.topAnchor.constraint(equalTo: paddingView.topAnchor, constant: 16),
             editButton.trailingAnchor.constraint(equalTo: paddingView.trailingAnchor, constant: -32),
 
-            tableView.heightAnchor.constraint(equalToConstant: 264),
-            tableView.widthAnchor.constraint(equalToConstant: 343),
             tableView.leadingAnchor.constraint(equalTo: paddingView.leadingAnchor, constant: 16),
             tableView.topAnchor.constraint(equalTo: editButton.bottomAnchor, constant: 36),
             tableView.trailingAnchor.constraint(equalTo: paddingView.trailingAnchor, constant: -16),
