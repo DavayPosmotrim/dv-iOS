@@ -14,3 +14,7 @@ final class JoinSessionViewController: UIViewController {
         view.backgroundColor = .systemPink
     }
 }
+
+extension JoinSessionViewController: JoinSessionViewProtocol {
+    // TODO: - add code to use viewController's methods in presenter
+}

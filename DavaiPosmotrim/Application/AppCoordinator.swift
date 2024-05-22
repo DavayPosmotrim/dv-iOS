@@ -55,8 +55,13 @@ private extension AppCoordinator {
     }
 
     func showJoinSessionFlow() {
-        // TODO: - create JoinSessionCoordinator
-        print("JoinSessionCoordinator")
+        let joinSessionCoordinator = JoinSessionCoordinator(
+            type: .joinSession,
+            finishDelegate: self,
+            navigationController: navigationController
+        )
+        addChild(joinSessionCoordinator)
+        joinSessionCoordinator.start()
     }
 }
 
@@ -72,6 +77,8 @@ extension AppCoordinator: CoordinatorFinishDelegate {
             showMainFlow()
         case .main:
             showJoinSessionFlow()
+        case .joinSession:
+            showMainFlow()
         default:
             navigationController.popToRootViewController(animated: false)
         }
