@@ -9,4 +9,5 @@ import Foundation
 
 protocol MainPresenterProtocol: AnyObject {
     func mainFinish(screen: String)
+    func finishCoordinator()
 }

@@ -24,6 +24,10 @@ enum Resources {
         static let lowerLabelSessionNotFound = "Сеанс не найден"
     }
 
+    enum MainScreen {
+        static let startJoinSessionFlow = "startJoinSessionFlow"
+    }
+
     enum Mistakes {
         static let noInternetHeader = "Нет соединения с интернетом"
         static let noInternetText = "Интернет не бом-бом,\n проверьте соединение"

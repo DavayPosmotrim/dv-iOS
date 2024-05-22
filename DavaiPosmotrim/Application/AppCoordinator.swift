@@ -44,16 +44,6 @@ private extension AppCoordinator {
         authCoordinator.start()
     }
 
-    func showEditFlow() {
-        let editCoordinator = AuthCoordinator(
-            type: .edit,
-            finishDelegate: self,
-            navigationController: navigationController
-        )
-        addChild(editCoordinator)
-        editCoordinator.start()
-    }
-
     func showMainFlow() {
         let mainCoordinator = MainCoordinator(
             type: .main,
@@ -62,6 +52,11 @@ private extension AppCoordinator {
         )
         addChild(mainCoordinator)
         mainCoordinator.start()
+    }
+
+    func showJoinSessionFlow() {
+        // TODO: - create JoinSessionCoordinator
+        print("JoinSessionCoordinator")
     }
 }
 
@@ -75,10 +70,8 @@ extension AppCoordinator: CoordinatorFinishDelegate {
             showAuthFlow()
         case .auth:
             showMainFlow()
-        case .edit:
-            showMainFlow()
         case .main:
-            print("MainCoordinator finished")
+            showJoinSessionFlow()
         default:
             navigationController.popToRootViewController(animated: false)
         }

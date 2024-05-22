@@ -22,4 +22,9 @@ final class MainPresenter: MainPresenterProtocol {
         guard let coordinator else { return }
         coordinator.showNextScreen(screen: screen)
     }
+
+    func finishCoordinator() {
+        guard let coordinator else { return }
+        coordinator.finish()
+    }
 }

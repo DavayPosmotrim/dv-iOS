@@ -40,6 +40,7 @@ final class AuthViewController: UIViewController {
     var presenter: AuthPresenterProtocol?
 
     private var userName = String()
+    private var sessionEnterCode = String()
     private let authEvent: AuthEvent
 
     // MARK: - Lazy properties
@@ -54,7 +55,7 @@ final class AuthViewController: UIViewController {
 
     private lazy var nameTextField: UITextField = {
         let textField = UITextField()
-        textField.text = userName
+        textField.text = authEvent == .joinSession ? sessionEnterCode : userName
         textField.tintColor = .basePrimaryAccent
         textField.textColor = .headingText
         textField.backgroundColor = .clear
@@ -150,32 +151,46 @@ final class AuthViewController: UIViewController {
             enterButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
-    
+
     private func setupTextFieldProperties() {
         guard let presenter else { return }
-        userName = presenter.checkUserNameProperty()
-        presenter.calculateCharactersNumber(with: userName)
+        if authEvent != .joinSession {
+            userName = presenter.checkUserNameProperty()
+            presenter.calculateCharactersNumber(with: userName)
+        } else {
+            presenter.checkSessionCode(with: sessionEnterCode)
+        }
     }
 
     // MARK: - Handlers
 
     @objc func textFieldDidChange(sender: UITextField) {
-        guard let text = sender.text else { return }
-        presenter?.calculateCharactersNumber(with: text)
+        guard let text = sender.text, let presenter else { return }
+        if authEvent != .joinSession {
+            presenter.calculateCharactersNumber(with: text)
+        } else {
+            sessionEnterCode = text
+            presenter.checkSessionCode(with: sessionEnterCode)
+        }
     }
 
     @objc func enterButtonDidTap(sender: AnyObject) {
 
-        // TODO: - add code to pass userName to MainViewController and save it on server
+        // TODO: - add code to save userName on server
 
-        if let name = nameTextField.text, let presenter = presenter {
-            userName = presenter.handleEnterButtonTap(with: name)
-            DispatchQueue.main.async {
-                presenter.authFinish()
-            }
+        guard let presenter, let text = nameTextField.text else { return }
+        if authEvent != .joinSession {
+            userName = presenter.handleEnterButtonTap(with: text)
+        } else {
+            presenter.startJoinSessionFlowNotification()
         }
+
         nameTextField.resignFirstResponder()
         self.dismiss(animated: true)
+
+        DispatchQueue.main.async {
+            presenter.authFinish()
+        }
     }
 }
 
@@ -188,25 +203,31 @@ extension AuthViewController: UITextFieldDelegate {
         shouldChangeCharactersIn range: NSRange,
         replacementString string: String
     ) -> Bool {
-        let maximumLength = 16
+        let maximumLength = authEvent == .joinSession ? 7 : 17
         let currentString = (textField.text ?? "") as NSString
         let updatedString = currentString.replacingCharacters(in: range, with: string)
-        if updatedString.rangeOfCharacter(from: CharacterSet.letters.inverted) != nil {
-            updateUIElements(
-                text: Resources.Authentication.lowerLabelNumbersWarningText,
-                font: nil,
-                labelProperty: false,
-                buttonProperty: false
-            )
-            return false
-        } else if updatedString.count == maximumLength {
-            updateUIElements(
-                text: Resources.Authentication.lowerLabelMaxCharactersText,
-                font: nil,
-                labelProperty: false,
-                buttonProperty: false
-            )
-            return false
+        if authEvent != .joinSession {
+            if updatedString.rangeOfCharacter(from: CharacterSet.letters.inverted) != nil {
+                updateUIElements(
+                    text: Resources.Authentication.lowerLabelNumbersWarningText,
+                    font: nil,
+                    labelProperty: false,
+                    buttonProperty: false
+                )
+                return false
+            } else if updatedString.count == maximumLength {
+                updateUIElements(
+                    text: Resources.Authentication.lowerLabelMaxCharactersText,
+                    font: nil,
+                    labelProperty: false,
+                    buttonProperty: false
+                )
+                return false
+            }
+        } else if authEvent == .joinSession {
+            if updatedString.rangeOfCharacter(from: CharacterSet.alphanumerics.inverted) != nil {
+                return false
+            }
         }
         return updatedString.count <= maximumLength
     }

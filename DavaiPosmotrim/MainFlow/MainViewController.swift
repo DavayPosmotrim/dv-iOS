@@ -130,6 +130,14 @@ final class MainViewController: UIViewController, UITableViewDelegate {
         fatalError("init(coder:) has not been implemented")
     }
 
+    deinit {
+        NotificationCenter.default.removeObserver(
+            self,
+            name: NSNotification.Name(Resources.MainScreen.startJoinSessionFlow),
+            object: nil
+        )
+    }
+
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
@@ -138,6 +146,7 @@ final class MainViewController: UIViewController, UITableViewDelegate {
         tableView.register(MainTableViewCell.self, forCellReuseIdentifier: MainTableViewCell.reuseIdentifier)
         setupSubviews()
         setupConstraints()
+        setupNotificationObserver()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -149,6 +158,11 @@ final class MainViewController: UIViewController, UITableViewDelegate {
 
     @objc func didTapBackButton() {
         nameButtonPressed(screen: Keys.authViewController)
+    }
+
+    @objc private func finishMainFlow() {
+        guard let presenter else { return }
+        presenter.finishCoordinator()
     }
 
     // MARK: - Public Methods
@@ -210,6 +224,15 @@ final class MainViewController: UIViewController, UITableViewDelegate {
             tableView.trailingAnchor.constraint(equalTo: paddingView.trailingAnchor, constant: -16),
             tableView.bottomAnchor.constraint(equalTo: paddingView.bottomAnchor, constant: -100)
         ])
+    }
+
+    private func setupNotificationObserver() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(finishMainFlow),
+            name: NSNotification.Name(Resources.MainScreen.startJoinSessionFlow),
+            object: nil
+        )
     }
 }
 
