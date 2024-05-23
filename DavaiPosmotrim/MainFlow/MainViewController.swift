@@ -15,38 +15,23 @@ final class MainViewController: UIViewController {
 
     // MARK: - Private Properties
 
-    private struct Keys {
-        static let descriptionLabelText = """
-    Забудьте о бесконечных спорах и компромиссах
-    Наслаждайтесь моментами, выбрав вместе идеальный фильм
-    """
-//        static let nameLabelText = "Артем_Test"
-        static let titleLabelTextCellOne = "Создать сеанс"
-        static let titleLabelTextCellTwo = "Понравившиеся фильмы"
-        static let titleLabelTextCellThree = "Присоединиться к сеансу"
-        static let authViewController = "AuthViewController"
-        static let createSessionViewController = "CreateSessionViewController"
-        static let favoriteMoviesViewController = "FavoriteMoviesViewController"
-        static let joinSessionViewController = "JoinSessionViewController"
-    }
-
     private let mainCellModels: [MainCellModel] = [
         MainCellModel(
-            title: Keys.titleLabelTextCellOne,
+            title: Resources.MainFlow.titleLabelTextCellOne,
             textColor: .whiteText,
             paddingBackgroundColor: .basePrimaryAccent,
             menuImage: UIImage.circledForwardIcon.withRenderingMode(.alwaysTemplate),
             menuImageColor: .whiteBackground
         ),
         MainCellModel(
-            title: Keys.titleLabelTextCellTwo,
+            title: Resources.MainFlow.titleLabelTextCellTwo,
             textColor: .baseText,
             paddingBackgroundColor: .baseSecondaryAccent,
             menuImage: UIImage.circledHeartIcon.withRenderingMode(.alwaysTemplate),
             menuImageColor: .baseTertiaryAccent
         ),
         MainCellModel(
-            title: Keys.titleLabelTextCellThree,
+            title: Resources.MainFlow.titleLabelTextCellThree,
             textColor: .whiteText,
             paddingBackgroundColor: .baseTertiaryAccent,
             menuImage: UIImage.circledForwardIcon.withRenderingMode(.alwaysTemplate),
@@ -64,7 +49,7 @@ final class MainViewController: UIViewController {
 
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = Keys.descriptionLabelText
+        label.text = Resources.MainFlow.descriptionLabelText
         label.textColor = .captionDarkText
         label.font = .textCaptionRegularFont
         label.textAlignment = .right
@@ -133,6 +118,14 @@ final class MainViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    deinit {
+        NotificationCenter.default.removeObserver(
+            self,
+            name: Notification.Name(Resources.Authentication.authDidFinishNotification),
+            object: nil
+        )
+    }
+
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
@@ -152,7 +145,7 @@ final class MainViewController: UIViewController {
     // MARK: - Actions
 
     @objc private func didTapBackButton() {
-        presenter?.showNextScreen(screen: Keys.authViewController)
+        presenter?.showNextScreen(screen: Resources.MainFlow.authViewController)
     }
 
     // MARK: - Private methods
@@ -168,14 +161,6 @@ final class MainViewController: UIViewController {
 
     @objc private func updateUserName(_ notification: Notification) {
         nameLabel.text = presenter?.getUserName(notification)
-    }
-
-    deinit {
-        NotificationCenter.default.removeObserver(
-            self,
-            name: Notification.Name(Resources.Authentication.authDidFinishNotification),
-            object: nil
-        )
     }
 
     private func setupSubviews() {
@@ -256,11 +241,11 @@ extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            presenter?.showNextScreen(screen: Keys.createSessionViewController)
+            presenter?.showNextScreen(screen: Resources.MainFlow.createSessionViewController)
         case 1:
-            presenter?.showNextScreen(screen: Keys.favoriteMoviesViewController)
+            presenter?.showNextScreen(screen: Resources.MainFlow.favoriteMoviesViewController)
         case 2:
-            presenter?.showNextScreen(screen: Keys.joinSessionViewController)
+            presenter?.showNextScreen(screen: Resources.MainFlow.joinSessionViewController)
         default:
             break
         }

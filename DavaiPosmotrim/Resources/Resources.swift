@@ -22,6 +22,21 @@ enum Resources {
         static let lowerLabelMaxCharactersText = "Не более 16 символов"
     }
 
+    enum MainFlow {
+        static let descriptionLabelText = """
+    Забудьте о бесконечных спорах и компромиссах
+    Наслаждайтесь моментами, выбрав вместе идеальный фильм
+    """
+        static let titleLabelTextCellOne = "Создать сеанс"
+        static let titleLabelTextCellTwo = "Понравившиеся фильмы"
+        static let titleLabelTextCellThree = "Присоединиться к сеансу"
+        
+        static let authViewController = "AuthViewController"
+        static let createSessionViewController = "CreateSessionViewController"
+        static let favoriteMoviesViewController = "FavoriteMoviesViewController"
+        static let joinSessionViewController = "JoinSessionViewController"
+    }
+
     enum Mistakes {
         static let noInternetHeader = "Нет соединения с интернетом"
         static let noInternetText = "Интернет не бом-бом,\n проверьте соединение"
