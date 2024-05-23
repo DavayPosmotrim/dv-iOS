@@ -30,7 +30,7 @@ enum Resources {
         static let titleLabelTextCellOne = "Создать сеанс"
         static let titleLabelTextCellTwo = "Понравившиеся фильмы"
         static let titleLabelTextCellThree = "Присоединиться к сеансу"
-        
+
         static let authViewController = "AuthViewController"
         static let createSessionViewController = "CreateSessionViewController"
         static let favoriteMoviesViewController = "FavoriteMoviesViewController"

@@ -31,7 +31,7 @@ final class MainPresenter: MainPresenterProtocol {
         return savedName
     }
 
-    func getUserName(_ notification: Notification) -> String? {
+    func getUserName(_ notification: Notification) -> String {
         guard let userInfo = notification.userInfo,
               let userName = userInfo[Resources.Authentication.savedNameUserDefaultsKey] as? String else {
             return ""
