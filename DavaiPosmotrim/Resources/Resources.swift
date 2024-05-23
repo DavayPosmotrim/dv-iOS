@@ -28,6 +28,10 @@ enum Resources {
         static let startJoinSessionFlow = "startJoinSessionFlow"
     }
 
+    enum JoinSession {
+        static let enterButtonLabelText = "Выйти".uppercased()
+    }
+
     enum Mistakes {
         static let noInternetHeader = "Нет соединения с интернетом"
         static let noInternetText = "Интернет не бом-бом,\n проверьте соединение"
