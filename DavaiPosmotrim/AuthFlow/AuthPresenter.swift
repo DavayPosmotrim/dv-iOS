@@ -66,6 +66,7 @@ final class AuthPresenter: AuthPresenterProtocol {
 
     func checkSessionCode(with code: String) {
         let createdCode = "AAaa567"
+        UserDefaults.standard.setValue(createdCode, forKey: Resources.JoinSession.joinSessionCreatedCode)
 
         // TODO: - add logic to fetch createdCode from server
 

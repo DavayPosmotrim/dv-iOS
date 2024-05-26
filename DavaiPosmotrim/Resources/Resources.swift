@@ -29,7 +29,12 @@ enum Resources {
     }
 
     enum JoinSession {
+        static let joinSessionCreatedCode = "joinSessionCreatedCode"
+
+        static let sessionNameLabelText = "Сеанс "
         static let enterButtonLabelText = "Выйти".uppercased()
+        static let upperLabelText = "Ожидаем подключения всех участников"
+        static let lowerLabelText = "Сеанс начнётся, когда подключатся \n все самые нужные люди."
     }
 
     enum Mistakes {

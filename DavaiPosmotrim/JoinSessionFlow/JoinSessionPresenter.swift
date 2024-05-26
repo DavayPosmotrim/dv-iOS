@@ -9,6 +9,14 @@ import Foundation
 
 final class JoinSessionPresenter: JoinSessionPresenterProtocol {
 
+    private var namesArray = [
+        "Эльдар(вы)",
+        "Юрий",
+        "Сергей",
+        "Александр",
+        "Максим"
+    ]
+
     // MARK: - Public Properties
 
     weak var coordinator: JoinSessionCoordinator?
@@ -25,5 +33,22 @@ final class JoinSessionPresenter: JoinSessionPresenterProtocol {
     func authFinish() {
         guard let coordinator else { return }
         coordinator.finish()
+    }
+
+    func getNamesCount() -> Int {
+        namesArray.count
+    }
+
+    func getNamesAtIndex(index: Int) -> String {
+        namesArray[index]
+    }
+
+    func checkCreatedCodeProperty() -> String {
+        guard let createdCode = UserDefaults.standard.string(
+            forKey: Resources.JoinSession.joinSessionCreatedCode
+        ) else {
+            return ""
+        }
+        return createdCode
     }
 }

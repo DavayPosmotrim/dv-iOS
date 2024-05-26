@@ -9,6 +9,16 @@ import UIKit
 
 final class JoinSessionViewController: UIViewController {
 
+    // MARK: - Stored properties
+
+    var presenter: JoinSessionPresenterProtocol?
+
+    private let collectionModel = ReusableCollectionModel(
+        image: UIImage.addUserPlug,
+        upperText: Resources.JoinSession.upperLabelText,
+        lowerText: Resources.JoinSession.lowerLabelText
+    )
+
     // MARK: - Lazy properties
 
     private lazy var upperPaddingView: UIView = {
@@ -24,11 +34,28 @@ final class JoinSessionViewController: UIViewController {
         let label = UILabel()
         label.font = .textLabelFont
         label.textColor = .headingText
-        label.text = "Сеанс AAaa567"
-        // TODO: rewrite code here to get session name from UserDefaults
+
+        var combinedString = ""
+        if let presenter {
+            combinedString = Resources.JoinSession.sessionNameLabelText + presenter.checkCreatedCodeProperty()
+        }
+
+        label.text = combinedString
         label.textAlignment = .center
 
         return label
+    }()
+
+    private lazy var collectionView: UIView = {
+        let collectionView = ReusableUICollectionView()
+        collectionView.setupCollectionView(
+            with: self,
+            cell: ReusableUICollectionViewCell.self,
+            cellIdentifier: ReusableUICollectionViewCell.reuseIdentifier,
+            and: collectionModel
+        )
+
+        return collectionView
     }()
 
     private lazy var lowerPaddingView: UIView = {
@@ -59,6 +86,17 @@ final class JoinSessionViewController: UIViewController {
         setupConstraints()
     }
 
+    // MARK: - Initializers
+
+    init(presenter: JoinSessionPresenter) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     // MARK: - Private methods
 
     private func setupSubViews() {
@@ -66,7 +104,8 @@ final class JoinSessionViewController: UIViewController {
             upperPaddingView,
             sessionNameLabel,
             lowerPaddingView,
-            enterButton
+            enterButton,
+            collectionView
         ].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -94,7 +133,12 @@ final class JoinSessionViewController: UIViewController {
             enterButton.leadingAnchor.constraint(equalTo: lowerPaddingView.leadingAnchor, constant: 16),
             enterButton.trailingAnchor.constraint(equalTo: lowerPaddingView.trailingAnchor, constant: -16),
             enterButton.topAnchor.constraint(equalTo: lowerPaddingView.topAnchor, constant: 16),
-            enterButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -16)
+            enterButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -16),
+
+            collectionView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            collectionView.topAnchor.constraint(equalTo: upperPaddingView.bottomAnchor, constant: 16),
+            collectionView.bottomAnchor.constraint(equalTo: lowerPaddingView.topAnchor, constant: -16)
         ])
     }
 
@@ -105,6 +149,32 @@ final class JoinSessionViewController: UIViewController {
     }
 }
 
+    // MARK: - JoinSessionViewProtocol
+
 extension JoinSessionViewController: JoinSessionViewProtocol {
     // TODO: - add code to use viewController's methods in presenter
+}
+
+    // MARK: - UICollectionViewDataSource
+
+extension JoinSessionViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        guard let presenter else { return .zero}
+        return presenter.getNamesCount()
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
+        guard let presenter,
+              let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: ReusableUICollectionViewCell.reuseIdentifier,
+                for: indexPath
+              ) as? ReusableUICollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        cell.configureCell(with: presenter.getNamesAtIndex(index: indexPath.item))
+        return cell
+    }
 }

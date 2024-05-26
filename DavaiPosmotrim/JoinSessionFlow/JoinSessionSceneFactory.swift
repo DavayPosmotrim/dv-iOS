@@ -10,7 +10,7 @@ import Foundation
 struct JoinSessionSceneFactory {
     static func makeJoinSessionViewController(with coordinator: JoinSessionCoordinator) -> JoinSessionViewController {
         let presenter = JoinSessionPresenter(coordinator: coordinator)
-        let viewController = JoinSessionViewController()
+        let viewController = JoinSessionViewController(presenter: presenter)
         presenter.view = viewController
         return viewController
     }

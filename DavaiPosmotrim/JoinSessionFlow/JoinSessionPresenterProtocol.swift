@@ -8,5 +8,8 @@
 import Foundation
 
 protocol JoinSessionPresenterProtocol: AnyObject {
-    // TODO: - add code to use presenter's methods in viewController
+    func authFinish()
+    func getNamesCount() -> Int
+    func getNamesAtIndex(index: Int) -> String
+    func checkCreatedCodeProperty() -> String
 }
