@@ -7,11 +7,17 @@
 
 import UIKit
 
+struct ReusableCollectionCellModel {
+    let id = UUID()
+    let title: String
+}
+
 final class ReusableUICollectionViewCell: UICollectionViewCell {
 
     // MARK: - Stored properties
 
     static let reuseIdentifier = "ReusableUICollectionViewCell"
+    private var cellId: UUID?
 
     // MARK: - Lazy properties
 
@@ -40,8 +46,9 @@ final class ReusableUICollectionViewCell: UICollectionViewCell {
 
     // MARK: - Public methods
 
-    func configureCell(with text: String) {
-        titleLabel.text = text
+    func configureCell(with model: ReusableCollectionCellModel) {
+        titleLabel.text = model.title
+        cellId = model.id
     }
 
     // MARK: - Private methods

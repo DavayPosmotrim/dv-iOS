@@ -8,6 +8,10 @@
 import Foundation
 
 enum Resources {
+    enum ReusableCollectionView {
+        static let updateCollectionView = "updateCollectionView"
+    }
+
     enum Authentication {
         static let savedNameUserDefaultsKey = "userName"
 

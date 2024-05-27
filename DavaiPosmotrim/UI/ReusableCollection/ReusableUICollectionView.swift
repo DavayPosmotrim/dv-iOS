@@ -62,10 +62,19 @@ final class ReusableUICollectionView: UIView {
 
         setupSubviews()
         setupConstraints()
+        setupNotificationObserver()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(
+            self,
+            name: NSNotification.Name(Resources.ReusableCollectionView.updateCollectionView),
+            object: nil
+        )
     }
 
     // MARK: - Public methods
@@ -87,6 +96,14 @@ final class ReusableUICollectionView: UIView {
         imageView.image = model.image
         upperLabel.text = model.upperText
         lowerLabel.text = model.lowerText
+    }
+
+    // MARK: - Handlers
+
+    @objc private func updateCollection() {
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
     }
 
     // MARK: - Private methods
@@ -123,5 +140,14 @@ final class ReusableUICollectionView: UIView {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
+    }
+
+    private func setupNotificationObserver() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updateCollection),
+            name: NSNotification.Name(Resources.ReusableCollectionView.updateCollectionView),
+            object: nil
+        )
     }
 }

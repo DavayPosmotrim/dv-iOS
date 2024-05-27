@@ -173,13 +173,12 @@
 		C964B70E2BD8137800CF9AF0 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				C9D44CF42C03FFB90080AD33 /* ReusableCollection */,
 				C964B70F2BD813B500CF9AF0 /* CustomButtons.swift */,
 				E9BEFD7F2BE7D53A002E940B /* RoundedButton.swift */,
 				4A6280412BE9001200102304 /* CustomNavigationBar.swift */,
 				4A62804B2BF0EB7300102304 /* CustomWarningNotification.swift */,
 				4A2FB3AF2BF780150048F5B9 /* CustomSegmentedControl.swift */,
-				C91DCC7D2C006AE1001BC065 /* ReusableUICollectionView.swift */,
-				C91DCC7F2C00B4F0001BC065 /* ReusableUICollectionViewCell.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -221,6 +220,15 @@
 				C964B70E2BD8137800CF9AF0 /* UI */,
 			);
 			path = DavaiPosmotrim;
+			sourceTree = "<group>";
+		};
+		C9D44CF42C03FFB90080AD33 /* ReusableCollection */ = {
+			isa = PBXGroup;
+			children = (
+				C91DCC7D2C006AE1001BC065 /* ReusableUICollectionView.swift */,
+				C91DCC7F2C00B4F0001BC065 /* ReusableUICollectionViewCell.swift */,
+			);
+			path = ReusableCollection;
 			sourceTree = "<group>";
 		};
 		C9FCE9502BD3E05400FE655D /* Resources */ = {
