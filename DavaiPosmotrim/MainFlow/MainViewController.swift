@@ -145,7 +145,7 @@ final class MainViewController: UIViewController {
     // MARK: - Actions
 
     @objc private func didTapBackButton() {
-        presenter?.showNextScreen(screen: Resources.MainFlow.authViewController)
+        presenter?.didTapButtons(screen: Resources.MainFlow.authViewController)
     }
 
     // MARK: - Private methods
@@ -241,11 +241,11 @@ extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            presenter?.showNextScreen(screen: Resources.MainFlow.createSessionViewController)
+            presenter?.didTapButtons(screen: Resources.MainFlow.createSessionViewController)
         case 1:
-            presenter?.showNextScreen(screen: Resources.MainFlow.favoriteMoviesViewController)
+            presenter?.didTapButtons(screen: Resources.MainFlow.favoriteMoviesViewController)
         case 2:
-            presenter?.showNextScreen(screen: Resources.MainFlow.joinSessionViewController)
+            presenter?.didTapButtons(screen: Resources.MainFlow.joinSessionViewController)
         default:
             break
         }

@@ -17,7 +17,7 @@ final class MainPresenter: MainPresenterProtocol {
         self.coordinator = coordinator
     }
 
-    func showNextScreen(screen: String) {
+    func didTapButtons(screen: String) {
         guard let coordinator else { return }
         coordinator.showNextScreen(screen: screen)
     }
