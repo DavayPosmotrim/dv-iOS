@@ -84,6 +84,8 @@ final class JoinSessionViewController: UIViewController {
 
         setupSubViews()
         setupConstraints()
+
+        presenter?.downloadNamesArrayFromServer()
     }
 
     // MARK: - Initializers

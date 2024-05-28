@@ -24,7 +24,6 @@ final class JoinSessionPresenter: JoinSessionPresenterProtocol {
 
     init(coordinator: JoinSessionCoordinator) {
         self.coordinator = coordinator
-        downloadNamesArrayFromServer()
     }
 
     // MARK: - Public methods

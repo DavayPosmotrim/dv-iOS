@@ -11,6 +11,7 @@ protocol JoinSessionPresenterProtocol: AnyObject {
     func authFinish()
     func getNamesCount() -> Int
     func getNamesAtIndex(index: Int) -> ReusableCollectionCellModel
+    func downloadNamesArrayFromServer()
     func addNameToArray(name: ReusableCollectionCellModel)
     func deleteNameFromArray(with id: UUID?)
     func checkCreatedCodeProperty() -> String
