@@ -14,4 +14,5 @@ protocol AuthPresenterProtocol: AnyObject {
     func startJoinSessionFlowNotification()
     func handleEnterButtonTap(with name: String) -> String
     func checkUserNameProperty() -> String
+    func authDidFinishNotification(userName: String)
 }

@@ -181,6 +181,7 @@ final class AuthViewController: UIViewController {
         guard let presenter, let text = nameTextField.text else { return }
         if authEvent != .joinSession {
             userName = presenter.handleEnterButtonTap(with: text)
+            presenter.authDidFinishNotification(userName: userName)
         } else {
             presenter.startJoinSessionFlowNotification()
         }

@@ -12,13 +12,12 @@ final class MainPresenter: MainPresenterProtocol {
     // MARK: - Public Properties
 
     weak var coordinator: MainCoordinator?
-    weak var view: MainViewProtocol?
 
     init(coordinator: MainCoordinator) {
         self.coordinator = coordinator
     }
 
-    func mainFinish(screen: String) {
+    func didTapButtons(screen: String) {
         guard let coordinator else { return }
         coordinator.showNextScreen(screen: screen)
     }
@@ -26,5 +25,22 @@ final class MainPresenter: MainPresenterProtocol {
     func finishCoordinator() {
         guard let coordinator else { return }
         coordinator.finish()
+    }
+
+    func checkUserNameProperty() -> String {
+        guard let savedName = UserDefaults.standard.string(
+            forKey: Resources.Authentication.savedNameUserDefaultsKey
+        ) else {
+            return ""
+        }
+        return savedName
+    }
+
+    func getUserName(_ notification: Notification) -> String {
+        guard let userInfo = notification.userInfo,
+              let userName = userInfo[Resources.Authentication.savedNameUserDefaultsKey] as? String else {
+            return ""
+        }
+        return userName
     }
 }
