@@ -27,6 +27,8 @@
 		4A62804F2BF13DBE00102304 /* InvitingUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A62804E2BF13DBE00102304 /* InvitingUsersViewController.swift */; };
 		C90CAB342BFAFA1100B42456 /* JoinSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90CAB322BFAFA1100B42456 /* JoinSessionViewController.swift */; };
 		C90CAB372BFAFA6B00B42456 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = C90CAB362BFAFA6B00B42456 /* Swinject */; };
+		C9147CB12C0611F50086A663 /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9147CB02C0611F50086A663 /* CustomAlertView.swift */; };
+		C9147CB32C067FCC0086A663 /* DismissJoinSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9147CB22C067FCC0086A663 /* DismissJoinSessionDelegate.swift */; };
 		C917E3F52BE6CED000B34639 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C917E3F42BE6CED000B34639 /* AuthCoordinator.swift */; };
 		C917E3F72BE6CF8200B34639 /* AuthViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C917E3F62BE6CF8200B34639 /* AuthViewProtocol.swift */; };
 		C917E3F92BE6CFC700B34639 /* AuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C917E3F82BE6CFC700B34639 /* AuthPresenter.swift */; };
@@ -43,6 +45,7 @@
 		C964B7122BD9A74400CF9AF0 /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C964B7112BD9A74400CF9AF0 /* OnboardingCollectionViewCell.swift */; };
 		C96895CF2BE835EA002A99E6 /* AuthPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96895CE2BE835EA002A99E6 /* AuthPresenterProtocol.swift */; };
 		C96895D12BE88E4B002A99E6 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96895D02BE88E4B002A99E6 /* Resources.swift */; };
+		C9B57C6C2C0607450026E85D /* DismissJoinSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B57C6B2C0607450026E85D /* DismissJoinSessionViewController.swift */; };
 		C9C4D59E2BD3A3C70081CD23 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4D59D2BD3A3C70081CD23 /* AppDelegate.swift */; };
 		C9C4D5A02BD3A3C70081CD23 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4D59F2BD3A3C70081CD23 /* SceneDelegate.swift */; };
 		C9C4D5A72BD3A3CB0081CD23 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9C4D5A62BD3A3CB0081CD23 /* Assets.xcassets */; };
@@ -91,6 +94,8 @@
 		4A62804B2BF0EB7300102304 /* CustomWarningNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWarningNotification.swift; sourceTree = "<group>"; };
 		4A62804E2BF13DBE00102304 /* InvitingUsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitingUsersViewController.swift; sourceTree = "<group>"; };
 		C90CAB322BFAFA1100B42456 /* JoinSessionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinSessionViewController.swift; sourceTree = "<group>"; };
+		C9147CB02C0611F50086A663 /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
+		C9147CB22C067FCC0086A663 /* DismissJoinSessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissJoinSessionDelegate.swift; sourceTree = "<group>"; };
 		C917E3F42BE6CED000B34639 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		C917E3F62BE6CF8200B34639 /* AuthViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewProtocol.swift; sourceTree = "<group>"; };
 		C917E3F82BE6CFC700B34639 /* AuthPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenter.swift; sourceTree = "<group>"; };
@@ -107,6 +112,7 @@
 		C964B7112BD9A74400CF9AF0 /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
 		C96895CE2BE835EA002A99E6 /* AuthPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenterProtocol.swift; sourceTree = "<group>"; };
 		C96895D02BE88E4B002A99E6 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
+		C9B57C6B2C0607450026E85D /* DismissJoinSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissJoinSessionViewController.swift; sourceTree = "<group>"; };
 		C9C4D59A2BD3A3C70081CD23 /* DavaiPosmotrim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DavaiPosmotrim.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9C4D59D2BD3A3C70081CD23 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9C4D59F2BD3A3C70081CD23 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -160,6 +166,7 @@
 		C90CAB332BFAFA1100B42456 /* JoinSessionFlow */ = {
 			isa = PBXGroup;
 			children = (
+				C9B57C6A2C0607050026E85D /* DismissJoinSessionVIewController */,
 				C91DCC732BFEA1E8001BC065 /* JoinSessionCoordinator.swift */,
 				C91DCC752BFEA1FA001BC065 /* JoinSessionPresenter.swift */,
 				C91DCC772BFEA20F001BC065 /* JoinSessionSceneFactory.swift */,
@@ -179,8 +186,18 @@
 				4A6280412BE9001200102304 /* CustomNavigationBar.swift */,
 				4A62804B2BF0EB7300102304 /* CustomWarningNotification.swift */,
 				4A2FB3AF2BF780150048F5B9 /* CustomSegmentedControl.swift */,
+				C9147CB02C0611F50086A663 /* CustomAlertView.swift */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		C9B57C6A2C0607050026E85D /* DismissJoinSessionVIewController */ = {
+			isa = PBXGroup;
+			children = (
+				C9B57C6B2C0607450026E85D /* DismissJoinSessionViewController.swift */,
+				C9147CB22C067FCC0086A663 /* DismissJoinSessionDelegate.swift */,
+			);
+			path = DismissJoinSessionVIewController;
 			sourceTree = "<group>";
 		};
 		C9C4D5912BD3A3C70081CD23 = {
@@ -460,6 +477,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9B57C6C2C0607450026E85D /* DismissJoinSessionViewController.swift in Sources */,
 				4A6280362BDED59F00102304 /* MainSceneFactory.swift in Sources */,
 				4A6280382BDED62600102304 /* MainPresenter.swift in Sources */,
 				4A6280422BE9001200102304 /* CustomNavigationBar.swift in Sources */,
@@ -479,6 +497,7 @@
 				C90CAB342BFAFA1100B42456 /* JoinSessionViewController.swift in Sources */,
 				C91DCC7E2C006AE1001BC065 /* ReusableUICollectionView.swift in Sources */,
 				C91DCC762BFEA1FA001BC065 /* JoinSessionPresenter.swift in Sources */,
+				C9147CB32C067FCC0086A663 /* DismissJoinSessionDelegate.swift in Sources */,
 				C917E3F72BE6CF8200B34639 /* AuthViewProtocol.swift in Sources */,
 				4A2FB3A82BF362EA0048F5B9 /* CreateSessionPresenter.swift in Sources */,
 				4A62804A2BECEB2300102304 /* CreateSessionCollectionCell.swift in Sources */,
@@ -494,6 +513,7 @@
 				4A2FB3B02BF780150048F5B9 /* CustomSegmentedControl.swift in Sources */,
 				E2B9BF952BD7C58F00592578 /* AppCoordinator.swift in Sources */,
 				4A6280342BDED4E500102304 /* MainCoordinator.swift in Sources */,
+				C9147CB12C0611F50086A663 /* CustomAlertView.swift in Sources */,
 				C91DCC742BFEA1E8001BC065 /* JoinSessionCoordinator.swift in Sources */,
 				E2B9BF932BD7C45B00592578 /* BaseCoordinator.swift in Sources */,
 				C917E3FB2BE6D12000B34639 /* AuthSceneFactory.swift in Sources */,

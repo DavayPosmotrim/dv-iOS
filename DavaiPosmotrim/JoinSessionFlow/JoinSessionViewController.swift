@@ -147,14 +147,13 @@ final class JoinSessionViewController: UIViewController {
     // MARK: - Handlers
 
     @objc private func didTapEnterButton(sender: AnyObject) {
-        // TODO: - add code to handle enterButton tap
+        guard let navigationController else { return }
+        let viewController = DismissJoinSessionViewController()
+        viewController.delegate = self
+        viewController.modalPresentationStyle = .overCurrentContext
+        viewController.modalTransitionStyle = .crossDissolve
+        navigationController.present(viewController, animated: true)
     }
-}
-
-    // MARK: - JoinSessionViewProtocol
-
-extension JoinSessionViewController: JoinSessionViewProtocol {
-    // TODO: - add code to use viewController's methods in presenter
 }
 
     // MARK: - UICollectionViewDataSource
@@ -178,5 +177,20 @@ extension JoinSessionViewController: UICollectionViewDataSource {
         }
         cell.configureCell(with: presenter.getNamesAtIndex(index: indexPath.item))
         return cell
+    }
+}
+
+    // MARK: - JoinSessionViewProtocol
+
+extension JoinSessionViewController: JoinSessionViewProtocol {
+// TODO: - add code to use viewController's methods in presenter
+}
+
+    // MARK: - DismissJoinSessionDelegate
+
+extension JoinSessionViewController: DismissJoinSessionDelegate {
+    func finishJoinSessionFlow() {
+        guard let presenter else { return }
+        presenter.joinSessionFinish()
     }
 }

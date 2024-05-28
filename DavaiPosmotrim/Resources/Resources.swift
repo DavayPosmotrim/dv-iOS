@@ -39,6 +39,11 @@ enum Resources {
         static let enterButtonLabelText = "Выйти".uppercased()
         static let upperLabelText = "Ожидаем подключения всех участников"
         static let lowerLabelText = "Сеанс начнётся, когда подключатся \n все самые нужные люди."
+
+        static let customLabelUpperText = "Покинуть сеанс?"
+        static let customLabelLowerText = "До того, как начнётся этот сеанс, вы сможете подключиться повторно."
+        static let customLabelYesButtonText = "Да".uppercased()
+        static let customLabelNoButtonText = "Нет".uppercased()
     }
 
     enum Mistakes {

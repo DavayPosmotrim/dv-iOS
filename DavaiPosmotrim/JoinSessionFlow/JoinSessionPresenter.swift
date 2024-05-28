@@ -28,7 +28,7 @@ final class JoinSessionPresenter: JoinSessionPresenterProtocol {
 
     // MARK: - Public methods
 
-    func authFinish() {
+    func joinSessionFinish() {
         guard let coordinator else { return }
         coordinator.finish()
     }

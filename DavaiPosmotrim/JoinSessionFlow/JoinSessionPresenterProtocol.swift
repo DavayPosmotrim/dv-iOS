@@ -8,7 +8,7 @@
 import Foundation
 
 protocol JoinSessionPresenterProtocol: AnyObject {
-    func authFinish()
+    func joinSessionFinish()
     func getNamesCount() -> Int
     func getNamesAtIndex(index: Int) -> ReusableCollectionCellModel
     func downloadNamesArrayFromServer()
