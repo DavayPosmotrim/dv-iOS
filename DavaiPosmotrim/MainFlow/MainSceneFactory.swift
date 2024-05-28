@@ -11,7 +11,6 @@ struct MainSceneFactory {
     static func makeMainViewController(with coordinator: MainCoordinator) -> MainViewController {
         let presenter = MainPresenter(coordinator: coordinator)
         let viewController = MainViewController(presenter: presenter)
-        presenter.view = viewController
         return viewController
     }
 }

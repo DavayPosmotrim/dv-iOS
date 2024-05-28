@@ -87,4 +87,12 @@ final class AuthPresenter: AuthPresenterProtocol {
         }
         return savedName
     }
+
+    func authDidFinishNotification(userName: String) {
+        NotificationCenter.default.post(
+            name: Notification.Name(Resources.Authentication.authDidFinishNotification),
+            object: nil,
+            userInfo: [Resources.Authentication.savedNameUserDefaultsKey: userName]
+        )
+    }
 }

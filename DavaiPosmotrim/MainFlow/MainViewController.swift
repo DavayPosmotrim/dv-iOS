@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class MainViewController: UIViewController, UITableViewDelegate {
+final class MainViewController: UIViewController {
 
     // MARK: - Public Properties
 
@@ -15,39 +15,27 @@ final class MainViewController: UIViewController, UITableViewDelegate {
 
     // MARK: - Private Properties
 
-    private struct Keys {
-        static let descriptionLabelText = """
-    Забудьте о бесконечных спорах и компромиссах
-    Наслаждайтесь моментами, выбрав вместе идеальный фильм
-    """
-        static let nameLabelText = "Артем_Test"
-        static let titleLabelTextCellOne = "Создать сеанс"
-        static let titleLabelTextCellTwo = "Понравившиеся фильмы"
-        static let titleLabelTextCellThree = "Присоединиться к сеансу"
-        static let authViewController = "AuthViewController"
-    }
-
     private let mainCellModels: [MainCellModel] = [
         MainCellModel(
-            title: Keys.titleLabelTextCellOne,
+            title: Resources.MainFlow.titleLabelTextCellOne,
             textColor: .whiteText,
             paddingBackgroundColor: .basePrimaryAccent,
-            buttonImage: UIImage.circledForwardIcon.withRenderingMode(.alwaysTemplate),
-            buttonColor: .whiteBackground
+            menuImage: UIImage.circledForwardIcon.withRenderingMode(.alwaysTemplate),
+            menuImageColor: .whiteBackground
         ),
         MainCellModel(
-            title: Keys.titleLabelTextCellTwo,
+            title: Resources.MainFlow.titleLabelTextCellTwo,
             textColor: .baseText,
             paddingBackgroundColor: .baseSecondaryAccent,
-            buttonImage: UIImage.circledHeartIcon.withRenderingMode(.alwaysTemplate),
-            buttonColor: .baseTertiaryAccent
+            menuImage: UIImage.circledHeartIcon.withRenderingMode(.alwaysTemplate),
+            menuImageColor: .baseTertiaryAccent
         ),
         MainCellModel(
-            title: Keys.titleLabelTextCellThree,
+            title: Resources.MainFlow.titleLabelTextCellThree,
             textColor: .whiteText,
             paddingBackgroundColor: .baseTertiaryAccent,
-            buttonImage: UIImage.circledForwardIcon.withRenderingMode(.alwaysTemplate),
-            buttonColor: .whiteBackground
+            menuImage: UIImage.circledForwardIcon.withRenderingMode(.alwaysTemplate),
+            menuImageColor: .whiteBackground
         )
     ]
 
@@ -61,7 +49,7 @@ final class MainViewController: UIViewController, UITableViewDelegate {
 
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = Keys.descriptionLabelText
+        label.text = Resources.MainFlow.descriptionLabelText
         label.textColor = .captionDarkText
         label.font = .textCaptionRegularFont
         label.textAlignment = .right
@@ -90,7 +78,7 @@ final class MainViewController: UIViewController, UITableViewDelegate {
 
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.text = Keys.nameLabelText
+        label.text = presenter?.checkUserNameProperty()
         label.textColor = .headingText
         label.font = .textLabelFont
         return label
@@ -130,6 +118,14 @@ final class MainViewController: UIViewController, UITableViewDelegate {
         fatalError("init(coder:) has not been implemented")
     }
 
+    deinit {
+        NotificationCenter.default.removeObserver(
+            self,
+            name: Notification.Name(Resources.Authentication.authDidFinishNotification),
+            object: nil
+        )
+    }
+
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
@@ -138,6 +134,7 @@ final class MainViewController: UIViewController, UITableViewDelegate {
         tableView.register(MainTableViewCell.self, forCellReuseIdentifier: MainTableViewCell.reuseIdentifier)
         setupSubviews()
         setupConstraints()
+        setupNotificationObserver()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -147,30 +144,38 @@ final class MainViewController: UIViewController, UITableViewDelegate {
 
     // MARK: - Actions
 
-    @objc func didTapBackButton() {
-        nameButtonPressed(screen: Keys.authViewController)
-    }
-
-    // MARK: - Public Methods
-
-    func nameButtonPressed(screen: String) {
-        self.presenter?.mainFinish(screen: screen)
+    @objc private func didTapBackButton() {
+        presenter?.didTapButtons(screen: Resources.MainFlow.authViewController)
     }
 
     // MARK: - Private methods
 
+    private func setupNotificationObserver() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updateUserName(_:)),
+            name: Notification.Name(Resources.Authentication.authDidFinishNotification),
+            object: nil
+        )
+    }
+
+    @objc private func updateUserName(_ notification: Notification) {
+        nameLabel.text = presenter?.getUserName(notification)
+    }
+
     private func setupSubviews() {
-        [imageView,
-         descriptionLabel,
-         paddingView
+        [
+            imageView,
+            descriptionLabel,
+            paddingView
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
         }
-
-        [nameLabel,
-         editButton,
-         tableView
+        [
+            nameLabel,
+            editButton,
+            tableView
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             paddingView.addSubview($0)
@@ -183,7 +188,6 @@ final class MainViewController: UIViewController, UITableViewDelegate {
             imageView.widthAnchor.constraint(equalToConstant: 122),
             imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
-            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -229),
 
             descriptionLabel.heightAnchor.constraint(equalToConstant: 48),
             descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 64),
@@ -203,8 +207,6 @@ final class MainViewController: UIViewController, UITableViewDelegate {
             editButton.topAnchor.constraint(equalTo: paddingView.topAnchor, constant: 16),
             editButton.trailingAnchor.constraint(equalTo: paddingView.trailingAnchor, constant: -32),
 
-            tableView.heightAnchor.constraint(equalToConstant: 264),
-            tableView.widthAnchor.constraint(equalToConstant: 343),
             tableView.leadingAnchor.constraint(equalTo: paddingView.leadingAnchor, constant: 16),
             tableView.topAnchor.constraint(equalTo: editButton.bottomAnchor, constant: 36),
             tableView.trailingAnchor.constraint(equalTo: paddingView.trailingAnchor, constant: -16),
@@ -223,19 +225,29 @@ extension MainViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MainTableViewCell.reuseIdentifier, for: indexPath)
-
         guard let mainTableViewCell = cell as? MainTableViewCell else {
             return UITableViewCell()
         }
-
         let model = mainCellModels[indexPath.row]
         mainTableViewCell.configureCell(model: model)
         return mainTableViewCell
     }
 }
 
-// MARK: - MainViewProtocol
+// MARK: - UITableViewDelegate
 
-extension MainViewController: MainViewProtocol {
-    // TODO: - add code to use viewControllers method in presenter
+extension MainViewController: UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.row {
+        case 0:
+            presenter?.didTapButtons(screen: Resources.MainFlow.createSessionViewController)
+        case 1:
+            presenter?.didTapButtons(screen: Resources.MainFlow.favoriteMoviesViewController)
+        case 2:
+            presenter?.didTapButtons(screen: Resources.MainFlow.joinSessionViewController)
+        default:
+            break
+        }
+    }
 }

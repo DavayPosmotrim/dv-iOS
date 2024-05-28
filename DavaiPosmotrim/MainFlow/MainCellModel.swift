@@ -11,6 +11,6 @@ struct MainCellModel {
     let title: String
     let textColor: UIColor
     let paddingBackgroundColor: UIColor
-    let buttonImage: UIImage
-    let buttonColor: UIColor
+    let menuImage: UIImage
+    let menuImageColor: UIColor
 }

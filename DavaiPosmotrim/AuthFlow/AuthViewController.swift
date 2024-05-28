@@ -145,7 +145,7 @@ final class AuthViewController: UIViewController {
             enterButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
-    
+
     private func setupTextFieldProperties() {
         guard let presenter else { return }
         userName = presenter.checkUserNameProperty()
@@ -160,11 +160,9 @@ final class AuthViewController: UIViewController {
     }
 
     @objc func enterButtonDidTap(sender: AnyObject) {
-
-        // TODO: - add code to pass userName to MainViewController and save it on server
-
         if let name = nameTextField.text, let presenter = presenter {
             userName = presenter.handleEnterButtonTap(with: name)
+            presenter.authDidFinishNotification(userName: userName)
             DispatchQueue.main.async {
                 presenter.authFinish()
             }
