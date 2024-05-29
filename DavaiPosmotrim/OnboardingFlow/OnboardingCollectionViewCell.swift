@@ -9,7 +9,7 @@ import UIKit
 
 final class OnboardingCollectionViewCell: UICollectionViewCell {
 
-    // MARK: - Stored proprties
+    // MARK: - Stored properties
 
     static let reuseIdentifier = "OnboardingCollectionViewCell"
     private var cellConstraints = [NSLayoutConstraint]()
@@ -18,7 +18,7 @@ final class OnboardingCollectionViewCell: UICollectionViewCell {
 
     private lazy var cellImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
 
@@ -44,7 +44,7 @@ final class OnboardingCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.contentView.backgroundColor = .clear
+        contentView.backgroundColor = .clear
 
         setupSubviews()
         setupConstraints()
@@ -56,20 +56,22 @@ final class OnboardingCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Public methods
 
-    func configureCell(with page: PageModel, and indexPath: IndexPath) {
+    func configureCell(with page: PageModel) {
         cellImageView.image = page.image
         cellLowerLabel.text = page.lowerText
-        cellUpperLabel.attributedText = adjustCellUpperLabel(with: page.upperText, and: page.upperColoredText)
-
-        setupImageViewConstraints(using: indexPath)
+        cellUpperLabel.attributedText = adjustCellUpperLabel(
+            with: page.upperText,
+            and: page.upperColoredText
+        )
     }
 
     // MARK: - Private methods
 
     private func setupSubviews() {
-        [cellImageView,
-        cellLowerLabel,
-        cellUpperLabel
+        [
+            cellUpperLabel,
+            cellImageView,
+            cellLowerLabel
         ].forEach {
             contentView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -78,30 +80,20 @@ final class OnboardingCollectionViewCell: UICollectionViewCell {
 
     private func setupConstraints() {
         cellConstraints = [
-            cellImageView.topAnchor.constraint(equalTo: cellUpperLabel.bottomAnchor, constant: 33),
-            cellImageView.heightAnchor.constraint(equalToConstant: 275),
+            cellUpperLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 32),
+            cellUpperLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -32),
+            cellUpperLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
+            cellUpperLabel.heightAnchor.constraint(equalToConstant: 132),
 
-            cellLowerLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 32),
-            cellLowerLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -32),
+            cellImageView.topAnchor.constraint(equalTo: cellUpperLabel.bottomAnchor, constant: 32),
+            cellImageView.bottomAnchor.constraint(equalTo: cellLowerLabel.topAnchor, constant: -32),
+            cellImageView.leadingAnchor.constraint(equalTo: cellUpperLabel.leadingAnchor),
+            cellImageView.trailingAnchor.constraint(equalTo: cellUpperLabel.trailingAnchor),
+
+            cellLowerLabel.leadingAnchor.constraint(equalTo: cellUpperLabel.leadingAnchor),
+            cellLowerLabel.trailingAnchor.constraint(equalTo: cellUpperLabel.trailingAnchor),
             cellLowerLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-
-            cellUpperLabel.leadingAnchor.constraint(equalTo: cellLowerLabel.leadingAnchor),
-            cellUpperLabel.trailingAnchor.constraint(equalTo: cellLowerLabel.trailingAnchor),
-            cellUpperLabel.topAnchor.constraint(equalTo: contentView.topAnchor)
-        ]
-        NSLayoutConstraint.activate(cellConstraints)
-    }
-
-    private func setupImageViewConstraints(using indexPath: IndexPath) {
-        cellConstraints += [
-            cellImageView.leadingAnchor.constraint(
-                equalTo: contentView.leadingAnchor,
-                constant: indexPath.row == 1 ? 0 : 32
-            ),
-            cellImageView.trailingAnchor.constraint(
-                equalTo: contentView.trailingAnchor,
-                constant: indexPath.row == 1 ? 0 : -32
-            )
+            cellLowerLabel.heightAnchor.constraint(equalToConstant: 40)
         ]
         NSLayoutConstraint.activate(cellConstraints)
     }
