@@ -16,7 +16,7 @@ final class CustomButtons: UIView {
         button.backgroundColor = .basePrimaryAccent
         button.setTitleColor(.whiteText, for: .normal)
         button.titleLabel?.font = .textButtonMediumFont
-        button.layer.cornerRadius = 14
+        button.layer.cornerRadius = 12
         return button
     }()
 
@@ -25,7 +25,7 @@ final class CustomButtons: UIView {
         button.backgroundColor = .baseTertiaryAccent
         button.setTitleColor(.whiteText, for: .normal)
         button.titleLabel?.font = .textButtonMediumFont
-        button.layer.cornerRadius = 14
+        button.layer.cornerRadius = 12
         return button
     }()
 
@@ -50,5 +50,23 @@ final class CustomButtons: UIView {
             button.trailingAnchor.constraint(equalTo: trailingAnchor),
             button.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+        setupTapHandling(for: button)
+    }
+
+    // MARK: - Private methods
+
+    private func setupTapHandling(for button: UIButton) {
+        button.addTarget(self, action: #selector(tap), for: .touchDown)
+        button.addTarget(self, action: #selector(unTap), for: .touchUpInside)
+    }
+
+    // MARK: - Handlers
+
+    @objc private func tap() {
+        self.alpha = 0.7
+    }
+
+    @objc private func unTap() {
+        self.alpha = 1.0
     }
 }
