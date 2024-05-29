@@ -257,7 +257,7 @@ extension OnboardingViewController: UICollectionViewDataSource {
         }
 
         let currentPage = pages[indexPath.item]
-        cell.configureCell(with: currentPage)
+        cell.configureCell(with: currentPage, and: indexPath)
 
         return cell
     }
