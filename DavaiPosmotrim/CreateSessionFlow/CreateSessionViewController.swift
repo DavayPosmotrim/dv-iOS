@@ -87,19 +87,15 @@ final class CreateSessionViewController: UIViewController {
         return tableView
     }()
 
-    private lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewLayout.createLeftAlignedLayout()
-        let collectionView = UICollectionView(
-            frame: .zero,
-            collectionViewLayout: layout
+    private lazy var collectionView: UIView = {
+        let collectionView = ReusableUICollectionView()
+        collectionView.setupCollectionView(
+            with: self,
+            cell: CreateSessionCollectionCell.self,
+            cellIdentifier: CreateSessionCollectionCell.reuseIdentifier
         )
-        collectionView.register(
-            CreateSessionCollectionCell.self,
-            forCellWithReuseIdentifier: CreateSessionCollectionCell.reuseIdentifier
-        )
-        collectionView.backgroundColor = .whiteBackground
-        collectionView.layer.cornerRadius = 24
         collectionView.isHidden = true
+
         return collectionView
     }()
 
@@ -184,8 +180,6 @@ private extension CreateSessionViewController {
             CreateSessionTableViewCell.self,
             forCellReuseIdentifier: CreateSessionTableViewCell.reuseIdentifier
         )
-        collectionView.dataSource = self
-        collectionView.delegate = self
     }
 
     func setupSubviews() {
