@@ -9,7 +9,7 @@ import Foundation
 
 final class InvitingUsersCoordinator: BaseCoordinator {
     override func start() {
-        
+        showInvitingUsersScreen()
     }
 }
 
