@@ -8,6 +8,23 @@
 import Foundation
 
 enum Resources {
+    enum Onboarding {
+        static let nextButtonText = "Продолжить".uppercased()
+        static let beginButtonText = "Начать".uppercased()
+
+        static let firstOnboardingLowerLabelText = "Никаких лишних разговоров и долгих поисков."
+        static let secondOnboardingLowerLabelText = "Выбирать фильмы можно с любым количеством людей."
+        static let thirdOnboardingLowerLabelText = "Только самые любимые жанры или готовые подборки."
+
+        static let firstOnboardingUpperLabelText = "Выбирайте фильмы\nбез стресса"
+        static let secondOnboardingUpperLabelText = "Вдвоём или\nв большой компании"
+        static let thirdOnboardingUpperLabelText = "Библиотека фильмов на любой вкус"
+
+        static let coloredFirstUpperText = "без стресса"
+        static let coloredSecondUpperText = "Вдвоём"
+        static let coloredThirdUpperText = "на любой вкус"
+    }
+
     enum Authentication {
         static let savedNameUserDefaultsKey = "userName"
         static let authDidFinishNotification = "AuthDidFinishNotification"

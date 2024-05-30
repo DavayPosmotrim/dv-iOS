@@ -12,7 +12,6 @@ final class OnboardingCollectionViewCell: UICollectionViewCell {
     // MARK: - Stored properties
 
     static let reuseIdentifier = "OnboardingCollectionViewCell"
-    private var cellConstraints = [NSLayoutConstraint]()
 
     // MARK: - Computed properties
 
@@ -79,7 +78,7 @@ final class OnboardingCollectionViewCell: UICollectionViewCell {
     }
 
     private func setupConstraints() {
-        cellConstraints = [
+        NSLayoutConstraint.activate([
             cellUpperLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 32),
             cellUpperLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -32),
             cellUpperLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -94,8 +93,7 @@ final class OnboardingCollectionViewCell: UICollectionViewCell {
             cellLowerLabel.trailingAnchor.constraint(equalTo: cellUpperLabel.trailingAnchor),
             cellLowerLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             cellLowerLabel.heightAnchor.constraint(equalToConstant: 40)
-        ]
-        NSLayoutConstraint.activate(cellConstraints)
+        ])
     }
 
     private func adjustCellUpperLabel(with text: String, and colorText: String) -> NSAttributedString {
