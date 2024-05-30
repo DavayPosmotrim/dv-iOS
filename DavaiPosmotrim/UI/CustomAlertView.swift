@@ -24,9 +24,11 @@ final class CustomAlertView: UIView {
     // MARK: - Lazy properties
 
     private lazy var blurredView: UIVisualEffectView = {
-        let view = UIVisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
-
-        return view
+        return UIVisualEffectView(
+            effect: UIBlurEffect(
+                style: .systemUltraThinMaterialDark
+            )
+        )
     }()
 
     private lazy var paddingView: UIView = {
@@ -42,7 +44,6 @@ final class CustomAlertView: UIView {
         let label = UILabel()
         label.font = .textHeadingFont
         label.textColor = .headingText
-//        label.text = Resources.JoinSession.customLabelUpperText
         label.textAlignment = .left
 
         return label
@@ -52,7 +53,6 @@ final class CustomAlertView: UIView {
         let label = UILabel()
         label.font = .textParagraphRegularFont
         label.textColor = .baseText
-//        label.text = Resources.JoinSession.customLabelLowerText
         label.numberOfLines = 5
         label.textAlignment = .left
 
