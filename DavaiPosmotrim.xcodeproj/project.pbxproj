@@ -44,6 +44,7 @@
 		C964B7122BD9A74400CF9AF0 /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C964B7112BD9A74400CF9AF0 /* OnboardingCollectionViewCell.swift */; };
 		C96895CF2BE835EA002A99E6 /* AuthPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96895CE2BE835EA002A99E6 /* AuthPresenterProtocol.swift */; };
 		C96895D12BE88E4B002A99E6 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96895D02BE88E4B002A99E6 /* Resources.swift */; };
+		C9AF1EB52C0A0FA90080FC4A /* OnboardingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AF1EB42C0A0FA90080FC4A /* OnboardingPresenter.swift */; };
 		C9B57C6C2C0607450026E85D /* DismissJoinSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B57C6B2C0607450026E85D /* DismissJoinSessionViewController.swift */; };
 		C9C4D59E2BD3A3C70081CD23 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4D59D2BD3A3C70081CD23 /* AppDelegate.swift */; };
 		C9C4D5A02BD3A3C70081CD23 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4D59F2BD3A3C70081CD23 /* SceneDelegate.swift */; };
@@ -56,7 +57,6 @@
 		C9FCE9692BD3E4D600FE655D /* Inter-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9FCE9582BD3E25900FE655D /* Inter-Regular.otf */; };
 		C9FCE96A2BD3E4D800FE655D /* Inter-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9FCE9562BD3E25800FE655D /* Inter-SemiBold.otf */; };
 		C9FCE96D2BD3E53C00FE655D /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCE96C2BD3E53C00FE655D /* UIFont+Extension.swift */; };
-		E26592CD2BDBA4CF009F1185 /* OnboardingViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26592CC2BDBA4CF009F1185 /* OnboardingViewProtocol.swift */; };
 		E2B9BF872BD7B8EF00592578 /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BF862BD7B8EF00592578 /* CoordinatorProtocol.swift */; };
 		E2B9BF892BD7BA2C00592578 /* AppCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BF882BD7BA2C00592578 /* AppCoordinatorProtocol.swift */; };
 		E2B9BF932BD7C45B00592578 /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BF922BD7C45B00592578 /* BaseCoordinator.swift */; };
@@ -110,6 +110,7 @@
 		C964B7112BD9A74400CF9AF0 /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
 		C96895CE2BE835EA002A99E6 /* AuthPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenterProtocol.swift; sourceTree = "<group>"; };
 		C96895D02BE88E4B002A99E6 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
+		C9AF1EB42C0A0FA90080FC4A /* OnboardingPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPresenter.swift; sourceTree = "<group>"; };
 		C9B57C6B2C0607450026E85D /* DismissJoinSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissJoinSessionViewController.swift; sourceTree = "<group>"; };
 		C9C4D59A2BD3A3C70081CD23 /* DavaiPosmotrim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DavaiPosmotrim.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9C4D59D2BD3A3C70081CD23 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -123,7 +124,6 @@
 		C9FCE95E2BD3E25C00FE655D /* Inter-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Bold.otf"; sourceTree = "<group>"; };
 		C9FCE9612BD3E25D00FE655D /* Inter-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Medium.otf"; sourceTree = "<group>"; };
 		C9FCE96C2BD3E53C00FE655D /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
-		E26592CC2BDBA4CF009F1185 /* OnboardingViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewProtocol.swift; sourceTree = "<group>"; };
 		E2B9BF862BD7B8EF00592578 /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
 		E2B9BF882BD7BA2C00592578 /* AppCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		E2B9BF922BD7C45B00592578 /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
@@ -319,7 +319,7 @@
 				E2B9BF962BD7C67600592578 /* OnboardingCoordinator.swift */,
 				E2B9BFAB2BD8034C00592578 /* OnboardingPresenterProtocol.swift */,
 				E2B9BFAD2BD8080100592578 /* OnboardingSceneFactory.swift */,
-				E26592CC2BDBA4CF009F1185 /* OnboardingViewProtocol.swift */,
+				C9AF1EB42C0A0FA90080FC4A /* OnboardingPresenter.swift */,
 			);
 			path = OnboardingFlow;
 			sourceTree = "<group>";
@@ -484,7 +484,6 @@
 				C96895CF2BE835EA002A99E6 /* AuthPresenterProtocol.swift in Sources */,
 				C9C4D59E2BD3A3C70081CD23 /* AppDelegate.swift in Sources */,
 				E2B9BFA22BD7CEC300592578 /* AuthViewController.swift in Sources */,
-				E26592CD2BDBA4CF009F1185 /* OnboardingViewProtocol.swift in Sources */,
 				4A6280482BEAB1FA00102304 /* MovieMockData.swift in Sources */,
 				E2B9BFAA2BD7CF7A00592578 /* FavoriteMoviesViewController.swift in Sources */,
 				E9A2701F2BE4C2940088652B /* CGFloat+Extensions.swift in Sources */,
@@ -513,6 +512,7 @@
 				C9147CB12C0611F50086A663 /* CustomAlertView.swift in Sources */,
 				C91DCC742BFEA1E8001BC065 /* JoinSessionCoordinator.swift in Sources */,
 				E2B9BF932BD7C45B00592578 /* BaseCoordinator.swift in Sources */,
+				C9AF1EB52C0A0FA90080FC4A /* OnboardingPresenter.swift in Sources */,
 				C917E3FB2BE6D12000B34639 /* AuthSceneFactory.swift in Sources */,
 				E2B9BFAC2BD8034C00592578 /* OnboardingPresenterProtocol.swift in Sources */,
 				C917E3F92BE6CFC700B34639 /* AuthPresenter.swift in Sources */,

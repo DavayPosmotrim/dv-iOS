@@ -289,9 +289,3 @@ extension OnboardingViewController: UIScrollViewDelegate {
         toggleButtons()
     }
 }
-
-    // MARK: - OnboardingViewProtocol
-
-extension OnboardingViewController: OnboardingViewProtocol {
-    // TODO: - add code to use viewControllers method in presenter
-}
