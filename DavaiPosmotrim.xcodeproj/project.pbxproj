@@ -24,6 +24,9 @@
 		4A62804A2BECEB2300102304 /* CreateSessionCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6280492BECEB2300102304 /* CreateSessionCollectionCell.swift */; };
 		4A62804C2BF0EB7300102304 /* CustomWarningNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A62804B2BF0EB7300102304 /* CustomWarningNotification.swift */; };
 		4A62804F2BF13DBE00102304 /* InvitingUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A62804E2BF13DBE00102304 /* InvitingUsersViewController.swift */; };
+		5AEEACC62C0A1E3900F18BF9 /* SplashScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AEEACC22C0A1E3900F18BF9 /* SplashScreenPresenter.swift */; };
+		5AEEACC72C0A1E3900F18BF9 /* SplashScreenPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AEEACC32C0A1E3900F18BF9 /* SplashScreenPresenterProtocol.swift */; };
+		5AEEACC82C0A1E3900F18BF9 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AEEACC42C0A1E3900F18BF9 /* SplashScreenViewController.swift */; };
 		C90CAB342BFAFA1100B42456 /* JoinSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90CAB322BFAFA1100B42456 /* JoinSessionViewController.swift */; };
 		C90CAB372BFAFA6B00B42456 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = C90CAB362BFAFA6B00B42456 /* Swinject */; };
 		C9147CB12C0611F50086A663 /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9147CB02C0611F50086A663 /* CustomAlertView.swift */; };
@@ -91,6 +94,9 @@
 		4A6280492BECEB2300102304 /* CreateSessionCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionCollectionCell.swift; sourceTree = "<group>"; };
 		4A62804B2BF0EB7300102304 /* CustomWarningNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWarningNotification.swift; sourceTree = "<group>"; };
 		4A62804E2BF13DBE00102304 /* InvitingUsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitingUsersViewController.swift; sourceTree = "<group>"; };
+		5AEEACC22C0A1E3900F18BF9 /* SplashScreenPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashScreenPresenter.swift; sourceTree = "<group>"; };
+		5AEEACC32C0A1E3900F18BF9 /* SplashScreenPresenterProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashScreenPresenterProtocol.swift; sourceTree = "<group>"; };
+		5AEEACC42C0A1E3900F18BF9 /* SplashScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
 		C90CAB322BFAFA1100B42456 /* JoinSessionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinSessionViewController.swift; sourceTree = "<group>"; };
 		C9147CB02C0611F50086A663 /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
 		C9147CB22C067FCC0086A663 /* DismissJoinSessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissJoinSessionDelegate.swift; sourceTree = "<group>"; };
@@ -161,6 +167,16 @@
 			path = InvitingUsersFlow;
 			sourceTree = "<group>";
 		};
+		5AEEACC52C0A1E3900F18BF9 /* SplashScreen */ = {
+			isa = PBXGroup;
+			children = (
+				5AEEACC22C0A1E3900F18BF9 /* SplashScreenPresenter.swift */,
+				5AEEACC32C0A1E3900F18BF9 /* SplashScreenPresenterProtocol.swift */,
+				5AEEACC42C0A1E3900F18BF9 /* SplashScreenViewController.swift */,
+			);
+			path = SplashScreen;
+			sourceTree = "<group>";
+		};
 		C90CAB332BFAFA1100B42456 /* JoinSessionFlow */ = {
 			isa = PBXGroup;
 			children = (
@@ -219,6 +235,7 @@
 			children = (
 				E2B9BF8C2BD7BD0900592578 /* Application */,
 				E2B9BF912BD7BF2300592578 /* Protocols */,
+				5AEEACC52C0A1E3900F18BF9 /* SplashScreen */,
 				4A62804D2BF13D7400102304 /* InvitingUsersFlow */,
 				E2B9BFA02BD7CDE500592578 /* FavoriteMoviesFlow */,
 				E2B9BF9E2BD7CDCB00592578 /* CreateSessionFlow */,
@@ -475,6 +492,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9B57C6C2C0607450026E85D /* DismissJoinSessionViewController.swift in Sources */,
+				5AEEACC62C0A1E3900F18BF9 /* SplashScreenPresenter.swift in Sources */,
 				4A6280362BDED59F00102304 /* MainSceneFactory.swift in Sources */,
 				4A6280382BDED62600102304 /* MainPresenter.swift in Sources */,
 				4A6280422BE9001200102304 /* CustomNavigationBar.swift in Sources */,
@@ -489,6 +507,7 @@
 				E2B9BFAA2BD7CF7A00592578 /* FavoriteMoviesViewController.swift in Sources */,
 				E9A2701F2BE4C2940088652B /* CGFloat+Extensions.swift in Sources */,
 				E2B9BFAE2BD8080100592578 /* OnboardingSceneFactory.swift in Sources */,
+				5AEEACC82C0A1E3900F18BF9 /* SplashScreenViewController.swift in Sources */,
 				E2B9BF892BD7BA2C00592578 /* AppCoordinatorProtocol.swift in Sources */,
 				E2B9BFA62BD7CF3000592578 /* CreateSessionViewController.swift in Sources */,
 				C90CAB342BFAFA1100B42456 /* JoinSessionViewController.swift in Sources */,
@@ -503,6 +522,7 @@
 				4A6280322BDE846900102304 /* MainTableViewCell.swift in Sources */,
 				4A62804C2BF0EB7300102304 /* CustomWarningNotification.swift in Sources */,
 				C91DCC7C2BFEA33E001BC065 /* JoinSessionViewProtocol.swift in Sources */,
+				5AEEACC72C0A1E3900F18BF9 /* SplashScreenPresenterProtocol.swift in Sources */,
 				E2B9BF872BD7B8EF00592578 /* CoordinatorProtocol.swift in Sources */,
 				C917E3F52BE6CED000B34639 /* AuthCoordinator.swift in Sources */,
 				C91DCC7A2BFEA31A001BC065 /* JoinSessionPresenterProtocol.swift in Sources */,
