@@ -66,7 +66,12 @@ private extension MainCoordinator {
     }
 
     func showJoinSessionFlow() {
-        let joinSessionViewController = JoinSessionViewController()
-        navigationController.setViewControllers([joinSessionViewController], animated: true)
+        let authSessionCoordinator = AuthCoordinator(
+            type: .authSession,
+            navigationController: navigationController
+        )
+        addChild(authSessionCoordinator)
+        authSessionCoordinator.start()
+
     }
 }
