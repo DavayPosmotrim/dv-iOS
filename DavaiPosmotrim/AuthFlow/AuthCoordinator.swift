@@ -21,12 +21,10 @@ final class AuthCoordinator: BaseCoordinator {
 private extension AuthCoordinator {
 
     func showAuthentication() {
-        var viewController: AuthViewController
+        let viewController = AuthSceneFactory.makeAuthViewController(with: self)
         if self.type == .auth {
-            viewController = AuthSceneFactory.makeAuthViewController(with: self)
             navigationController.setViewControllers([viewController], animated: true)
-        } else if self.type == .edit {
-            viewController = AuthSceneFactory.makeAuthViewController(with: self)
+        } else {
             navigationController.present(viewController, animated: true)
         }
     }

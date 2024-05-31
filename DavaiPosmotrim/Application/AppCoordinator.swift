@@ -14,7 +14,7 @@ final class AppCoordinator: BaseCoordinator {
         } else if UserDefaults.standard.value(forKey: Resources.Authentication.savedNameUserDefaultsKey) == nil {
             showAuthFlow()
         } else {
-            showInviteUsersFlow()
+            showMainFlow()
         }
     }
 
@@ -44,16 +44,6 @@ private extension AppCoordinator {
         authCoordinator.start()
     }
 
-    func showEditFlow() {
-        let editCoordinator = AuthCoordinator(
-            type: .edit,
-            finishDelegate: self,
-            navigationController: navigationController
-        )
-        addChild(editCoordinator)
-        editCoordinator.start()
-    }
-
     func showMainFlow() {
         let mainCoordinator = MainCoordinator(
             type: .main,
@@ -64,14 +54,14 @@ private extension AppCoordinator {
         mainCoordinator.start()
     }
 
-    func showInviteUsersFlow() {
-        let inviteUsersCoordinator = InvitingUsersCoordinator(
+    func showJoinSessionFlow() {
+        let joinSessionCoordinator = JoinSessionCoordinator(
             type: .joinSession,
             finishDelegate: self,
             navigationController: navigationController
         )
-        addChild(inviteUsersCoordinator)
-        inviteUsersCoordinator.start()
+        addChild(joinSessionCoordinator)
+        joinSessionCoordinator.start()
     }
 }
 
@@ -85,10 +75,10 @@ extension AppCoordinator: CoordinatorFinishDelegate {
             showAuthFlow()
         case .auth:
             showMainFlow()
-        case .edit:
-            showMainFlow()
         case .main:
-            print("MainCoordinator finished")
+            showJoinSessionFlow()
+        case .joinSession:
+            showMainFlow()
         default:
             navigationController.popToRootViewController(animated: false)
         }

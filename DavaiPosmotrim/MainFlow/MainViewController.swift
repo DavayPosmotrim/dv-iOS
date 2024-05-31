@@ -124,6 +124,12 @@ final class MainViewController: UIViewController {
             name: Notification.Name(Resources.Authentication.authDidFinishNotification),
             object: nil
         )
+
+        NotificationCenter.default.removeObserver(
+            self,
+            name: NSNotification.Name(Resources.MainScreen.startJoinSessionFlow),
+            object: nil
+        )
     }
 
     // MARK: - Lifecycle
@@ -134,7 +140,8 @@ final class MainViewController: UIViewController {
         tableView.register(MainTableViewCell.self, forCellReuseIdentifier: MainTableViewCell.reuseIdentifier)
         setupSubviews()
         setupConstraints()
-        setupNotificationObserver()
+        setupAuthNotificationObserver()
+        setupJoinNotificationObserver()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -148,9 +155,18 @@ final class MainViewController: UIViewController {
         presenter?.didTapButtons(screen: Resources.MainFlow.authViewController)
     }
 
+    @objc private func updateUserName(_ notification: Notification) {
+        nameLabel.text = presenter?.getUserName(notification)
+    }
+
+    @objc private func finishMainFlow() {
+        guard let presenter else { return }
+        presenter.finishCoordinator()
+    }
+
     // MARK: - Private methods
 
-    private func setupNotificationObserver() {
+    private func setupAuthNotificationObserver() {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(updateUserName(_:)),
@@ -159,8 +175,13 @@ final class MainViewController: UIViewController {
         )
     }
 
-    @objc private func updateUserName(_ notification: Notification) {
-        nameLabel.text = presenter?.getUserName(notification)
+    private func setupJoinNotificationObserver() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(finishMainFlow),
+            name: NSNotification.Name(Resources.MainScreen.startJoinSessionFlow),
+            object: nil
+        )
     }
 
     private func setupSubviews() {

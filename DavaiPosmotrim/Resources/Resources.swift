@@ -8,18 +8,43 @@
 import Foundation
 
 enum Resources {
+    enum ReusableCollectionView {
+        static let updateCollectionView = "updateCollectionView"
+    }
+
     enum Authentication {
         static let savedNameUserDefaultsKey = "userName"
         static let authDidFinishNotification = "AuthDidFinishNotification"
 
         static let upperLabelText = "Введите ваше имя"
+        static let joinSessionUpperText = "Код сеанса"
         static let enterButtonLabelText = "Войти".uppercased()
         static let editButtonLabelText = "Сохранить".uppercased()
+        static let joinSessionButtonLabelText = "Присоединиться".uppercased()
 
         static let lowerLabelInputNameWarningText = "Введите имя"
         static let lowerLabelLengthWarningText = "Минимум две буквы"
         static let lowerLabelNumbersWarningText = "Только буквы"
         static let lowerLabelMaxCharactersText = "Не более 16 символов"
+        static let lowerLabelSessionNotFound = "Сеанс не найден"
+    }
+
+    enum MainScreen {
+        static let startJoinSessionFlow = "startJoinSessionFlow"
+    }
+
+    enum JoinSession {
+        static let joinSessionCreatedCode = "joinSessionCreatedCode"
+
+        static let sessionNameLabelText = "Сеанс "
+        static let enterButtonLabelText = "Выйти".uppercased()
+        static let upperLabelText = "Ожидаем подключения всех участников"
+        static let lowerLabelText = "Сеанс начнётся, когда подключатся \n все самые нужные люди."
+
+        static let customLabelUpperText = "Покинуть сеанс?"
+        static let customLabelLowerText = "До того, как начнётся этот сеанс, вы сможете подключиться повторно."
+        static let customLabelYesButtonText = "Да".uppercased()
+        static let customLabelNoButtonText = "Нет".uppercased()
     }
 
     enum MainFlow {

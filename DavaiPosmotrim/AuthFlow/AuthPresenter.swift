@@ -64,6 +64,36 @@ final class AuthPresenter: AuthPresenterProtocol {
         }
     }
 
+    func checkSessionCode(with code: String) {
+        let createdCode = "AAaa567"
+        UserDefaults.standard.setValue(createdCode, forKey: Resources.JoinSession.joinSessionCreatedCode)
+
+        // TODO: - add logic to fetch createdCode from server
+
+        if code == createdCode {
+            view?.updateUIElements(
+                text: nil,
+                font: nil,
+                labelProperty: true,
+                buttonProperty: true
+            )
+        } else {
+            view?.updateUIElements(
+                text: Resources.Authentication.lowerLabelSessionNotFound,
+                font: nil,
+                labelProperty: false,
+                buttonProperty: false
+            )
+        }
+    }
+
+    func startJoinSessionFlowNotification() {
+        NotificationCenter.default.post(
+            name: NSNotification.Name(Resources.MainScreen.startJoinSessionFlow),
+            object: nil
+        )
+    }
+
     func handleEnterButtonTap(with name: String) -> String {
         if name.isEmpty {
             view?.updateUIElements(
