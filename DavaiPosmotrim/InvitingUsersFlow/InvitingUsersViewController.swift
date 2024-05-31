@@ -34,12 +34,38 @@ final class InvitingUsersViewController: UIViewController, InvitingUsersViewProt
         return label
     }()
 
+    private lazy var codeButton: UIView = {
+        let button = CustomButtons()
+        button.setupView(with: button.grayButton)
+        button.grayButton.setTitle("code", for: .normal)
+//        button.purpleButton.addTarget(self, action: #selector(didTapNextButton(sender:)), for: .touchUpInside)
+        return button
+    }()
+
+    private lazy var inviteButton: UIView = {
+        let button = CustomButtons()
+        button.setupView(with: button.blackButton)
+        button.blackButton.setTitle("ПРИГЛАСИТЬ", for: .normal)
+//        button.purpleButton.addTarget(self, action: #selector(didTapNextButton(sender:)), for: .touchUpInside)
+        return button
+    }()
+
+    private lazy var buttonsStack: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 16
+        stackView.distribution = .fillEqually
+
+        return stackView
+    }()
+
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .green
         setupSubViews()
+        setupButtonsStackView()
         setupConstraints()
     }
 
@@ -56,11 +82,21 @@ final class InvitingUsersViewController: UIViewController, InvitingUsersViewProt
 
     // MARK: - Private methods
 
+    private func setupButtonsStackView() {
+        [
+            codeButton,
+            inviteButton
+        ].forEach {
+            buttonsStack.addArrangedSubview($0)
+        }
+    }
+
     private func setupSubViews() {
         navigationController?.setNavigationBarHidden(true, animated: false)
         [
             upperPaddingView,
-            usersLabel
+            usersLabel,
+            buttonsStack
         ].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -76,7 +112,12 @@ final class InvitingUsersViewController: UIViewController, InvitingUsersViewProt
             upperPaddingView.bottomAnchor.constraint(equalTo: safeArea.topAnchor, constant: 64 + 88),
 
             usersLabel.centerXAnchor.constraint(equalTo: upperPaddingView.centerXAnchor),
-            usersLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 20)
+            usersLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 20),
+
+            buttonsStack.heightAnchor.constraint(equalToConstant: 48),
+            buttonsStack.bottomAnchor.constraint(equalTo: upperPaddingView.bottomAnchor, constant: -16),
+            buttonsStack.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
+            buttonsStack.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20)
         ])
     }
 }
