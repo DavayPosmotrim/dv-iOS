@@ -10,49 +10,61 @@ import UIKit
 import CoreMotion
 import CoreGraphics
 
-final class SplashScreenViewController: UIViewController, UIGestureRecognizerDelegate {
-    // MARK: Private Properties
-    private var animator: UIDynamicAnimator!
-    private var gravity: UIGravityBehavior!
-    private var motion: CMMotionManager!
-    private var queue: OperationQueue!
+final class SplashScreenViewController: UIViewController {
+
+    // MARK: - Stored properties
+
+    private var animator = UIDynamicAnimator()
+    private var gravity = UIGravityBehavior()
+    private var motion = CMMotionManager()
+    private var queue = OperationQueue.current
     private var animationTimer = Timer()
     private var bordersTimer = Timer()
-    private var tapView: UIView = {
+
+    // MARK: - Lazy properties
+
+    private lazy var tapView: UIView = {
         var tapView = UIView()
         tapView.backgroundColor = .clear
         return tapView
     }()
-    private var leftView: UIView = {
+
+    private lazy var leftView: UIView = {
         var leftView = UIView()
         leftView.backgroundColor = .clear
         return leftView
     }()
-    private var rightView: UIView = {
+
+    private lazy var rightView: UIView = {
         var rightView = UIView()
         rightView.backgroundColor = .clear
         return rightView
     }()
-    private var topView: UIView = {
+
+    private lazy var topView: UIView = {
         var topView = UIView()
         topView.backgroundColor = .clear
         return topView
     }()
-    private var bottomView: UIView = {
+
+    private lazy var bottomView: UIView = {
         var bottomView = UIView()
         bottomView.backgroundColor = .clear
         return bottomView
     }()
-    private var davayImageView: UIImageView = {
+
+    private lazy var davayImageView: UIImageView = {
         let davayImageView = UIImageView(image: UIImage(named: "davayLabelImage"))
         return davayImageView
     }()
-    private var backgroundView: UIImageView = {
+
+    private lazy var backgroundView: UIImageView = {
         var backgroundView = UIImageView(image: UIImage(named: "launchScreenBackground"))
         backgroundView.contentMode = .scaleToFill
         return backgroundView
     }()
-    private var musicalLabel: UILabel = {
+
+    private lazy var musicalLabel: UILabel = {
         var musicalLabel = UILabel(frame: CGRect(x: 200, y: -490, width: 119, height: 40))
         musicalLabel.textAlignment = .center
         musicalLabel.textColor = UIColor(named: "baseTextColor")
@@ -64,7 +76,8 @@ final class SplashScreenViewController: UIViewController, UIGestureRecognizerDel
         musicalLabel.transform = CGAffineTransform(rotationAngle: -.pi/6)
         return musicalLabel
     }()
-    private var thrillerLabel: UILabel = {
+
+    private lazy var thrillerLabel: UILabel = {
         var thrillerLabel = UILabel(frame: CGRect(x: 100, y: -445, width: 124, height: 40))
         thrillerLabel.textAlignment = .center
         thrillerLabel.textColor = UIColor(named: "baseTextColor")
@@ -76,7 +89,8 @@ final class SplashScreenViewController: UIViewController, UIGestureRecognizerDel
         thrillerLabel.transform = CGAffineTransform(rotationAngle: .pi/6)
         return thrillerLabel
     }()
-    private var melodrammaLabel: UILabel = {
+
+    private lazy var melodrammaLabel: UILabel = {
         var melodrammaLabel = UILabel(frame: CGRect(x: 50, y: -400, width: 151, height: 40))
         melodrammaLabel.textAlignment = .center
         melodrammaLabel.textColor = UIColor(named: "baseTextColor")
@@ -88,7 +102,8 @@ final class SplashScreenViewController: UIViewController, UIGestureRecognizerDel
         melodrammaLabel.transform = CGAffineTransform(rotationAngle: -.pi/3)
         return melodrammaLabel
     }()
-    private var biographyLabel: UILabel = {
+
+    private lazy var biographyLabel: UILabel = {
         var biographyLabel = UILabel(frame: CGRect(x: 120, y: -355, width: 147, height: 40))
         biographyLabel.textAlignment = .center
         biographyLabel.textColor = UIColor(named: "baseTextColor")
@@ -100,7 +115,8 @@ final class SplashScreenViewController: UIViewController, UIGestureRecognizerDel
         biographyLabel.transform = CGAffineTransform(rotationAngle: -.pi/6)
         return biographyLabel
     }()
-    private var boevikLabel: UILabel = {
+
+    private lazy var boevikLabel: UILabel = {
         var boevikLabel = UILabel(frame: CGRect(x: 220, y: -310, width: 111, height: 40))
         boevikLabel.textAlignment = .center
         boevikLabel.textColor = UIColor(named: "baseTextColor")
@@ -112,7 +128,8 @@ final class SplashScreenViewController: UIViewController, UIGestureRecognizerDel
         boevikLabel.transform = CGAffineTransform(rotationAngle: .pi/6)
         return boevikLabel
     }()
-    private var fantasyLabel: UILabel = {
+
+    private lazy var fantasyLabel: UILabel = {
         var fantasyLabel = UILabel(frame: CGRect(x: 70, y: -265, width: 155, height: 40))
         fantasyLabel.textAlignment = .center
         fantasyLabel.textColor = UIColor(named: "baseTextColor")
@@ -124,7 +141,8 @@ final class SplashScreenViewController: UIViewController, UIGestureRecognizerDel
         fantasyLabel.transform = CGAffineTransform(rotationAngle: -.pi/6)
         return fantasyLabel
     }()
-    private var posmotrimLabel: UILabel = {
+
+    private lazy var posmotrimLabel: UILabel = {
         var posmotrimLabel = UILabel(frame: CGRect(x: 150, y: -40, width: 164, height: 40))
         posmotrimLabel.textAlignment = .center
         posmotrimLabel.textColor = UIColor(named: "whiteTextColor")
@@ -135,7 +153,8 @@ final class SplashScreenViewController: UIViewController, UIGestureRecognizerDel
         posmotrimLabel.font = .systemFont(ofSize: 20)
         return posmotrimLabel
     }()
-    private var multfilmLabel: UILabel = {
+
+    private lazy var multfilmLabel: UILabel = {
         var multfilmLabel = UILabel(frame: CGRect(x: 180, y: -220, width: 164, height: 40))
         multfilmLabel.textAlignment = .center
         multfilmLabel.textColor = UIColor(named: "baseTextColor")
@@ -147,7 +166,8 @@ final class SplashScreenViewController: UIViewController, UIGestureRecognizerDel
         multfilmLabel.transform = CGAffineTransform(rotationAngle: .pi/6)
         return multfilmLabel
     }()
-    private var familyLabel: UILabel = {
+
+    private lazy var familyLabel: UILabel = {
         var familyLabel = UILabel(frame: CGRect(x: 80, y: -175, width: 144, height: 40))
         familyLabel.textAlignment = .center
         familyLabel.textColor = UIColor(named: "baseTextColor")
@@ -159,7 +179,8 @@ final class SplashScreenViewController: UIViewController, UIGestureRecognizerDel
         familyLabel.transform = CGAffineTransform(rotationAngle: .pi/6)
         return familyLabel
     }()
-    private var documentaryLabel: UILabel = {
+
+    private lazy var documentaryLabel: UILabel = {
         var documentaryLabel = UILabel(frame: CGRect(x: 100, y: -130, width: 210, height: 40))
         documentaryLabel.textAlignment = .center
         documentaryLabel.textColor = UIColor(named: "baseTextColor")
@@ -171,7 +192,8 @@ final class SplashScreenViewController: UIViewController, UIGestureRecognizerDel
         documentaryLabel.transform = CGAffineTransform(rotationAngle: .pi/3)
         return documentaryLabel
     }()
-    private var adventureLabel: UILabel = {
+
+    private lazy var adventureLabel: UILabel = {
         var adventureLabel = UILabel(frame: CGRect(x: 100, y: -85, width: 176, height: 40))
         adventureLabel.textAlignment = .center
         adventureLabel.textColor = UIColor(named: "baseTextColor")
@@ -183,6 +205,9 @@ final class SplashScreenViewController: UIViewController, UIGestureRecognizerDel
         adventureLabel.transform = CGAffineTransform(rotationAngle: -.pi/6)
         return adventureLabel
     }()
+
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "baseBackgroundColor")
@@ -190,20 +215,31 @@ final class SplashScreenViewController: UIViewController, UIGestureRecognizerDel
         setupAnimationBehaviour()
         addTapRecognition()
         animationTimer = Timer.scheduledTimer(withTimeInterval: 4, repeats: false) { _ in
-            print("WHY")
             self.dismissSplashScreen()
         }
     }
-    func setupConstraints() {
+}
+
+extension SplashScreenViewController {
+    // MARK: - Private methods
+
+    private func setupConstraints() {
         var safeArea: UIEdgeInsets {
-                let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-                return scene?.windows.first?.safeAreaInsets ?? .zero
-            }
+            let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+            return scene?.windows.first?.safeAreaInsets ?? .zero
+        }
+
+        let rightViewX = view.safeAreaLayoutGuide.layoutFrame.width - 2
+        let bottomViewY = view.safeAreaLayoutGuide.layoutFrame.maxY - 64
+        let davayImageViewX = view.frame.width - 224
+        let davayImageViewY = view.frame.height - safeArea.bottom - 77
+
         leftView.frame =  CGRect(x: 0, y: 0, width: 24, height: 1000)
-        rightView.frame =  CGRect(x: view.safeAreaLayoutGuide.layoutFrame.width - 24, y: 0, width: 24, height: 1000)
-        bottomView.frame = CGRect(x: 0, y: view.safeAreaLayoutGuide.layoutFrame.maxY - 64, width: 1000, height: 32)
+        rightView.frame =  CGRect(x: rightViewX, y: 0, width: 24, height: 1000)
+        bottomView.frame = CGRect(x: 0, y: bottomViewY, width: 1000, height: 32)
         topView.frame = CGRect(x: 0, y: safeArea.top, width: 1000, height: 32)
-        davayImageView.frame = CGRect(x: view.frame.width - 224, y: view.frame.height - safeArea.bottom - 32 - 45, width: 200, height: 45)
+        davayImageView.frame = CGRect(x: davayImageViewX, y: davayImageViewY, width: 200, height: 45)
+
         [backgroundView,
          davayImageView,
          boevikLabel,
@@ -224,8 +260,11 @@ final class SplashScreenViewController: UIViewController, UIGestureRecognizerDel
          tapView].forEach {
             view.addSubview($0)
         }
-        backgroundView.translatesAutoresizingMaskIntoConstraints = false
-        tapView.translatesAutoresizingMaskIntoConstraints = false
+
+        [backgroundView, tapView].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+
         NSLayoutConstraint.activate([
             backgroundView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
             backgroundView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0),
@@ -237,8 +276,8 @@ final class SplashScreenViewController: UIViewController, UIGestureRecognizerDel
             tapView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0)
         ])
     }
-    func setupAnimationBehaviour() {
-        queue = OperationQueue.current
+
+    private func setupAnimationBehaviour() {
         animator = UIDynamicAnimator(referenceView: self.view)
         gravity = UIGravityBehavior(items: [
             boevikLabel,
@@ -253,7 +292,7 @@ final class SplashScreenViewController: UIViewController, UIGestureRecognizerDel
             melodrammaLabel,
             documentaryLabel
         ])
-        motion = CMMotionManager()
+
         let collision = UICollisionBehavior(items: [
             boevikLabel,
             familyLabel,
@@ -267,12 +306,13 @@ final class SplashScreenViewController: UIViewController, UIGestureRecognizerDel
             melodrammaLabel,
             documentaryLabel
         ])
-        gravity.magnitude = 1
+
         bordersTimer = Timer.scheduledTimer(withTimeInterval: 1.6, repeats: false) { _ in
             collision.addBoundary(withIdentifier: "topBorder" as NSCopying,
                                   for: UIBezierPath(rect: self.topView.frame))
             self.startMoving()
         }
+
         collision.addBoundary(withIdentifier: "leftBorder" as NSCopying,
                               for: UIBezierPath(rect: leftView.frame))
         collision.addBoundary(withIdentifier: "rightBorder" as NSCopying,
@@ -281,17 +321,19 @@ final class SplashScreenViewController: UIViewController, UIGestureRecognizerDel
                               for: UIBezierPath(rect: bottomView.frame))
         collision.addBoundary(withIdentifier: "davayImageView" as NSCopying,
                               for: UIBezierPath(rect: self.davayImageView.frame))
+
         animator.addBehavior(gravity)
         animator.addBehavior(collision)
     }
-    func startMoving() {
-        motion.startDeviceMotionUpdates(to: queue) { motion, error in
+
+    private func startMoving() {
+        guard let queue = queue else { return }
+        motion.startDeviceMotionUpdates(to: queue) { motion, _ in
             guard let motion = motion else { return }
             let grav: CMAcceleration = motion.gravity
             let xAxis = CGFloat(grav.x)
             let yAxis = CGFloat(grav.y)
             var point = CGPoint(x: xAxis, y: yAxis)
-
             if let orientation = UIApplication
                 .shared
                 .connectedScenes
@@ -312,20 +354,20 @@ final class SplashScreenViewController: UIViewController, UIGestureRecognizerDel
                     point.y *= -1
                 }
             }
-
             let vector = CGVector(dx: point.x, dy: 0 - point.y)
             self.gravity.gravityDirection = vector
         }
     }
-    
-    func addTapRecognition() {
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(screenTapped(gestureRecognizer:)))
+
+    private func addTapRecognition() {
+        let tapRecognizer = UITapGestureRecognizer(target: self,
+                                                   action: #selector(screenTapped(gestureRecognizer:)))
         tapView.addGestureRecognizer(tapRecognizer)
         tapRecognizer.delegate = self
         tapView.isUserInteractionEnabled = true
     }
-    
-    func dismissSplashScreen() {
+
+    private func dismissSplashScreen() {
         guard let window = UIApplication
             .shared
             .connectedScenes
@@ -333,11 +375,13 @@ final class SplashScreenViewController: UIViewController, UIGestureRecognizerDel
             .first(where: { $0.isKeyWindow }) else {
             fatalError("App Delegate does not  have a window")
         }
+
         animationTimer.invalidate()
         bordersTimer.invalidate()
+
         self.dismiss(animated: true) {
             let transition = CATransition()
-            transition.type = .push
+            transition.type = .fade
             window.layer.add(transition, forKey: "transition")
             let navigationController = UINavigationController()
             let appCoordinator = AppCoordinator(type: .app, navigationController: navigationController)
@@ -345,8 +389,12 @@ final class SplashScreenViewController: UIViewController, UIGestureRecognizerDel
             window.rootViewController = navigationController
         }
     }
-    
-    @objc func screenTapped(gestureRecognizer: UITapGestureRecognizer) {
+
+    // MARK: - Handlers
+
+    @objc private func screenTapped(gestureRecognizer: UITapGestureRecognizer) {
         dismissSplashScreen()
     }
 }
+
+extension SplashScreenViewController: UIGestureRecognizerDelegate {}

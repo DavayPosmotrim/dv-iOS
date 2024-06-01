@@ -12,11 +12,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     ) {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
-        let navigationController = UINavigationController()
-        window?.rootViewController = navigationController
+        let splashScreenViewController = SplashScreenViewController()
+        window?.rootViewController = splashScreenViewController
         window?.makeKeyAndVisible()
-        let appCoordinator = AppCoordinator(type: .app, navigationController: navigationController)
-        appCoordinator.start()
 
     }
 
