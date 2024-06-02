@@ -51,7 +51,7 @@ final class InvitingUsersViewController: UIViewController, InvitingUsersViewProt
     private lazy var inviteButton: UIView = {
         let button = CustomButtons()
         button.setupView(with: button.blackButton)
-        button.blackButton.setTitle("ПРИГЛАСИТЬ", for: .normal)
+        button.blackButton.setTitle(Resources.InvitingSession.inviteButtonLabelText, for: .normal)
 //        button.purpleButton.addTarget(self, action: #selector(didTapNextButton(sender:)), for: .touchUpInside)
         return button
     }()
@@ -89,7 +89,7 @@ final class InvitingUsersViewController: UIViewController, InvitingUsersViewProt
     private lazy var startButton: UIView = {
         let button = CustomButtons()
         button.setupView(with: button.blackButton)
-        button.blackButton.setTitle("НАЧАТЬ СЕАНС", for: .normal)
+        button.blackButton.setTitle(Resources.InvitingSession.startButtonLabelText, for: .normal)
 //        button.blackButton.addTarget(self, action: #selector(didTapEnterButton(sender:)), for: .touchUpInside)
 
         return button
@@ -99,7 +99,7 @@ final class InvitingUsersViewController: UIViewController, InvitingUsersViewProt
         let button = CustomButtons()
         button.grayButton.backgroundColor = .whiteBackground
         button.setupView(with: button.grayButton)
-        button.grayButton.setTitle("ОТМЕНИТЬ СЕАНС", for: .normal)
+        button.grayButton.setTitle(Resources.InvitingSession.cancelButtonLabelText, for: .normal)
 //        button.blackButton.addTarget(self, action: #selector(didTapEnterButton(sender:)), for: .touchUpInside)
 
         return button

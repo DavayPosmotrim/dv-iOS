@@ -47,6 +47,12 @@ enum Resources {
         static let customLabelNoButtonText = "Нет".uppercased()
     }
 
+    enum InvitingSession {
+        static let inviteButtonLabelText = "Пригласить".uppercased()
+        static let startButtonLabelText = "Начать сеанс".uppercased()
+        static let cancelButtonLabelText = "Отменить сеанс".uppercased()
+    }
+
     enum MainFlow {
         static let descriptionLabelText = """
     Забудьте о бесконечных спорах и компромиссах
