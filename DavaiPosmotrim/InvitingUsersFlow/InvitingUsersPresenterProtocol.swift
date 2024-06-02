@@ -8,5 +8,7 @@
 import Foundation
 
 protocol InvitingUsersPresenterProtocol: AnyObject {
-    
+    func getNamesCount() -> Int
+    func getNamesAtIndex(index: Int) -> ReusableCollectionCellModel
+    func viewDidLoad()
 }

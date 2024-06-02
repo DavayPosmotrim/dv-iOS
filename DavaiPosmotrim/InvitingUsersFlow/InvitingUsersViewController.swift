@@ -18,7 +18,7 @@ final class InvitingUsersViewController: UIViewController, InvitingUsersViewProt
     private let collectionModel = ReusableCollectionModel(
         image: UIImage.addUserPlug,
         upperText: nil,
-        lowerText: Resources.JoinSession.lowerLabelText
+        lowerText: Resources.InvitingSession.lowerLabelText
     )
 
     private lazy var upperPaddingView: UIView = {
@@ -122,6 +122,7 @@ final class InvitingUsersViewController: UIViewController, InvitingUsersViewProt
         setupSubViews()
         setupButtonsStacksView()
         setupConstraints()
+        presenter?.viewDidLoad()
     }
 
     // MARK: - Initializers
@@ -199,5 +200,29 @@ final class InvitingUsersViewController: UIViewController, InvitingUsersViewProt
             footerButtonsStack.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
             footerButtonsStack.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16)
         ])
+    }
+}
+
+    // MARK: - UICollectionViewDataSource
+
+extension InvitingUsersViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        guard let presenter else { return .zero}
+        return presenter.getNamesCount()
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
+        guard let presenter,
+              let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: ReusableUICollectionViewCell.reuseIdentifier,
+                for: indexPath
+              ) as? ReusableUICollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        cell.configureCell(with: presenter.getNamesAtIndex(index: indexPath.item))
+        return cell
     }
 }

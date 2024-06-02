@@ -48,6 +48,8 @@ enum Resources {
     }
 
     enum InvitingSession {
+        static let lowerLabelText = "Если вы пригласили друзей – дождитесь, когда\n они подключаться, прежде чем начать сеанс."
+
         static let inviteButtonLabelText = "Пригласить".uppercased()
         static let startButtonLabelText = "Начать сеанс".uppercased()
         static let cancelButtonLabelText = "Отменить сеанс".uppercased()
