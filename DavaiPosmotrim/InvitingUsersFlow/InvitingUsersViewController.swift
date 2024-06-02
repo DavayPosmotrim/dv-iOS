@@ -15,6 +15,12 @@ final class InvitingUsersViewController: UIViewController, InvitingUsersViewProt
 
     // MARK: - Private properties
 
+    private let collectionModel = ReusableCollectionModel(
+        image: UIImage.addUserPlug,
+        upperText: nil,
+        lowerText: Resources.JoinSession.lowerLabelText
+    )
+
     private lazy var upperPaddingView: UIView = {
         let view = UIView()
         view.backgroundColor = .whiteBackground
@@ -50,9 +56,58 @@ final class InvitingUsersViewController: UIViewController, InvitingUsersViewProt
         return button
     }()
 
-    private lazy var buttonsStack: UIStackView = {
+    private lazy var collectionView: UIView = {
+        let collectionView = ReusableUICollectionView()
+        collectionView.setupCollectionView(
+            with: self,
+            cell: ReusableUICollectionViewCell.self,
+            cellIdentifier: ReusableUICollectionViewCell.reuseIdentifier,
+            and: collectionModel
+        )
+
+        return collectionView
+    }()
+
+    private lazy var headerButtonsStack: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
+        stackView.spacing = 16
+        stackView.distribution = .fillEqually
+
+        return stackView
+    }()
+
+    private lazy var lowerPaddingView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .whiteBackground
+        view.layer.cornerRadius = 24
+        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+
+        return view
+    }()
+
+    private lazy var startButton: UIView = {
+        let button = CustomButtons()
+        button.setupView(with: button.blackButton)
+        button.blackButton.setTitle("НАЧАТЬ СЕАНС", for: .normal)
+//        button.blackButton.addTarget(self, action: #selector(didTapEnterButton(sender:)), for: .touchUpInside)
+
+        return button
+    }()
+
+    private lazy var cancelButton: UIView = {
+        let button = CustomButtons()
+        button.grayButton.backgroundColor = .whiteBackground
+        button.setupView(with: button.grayButton)
+        button.grayButton.setTitle("ОТМЕНИТЬ СЕАНС", for: .normal)
+//        button.blackButton.addTarget(self, action: #selector(didTapEnterButton(sender:)), for: .touchUpInside)
+
+        return button
+    }()
+
+    private lazy var footerButtonsStack: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
         stackView.spacing = 16
         stackView.distribution = .fillEqually
 
@@ -63,9 +118,9 @@ final class InvitingUsersViewController: UIViewController, InvitingUsersViewProt
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .green
+        view.backgroundColor = .baseBackground
         setupSubViews()
-        setupButtonsStackView()
+        setupButtonsStacksView()
         setupConstraints()
     }
 
@@ -82,12 +137,19 @@ final class InvitingUsersViewController: UIViewController, InvitingUsersViewProt
 
     // MARK: - Private methods
 
-    private func setupButtonsStackView() {
+    private func setupButtonsStacksView() {
         [
             codeButton,
             inviteButton
         ].forEach {
-            buttonsStack.addArrangedSubview($0)
+            headerButtonsStack.addArrangedSubview($0)
+        }
+
+        [
+            startButton,
+            cancelButton
+        ].forEach {
+            footerButtonsStack.addArrangedSubview($0)
         }
     }
 
@@ -95,8 +157,11 @@ final class InvitingUsersViewController: UIViewController, InvitingUsersViewProt
         navigationController?.setNavigationBarHidden(true, animated: false)
         [
             upperPaddingView,
+            collectionView,
+            lowerPaddingView,
             usersLabel,
-            buttonsStack
+            headerButtonsStack,
+            footerButtonsStack
         ].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -111,13 +176,28 @@ final class InvitingUsersViewController: UIViewController, InvitingUsersViewProt
             upperPaddingView.topAnchor.constraint(equalTo: view.topAnchor),
             upperPaddingView.bottomAnchor.constraint(equalTo: safeArea.topAnchor, constant: 64 + 88),
 
+            collectionView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            collectionView.topAnchor.constraint(equalTo: upperPaddingView.bottomAnchor, constant: 16),
+            collectionView.bottomAnchor.constraint(equalTo: lowerPaddingView.topAnchor, constant: -16),
+
+            lowerPaddingView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            lowerPaddingView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            lowerPaddingView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            lowerPaddingView.topAnchor.constraint(equalTo: footerButtonsStack.topAnchor, constant: -16),
+
             usersLabel.centerXAnchor.constraint(equalTo: upperPaddingView.centerXAnchor),
             usersLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 20),
 
-            buttonsStack.heightAnchor.constraint(equalToConstant: 48),
-            buttonsStack.bottomAnchor.constraint(equalTo: upperPaddingView.bottomAnchor, constant: -16),
-            buttonsStack.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
-            buttonsStack.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20)
+            headerButtonsStack.heightAnchor.constraint(equalToConstant: 48),
+            headerButtonsStack.bottomAnchor.constraint(equalTo: upperPaddingView.bottomAnchor, constant: -16),
+            headerButtonsStack.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
+            headerButtonsStack.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
+
+            footerButtonsStack.heightAnchor.constraint(equalToConstant: 48+48+16),
+            footerButtonsStack.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+            footerButtonsStack.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
+            footerButtonsStack.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16)
         ])
     }
 }
