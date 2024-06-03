@@ -36,6 +36,8 @@ final class InvitingUsersViewController: UIViewController, InvitingUsersViewProt
         label.textColor = .headingText
         label.text = "Участники"
         label.textAlignment = .center
+        label.layer.cornerRadius = 14
+        label.clipsToBounds = true
 
         return label
     }()
@@ -90,7 +92,7 @@ final class InvitingUsersViewController: UIViewController, InvitingUsersViewProt
         let button = CustomButtons()
         button.setupView(with: button.blackButton)
         button.blackButton.setTitle(Resources.InvitingSession.startButtonLabelText, for: .normal)
-//        button.blackButton.addTarget(self, action: #selector(didTapEnterButton(sender:)), for: .touchUpInside)
+        button.blackButton.addTarget(self, action: #selector(animateLabelChange), for: .touchUpInside)
 
         return button
     }()
@@ -136,6 +138,25 @@ final class InvitingUsersViewController: UIViewController, InvitingUsersViewProt
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Handlers
+
+    @objc private func animateLabelChange() {
+        let originalText = usersLabel.text
+        let originalBackgroundColor = usersLabel.backgroundColor
+
+        UIView.transition(with: self.usersLabel, duration: 0.5, options: .transitionCrossDissolve, animations: {
+            self.usersLabel.text = "ⓘ Должно быть хотя бы два участника"
+            self.usersLabel.backgroundColor = UIColor.orange
+        }) { _ in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                UIView.transition(with: self.usersLabel, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                    self.usersLabel.text = originalText
+                    self.usersLabel.backgroundColor = originalBackgroundColor
+                }, completion: nil)
+            }
+        }
+    }
+
     // MARK: - Private methods
 
     private func setupButtonsStacksView() {
@@ -177,6 +198,16 @@ final class InvitingUsersViewController: UIViewController, InvitingUsersViewProt
             upperPaddingView.topAnchor.constraint(equalTo: view.topAnchor),
             upperPaddingView.bottomAnchor.constraint(equalTo: safeArea.topAnchor, constant: 64 + 88),
 
+            usersLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
+            usersLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
+            usersLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 20),
+            usersLabel.bottomAnchor.constraint(equalTo: headerButtonsStack.topAnchor, constant: -16),
+
+            headerButtonsStack.heightAnchor.constraint(equalToConstant: 48),
+            headerButtonsStack.bottomAnchor.constraint(equalTo: upperPaddingView.bottomAnchor, constant: -16),
+            headerButtonsStack.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
+            headerButtonsStack.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
+
             collectionView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             collectionView.topAnchor.constraint(equalTo: upperPaddingView.bottomAnchor, constant: 16),
@@ -186,14 +217,6 @@ final class InvitingUsersViewController: UIViewController, InvitingUsersViewProt
             lowerPaddingView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             lowerPaddingView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             lowerPaddingView.topAnchor.constraint(equalTo: footerButtonsStack.topAnchor, constant: -16),
-
-            usersLabel.centerXAnchor.constraint(equalTo: upperPaddingView.centerXAnchor),
-            usersLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 20),
-
-            headerButtonsStack.heightAnchor.constraint(equalToConstant: 48),
-            headerButtonsStack.bottomAnchor.constraint(equalTo: upperPaddingView.bottomAnchor, constant: -16),
-            headerButtonsStack.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
-            headerButtonsStack.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
 
             footerButtonsStack.heightAnchor.constraint(equalToConstant: 48+48+16),
             footerButtonsStack.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
