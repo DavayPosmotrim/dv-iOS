@@ -88,7 +88,7 @@ final class CreateSessionViewController: UIViewController {
     }()
 
     private lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewLayout.createLeftAlignedLayout()
+        let layout = UICollectionViewLayout.createLeftAlignedLayout(itemHeight: 36)
         let collectionView = UICollectionView(
             frame: .zero,
             collectionViewLayout: layout
