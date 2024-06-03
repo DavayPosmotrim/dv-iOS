@@ -9,6 +9,11 @@ import UIKit
 
 final class CustomButtons: UIView {
 
+    // MARK: - Stored properties
+
+    private let tappedButtonAlpha = 0.7
+    private let unTappedButtonAlpha = 1.0
+
     // MARK: - Lazy properties
 
     lazy var purpleButton: UIButton = {
@@ -72,10 +77,10 @@ final class CustomButtons: UIView {
     // MARK: - Handlers
 
     @objc private func tap() {
-        self.alpha = 0.7
+        alpha = tappedButtonAlpha
     }
 
     @objc private func unTap() {
-        self.alpha = 1.0
+        alpha = unTappedButtonAlpha
     }
 }
