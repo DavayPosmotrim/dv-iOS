@@ -30,9 +30,20 @@ final class InvitingUsersViewController: UIViewController, InvitingUsersViewProt
         return view
     }()
 
+    private lazy var customWarningNotification: CustomWarningNotification = {
+        let view = CustomWarningNotification()
+        view.setupNotification(
+            title: "Участники",
+            imageView: nil,
+            color: .whiteBackground,
+            font: .textLabelFont
+        )
+        return view
+    }()
+
     private lazy var usersLabel: UILabel = {
         let label = UILabel()
-        label.font = .textLabelFont
+        label.font = .textParagraphRegularFont
         label.textColor = .headingText
         label.text = "Участники"
         label.textAlignment = .center
@@ -46,7 +57,7 @@ final class InvitingUsersViewController: UIViewController, InvitingUsersViewProt
         let button = CustomButtons()
         button.setupView(with: button.grayButton)
         button.grayButton.setTitle("code", for: .normal)
-//        button.purpleButton.addTarget(self, action: #selector(didTapNextButton(sender:)), for: .touchUpInside)
+        //        button.purpleButton.addTarget(self, action: #selector(didTapNextButton(sender:)), for: .touchUpInside)
         return button
     }()
 
@@ -54,7 +65,7 @@ final class InvitingUsersViewController: UIViewController, InvitingUsersViewProt
         let button = CustomButtons()
         button.setupView(with: button.blackButton)
         button.blackButton.setTitle(Resources.InvitingSession.inviteButtonLabelText, for: .normal)
-//        button.purpleButton.addTarget(self, action: #selector(didTapNextButton(sender:)), for: .touchUpInside)
+        //        button.purpleButton.addTarget(self, action: #selector(didTapNextButton(sender:)), for: .touchUpInside)
         return button
     }()
 
@@ -102,7 +113,7 @@ final class InvitingUsersViewController: UIViewController, InvitingUsersViewProt
         button.grayButton.backgroundColor = .whiteBackground
         button.setupView(with: button.grayButton)
         button.grayButton.setTitle(Resources.InvitingSession.cancelButtonLabelText, for: .normal)
-//        button.blackButton.addTarget(self, action: #selector(didTapEnterButton(sender:)), for: .touchUpInside)
+        //        button.blackButton.addTarget(self, action: #selector(didTapEnterButton(sender:)), for: .touchUpInside)
 
         return button
     }()
@@ -141,20 +152,22 @@ final class InvitingUsersViewController: UIViewController, InvitingUsersViewProt
     // MARK: - Handlers
 
     @objc private func animateLabelChange() {
-        let originalText = usersLabel.text
-        let originalBackgroundColor = usersLabel.backgroundColor
-
-        UIView.transition(with: self.usersLabel, duration: 0.5, options: .transitionCrossDissolve, animations: {
-            self.usersLabel.text = "ⓘ Должно быть хотя бы два участника"
-            self.usersLabel.backgroundColor = UIColor.orange
-        }) { _ in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                UIView.transition(with: self.usersLabel, duration: 0.5, options: .transitionCrossDissolve, animations: {
-                    self.usersLabel.text = originalText
-                    self.usersLabel.backgroundColor = originalBackgroundColor
-                }, completion: nil)
+        UIView.transition(with: self.customWarningNotification, duration: 0.2, options: .transitionCrossDissolve, animations: {
+            self.customWarningNotification.setupNotification(
+                title: "Должно быть хотя бы два участника",
+                imageView: .infoIcon,
+                color: .attentionAdditional
+            )}) { _ in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                    UIView.transition(with: self.customWarningNotification, duration: 0.2, options: .transitionCrossDissolve, animations: {
+                        self.customWarningNotification.setupNotification(
+                            title: "Участники",
+                            imageView: nil,
+                            color: .whiteBackground,
+                            font: .textLabelFont
+                        )}, completion: nil)
+                }
             }
-        }
     }
 
     // MARK: - Private methods
@@ -181,9 +194,10 @@ final class InvitingUsersViewController: UIViewController, InvitingUsersViewProt
             upperPaddingView,
             collectionView,
             lowerPaddingView,
-            usersLabel,
+            //            usersLabel,
             headerButtonsStack,
-            footerButtonsStack
+            footerButtonsStack,
+            customWarningNotification
         ].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -198,10 +212,15 @@ final class InvitingUsersViewController: UIViewController, InvitingUsersViewProt
             upperPaddingView.topAnchor.constraint(equalTo: view.topAnchor),
             upperPaddingView.bottomAnchor.constraint(equalTo: safeArea.topAnchor, constant: 64 + 88),
 
-            usersLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
-            usersLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
-            usersLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 20),
-            usersLabel.bottomAnchor.constraint(equalTo: headerButtonsStack.topAnchor, constant: -16),
+            customWarningNotification.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            customWarningNotification.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            customWarningNotification.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            customWarningNotification.bottomAnchor.constraint(equalTo: headerButtonsStack.topAnchor, constant: -20),
+
+            //            usersLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
+            //            usersLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
+            //            usersLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 20),
+            //            usersLabel.bottomAnchor.constraint(equalTo: headerButtonsStack.topAnchor, constant: -16),
 
             headerButtonsStack.heightAnchor.constraint(equalToConstant: 48),
             headerButtonsStack.bottomAnchor.constraint(equalTo: upperPaddingView.bottomAnchor, constant: -16),
@@ -226,7 +245,7 @@ final class InvitingUsersViewController: UIViewController, InvitingUsersViewProt
     }
 }
 
-    // MARK: - UICollectionViewDataSource
+// MARK: - UICollectionViewDataSource
 
 extension InvitingUsersViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
