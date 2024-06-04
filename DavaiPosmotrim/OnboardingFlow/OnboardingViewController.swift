@@ -20,43 +20,26 @@ final class OnboardingViewController: UIViewController {
 
     var presenter: OnboardingPresenterProtocol?
 
-    private enum Keys {
-        static let nextButtonText = "ПРОДОЛЖИТЬ"
-        static let beginButtonText = "НАЧАТЬ"
-
-        static let firstOnboardingLowerLabelText = "Никаких лишних разговоров и долгих поисков."
-        static let secondOnboardingLowerLabelText = "Выбирать фильмы можно с любым количеством людей."
-        static let thirdOnboardingLowerLabelText = "Только самые любимые жанры или готовые подборки."
-
-        static let firstOnboardingUpperLabelText = "Выбирайте фильмы\nбез стресса"
-        static let secondOnboardingUpperLabelText = "Вдвоём или\nв большой компании"
-        static let thirdOnboardingUpperLabelText = "Библиотека фильмов на любой вкус"
-
-        static let coloredFirstUpperText = "без стресса"
-        static let coloredSecondUpperText = "Вдвоём"
-        static let coloredThirdUpperText = "на любой вкус"
-    }
-
     private let pages: [PageModel] = [
         PageModel(
             image: .firstOnboarding,
-            upperText: Keys.firstOnboardingUpperLabelText,
-            upperColoredText: Keys.coloredFirstUpperText,
-            lowerText: Keys.firstOnboardingLowerLabelText
+            upperText: Resources.Onboarding.firstOnboardingUpperLabelText,
+            upperColoredText: Resources.Onboarding.coloredFirstUpperText,
+            lowerText: Resources.Onboarding.firstOnboardingLowerLabelText
         ),
 
         PageModel(
             image: .secondOnboarding,
-            upperText: Keys.secondOnboardingUpperLabelText,
-            upperColoredText: Keys.coloredSecondUpperText,
-            lowerText: Keys.secondOnboardingLowerLabelText
+            upperText: Resources.Onboarding.secondOnboardingUpperLabelText,
+            upperColoredText: Resources.Onboarding.coloredSecondUpperText,
+            lowerText: Resources.Onboarding.secondOnboardingLowerLabelText
         ),
 
         PageModel(
             image: .thirdOnboarding,
-            upperText: Keys.thirdOnboardingUpperLabelText,
-            upperColoredText: Keys.coloredThirdUpperText,
-            lowerText: Keys.thirdOnboardingLowerLabelText
+            upperText: Resources.Onboarding.thirdOnboardingUpperLabelText,
+            upperColoredText: Resources.Onboarding.coloredThirdUpperText,
+            lowerText: Resources.Onboarding.thirdOnboardingLowerLabelText
         )
     ]
 
@@ -83,7 +66,7 @@ final class OnboardingViewController: UIViewController {
     private lazy var nextButton: UIView = {
         let button = CustomButtons()
         button.setupView(with: button.purpleButton)
-        button.purpleButton.setTitle(Keys.nextButtonText, for: .normal)
+        button.purpleButton.setTitle(Resources.Onboarding.nextButtonText, for: .normal)
         button.purpleButton.addTarget(self, action: #selector(didTapNextButton(sender:)), for: .touchUpInside)
         return button
     }()
@@ -91,7 +74,7 @@ final class OnboardingViewController: UIViewController {
     private lazy var beginButton: UIView = {
         let button = CustomButtons()
         button.setupView(with: button.purpleButton)
-        button.purpleButton.setTitle(Keys.beginButtonText, for: .normal)
+        button.purpleButton.setTitle(Resources.Onboarding.beginButtonText, for: .normal)
         button.purpleButton.addTarget(self, action: #selector(didTapBeginButton(sender:)), for: .touchUpInside)
         return button
     }()
@@ -140,7 +123,7 @@ final class OnboardingViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .baseBackground
 
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        navigationController?.setNavigationBarHidden(true, animated: true)
 
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -153,12 +136,13 @@ final class OnboardingViewController: UIViewController {
     // MARK: - Private methods
 
     private func setupSubviews() {
-        [upperPaddingView,
-         collectionView,
-         pageControl,
-         lowerPaddingView,
-         nextButton,
-         beginButton
+        [
+            upperPaddingView,
+            collectionView,
+            pageControl,
+            lowerPaddingView,
+            nextButton,
+            beginButton
         ].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -209,7 +193,7 @@ final class OnboardingViewController: UIViewController {
 
     // MARK: - Handlers
 
-    @objc func didTapNextButton(sender: AnyObject) {
+    @objc private func didTapNextButton(sender: AnyObject) {
         guard let currentIndexPath = collectionView.indexPathsForVisibleItems.first else { return }
         let newIndexPath = IndexPath(item: currentIndexPath.item + 1, section: .zero)
 
@@ -220,14 +204,14 @@ final class OnboardingViewController: UIViewController {
         toggleButtons()
     }
 
-    @objc func didTapBeginButton(sender: AnyObject) {
+    @objc private func didTapBeginButton(sender: AnyObject) {
         UserDefaults.standard.setValue(true, forKey: "isOnboardingShown")
         DispatchQueue.main.async {
             self.presenter?.onboardingFinish()
         }
     }
 
-    @objc func pageChanged(sender: AnyObject) {
+    @objc private func pageChanged(sender: AnyObject) {
         guard let pageControl = sender as? UIPageControl else { return }
         collectionView.scrollToItem(
             at: IndexPath(item: pageControl.currentPage, section: .zero),
@@ -257,7 +241,7 @@ extension OnboardingViewController: UICollectionViewDataSource {
         }
 
         let currentPage = pages[indexPath.item]
-        cell.configureCell(with: currentPage, and: indexPath)
+        cell.configureCell(with: currentPage)
 
         return cell
     }
@@ -304,10 +288,4 @@ extension OnboardingViewController: UIScrollViewDelegate {
         pageControl.currentPage = currentPage
         toggleButtons()
     }
-}
-
-    // MARK: - OnboardingViewProtocol
-
-extension OnboardingViewController: OnboardingViewProtocol {
-    // TODO: - add code to use viewControllers method in presenter
 }
