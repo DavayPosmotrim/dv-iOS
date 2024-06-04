@@ -15,7 +15,8 @@ final class AppCoordinator: BaseCoordinator {
             showAuthFlow()
         } else {
 //            showJoinSessionFlow()
-            showInviteSessionFlow()
+//            showInviteSessionFlow()
+            showMainFlow()
         }
     }
 

@@ -41,18 +41,6 @@ final class InvitingUsersViewController: UIViewController, InvitingUsersViewProt
         return view
     }()
 
-    private lazy var usersLabel: UILabel = {
-        let label = UILabel()
-        label.font = .textParagraphRegularFont
-        label.textColor = .headingText
-        label.text = "Участники"
-        label.textAlignment = .center
-        label.layer.cornerRadius = 14
-        label.clipsToBounds = true
-
-        return label
-    }()
-
     private lazy var codeButton: UIView = {
         let button = CustomButtons()
         button.setupView(with: button.grayButton)
@@ -216,11 +204,6 @@ final class InvitingUsersViewController: UIViewController, InvitingUsersViewProt
             customWarningNotification.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             customWarningNotification.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             customWarningNotification.bottomAnchor.constraint(equalTo: headerButtonsStack.topAnchor, constant: -20),
-
-            //            usersLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
-            //            usersLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
-            //            usersLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 20),
-            //            usersLabel.bottomAnchor.constraint(equalTo: headerButtonsStack.topAnchor, constant: -16),
 
             headerButtonsStack.heightAnchor.constraint(equalToConstant: 48),
             headerButtonsStack.bottomAnchor.constraint(equalTo: upperPaddingView.bottomAnchor, constant: -16),
