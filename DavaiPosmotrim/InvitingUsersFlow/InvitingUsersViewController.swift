@@ -43,9 +43,18 @@ final class InvitingUsersViewController: UIViewController {
 
     private lazy var codeButton: UIView = {
         let button = CustomButtons()
+        let code = presenter?.getSessionCode()
+        button.grayButton.setTitle(code, for: .normal)
+
+        let icon = UIImage(systemName: "doc.on.doc")?.withRenderingMode(.alwaysOriginal)
+        button.grayButton.setImage(icon, for: .normal)
+        button.grayButton.contentHorizontalAlignment = .center
+        button.grayButton.semanticContentAttribute = .forceRightToLeft
+        button.grayButton.tintColor = .iconPrimary
+
+        button.grayButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -60)
+        button.grayButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: -60, bottom: 0, right: 0)
         button.setupView(with: button.grayButton)
-        button.grayButton.setTitle("code", for: .normal)
-        //        button.purpleButton.addTarget(self, action: #selector(didTapNextButton(sender:)), for: .touchUpInside)
         return button
     }()
 

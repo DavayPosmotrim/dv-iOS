@@ -16,6 +16,8 @@ final class InvitingUsersPresenter: InvitingUsersPresenterProtocol {
 
     // MARK: - Private Properties
 
+    private let code = "GIGd281"
+
     private var namesArray = [ReusableCollectionCellModel]() {
         didSet {
             updateReusableCollection()
@@ -38,6 +40,10 @@ final class InvitingUsersPresenter: InvitingUsersPresenterProtocol {
 
     func getNamesAtIndex(index: Int) -> ReusableCollectionCellModel {
         namesArray[index]
+    }
+
+    func getSessionCode() -> String {
+        code
     }
 
     func startButtonTapped() {

@@ -12,4 +12,5 @@ protocol InvitingUsersPresenterProtocol: AnyObject {
     func getNamesAtIndex(index: Int) -> ReusableCollectionCellModel
     func viewDidLoad()
     func startButtonTapped()
+    func getSessionCode() -> String
 }
