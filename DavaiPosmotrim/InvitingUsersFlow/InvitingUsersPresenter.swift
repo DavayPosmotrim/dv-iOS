@@ -40,6 +40,11 @@ final class InvitingUsersPresenter: InvitingUsersPresenterProtocol {
         namesArray[index]
     }
 
+    func startButtonTapped() {
+        //TODO: - после подключения сети доделать проверку на количество юзеров и в зависимости от этого показывать варнинг или стартовать сеанс
+        view?.showFewUsersWarning()
+    }
+
     // MARK: - Private methods
 
     private func updateReusableCollection() {

@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class InvitingUsersViewController: UIViewController, InvitingUsersViewProtocol {
+final class InvitingUsersViewController: UIViewController {
 
     // MARK: - Public Properties
 
@@ -33,7 +33,7 @@ final class InvitingUsersViewController: UIViewController, InvitingUsersViewProt
     private lazy var customWarningNotification: CustomWarningNotification = {
         let view = CustomWarningNotification()
         view.setupNotification(
-            title: "Участники",
+            title: Resources.InvitingSession.usersLabelText,
             imageView: nil,
             color: .whiteBackground,
             font: .textLabelFont
@@ -91,7 +91,7 @@ final class InvitingUsersViewController: UIViewController, InvitingUsersViewProt
         let button = CustomButtons()
         button.setupView(with: button.blackButton)
         button.blackButton.setTitle(Resources.InvitingSession.startButtonLabelText, for: .normal)
-        button.blackButton.addTarget(self, action: #selector(animateLabelChange), for: .touchUpInside)
+        button.blackButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
 
         return button
     }()
@@ -139,23 +139,8 @@ final class InvitingUsersViewController: UIViewController, InvitingUsersViewProt
 
     // MARK: - Handlers
 
-    @objc private func animateLabelChange() {
-        UIView.transition(with: self.customWarningNotification, duration: 0.2, options: .transitionCrossDissolve, animations: {
-            self.customWarningNotification.setupNotification(
-                title: "Должно быть хотя бы два участника",
-                imageView: .infoIcon,
-                color: .attentionAdditional
-            )}) { _ in
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                    UIView.transition(with: self.customWarningNotification, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                        self.customWarningNotification.setupNotification(
-                            title: "Участники",
-                            imageView: nil,
-                            color: .whiteBackground,
-                            font: .textLabelFont
-                        )}, completion: nil)
-                }
-            }
+    @objc func startButtonTapped() {
+        presenter?.startButtonTapped()
     }
 
     // MARK: - Private methods
@@ -207,8 +192,8 @@ final class InvitingUsersViewController: UIViewController, InvitingUsersViewProt
 
             headerButtonsStack.heightAnchor.constraint(equalToConstant: 48),
             headerButtonsStack.bottomAnchor.constraint(equalTo: upperPaddingView.bottomAnchor, constant: -16),
-            headerButtonsStack.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
-            headerButtonsStack.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
+            headerButtonsStack.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
+            headerButtonsStack.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
 
             collectionView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
@@ -249,5 +234,28 @@ extension InvitingUsersViewController: UICollectionViewDataSource {
         }
         cell.configureCell(with: presenter.getNamesAtIndex(index: indexPath.item))
         return cell
+    }
+}
+
+// MARK: - InvitingUsersViewProtocol
+
+extension InvitingUsersViewController: InvitingUsersViewProtocol {
+    func showFewUsersWarning() {
+        UIView.transition(with: self.customWarningNotification, duration: 0.2, options: .transitionCrossDissolve, animations: {
+            self.customWarningNotification.setupNotification(
+                title: "Должно быть хотя бы два участника",
+                imageView: .infoIcon,
+                color: .attentionAdditional
+            )}) { _ in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                    UIView.transition(with: self.customWarningNotification, duration: 0.2, options: .transitionCrossDissolve, animations: {
+                        self.customWarningNotification.setupNotification(
+                            title: "Участники",
+                            imageView: nil,
+                            color: .whiteBackground,
+                            font: .textLabelFont
+                        )}, completion: nil)
+                }
+            }
     }
 }

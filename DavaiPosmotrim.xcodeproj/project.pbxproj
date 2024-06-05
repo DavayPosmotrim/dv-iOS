@@ -166,12 +166,12 @@
 		4A62804D2BF13D7400102304 /* InvitingUsersFlow */ = {
 			isa = PBXGroup;
 			children = (
+				E2EFF0F32C0616840022D54C /* InvitingUsersViewProtocol.swift */,
 				4A62804E2BF13DBE00102304 /* InvitingUsersViewController.swift */,
 				E2EFF0EB2C06134B0022D54C /* InvitingUsersPresenterProtocol.swift */,
 				E2EFF0ED2C0613710022D54C /* InvitingUsersPresenter.swift */,
 				E2EFF0EF2C0613D30022D54C /* InvitingUsersCoordinator.swift */,
 				E2EFF0F12C0615D60022D54C /* InvitingUsersFactory.swift */,
-				E2EFF0F32C0616840022D54C /* InvitingUsersViewProtocol.swift */,
 			);
 			path = InvitingUsersFlow;
 			sourceTree = "<group>";

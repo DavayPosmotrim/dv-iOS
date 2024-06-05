@@ -53,6 +53,7 @@ enum Resources {
         static let inviteButtonLabelText = "Пригласить".uppercased()
         static let startButtonLabelText = "Начать сеанс".uppercased()
         static let cancelButtonLabelText = "Отменить сеанс".uppercased()
+        static let usersLabelText = "Участники"
     }
 
     enum MainFlow {

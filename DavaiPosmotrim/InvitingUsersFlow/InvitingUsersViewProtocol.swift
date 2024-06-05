@@ -7,4 +7,6 @@
 
 import Foundation
 
-protocol InvitingUsersViewProtocol: AnyObject {}
+protocol InvitingUsersViewProtocol: AnyObject {
+    func showFewUsersWarning()
+}
