@@ -13,6 +13,8 @@ enum Resources {
     }
 
     enum Onboarding {
+        static let onboardingUserDefaultsKey = "isOnboardingShown"
+
         static let nextButtonText = "Продолжить".uppercased()
         static let beginButtonText = "Начать".uppercased()
 

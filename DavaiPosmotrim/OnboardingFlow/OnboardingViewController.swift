@@ -205,7 +205,7 @@ final class OnboardingViewController: UIViewController {
     }
 
     @objc private func didTapBeginButton(sender: AnyObject) {
-        UserDefaults.standard.setValue(true, forKey: "isOnboardingShown")
+        UserDefaults.standard.setValue(true, forKey: Resources.Onboarding.onboardingUserDefaultsKey)
         DispatchQueue.main.async {
             self.presenter?.onboardingFinish()
         }
