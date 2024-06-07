@@ -125,6 +125,18 @@ class CustomMovieSelection: UIView {
         return view
     }()
 
+    private lazy var overlayYesView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.white.withAlphaComponent(0.7)
+        return view
+}()
+
+    private lazy var overlayNoView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.white.withAlphaComponent(0.7)
+        return view
+}()
+
     // MARK: - Initializers
 
     init(model: SelectionMovieCellModel) {
@@ -155,6 +167,21 @@ class CustomMovieSelection: UIView {
         updateCollectionViewHeightConstraint()
     }
 
+    func updateYesButtonImage(for percentage: CGFloat) {
+        if percentage > 0 {
+            yesButton.setImage(UIImage(named: "activeLikeIcon"), for: .normal)
+            overlayYesView.alpha = 1 - percentage
+        } else if percentage < 0 {
+            noButton.setImage(UIImage(named: "activeNoSelectionIcon"), for: .normal)
+            overlayNoView.alpha = 1 + percentage
+        } else {
+            yesButton.setImage(UIImage(named: "inactiveLikeIcon"), for: .normal)
+            noButton.setImage(UIImage(named: "inactiveNoSelectionIcon"), for: .normal)
+            overlayYesView.alpha = 0
+            overlayNoView.alpha = 0
+        }
+    }
+
     // MARK: - Actions
 
     @objc private func noButtonTapped() {
@@ -180,6 +207,7 @@ class CustomMovieSelection: UIView {
         nameMovieEnLabel.text = model.nameMovieEn
         informationLabel.text = "\(model.yearMovie) · \(model.countryMovie.joined(separator: " · ")) · \(model.timeMovie)"
         self.genresMovie = model.genre
+        updateYesButtonImage(for: 0)
     }
 
     private func setupSubviews() {
@@ -197,6 +225,14 @@ class CustomMovieSelection: UIView {
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             addSubview($0)
+        }
+        [overlayYesView].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            yesButton.addSubview($0)
+        }
+        [overlayNoView].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            noButton.addSubview($0)
         }
         gradientLayer(linearGradientView)
     }
@@ -254,7 +290,17 @@ class CustomMovieSelection: UIView {
             yesButton.widthAnchor.constraint(equalToConstant: 48),
             yesButton.heightAnchor.constraint(equalToConstant: 48),
             yesButton.centerYAnchor.constraint(equalTo: noButton.centerYAnchor),
-            yesButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24)
+            yesButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
+
+            overlayYesView.widthAnchor.constraint(equalTo: yesButton.widthAnchor),
+            overlayYesView.heightAnchor.constraint(equalTo: yesButton.heightAnchor),
+            overlayYesView.centerXAnchor.constraint(equalTo: yesButton.centerXAnchor),
+            overlayYesView.centerYAnchor.constraint(equalTo: yesButton.centerYAnchor),
+
+            overlayNoView.widthAnchor.constraint(equalTo: noButton.widthAnchor),
+            overlayNoView.heightAnchor.constraint(equalTo: noButton.heightAnchor),
+            overlayNoView.centerXAnchor.constraint(equalTo: noButton.centerXAnchor),
+            overlayNoView.centerYAnchor.constraint(equalTo: noButton.centerYAnchor)
         ])
     }
 

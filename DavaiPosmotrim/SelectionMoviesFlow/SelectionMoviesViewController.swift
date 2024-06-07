@@ -60,7 +60,48 @@ final class SelectionMoviesViewController: UIViewController {
 
     // MARK: - Actions
 
-    
+    @objc func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
+        let translation = gesture.translation(in: view)
+        let percentage = translation.x / view.bounds.width
+        let rotationAngle: CGFloat = .pi / 3 * percentage
+
+        switch gesture.state {
+        case .changed:
+            centralPaddingView.transform = CGAffineTransform(rotationAngle: rotationAngle)
+            centralPaddingView.center = CGPoint(x: view.center.x + translation.x, y: view.center.y + translation.y / 2)
+            self.centralPaddingView.updateYesButtonImage(for: percentage)
+        case .ended:
+            let velocity = gesture.velocity(in: view)
+            if abs(velocity.x) > 500 {
+                let direction: CGFloat = velocity.x > 0 ? 1 : -1
+                animateSwipe(direction: direction)
+            } else {
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.centralPaddingView.transform = .identity
+                    self.centralPaddingView.center = self.view.center
+                }) { _ in
+                    self.centralPaddingView.updateYesButtonImage(for: 0)
+                }
+            }
+        default:
+            break
+        }
+    }
+
+        func animateSwipe(direction: CGFloat) {
+            let translationX: CGFloat = direction * view.bounds.width
+            let rotationAngle: CGFloat = direction * .pi / 3
+            UIView.animate(withDuration: 0.5, animations: {
+                self.centralPaddingView.transform = CGAffineTransform(rotationAngle: rotationAngle)
+                self.centralPaddingView.center = CGPoint(x: self.view.center.x + translationX, y: self.view.center.y)
+                self.centralPaddingView.alpha = 0
+            }) { _ in
+                self.centralPaddingView.transform = .identity
+                self.centralPaddingView.alpha = 1
+                self.centralPaddingView.center = self.view.center
+                direction > 0 ? self.showNextMovie() : self.showComeMovie()
+            }
+        }
 
 }
 
@@ -95,46 +136,6 @@ private extension SelectionMoviesViewController {
             centralPaddingView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ])
     }
-
-    @objc func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
-            let translation = gesture.translation(in: view)
-            let percentage = translation.x / view.bounds.width
-            let rotationAngle: CGFloat = .pi / 3 * percentage
-
-            switch gesture.state {
-            case .changed:
-                centralPaddingView.transform = CGAffineTransform(rotationAngle: rotationAngle)
-                centralPaddingView.center = CGPoint(x: view.center.x + translation.x, y: view.center.y + translation.y / 2)
-            case .ended:
-                let velocity = gesture.velocity(in: view)
-                if abs(velocity.x) > 500 {
-                    let direction: CGFloat = velocity.x > 0 ? 1 : -1
-                    animateSwipe(direction: direction)
-                } else {
-                    UIView.animate(withDuration: 0.2) {
-                        self.centralPaddingView.transform = .identity
-                        self.centralPaddingView.center = self.view.center
-                    }
-                }
-            default:
-                break
-            }
-        }
-
-        func animateSwipe(direction: CGFloat) {
-            let translationX: CGFloat = direction * view.bounds.width
-            let rotationAngle: CGFloat = direction * .pi / 3
-            UIView.animate(withDuration: 0.5, animations: {
-                self.centralPaddingView.transform = CGAffineTransform(rotationAngle: rotationAngle)
-                self.centralPaddingView.center = CGPoint(x: self.view.center.x + translationX, y: self.view.center.y)
-                self.centralPaddingView.alpha = 0
-            }) { _ in
-                self.centralPaddingView.transform = .identity
-                self.centralPaddingView.alpha = 1
-                self.centralPaddingView.center = self.view.center
-                direction > 0 ? self.showNextMovie() : self.showComeMovie()
-            }
-        }
 
     func showNextMovie() {
         currentIndex += 1
