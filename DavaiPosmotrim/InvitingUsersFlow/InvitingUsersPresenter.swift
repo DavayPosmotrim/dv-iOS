@@ -51,6 +51,11 @@ final class InvitingUsersPresenter: InvitingUsersPresenterProtocol {
         view?.showFewUsersWarning()
     }
 
+    func codeButtonTapped() {
+        //TODO: - сделать копирование кода в буфер
+        view?.showCodeCopyWarning()
+    }
+
     // MARK: - Private methods
 
     private func updateReusableCollection() {

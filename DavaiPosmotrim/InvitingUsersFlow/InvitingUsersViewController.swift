@@ -55,6 +55,7 @@ final class InvitingUsersViewController: UIViewController {
         button.grayButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -60)
         button.grayButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: -60, bottom: 0, right: 0)
         button.setupView(with: button.grayButton)
+        button.grayButton.addTarget(self, action: #selector(codeButtonTapped), for: .touchUpInside)
         return button
     }()
 
@@ -148,8 +149,12 @@ final class InvitingUsersViewController: UIViewController {
 
     // MARK: - Handlers
 
-    @objc func startButtonTapped() {
+    @objc private func startButtonTapped() {
         presenter?.startButtonTapped()
+    }
+
+    @objc private func codeButtonTapped() {
+        presenter?.codeButtonTapped()
     }
 
     // MARK: - Private methods
@@ -252,14 +257,33 @@ extension InvitingUsersViewController: InvitingUsersViewProtocol {
     func showFewUsersWarning() {
         UIView.transition(with: self.customWarningNotification, duration: 0.2, options: .transitionCrossDissolve, animations: {
             self.customWarningNotification.setupNotification(
-                title: "Должно быть хотя бы два участника",
+                title: Resources.InvitingSession.fewUsersWarningText,
                 imageView: .infoIcon,
                 color: .attentionAdditional
             )}) { _ in
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                     UIView.transition(with: self.customWarningNotification, duration: 0.2, options: .transitionCrossDissolve, animations: {
                         self.customWarningNotification.setupNotification(
-                            title: "Участники",
+                            title: Resources.InvitingSession.usersLabelText,
+                            imageView: nil,
+                            color: .whiteBackground,
+                            font: .textLabelFont
+                        )}, completion: nil)
+                }
+            }
+    }
+
+    func showCodeCopyWarning() {
+        UIView.transition(with: self.customWarningNotification, duration: 0.2, options: .transitionCrossDissolve, animations: {
+            self.customWarningNotification.setupNotification(
+                title: Resources.InvitingSession.codeCopyWarningText,
+                imageView: .doneIcon,
+                color: .baseSecondaryAccent
+            )}) { _ in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                    UIView.transition(with: self.customWarningNotification, duration: 0.2, options: .transitionCrossDissolve, animations: {
+                        self.customWarningNotification.setupNotification(
+                            title: Resources.InvitingSession.usersLabelText,
                             imageView: nil,
                             color: .whiteBackground,
                             font: .textLabelFont

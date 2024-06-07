@@ -49,6 +49,8 @@ enum Resources {
 
     enum InvitingSession {
         static let lowerLabelText = "Если вы пригласили друзей – дождитесь, когда\n они подключаться, прежде чем начать сеанс."
+        static let codeCopyWarningText = "Код сеанса успешно скопирован"
+        static let fewUsersWarningText = "Должно быть хотя бы два участника"
 
         static let inviteButtonLabelText = "Пригласить".uppercased()
         static let startButtonLabelText = "Начать сеанс".uppercased()
