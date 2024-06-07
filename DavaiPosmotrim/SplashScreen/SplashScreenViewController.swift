@@ -49,7 +49,7 @@ final class SplashScreenViewController: UIViewController, UIGestureRecognizerDel
     }()
 
     private lazy var davayImageView: UIImageView = {
-        let davayImageView = UIImageView(image: UIImage.davayLabel)
+        let davayImageView = UIImageView(image: UIImage.davay)
         return davayImageView
     }()
 
@@ -289,7 +289,7 @@ extension SplashScreenViewController {
             let grav: CMAcceleration = motion.gravity
             let xAxis = CGFloat(grav.x)
             let yAxis = CGFloat(grav.y)
-            var point = CGPoint(x: xAxis, y: yAxis)
+            let point = CGPoint(x: xAxis, y: yAxis)
             let vector = CGVector(dx: point.x, dy: 0 - point.y)
             self.gravity.gravityDirection = vector
         }
