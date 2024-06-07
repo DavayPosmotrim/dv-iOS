@@ -8,6 +8,10 @@
 import UIKit
 
 final class AppCoordinator: BaseCoordinator {
+    override func startSplash() {
+        showSplashScreen()
+    }
+
     override func start() {
         if UserDefaults.standard.value(forKey: "isOnboardingShown") == nil {
             showOnboardingFlow()
@@ -24,6 +28,15 @@ final class AppCoordinator: BaseCoordinator {
 }
 
 private extension AppCoordinator {
+
+    func showSplashScreen() {
+        let splashScreenCoordinator = SplashScreenCoordinator(
+            type: .splash,
+            finishDelegate: self,
+            navigationController: navigationController)
+        addChild(splashScreenCoordinator)
+        splashScreenCoordinator.start()
+    }
 
     func showOnboardingFlow() {
         let onboardingCoordinator = OnboardingCoordinator(
@@ -69,6 +82,8 @@ extension AppCoordinator: CoordinatorFinishDelegate {
     func didFinish(_ coordinator: CoordinatorProtocol) {
         removeChild(coordinator)
         switch coordinator.type {
+        case .splash:
+            start()
         case .app:
             return
         case .onboarding:

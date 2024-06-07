@@ -8,6 +8,7 @@
 import UIKit
 
 enum CoordinatorType {
+    case splash
     case app
     case onboarding
     case auth
@@ -30,6 +31,7 @@ protocol CoordinatorProtocol: AnyObject {
     var childCoordinators: [CoordinatorProtocol] { get set }
 
     func start()
+    func startSplash()
     func finish()
 }
 

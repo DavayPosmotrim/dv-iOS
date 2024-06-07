@@ -25,6 +25,11 @@
 		4A62804C2BF0EB7300102304 /* CustomWarningNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A62804B2BF0EB7300102304 /* CustomWarningNotification.swift */; };
 		4A62804F2BF13DBE00102304 /* InvitingUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A62804E2BF13DBE00102304 /* InvitingUsersViewController.swift */; };
 		5AEEACC82C0A1E3900F18BF9 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AEEACC42C0A1E3900F18BF9 /* SplashScreenViewController.swift */; };
+		5AEEACCE2C10766F00F18BF9 /* SplashScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AEEACCD2C10766F00F18BF9 /* SplashScreenPresenter.swift */; };
+		5AEEACD02C10770200F18BF9 /* SplashScreenPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AEEACCF2C10770200F18BF9 /* SplashScreenPresenterProtocol.swift */; };
+		5AEEACD22C10B59A00F18BF9 /* SplashScreenSceneFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AEEACD12C10B59A00F18BF9 /* SplashScreenSceneFactory.swift */; };
+		5AEEACD42C10B62500F18BF9 /* SplashScreenCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AEEACD32C10B62500F18BF9 /* SplashScreenCoordinator.swift */; };
+		5AEEACD62C10B94200F18BF9 /* SplashScreenViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AEEACD52C10B94200F18BF9 /* SplashScreenViewControllerProtocol.swift */; };
 		C90CAB342BFAFA1100B42456 /* JoinSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90CAB322BFAFA1100B42456 /* JoinSessionViewController.swift */; };
 		C90CAB372BFAFA6B00B42456 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = C90CAB362BFAFA6B00B42456 /* Swinject */; };
 		C9147CB12C0611F50086A663 /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9147CB02C0611F50086A663 /* CustomAlertView.swift */; };
@@ -93,6 +98,11 @@
 		4A62804B2BF0EB7300102304 /* CustomWarningNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWarningNotification.swift; sourceTree = "<group>"; };
 		4A62804E2BF13DBE00102304 /* InvitingUsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitingUsersViewController.swift; sourceTree = "<group>"; };
 		5AEEACC42C0A1E3900F18BF9 /* SplashScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
+		5AEEACCD2C10766F00F18BF9 /* SplashScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenPresenter.swift; sourceTree = "<group>"; };
+		5AEEACCF2C10770200F18BF9 /* SplashScreenPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenPresenterProtocol.swift; sourceTree = "<group>"; };
+		5AEEACD12C10B59A00F18BF9 /* SplashScreenSceneFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenSceneFactory.swift; sourceTree = "<group>"; };
+		5AEEACD32C10B62500F18BF9 /* SplashScreenCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenCoordinator.swift; sourceTree = "<group>"; };
+		5AEEACD52C10B94200F18BF9 /* SplashScreenViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewControllerProtocol.swift; sourceTree = "<group>"; };
 		C90CAB322BFAFA1100B42456 /* JoinSessionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinSessionViewController.swift; sourceTree = "<group>"; };
 		C9147CB02C0611F50086A663 /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
 		C9147CB22C067FCC0086A663 /* DismissJoinSessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissJoinSessionDelegate.swift; sourceTree = "<group>"; };
@@ -167,6 +177,11 @@
 			isa = PBXGroup;
 			children = (
 				5AEEACC42C0A1E3900F18BF9 /* SplashScreenViewController.swift */,
+				5AEEACCD2C10766F00F18BF9 /* SplashScreenPresenter.swift */,
+				5AEEACCF2C10770200F18BF9 /* SplashScreenPresenterProtocol.swift */,
+				5AEEACD12C10B59A00F18BF9 /* SplashScreenSceneFactory.swift */,
+				5AEEACD32C10B62500F18BF9 /* SplashScreenCoordinator.swift */,
+				5AEEACD52C10B94200F18BF9 /* SplashScreenViewControllerProtocol.swift */,
 			);
 			path = SplashScreen;
 			sourceTree = "<group>";
@@ -489,6 +504,7 @@
 				4A6280362BDED59F00102304 /* MainSceneFactory.swift in Sources */,
 				4A6280382BDED62600102304 /* MainPresenter.swift in Sources */,
 				4A6280422BE9001200102304 /* CustomNavigationBar.swift in Sources */,
+				5AEEACD22C10B59A00F18BF9 /* SplashScreenSceneFactory.swift in Sources */,
 				4A62804F2BF13DBE00102304 /* InvitingUsersViewController.swift in Sources */,
 				4A6280462BEAB02E00102304 /* CreateSessionCellModel.swift in Sources */,
 				E2B9BFA42BD7CF0300592578 /* MainViewController.swift in Sources */,
@@ -502,11 +518,13 @@
 				E2B9BFAE2BD8080100592578 /* OnboardingSceneFactory.swift in Sources */,
 				5AEEACC82C0A1E3900F18BF9 /* SplashScreenViewController.swift in Sources */,
 				E2B9BF892BD7BA2C00592578 /* AppCoordinatorProtocol.swift in Sources */,
+				5AEEACCE2C10766F00F18BF9 /* SplashScreenPresenter.swift in Sources */,
 				E2B9BFA62BD7CF3000592578 /* CreateSessionViewController.swift in Sources */,
 				C90CAB342BFAFA1100B42456 /* JoinSessionViewController.swift in Sources */,
 				C91DCC7E2C006AE1001BC065 /* ReusableUICollectionView.swift in Sources */,
 				C91DCC762BFEA1FA001BC065 /* JoinSessionPresenter.swift in Sources */,
 				C9147CB32C067FCC0086A663 /* DismissJoinSessionDelegate.swift in Sources */,
+				5AEEACD62C10B94200F18BF9 /* SplashScreenViewControllerProtocol.swift in Sources */,
 				C917E3F72BE6CF8200B34639 /* AuthViewProtocol.swift in Sources */,
 				4A2FB3A82BF362EA0048F5B9 /* CreateSessionPresenter.swift in Sources */,
 				4A62804A2BECEB2300102304 /* CreateSessionCollectionCell.swift in Sources */,
@@ -528,11 +546,13 @@
 				C917E3FB2BE6D12000B34639 /* AuthSceneFactory.swift in Sources */,
 				E2B9BFAC2BD8034C00592578 /* OnboardingPresenterProtocol.swift in Sources */,
 				C917E3F92BE6CFC700B34639 /* AuthPresenter.swift in Sources */,
+				5AEEACD42C10B62500F18BF9 /* SplashScreenCoordinator.swift in Sources */,
 				C964B70D2BD8135400CF9AF0 /* OnboardingViewController.swift in Sources */,
 				C9FCE96D2BD3E53C00FE655D /* UIFont+Extension.swift in Sources */,
 				E9BEFD802BE7D53A002E940B /* RoundedButton.swift in Sources */,
 				4A6280402BE3F23100102304 /* MainCellModel.swift in Sources */,
 				C91DCC802C00B4F0001BC065 /* ReusableUICollectionViewCell.swift in Sources */,
+				5AEEACD02C10770200F18BF9 /* SplashScreenPresenterProtocol.swift in Sources */,
 				4A62803E2BE2C72B00102304 /* MainPresenterProtocol.swift in Sources */,
 				C964B7102BD813B500CF9AF0 /* CustomButtons.swift in Sources */,
 				E9A270222BE52BC20088652B /* MistakesViewController.swift in Sources */,
@@ -684,7 +704,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = PYCAA238P6;
+				DEVELOPMENT_TEAM = 5BRAJ87SV2;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DavaiPosmotrim/Info.plist;
@@ -719,7 +739,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = PYCAA238P6;
+				DEVELOPMENT_TEAM = 5BRAJ87SV2;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DavaiPosmotrim/Info.plist;

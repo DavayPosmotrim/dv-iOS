@@ -5,15 +5,15 @@
 //  Created by Maksim Zimens on 28.05.2024.
 //
 
-import Foundation
 import UIKit
 import CoreMotion
 import CoreGraphics
 
-final class SplashScreenViewController: UIViewController {
+final class SplashScreenViewController: UIViewController, UIGestureRecognizerDelegate {
 
     // MARK: - Stored properties
 
+    var presenter: SplashScreenPresenterProtocol?
     private var animator = UIDynamicAnimator()
     private var gravity = UIGravityBehavior()
     private var motion = CMMotionManager()
@@ -25,195 +25,151 @@ final class SplashScreenViewController: UIViewController {
 
     private lazy var tapView: UIView = {
         var tapView = UIView()
-        tapView.backgroundColor = .clear
         return tapView
     }()
 
     private lazy var leftView: UIView = {
         var leftView = UIView()
-        leftView.backgroundColor = .clear
         return leftView
     }()
 
     private lazy var rightView: UIView = {
         var rightView = UIView()
-        rightView.backgroundColor = .clear
         return rightView
     }()
 
     private lazy var topView: UIView = {
         var topView = UIView()
-        topView.backgroundColor = .clear
         return topView
     }()
 
     private lazy var bottomView: UIView = {
         var bottomView = UIView()
-        bottomView.backgroundColor = .clear
         return bottomView
     }()
 
     private lazy var davayImageView: UIImageView = {
-        let davayImageView = UIImageView(image: UIImage(named: "davayLabelImage"))
+        let davayImageView = UIImageView(image: UIImage.davayLabel)
         return davayImageView
     }()
 
     private lazy var backgroundView: UIImageView = {
-        var backgroundView = UIImageView(image: UIImage(named: "launchScreenBackground"))
+        var backgroundView = UIImageView(image: UIImage.launchScreenBackground)
         backgroundView.contentMode = .scaleToFill
         return backgroundView
     }()
 
     private lazy var musicalLabel: UILabel = {
         var musicalLabel = UILabel(frame: CGRect(x: 200, y: -490, width: 119, height: 40))
-        musicalLabel.textAlignment = .center
-        musicalLabel.textColor = UIColor(named: "baseTextColor")
-        musicalLabel.backgroundColor = UIColor(named: "attentionAdditionalColor")
-        musicalLabel.layer.masksToBounds = true
-        musicalLabel.layer.cornerRadius = 16
-        musicalLabel.text = "Мюзикал"
-        musicalLabel.font = .systemFont(ofSize: 20)
+        setupLabel(label: musicalLabel)
+        musicalLabel.text = Resources.SplashScreen.musicalText
         musicalLabel.transform = CGAffineTransform(rotationAngle: -.pi/6)
         return musicalLabel
     }()
 
     private lazy var thrillerLabel: UILabel = {
         var thrillerLabel = UILabel(frame: CGRect(x: 100, y: -445, width: 124, height: 40))
-        thrillerLabel.textAlignment = .center
-        thrillerLabel.textColor = UIColor(named: "baseTextColor")
-        thrillerLabel.backgroundColor = UIColor(named: "attentionAdditionalColor")
-        thrillerLabel.layer.masksToBounds = true
-        thrillerLabel.layer.cornerRadius = 16
-        thrillerLabel.text = "Триллер"
-        thrillerLabel.font = .systemFont(ofSize: 20)
+        setupLabel(label: thrillerLabel)
+        thrillerLabel.text = Resources.SplashScreen.thrillerText
         thrillerLabel.transform = CGAffineTransform(rotationAngle: .pi/6)
         return thrillerLabel
     }()
 
     private lazy var melodrammaLabel: UILabel = {
         var melodrammaLabel = UILabel(frame: CGRect(x: 50, y: -400, width: 151, height: 40))
-        melodrammaLabel.textAlignment = .center
-        melodrammaLabel.textColor = UIColor(named: "baseTextColor")
-        melodrammaLabel.backgroundColor = UIColor(named: "attentionAdditionalColor")
-        melodrammaLabel.layer.masksToBounds = true
-        melodrammaLabel.layer.cornerRadius = 16
-        melodrammaLabel.text = "Мелодрамма"
-        melodrammaLabel.font = .systemFont(ofSize: 20)
+        setupLabel(label: melodrammaLabel)
+        melodrammaLabel.text = Resources.SplashScreen.melodrammaText
         melodrammaLabel.transform = CGAffineTransform(rotationAngle: -.pi/3)
         return melodrammaLabel
     }()
 
     private lazy var biographyLabel: UILabel = {
         var biographyLabel = UILabel(frame: CGRect(x: 120, y: -355, width: 147, height: 40))
-        biographyLabel.textAlignment = .center
-        biographyLabel.textColor = UIColor(named: "baseTextColor")
-        biographyLabel.backgroundColor = UIColor(named: "attentionAdditionalColor")
-        biographyLabel.layer.masksToBounds = true
-        biographyLabel.layer.cornerRadius = 16
-        biographyLabel.text = "Биография"
-        biographyLabel.font = .systemFont(ofSize: 20)
+        setupLabel(label: biographyLabel)
+        biographyLabel.text = Resources.SplashScreen.biographyText
         biographyLabel.transform = CGAffineTransform(rotationAngle: -.pi/6)
         return biographyLabel
     }()
 
     private lazy var boevikLabel: UILabel = {
         var boevikLabel = UILabel(frame: CGRect(x: 220, y: -310, width: 111, height: 40))
-        boevikLabel.textAlignment = .center
-        boevikLabel.textColor = UIColor(named: "baseTextColor")
-        boevikLabel.backgroundColor = UIColor(named: "attentionAdditionalColor")
-        boevikLabel.layer.masksToBounds = true
-        boevikLabel.layer.cornerRadius = 16
-        boevikLabel.text = "Боевик"
-        boevikLabel.font = .systemFont(ofSize: 20)
+        setupLabel(label: boevikLabel)
+        boevikLabel.text = Resources.SplashScreen.boevikText
         boevikLabel.transform = CGAffineTransform(rotationAngle: .pi/6)
         return boevikLabel
     }()
 
     private lazy var fantasyLabel: UILabel = {
         var fantasyLabel = UILabel(frame: CGRect(x: 70, y: -265, width: 155, height: 40))
-        fantasyLabel.textAlignment = .center
-        fantasyLabel.textColor = UIColor(named: "baseTextColor")
-        fantasyLabel.backgroundColor = UIColor(named: "attentionAdditionalColor")
-        fantasyLabel.layer.masksToBounds = true
-        fantasyLabel.layer.cornerRadius = 16
-        fantasyLabel.text = "Фантастика"
-        fantasyLabel.font = .systemFont(ofSize: 20)
+        setupLabel(label: fantasyLabel)
+        fantasyLabel.text = Resources.SplashScreen.fantasyText
         fantasyLabel.transform = CGAffineTransform(rotationAngle: -.pi/6)
         return fantasyLabel
     }()
 
     private lazy var posmotrimLabel: UILabel = {
         var posmotrimLabel = UILabel(frame: CGRect(x: 150, y: -40, width: 164, height: 40))
-        posmotrimLabel.textAlignment = .center
-        posmotrimLabel.textColor = UIColor(named: "whiteTextColor")
-        posmotrimLabel.backgroundColor = UIColor(named: "basePrimaryAccentColor")
-        posmotrimLabel.layer.masksToBounds = true
-        posmotrimLabel.layer.cornerRadius = 16
-        posmotrimLabel.text = "Посмотрим?"
-        posmotrimLabel.font = .systemFont(ofSize: 20)
+        setupLabel(label: posmotrimLabel)
+        posmotrimLabel.textColor = UIColor.whiteText
+        posmotrimLabel.backgroundColor = UIColor.basePrimaryAccent
+        posmotrimLabel.text = Resources.SplashScreen.posmotrimText
         return posmotrimLabel
     }()
 
     private lazy var multfilmLabel: UILabel = {
         var multfilmLabel = UILabel(frame: CGRect(x: 180, y: -220, width: 164, height: 40))
-        multfilmLabel.textAlignment = .center
-        multfilmLabel.textColor = UIColor(named: "baseTextColor")
-        multfilmLabel.backgroundColor = UIColor(named: "attentionAdditionalColor")
-        multfilmLabel.layer.masksToBounds = true
-        multfilmLabel.layer.cornerRadius = 16
-        multfilmLabel.text = "Мультфильм"
-        multfilmLabel.font = .systemFont(ofSize: 20)
+        setupLabel(label: multfilmLabel)
+        multfilmLabel.text = Resources.SplashScreen.multfilmText
         multfilmLabel.transform = CGAffineTransform(rotationAngle: .pi/6)
         return multfilmLabel
     }()
 
     private lazy var familyLabel: UILabel = {
         var familyLabel = UILabel(frame: CGRect(x: 80, y: -175, width: 144, height: 40))
-        familyLabel.textAlignment = .center
-        familyLabel.textColor = UIColor(named: "baseTextColor")
-        familyLabel.backgroundColor = UIColor(named: "attentionAdditionalColor")
-        familyLabel.layer.masksToBounds = true
-        familyLabel.layer.cornerRadius = 16
-        familyLabel.text = "Семейный"
-        familyLabel.font = .systemFont(ofSize: 20)
+        setupLabel(label: familyLabel)
+        familyLabel.text = Resources.SplashScreen.familyText
         familyLabel.transform = CGAffineTransform(rotationAngle: .pi/6)
         return familyLabel
     }()
 
     private lazy var documentaryLabel: UILabel = {
         var documentaryLabel = UILabel(frame: CGRect(x: 100, y: -130, width: 210, height: 40))
-        documentaryLabel.textAlignment = .center
-        documentaryLabel.textColor = UIColor(named: "baseTextColor")
-        documentaryLabel.backgroundColor = UIColor(named: "attentionAdditionalColor")
-        documentaryLabel.layer.masksToBounds = true
-        documentaryLabel.layer.cornerRadius = 16
-        documentaryLabel.text = "Документальный"
-        documentaryLabel.font = .systemFont(ofSize: 20)
+        setupLabel(label: documentaryLabel)
+        documentaryLabel.text = Resources.SplashScreen.documentaryText
         documentaryLabel.transform = CGAffineTransform(rotationAngle: .pi/3)
         return documentaryLabel
     }()
 
     private lazy var adventureLabel: UILabel = {
         var adventureLabel = UILabel(frame: CGRect(x: 100, y: -85, width: 176, height: 40))
-        adventureLabel.textAlignment = .center
-        adventureLabel.textColor = UIColor(named: "baseTextColor")
-        adventureLabel.backgroundColor = UIColor(named: "attentionAdditionalColor")
-        adventureLabel.layer.masksToBounds = true
-        adventureLabel.layer.cornerRadius = 16
-        adventureLabel.text = "Приключение"
-        adventureLabel.font = .systemFont(ofSize: 20)
+        setupLabel(label: adventureLabel)
+        adventureLabel.text = Resources.SplashScreen.adventureText
         adventureLabel.transform = CGAffineTransform(rotationAngle: -.pi/6)
         return adventureLabel
     }()
+
+    // MARK: - Initializers
+
+    init(presenter: SplashScreenPresenter) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(named: "baseBackgroundColor")
+        view.backgroundColor = .baseBackground
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+
         setupConstraints()
         setupAnimationBehaviour()
         addTapRecognition()
+
         animationTimer = Timer.scheduledTimer(withTimeInterval: 4, repeats: false) { _ in
             self.dismissSplashScreen()
         }
@@ -229,7 +185,7 @@ extension SplashScreenViewController {
             return scene?.windows.first?.safeAreaInsets ?? .zero
         }
 
-        let rightViewX = view.safeAreaLayoutGuide.layoutFrame.width - 2
+        let rightViewX = view.safeAreaLayoutGuide.layoutFrame.width - 24
         let bottomViewY = view.safeAreaLayoutGuide.layoutFrame.maxY - 64
         let davayImageViewX = view.frame.width - 224
         let davayImageViewY = view.frame.height - safeArea.bottom - 77
@@ -239,6 +195,10 @@ extension SplashScreenViewController {
         bottomView.frame = CGRect(x: 0, y: bottomViewY, width: 1000, height: 32)
         topView.frame = CGRect(x: 0, y: safeArea.top, width: 1000, height: 32)
         davayImageView.frame = CGRect(x: davayImageViewX, y: davayImageViewY, width: 200, height: 45)
+
+        [leftView, rightView, bottomView, topView, backgroundView].forEach {
+            $0.backgroundColor = .clear
+        }
 
         [backgroundView,
          davayImageView,
@@ -278,52 +238,48 @@ extension SplashScreenViewController {
     }
 
     private func setupAnimationBehaviour() {
-        animator = UIDynamicAnimator(referenceView: self.view)
-        gravity = UIGravityBehavior(items: [
-            boevikLabel,
-            familyLabel,
-            fantasyLabel,
-            musicalLabel,
-            multfilmLabel,
-            thrillerLabel,
-            adventureLabel,
-            biographyLabel,
-            posmotrimLabel,
-            melodrammaLabel,
-            documentaryLabel
-        ])
+        let labels = [boevikLabel,
+                  familyLabel,
+                  fantasyLabel,
+                  musicalLabel,
+                  multfilmLabel,
+                  thrillerLabel,
+                  adventureLabel,
+                  biographyLabel,
+                  posmotrimLabel,
+                  melodrammaLabel,
+                  documentaryLabel]
 
-        let collision = UICollisionBehavior(items: [
-            boevikLabel,
-            familyLabel,
-            fantasyLabel,
-            musicalLabel,
-            multfilmLabel,
-            thrillerLabel,
-            adventureLabel,
-            biographyLabel,
-            posmotrimLabel,
-            melodrammaLabel,
-            documentaryLabel
-        ])
+        animator = UIDynamicAnimator(referenceView: self.view)
+        gravity = UIGravityBehavior(items: labels)
+        let collision = UICollisionBehavior(items: labels)
 
         bordersTimer = Timer.scheduledTimer(withTimeInterval: 1.6, repeats: false) { _ in
-            collision.addBoundary(withIdentifier: "topBorder" as NSCopying,
+            collision.addBoundary(withIdentifier: "topBorderIdent" as NSCopying,
                                   for: UIBezierPath(rect: self.topView.frame))
             self.startMoving()
         }
 
-        collision.addBoundary(withIdentifier: "leftBorder" as NSCopying,
+        collision.addBoundary(withIdentifier: "leftBorderIdent" as NSCopying,
                               for: UIBezierPath(rect: leftView.frame))
-        collision.addBoundary(withIdentifier: "rightBorder" as NSCopying,
+        collision.addBoundary(withIdentifier: "rightBorderIdent" as NSCopying,
                               for: UIBezierPath(rect: rightView.frame))
-        collision.addBoundary(withIdentifier: "bottomBorder" as NSCopying,
+        collision.addBoundary(withIdentifier: "bottomBorderIdent" as NSCopying,
                               for: UIBezierPath(rect: bottomView.frame))
-        collision.addBoundary(withIdentifier: "davayImageView" as NSCopying,
+        collision.addBoundary(withIdentifier: "davayImageViewIdent" as NSCopying,
                               for: UIBezierPath(rect: self.davayImageView.frame))
 
         animator.addBehavior(gravity)
         animator.addBehavior(collision)
+    }
+
+    private func setupLabel(label: UILabel) {
+        label.font = UIFont(name: "Inter-Regular", size: 20)
+        label.textAlignment = .center
+        label.textColor = UIColor.baseText
+        label.backgroundColor = UIColor.attentionAdditional
+        label.layer.masksToBounds = true
+        label.layer.cornerRadius = 16
     }
 
     private func startMoving() {
@@ -334,26 +290,6 @@ extension SplashScreenViewController {
             let xAxis = CGFloat(grav.x)
             let yAxis = CGFloat(grav.y)
             var point = CGPoint(x: xAxis, y: yAxis)
-            if let orientation = UIApplication
-                .shared
-                .connectedScenes
-                .flatMap({ ($0 as? UIWindowScene)?.windows ?? [] })
-                .first(where: { $0.isKeyWindow })?
-                .windowScene?
-                .interfaceOrientation {
-                if orientation == .landscapeLeft {
-                    let xPoint = point.x
-                    point.x = 0 - point.y
-                    point.y = xPoint
-                } else if orientation == .landscapeRight {
-                    let xPoint = point.x
-                    point.x = point.y
-                    point.y = 0 - xPoint
-                } else if orientation == .portraitUpsideDown {
-                    point.x *= -1
-                    point.y *= -1
-                }
-            }
             let vector = CGVector(dx: point.x, dy: 0 - point.y)
             self.gravity.gravityDirection = vector
         }
@@ -368,26 +304,9 @@ extension SplashScreenViewController {
     }
 
     private func dismissSplashScreen() {
-        guard let window = UIApplication
-            .shared
-            .connectedScenes
-            .flatMap({ ($0 as? UIWindowScene)?.windows ?? [] })
-            .first(where: { $0.isKeyWindow }) else {
-            fatalError("App Delegate does not  have a window")
-        }
-
         animationTimer.invalidate()
         bordersTimer.invalidate()
-
-        self.dismiss(animated: true) {
-            let transition = CATransition()
-            transition.type = .fade
-            window.layer.add(transition, forKey: "transition")
-            let navigationController = UINavigationController()
-            let appCoordinator = AppCoordinator(type: .app, navigationController: navigationController)
-            appCoordinator.start()
-            window.rootViewController = navigationController
-        }
+        presenter?.splashDidFinish()
     }
 
     // MARK: - Handlers
@@ -397,4 +316,6 @@ extension SplashScreenViewController {
     }
 }
 
-extension SplashScreenViewController: UIGestureRecognizerDelegate {}
+extension SplashScreenViewController: SplashScreenViewControllerProtocol {
+
+}
