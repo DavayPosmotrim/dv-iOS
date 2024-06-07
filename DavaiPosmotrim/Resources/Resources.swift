@@ -31,6 +31,26 @@ enum Resources {
         static let coloredThirdUpperText = "на любой вкус"
     }
 
+    enum MovieSelectionOnboarding {
+        static let movieSelectionOnboardingUserDefaultsKey = "isMovieSelectionOnboardingShown"
+
+        static let firstOnboardingLowerLabelText = """
+        Свайп вправо - нравится.
+        Свайп влево - не нравится.
+        Да, да, сделали очень оригинально.
+        """
+        static let secondOnboardingLowerLabelText = "Храним историю всех совпадений во время и после сеансов."
+        static let thirdOnboardingLowerLabelText = "Сеанс закончится, когда один из участников его покинет."
+
+        static let firstOnboardingUpperLabelText = "Всё как вы привыкли"
+        static let secondOnboardingUpperLabelText = "Выбирайте\nиз общих\nсовпадений"
+        static let thirdOnboardingUpperLabelText = "Ещё секундочку"
+
+        static let coloredFirstUpperText = "привыкли"
+        static let coloredSecondUpperText = "общих\nсовпадений"
+        static let coloredThirdUpperText = "секундочку"
+    }
+
     enum Authentication {
         static let savedNameUserDefaultsKey = "userName"
         static let authDidFinishNotification = "AuthDidFinishNotification"

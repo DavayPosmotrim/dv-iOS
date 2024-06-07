@@ -35,6 +35,16 @@ private extension AppCoordinator {
         onboardingCoordinator.start()
     }
 
+    func showMovieSelectionOnboardingFlow() {
+        let onboardingCoordinator = MovieSelectionOnboardingCoordinator(
+            type: .movieSelectionOnboarding,
+            finishDelegate: self,
+            navigationController: navigationController
+        )
+        addChild(onboardingCoordinator)
+        onboardingCoordinator.start()
+    }
+
     func showAuthFlow() {
         let authCoordinator = AuthCoordinator(
             type: .auth,
@@ -73,6 +83,9 @@ extension AppCoordinator: CoordinatorFinishDelegate {
             return
         case .onboarding:
             showAuthFlow()
+        case .movieSelectionOnboarding:
+            // TODO: add code to start next flow
+            print("MovieSelectionOnboarding")
         case .auth:
             showMainFlow()
         case .main:

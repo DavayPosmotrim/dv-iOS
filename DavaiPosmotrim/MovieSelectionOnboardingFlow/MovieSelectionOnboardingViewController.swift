@@ -1,40 +1,40 @@
 //
-//  OnboardingViewController.swift
+//  MovieSelectionOnboardingViewController.swift
 //  DavaiPosmotrim
 //
-//  Created by Эльдар Айдумов on 22.04.2024.
+//  Created by Эльдар Айдумов on 05.06.2024.
 //
 
 import UIKit
 
-final class OnboardingViewController: UIViewController {
+final class MovieSelectionOnboardingViewController: UIViewController {
 
     // MARK: - Stored properties
 
-    var presenter: OnboardingPresenterProtocol?
+    var presenter: MovieSelectionOnboardingProtocol?
 
     private var nextButtonAction: (() -> Void)?
 
     private let pages: [PageModel] = [
         PageModel(
-            image: .firstOnboarding,
-            upperText: Resources.Onboarding.firstOnboardingUpperLabelText,
-            upperColoredText: Resources.Onboarding.coloredFirstUpperText,
-            lowerText: Resources.Onboarding.firstOnboardingLowerLabelText
+            image: .firstMovieSelection,
+            upperText: Resources.MovieSelectionOnboarding.firstOnboardingUpperLabelText,
+            upperColoredText: Resources.MovieSelectionOnboarding.coloredFirstUpperText,
+            lowerText: Resources.MovieSelectionOnboarding.firstOnboardingLowerLabelText
         ),
 
         PageModel(
-            image: .secondOnboarding,
-            upperText: Resources.Onboarding.secondOnboardingUpperLabelText,
-            upperColoredText: Resources.Onboarding.coloredSecondUpperText,
-            lowerText: Resources.Onboarding.secondOnboardingLowerLabelText
+            image: .secondMovieSelection,
+            upperText: Resources.MovieSelectionOnboarding.secondOnboardingUpperLabelText,
+            upperColoredText: Resources.MovieSelectionOnboarding.coloredSecondUpperText,
+            lowerText: Resources.MovieSelectionOnboarding.secondOnboardingLowerLabelText
         ),
 
         PageModel(
-            image: .thirdOnboarding,
-            upperText: Resources.Onboarding.thirdOnboardingUpperLabelText,
-            upperColoredText: Resources.Onboarding.coloredThirdUpperText,
-            lowerText: Resources.Onboarding.thirdOnboardingLowerLabelText
+            image: .thirdMovieSelection,
+            upperText: Resources.MovieSelectionOnboarding.thirdOnboardingUpperLabelText,
+            upperColoredText: Resources.MovieSelectionOnboarding.coloredThirdUpperText,
+            lowerText: Resources.MovieSelectionOnboarding.thirdOnboardingLowerLabelText
         )
     ]
 
@@ -49,7 +49,7 @@ final class OnboardingViewController: UIViewController {
     private lazy var onboardingView: ReusableOnboardingView = {
         let view = ReusableOnboardingView(
             frame: .zero,
-            onboardingEvent: .firstOnboarding,
+            onboardingEvent: .secondOnboarding,
             pages: pages
         )
         view.setupNextButtonAction(with: nextButtonAction)
@@ -59,7 +59,7 @@ final class OnboardingViewController: UIViewController {
 
     // MARK: - Initializers
 
-    init(presenter: OnboardingPresenter) {
+    init(presenter: MovieSelectionOnboardingPresenter) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
     }
@@ -72,6 +72,7 @@ final class OnboardingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         view.backgroundColor = .baseBackground
 
         navigationController?.setNavigationBarHidden(true, animated: true)
@@ -105,9 +106,11 @@ final class OnboardingViewController: UIViewController {
     private func setupNextButtonAction() {
         nextButtonAction = { [weak self] in
             guard let self else { return }
-            UserDefaults.standard.setValue(true, forKey: Resources.Onboarding.onboardingUserDefaultsKey)
+            UserDefaults.standard.setValue(
+                true,
+                forKey: Resources.MovieSelectionOnboarding.movieSelectionOnboardingUserDefaultsKey)
             DispatchQueue.main.async {
-                self.presenter?.onboardingFinish()
+                self.presenter?.movieSelectionOnboardingFinish()
             }
         }
     }
