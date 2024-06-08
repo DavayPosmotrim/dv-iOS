@@ -56,6 +56,14 @@ final class InvitingUsersPresenter: InvitingUsersPresenterProtocol {
         view?.showCodeCopyWarning()
     }
 
+    func cancelButtonTapped() {
+        view?.showCancelSessionDialog()
+    }
+
+    func quitSessionButtonTapped() {
+        //TODO: - настроить отмену сессии, когда подключим сеть
+    }
+
     // MARK: - Private methods
 
     private func updateReusableCollection() {

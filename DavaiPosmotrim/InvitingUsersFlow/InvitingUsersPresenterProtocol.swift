@@ -13,5 +13,7 @@ protocol InvitingUsersPresenterProtocol: AnyObject {
     func viewDidLoad()
     func startButtonTapped()
     func codeButtonTapped()
+    func cancelButtonTapped()
+    func quitSessionButtonTapped()
     func getSessionCode() -> String
 }

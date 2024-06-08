@@ -111,7 +111,7 @@ final class InvitingUsersViewController: UIViewController {
         button.grayButton.backgroundColor = .whiteBackground
         button.setupView(with: button.grayButton)
         button.grayButton.setTitle(Resources.InvitingSession.cancelButtonLabelText, for: .normal)
-        //        button.blackButton.addTarget(self, action: #selector(didTapEnterButton(sender:)), for: .touchUpInside)
+        button.grayButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
 
         return button
     }()
@@ -155,6 +155,10 @@ final class InvitingUsersViewController: UIViewController {
 
     @objc private func codeButtonTapped() {
         presenter?.codeButtonTapped()
+    }
+
+    @objc private func cancelButtonTapped() {
+        presenter?.cancelButtonTapped()
     }
 
     // MARK: - Private methods
@@ -202,7 +206,6 @@ final class InvitingUsersViewController: UIViewController {
             customWarningNotification.topAnchor.constraint(equalTo: safeArea.topAnchor),
             customWarningNotification.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             customWarningNotification.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
-            customWarningNotification.bottomAnchor.constraint(equalTo: headerButtonsStack.topAnchor, constant: -20),
 
             headerButtonsStack.heightAnchor.constraint(equalToConstant: 48),
             headerButtonsStack.bottomAnchor.constraint(equalTo: upperPaddingView.bottomAnchor, constant: -16),
@@ -290,5 +293,23 @@ extension InvitingUsersViewController: InvitingUsersViewProtocol {
                         )}, completion: nil)
                 }
             }
+    }
+
+    func showCancelSessionDialog() {
+        guard let navigationController else { return }
+        let viewController = DismissJoinSessionViewController()
+        viewController.delegate = self
+        viewController.modalPresentationStyle = .overCurrentContext
+        viewController.modalTransitionStyle = .crossDissolve
+        navigationController.present(viewController, animated: true)
+    }
+}
+
+    // MARK: - DismissJoinSessionDelegate
+
+extension InvitingUsersViewController: DismissJoinSessionDelegate {
+    func finishJoinSessionFlow() {
+        presenter?.quitSessionButtonTapped()
+        print("Вышли")
     }
 }

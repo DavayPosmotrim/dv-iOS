@@ -10,4 +10,5 @@ import Foundation
 protocol InvitingUsersViewProtocol: AnyObject {
     func showFewUsersWarning()
     func showCodeCopyWarning()
+    func showCancelSessionDialog()
 }
