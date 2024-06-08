@@ -7,12 +7,17 @@
 
 import UIKit
 
+protocol CustomNavigationBarTwoButtonsDelegate: AnyObject {
+    func backButtonTapped()
+    func matchRightButtonTapped()
+}
+
 class CustomNavigationBarTwoButtons: UIView {
 
     // MARK: - Stored Properties
 
-    weak var delegate: CustomNavigationBarDelegate?
-    private var likeCount: Int = 0
+    weak var delegate: CustomNavigationBarTwoButtonsDelegate?
+    private var matchCount: Int = 0
 
     // MARK: - Layout variables
 
@@ -35,19 +40,19 @@ class CustomNavigationBarTwoButtons: UIView {
         return button
     }()
 
-    private lazy var rightLikeButton: UIButton = {
+    private lazy var matchRightButton: UIButton = {
         let button = UIButton()
         button.addTarget(
             self,
-            action: #selector(rightButtonLikeTapped),
+            action: #selector(matchRightButtonTapped),
             for: .touchUpInside
         )
         return button
     }()
 
-    private lazy var likeCountLabel: UILabel = {
+    private lazy var matchCountLabel: UILabel = {
         let label = UILabel()
-        label.text = "\(likeCount)"
+        label.text = "\(matchCount)"
         label.font = .textCaptionRegularFont
         label.textAlignment = .center
         label.textColor = .whiteText
@@ -62,7 +67,7 @@ class CustomNavigationBarTwoButtons: UIView {
         setupSubviews()
         setupConstraints()
         titleLabel.text = title
-        rightLikeButton.setImage(UIImage(named: imageBatton), for: .normal)
+        matchRightButton.setImage(UIImage(named: imageBatton), for: .normal)
         layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         layer.cornerRadius = 24
     }
@@ -71,15 +76,21 @@ class CustomNavigationBarTwoButtons: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Public Methods
+
+    func updateMatchCountLabel(withRandomCount count: Int) {
+        matchCountLabel.text = "\(count)"
+    }
+
+    // MARK: - Actions
+
     @objc private func backButtonTapped() {
         delegate?.backButtonTapped()
     }
 
-    @objc private func rightButtonLikeTapped() {
-//        delegate?.rightButtonLikeTapped()
-        likeCount += 1
-        likeCountLabel.text = "\(likeCount)"
-        }
+    @objc private func matchRightButtonTapped() {
+        delegate?.matchRightButtonTapped()
+    }
 
     // MARK: - Private methods
 
@@ -87,8 +98,8 @@ class CustomNavigationBarTwoButtons: UIView {
         [
             titleLabel,
             backButton,
-            rightLikeButton,
-            likeCountLabel
+            matchRightButton,
+            matchCountLabel
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             addSubview($0)
@@ -107,13 +118,13 @@ class CustomNavigationBarTwoButtons: UIView {
             titleLabel.centerYAnchor.constraint(equalTo: backButton.centerYAnchor),
             titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
 
-            rightLikeButton.widthAnchor.constraint(equalToConstant: 32),
-            rightLikeButton.heightAnchor.constraint(equalToConstant: 32),
-            rightLikeButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
-            rightLikeButton.centerYAnchor.constraint(equalTo: backButton.centerYAnchor),
+            matchRightButton.widthAnchor.constraint(equalToConstant: 32),
+            matchRightButton.heightAnchor.constraint(equalToConstant: 32),
+            matchRightButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
+            matchRightButton.centerYAnchor.constraint(equalTo: backButton.centerYAnchor),
 
-            likeCountLabel.centerXAnchor.constraint(equalTo: rightLikeButton.centerXAnchor),
-            likeCountLabel.centerYAnchor.constraint(equalTo: rightLikeButton.centerYAnchor)
+            matchCountLabel.centerXAnchor.constraint(equalTo: matchRightButton.centerXAnchor),
+            matchCountLabel.centerYAnchor.constraint(equalTo: matchRightButton.centerYAnchor)
         ])
     }
 }

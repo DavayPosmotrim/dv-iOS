@@ -90,6 +90,7 @@ class CustomMovieSelection: UIView {
     private lazy var noButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "inactiveNoSelectionIcon"), for: .normal)
+        button.setImage(UIImage(named: "activeNoSelectionIcon"), for: .highlighted)
         button.addTarget(
             self,
             action: #selector(noButtonTapped),
@@ -101,6 +102,7 @@ class CustomMovieSelection: UIView {
     private lazy var comeBackButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "inactiveRotateIcon"), for: .normal)
+        button.setImage(UIImage(named: "activeRotateIcon"), for: .highlighted)
         button.addTarget(
             self,
             action: #selector(comeBackButtonTapped),
@@ -112,6 +114,7 @@ class CustomMovieSelection: UIView {
     private lazy var yesButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "inactiveLikeIcon"), for: .normal)
+        button.setImage(UIImage(named: "activeLikeIcon"), for: .highlighted)
         button.addTarget(
             self,
             action: #selector(yesButtonTapped),
