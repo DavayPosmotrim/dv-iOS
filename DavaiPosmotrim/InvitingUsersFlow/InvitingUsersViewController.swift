@@ -303,6 +303,10 @@ extension InvitingUsersViewController: InvitingUsersViewProtocol {
         viewController.modalTransitionStyle = .crossDissolve
         navigationController.present(viewController, animated: true)
     }
+
+    func copyCodeToClipboard(_ code: String) {
+        UIPasteboard.general.string = code
+    }
 }
 
     // MARK: - DismissJoinSessionDelegate

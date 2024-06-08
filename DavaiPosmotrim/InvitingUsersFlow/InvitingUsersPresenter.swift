@@ -52,8 +52,8 @@ final class InvitingUsersPresenter: InvitingUsersPresenterProtocol {
     }
 
     func codeButtonTapped() {
-        //TODO: - сделать копирование кода в буфер
         view?.showCodeCopyWarning()
+        view?.copyCodeToClipboard(code)
     }
 
     func cancelButtonTapped() {
