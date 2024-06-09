@@ -56,11 +56,16 @@ final class InvitingUsersPresenter: InvitingUsersPresenterProtocol {
         view?.copyCodeToClipboard(code)
     }
 
+    func inviteButtonTapped() {
+        view?.shareCode(code)
+    }
+
     func cancelButtonTapped() {
         view?.showCancelSessionDialog()
     }
 
     func quitSessionButtonTapped() {
+        coordinator?.finish()
         //TODO: - настроить отмену сессии, когда подключим сеть
     }
 
@@ -87,8 +92,8 @@ final class InvitingUsersPresenter: InvitingUsersPresenterProtocol {
             let delayInSeconds: TimeInterval = 2
 
             for name in downloadedNames {
-                DispatchQueue.global().asyncAfter(deadline: .now() + delayInSeconds * Double(index)) {
-                    self.namesArray.append(name)
+                DispatchQueue.global().asyncAfter(deadline: .now() + delayInSeconds * Double(index)) { [weak self] in
+                    self?.namesArray.append(name)
                 }
                 index += 1
             }

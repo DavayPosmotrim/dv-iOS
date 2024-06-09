@@ -12,4 +12,5 @@ protocol InvitingUsersViewProtocol: AnyObject {
     func showCodeCopyWarning()
     func showCancelSessionDialog()
     func copyCodeToClipboard(_ code: String)
+    func shareCode(_ code: String)
 }

@@ -11,6 +11,10 @@ final class InvitingUsersCoordinator: BaseCoordinator {
     override func start() {
         showInvitingUsersScreen()
     }
+
+    override func finish() {
+        finishDelegate?.didFinish(self)
+    }
 }
 
 private extension InvitingUsersCoordinator {
