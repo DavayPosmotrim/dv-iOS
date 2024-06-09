@@ -151,20 +151,10 @@ final class CreateSessionViewController: UIViewController {
             return
         }
         if presenter.isSessionEmpty(segmentIndex: segmentIndex) {
-            customWarningNotification.setupNotification(
-                title: notificationTitle,
-                imageView: .infoIcon,
-                color: .attentionAdditional
-            )
-            customWarningNotification.isHidden = false
-            customNavBar.isHidden = true
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                self.customWarningNotification.isHidden = true
-                self.customNavBar.isHidden = false
-            }
+            showNotification(title: notificationTitle, duration: 2.0)
             return
         }
-        presenter.showNextScreen(navigationController: navigationController)
+        presenter.didTapNextButton(navigationController: navigationController)
     }
 
     @objc private func segmentControlValueChanged(_ sender: UISegmentedControl) {
@@ -250,6 +240,36 @@ private extension CreateSessionViewController {
             nextButton.trailingAnchor.constraint(equalTo: lowerPaddingView.trailingAnchor, constant: -16)
         ])
     }
+
+    private func showNotification(title: String, duration: TimeInterval) {
+        UIView.transition(
+            with: customWarningNotification,
+            duration: 0.2,
+            options: .transitionCrossDissolve,
+            animations: {
+                self.customWarningNotification.setupNotification(
+                    title: title,
+                    imageView: .infoIcon,
+                    color: .attentionAdditional
+                )
+                self.customWarningNotification.isHidden = false
+                self.customNavBar.isHidden = true
+            }, completion: { _ in
+                DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
+                    UIView.transition(
+                        with: self.customWarningNotification,
+                        duration: 0.2,
+                        options: .transitionCrossDissolve,
+                        animations: {
+                            self.customWarningNotification.isHidden = true
+                            self.customNavBar.isHidden = false
+                        },
+                        completion: nil
+                    )
+                }
+            }
+        )
+    }
 }
 
 // MARK: - CustomNavigationBarDelegate
@@ -257,7 +277,7 @@ private extension CreateSessionViewController {
 extension CreateSessionViewController: CustomNavigationBarDelegate {
 
     func backButtonTapped() {
-        presenter?.showPreviousScreen(navigationController: navigationController)
+        presenter?.backButtonTapped()
     }
 }
 

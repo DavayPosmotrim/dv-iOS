@@ -13,8 +13,8 @@ protocol CreateSessionPresenterProtocol: AnyObject {
     func getGenresMoviesCount() -> Int
     func getSelectionsMovie(index: Int) -> TableViewCellModel
     func getGenreAtIndex(index: Int) -> CollectionsCellModel
-    func showPreviousScreen(navigationController: UINavigationController?)
-    func showNextScreen(navigationController: UINavigationController?)
+    func backButtonTapped()
+    func didTapNextButton(navigationController: UINavigationController?)
     func didAddCollection(id: UUID?)
     func didRemoveCollection(id: UUID?)
     func didAddGenres(id: UUID?)

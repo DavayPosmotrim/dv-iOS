@@ -85,11 +85,11 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
         print(createSession)
     }
 
-    func showPreviousScreen(navigationController: UINavigationController?) {
+    func backButtonTapped() {
         coordinator?.finish()
     }
 
-    func showNextScreen(navigationController: UINavigationController?) {
+    func didTapNextButton(navigationController: UINavigationController?) {
         guard let navigationController = navigationController else { return }
         let invitingUsersViewController = InvitingUsersViewController()
         navigationController.pushViewController(invitingUsersViewController, animated: true)
