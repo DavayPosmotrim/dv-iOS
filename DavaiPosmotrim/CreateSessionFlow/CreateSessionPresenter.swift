@@ -56,7 +56,6 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
         }
         let newCollection = CollectionsMovie(id: collection.id, title: collection.title)
         createSession.collectionsMovie.append(newCollection)
-        print(createSession)
     }
 
     func didRemoveCollection(id: UUID?) {
@@ -64,7 +63,6 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
             return
         }
         createSession.collectionsMovie.removeAll { $0.id == id }
-        print(createSession)
     }
 
     func didAddGenres(id: UUID?) {
@@ -74,7 +72,6 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
         }
         let newGenres = GenresMovie(id: genres.id, title: genres.title)
         createSession.genresMovie.append(newGenres)
-        print(createSession)
     }
 
     func didRemoveGenres(id: UUID?) {
@@ -82,7 +79,6 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
             return
         }
         createSession.genresMovie.removeAll { $0.id == id }
-        print(createSession)
     }
 
     func backButtonTapped() {
