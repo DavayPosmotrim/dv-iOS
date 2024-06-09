@@ -158,7 +158,7 @@ final class CreateSessionViewController: UIViewController {
             )
             customWarningNotification.isHidden = false
             customNavBar.isHidden = true
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                 self.customWarningNotification.isHidden = true
                 self.customNavBar.isHidden = false
             }

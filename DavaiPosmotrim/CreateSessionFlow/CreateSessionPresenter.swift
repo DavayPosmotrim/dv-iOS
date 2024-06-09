@@ -11,9 +11,17 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
 
     // MARK: - Public Properties
 
+    weak var coordinator: CreateSessionCoordinator?
+
+    // MARK: - Private Properties
+
     private var createSession = CreateSessionModel(collectionsMovie: [], genresMovie: [])
     private var selectionsMovies = selectionsMockData
     private var genresMovies = genreMockData
+
+    init(coordinator: CreateSessionCoordinator) {
+        self.coordinator = coordinator
+    }
 
     // MARK: - Public Methods
 
@@ -78,8 +86,7 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
     }
 
     func showPreviousScreen(navigationController: UINavigationController?) {
-        guard let navigationController = navigationController else { return }
-        navigationController.popViewController(animated: true)
+        coordinator?.finish()
     }
 
     func showNextScreen(navigationController: UINavigationController?) {
