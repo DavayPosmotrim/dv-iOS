@@ -11,17 +11,19 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
 
     // MARK: - Public Properties
 
-    var isSessionEmpty: Bool {
-        return createSession.collectionsMovie.isEmpty && createSession.genresMovie.isEmpty
-    }
-
-    // MARK: - Public Properties
-
     private var createSession = CreateSessionModel(collectionsMovie: [], genresMovie: [])
     private var selectionsMovies = selectionsMockData
     private var genresMovies = genreMockData
 
     // MARK: - Public Methods
+
+    func isSessionEmpty(segmentIndex: Int) -> Bool {
+        if segmentIndex == 0 {
+            return createSession.collectionsMovie.isEmpty
+        } else {
+            return createSession.genresMovie.isEmpty
+        }
+    }
 
     func getSelectionsMoviesCount() -> Int {
         return selectionsMovies.count

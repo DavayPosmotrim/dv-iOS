@@ -8,7 +8,7 @@
 import UIKit
 
 protocol CreateSessionPresenterProtocol: AnyObject {
-    var isSessionEmpty: Bool { get }
+    func isSessionEmpty(segmentIndex: Int) -> Bool 
     func getSelectionsMoviesCount() -> Int
     func getGenresMoviesCount() -> Int
     func getSelectionsMovie(index: Int) -> TableViewCellModel

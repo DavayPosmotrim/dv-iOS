@@ -144,12 +144,13 @@ final class CreateSessionViewController: UIViewController {
     // MARK: - Actions
 
     @objc private func didTapNextButton() {
-        let notificationTitle = segmentControl.selectedSegmentIndex == 0 ?
+        let segmentIndex = segmentControl.selectedSegmentIndex
+        let notificationTitle = segmentIndex == 0 ?
         Keys.collectionNotificationTitle.rawValue : Keys.genreNotificationTitle.rawValue
         guard let presenter = presenter else {
             return
         }
-        if presenter.isSessionEmpty {
+        if presenter.isSessionEmpty(segmentIndex: segmentIndex) {
             customWarningNotification.setupNotification(
                 title: notificationTitle,
                 imageView: .infoIcon,
