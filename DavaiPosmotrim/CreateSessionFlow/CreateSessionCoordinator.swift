@@ -8,9 +8,14 @@
 import Foundation
 
 final class CreateSessionCoordinator: BaseCoordinator {
-    
+
     override func start() {
         showCreateSessionScreen()
+    }
+
+    func showInvitingUsersFlow() {
+        let invitingUsersViewController = InvitingUsersViewController()
+        navigationController.pushViewController(invitingUsersViewController, animated: true)
     }
 
     override func finish() {

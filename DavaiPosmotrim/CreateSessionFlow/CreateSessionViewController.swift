@@ -154,7 +154,7 @@ final class CreateSessionViewController: UIViewController {
             showNotification(title: notificationTitle, duration: 2.0)
             return
         }
-        presenter.didTapNextButton(navigationController: navigationController)
+        presenter.didTapNextButton()
     }
 
     @objc private func segmentControlValueChanged(_ sender: UISegmentedControl) {

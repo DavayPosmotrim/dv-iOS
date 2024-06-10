@@ -85,9 +85,7 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
         coordinator?.finish()
     }
 
-    func didTapNextButton(navigationController: UINavigationController?) {
-        guard let navigationController = navigationController else { return }
-        let invitingUsersViewController = InvitingUsersViewController()
-        navigationController.pushViewController(invitingUsersViewController, animated: true)
+    func didTapNextButton() {
+        coordinator?.showInvitingUsersFlow()
     }
 }

@@ -8,13 +8,13 @@
 import UIKit
 
 protocol CreateSessionPresenterProtocol: AnyObject {
-    func isSessionEmpty(segmentIndex: Int) -> Bool 
+    func isSessionEmpty(segmentIndex: Int) -> Bool
     func getSelectionsMoviesCount() -> Int
     func getGenresMoviesCount() -> Int
     func getSelectionsMovie(index: Int) -> TableViewCellModel
     func getGenreAtIndex(index: Int) -> CollectionsCellModel
     func backButtonTapped()
-    func didTapNextButton(navigationController: UINavigationController?)
+    func didTapNextButton()
     func didAddCollection(id: UUID?)
     func didRemoveCollection(id: UUID?)
     func didAddGenres(id: UUID?)
