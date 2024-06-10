@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol MovieSelectionOnboardingProtocol: AnyObject {
-    func movieSelectionOnboardingFinish()
+protocol MovieSelectionOnboardingPresenterProtocol: AnyObject {
+    func nextButtonTapped()
 }

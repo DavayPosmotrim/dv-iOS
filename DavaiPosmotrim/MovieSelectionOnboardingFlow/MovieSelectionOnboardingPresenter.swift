@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class MovieSelectionOnboardingPresenter: MovieSelectionOnboardingProtocol {
+final class MovieSelectionOnboardingPresenter: MovieSelectionOnboardingPresenterProtocol {
 
     // MARK: - Public Properties
 
@@ -21,8 +21,13 @@ final class MovieSelectionOnboardingPresenter: MovieSelectionOnboardingProtocol 
 
     // MARK: - Public methods
 
-    func movieSelectionOnboardingFinish() {
+    func nextButtonTapped() {
         guard let coordinator else { return }
         coordinator.finish()
+
+        UserDefaults.standard.setValue(
+            true,
+            forKey: Resources.MovieSelectionOnboarding.movieSelectionOnboardingUserDefaultsKey
+        )
     }
 }

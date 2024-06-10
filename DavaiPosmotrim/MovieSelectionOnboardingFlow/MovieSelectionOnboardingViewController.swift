@@ -11,7 +11,7 @@ final class MovieSelectionOnboardingViewController: UIViewController {
 
     // MARK: - Stored properties
 
-    var presenter: MovieSelectionOnboardingProtocol?
+    var presenter: MovieSelectionOnboardingPresenterProtocol?
 
     private var nextButtonAction: (() -> Void)?
 
@@ -106,11 +106,8 @@ final class MovieSelectionOnboardingViewController: UIViewController {
     private func setupNextButtonAction() {
         nextButtonAction = { [weak self] in
             guard let self else { return }
-            UserDefaults.standard.setValue(
-                true,
-                forKey: Resources.MovieSelectionOnboarding.movieSelectionOnboardingUserDefaultsKey)
             DispatchQueue.main.async {
-                self.presenter?.movieSelectionOnboardingFinish()
+                self.presenter?.nextButtonTapped()
             }
         }
     }
