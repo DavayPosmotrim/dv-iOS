@@ -19,5 +19,5 @@ final class SplashScreenPresenter: SplashScreenPresenterProtocol {
         guard let coordinator else { return }
         coordinator.finish()
     }
-//TODO: Перенести ещё методы из ViewController
+// TODO: Перенести ещё методы из ViewController
 }

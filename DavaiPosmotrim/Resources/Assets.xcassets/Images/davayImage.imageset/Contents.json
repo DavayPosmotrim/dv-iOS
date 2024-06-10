@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "ДАВАЙ@1x.png",
+      "filename" : "davay@1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "ДАВАЙ@2x.png",
+      "filename" : "davay@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "ДАВАЙ@3x.png",
+      "filename" : "davay@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
