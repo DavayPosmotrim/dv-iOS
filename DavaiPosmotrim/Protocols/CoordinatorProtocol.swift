@@ -10,6 +10,7 @@ import UIKit
 enum CoordinatorType {
     case app
     case onboarding
+    case movieSelectionOnboarding
     case auth
     case edit
     case authSession
