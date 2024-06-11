@@ -50,10 +50,13 @@ final class SelectionMoviesViewController: UIViewController {
         }
         self.currentMovieId = firstSelection.id
         let view = CustomMovieSelection(model: firstSelection)
-        view.isUserInteractionEnabled = true
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
-        view.addGestureRecognizer(panGesture)
-        view.delegate = self
+        view.showButtons = true
+        if view.showButtons {
+            view.isUserInteractionEnabled = true
+            let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
+            view.addGestureRecognizer(panGesture)
+            view.delegate = self
+        }
         return view
     }()
 
@@ -127,10 +130,11 @@ private extension SelectionMoviesViewController {
             customNavBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             customNavBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 
-            centralPaddingView.heightAnchor.constraint(equalToConstant: 584),
+//            centralPaddingView.heightAnchor.constraint(equalToConstant: 584),
             centralPaddingView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             centralPaddingView.topAnchor.constraint(equalTo: customNavBar.bottomAnchor, constant: 16),
-            centralPaddingView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+            centralPaddingView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            centralPaddingView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -67)
         ])
     }
 
@@ -185,14 +189,12 @@ extension SelectionMoviesViewController: CustomMovieSelectionDelegate {
     func noButtonTapped(withId id: UUID) {
         if likedMovies.contains(id) {
             likedMovies.removeAll { $0 == id }
-            print("Removed movie ID: \(id)")
         }
         showNextMovie()
     }
 
     func yesButtonTapped(withId id: UUID) {
         likedMovies.append(id)
-        print("Liked movie IDs: \(likedMovies)")
         showNextMovie()
     }
 

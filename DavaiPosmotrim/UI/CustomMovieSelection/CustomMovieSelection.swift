@@ -38,6 +38,7 @@ class CustomMovieSelection: UIView {
 
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.contentMode = .scaleToFill
         imageView.layer.cornerRadius = 24
         imageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         imageView.clipsToBounds = true
@@ -48,6 +49,7 @@ class CustomMovieSelection: UIView {
         let label = UILabel()
         label.font = .textHeadingFont
         label.textColor = .headingText
+        label.numberOfLines = 0
         return label
     }()
 
@@ -161,13 +163,15 @@ class CustomMovieSelection: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
+        collectionView.layoutIfNeeded()
+        updateCollectionViewHeightConstraint()
+        resizeImage(for: collectionView.collectionViewLayout.collectionViewContentSize.height)
         linearGradientView.layer.sublayers?.first?.frame = linearGradientView.bounds
     }
 
     func updateModel(_ model: SelectionMovieCellModel) {
         configureWithModel(model: model)
         collectionView.reloadData()
-        updateCollectionViewHeightConstraint()
     }
 
     func updateYesButtonImage(for percentage: CGFloat) {
@@ -241,13 +245,8 @@ class CustomMovieSelection: UIView {
     }
 
     private func setupConstraints() {
-        collectionViewHeightConstraint = collectionView.heightAnchor.constraint(
-            equalToConstant: calculateCollectionViewHeight()
-        )
-        collectionViewHeightConstraint?.isActive = true
-
         NSLayoutConstraint.activate([
-            heightAnchor.constraint(equalToConstant: 584),
+//            heightAnchor.constraint(equalToConstant: 584),
 
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             imageView.topAnchor.constraint(equalTo: topAnchor),
@@ -258,20 +257,16 @@ class CustomMovieSelection: UIView {
             linearGradientView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor),
             linearGradientView.bottomAnchor.constraint(equalTo: imageView.bottomAnchor),
 
-            nameMovieLabel.heightAnchor.constraint(equalToConstant: 28),
             nameMovieLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             nameMovieLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor),
             nameMovieLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
 
-            ratingLabel.heightAnchor.constraint(equalToConstant: 20),
             ratingLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 18),
             ratingLabel.topAnchor.constraint(equalTo: nameMovieLabel.bottomAnchor, constant: 12),
 
-            nameMovieEnLabel.heightAnchor.constraint(equalToConstant: 20),
             nameMovieEnLabel.centerYAnchor.constraint(equalTo: ratingLabel.centerYAnchor),
             nameMovieEnLabel.leadingAnchor.constraint(equalTo: ratingLabel.trailingAnchor, constant: 8),
 
-            informationLabel.heightAnchor.constraint(equalToConstant: 16),
             informationLabel.leadingAnchor.constraint(equalTo: ratingLabel.leadingAnchor),
             informationLabel.topAnchor.constraint(equalTo: ratingLabel.bottomAnchor, constant: 8),
 
@@ -307,19 +302,36 @@ class CustomMovieSelection: UIView {
         ])
     }
 
-    private func calculateCollectionViewHeight() -> CGFloat {
-        let rowCount = genresMovie.count
-        if rowCount > 3 {
-            return 96
-        } else {
-            return 60
-        }
+    private func updateCollectionViewHeightConstraint() {
+        let contentHeight = collectionView.collectionViewLayout.collectionViewContentSize.height
+        collectionViewHeightConstraint?.constant = contentHeight
     }
 
-    private func updateCollectionViewHeightConstraint() {
-        let collectionViewHeight = calculateCollectionViewHeight()
-        collectionViewHeightConstraint?.constant = collectionViewHeight
-        layoutIfNeeded()
+    private func resizeImage(for collectionHeight: CGFloat) {
+        let remainingHeight = calculateRemainingHeight(for: collectionHeight)
+        let newSize = sizeForImage(from: remainingHeight)
+        imageView.image = imageView.image?.resized(to: newSize)
+    }
+
+    private func calculateRemainingHeight(for collectionHeight: CGFloat) -> CGFloat {
+        var viewTotalHeight: CGFloat = frame.size.height
+        let verticalPadding: CGFloat = showButtons ? 52 : 28
+        let nameMovieLabelHeight = nameMovieLabel.intrinsicContentSize.height
+        let ratingLabelHeight = ratingLabel.intrinsicContentSize.height
+        let informationLabelHeight = informationLabel.intrinsicContentSize.height
+        let buttonHeight = showButtons ? noButton.intrinsicContentSize.height : 0
+        let totalHeight = nameMovieLabelHeight +
+        ratingLabelHeight +
+        informationLabelHeight +
+        buttonHeight +
+        collectionHeight +
+        verticalPadding
+        let remainingHeight = viewTotalHeight - totalHeight
+        return remainingHeight
+    }
+
+    private func sizeForImage(from remainingHeight: CGFloat) -> CGSize {
+        return CGSize(width: 343, height: remainingHeight)
     }
 
     private func gradientLayer(_ view: UIView) {
