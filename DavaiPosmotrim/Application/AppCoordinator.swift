@@ -92,6 +92,9 @@ extension AppCoordinator: CoordinatorFinishDelegate {
             showJoinSessionFlow()
         case .joinSession:
             showMainFlow()
+        case .coincidencesSession:
+            // TODO: add code to start next flow
+            print("CoincidencesFlow")
         default:
             navigationController.popToRootViewController(animated: false)
         }

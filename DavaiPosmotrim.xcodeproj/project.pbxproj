@@ -48,6 +48,12 @@
 		C91DCC802C00B4F0001BC065 /* ReusableUICollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91DCC7F2C00B4F0001BC065 /* ReusableUICollectionViewCell.swift */; };
 		C964B70D2BD8135400CF9AF0 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C964B70C2BD8135400CF9AF0 /* OnboardingViewController.swift */; };
 		C964B7102BD813B500CF9AF0 /* CustomButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = C964B70F2BD813B500CF9AF0 /* CustomButtons.swift */; };
+		C964F7A72C19129B00A37295 /* CoincidencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C964F7A62C19129B00A37295 /* CoincidencesViewController.swift */; };
+		C964F7A92C1913AF00A37295 /* CoincidencesPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C964F7A82C1913AF00A37295 /* CoincidencesPresenterProtocol.swift */; };
+		C964F7AB2C1914B900A37295 /* CoincidencesViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C964F7AA2C1914B900A37295 /* CoincidencesViewProtocol.swift */; };
+		C964F7AD2C1914F400A37295 /* CoincidencesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C964F7AC2C1914F400A37295 /* CoincidencesPresenter.swift */; };
+		C964F7AF2C19153E00A37295 /* CoincidencesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C964F7AE2C19153E00A37295 /* CoincidencesCoordinator.swift */; };
+		C964F7B12C19166800A37295 /* CoincidencesSceneFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C964F7B02C19166800A37295 /* CoincidencesSceneFactory.swift */; };
 		C96895CF2BE835EA002A99E6 /* AuthPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96895CE2BE835EA002A99E6 /* AuthPresenterProtocol.swift */; };
 		C96895D12BE88E4B002A99E6 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96895D02BE88E4B002A99E6 /* Resources.swift */; };
 		C9AF1EB52C0A0FA90080FC4A /* OnboardingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AF1EB42C0A0FA90080FC4A /* OnboardingPresenter.swift */; };
@@ -120,6 +126,12 @@
 		C91DCC7F2C00B4F0001BC065 /* ReusableUICollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableUICollectionViewCell.swift; sourceTree = "<group>"; };
 		C964B70C2BD8135400CF9AF0 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		C964B70F2BD813B500CF9AF0 /* CustomButtons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButtons.swift; sourceTree = "<group>"; };
+		C964F7A62C19129B00A37295 /* CoincidencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoincidencesViewController.swift; sourceTree = "<group>"; };
+		C964F7A82C1913AF00A37295 /* CoincidencesPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoincidencesPresenterProtocol.swift; sourceTree = "<group>"; };
+		C964F7AA2C1914B900A37295 /* CoincidencesViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoincidencesViewProtocol.swift; sourceTree = "<group>"; };
+		C964F7AC2C1914F400A37295 /* CoincidencesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoincidencesPresenter.swift; sourceTree = "<group>"; };
+		C964F7AE2C19153E00A37295 /* CoincidencesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoincidencesCoordinator.swift; sourceTree = "<group>"; };
+		C964F7B02C19166800A37295 /* CoincidencesSceneFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoincidencesSceneFactory.swift; sourceTree = "<group>"; };
 		C96895CE2BE835EA002A99E6 /* AuthPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenterProtocol.swift; sourceTree = "<group>"; };
 		C96895D02BE88E4B002A99E6 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
 		C9AF1EB42C0A0FA90080FC4A /* OnboardingPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPresenter.swift; sourceTree = "<group>"; };
@@ -223,6 +235,19 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
+		C964F7A52C19126500A37295 /* CoincidencesFlow */ = {
+			isa = PBXGroup;
+			children = (
+				C964F7A62C19129B00A37295 /* CoincidencesViewController.swift */,
+				C964F7A82C1913AF00A37295 /* CoincidencesPresenterProtocol.swift */,
+				C964F7AA2C1914B900A37295 /* CoincidencesViewProtocol.swift */,
+				C964F7AC2C1914F400A37295 /* CoincidencesPresenter.swift */,
+				C964F7AE2C19153E00A37295 /* CoincidencesCoordinator.swift */,
+				C964F7B02C19166800A37295 /* CoincidencesSceneFactory.swift */,
+			);
+			path = CoincidencesFlow;
+			sourceTree = "<group>";
+		};
 		C9B57C6A2C0607050026E85D /* DismissJoinSessionVIewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -261,6 +286,7 @@
 				E2B9BF9B2BD7CDAD00592578 /* OnboardingFlow */,
 				C91332D12C10B30E0036FC44 /* MovieSelectionOnboardingFlow */,
 				E2B9BF9A2BD7CDA600592578 /* MainFlow */,
+				C964F7A52C19126500A37295 /* CoincidencesFlow */,
 				C9C4D5AB2BD3A3CB0081CD23 /* Info.plist */,
 				C9C4D59D2BD3A3C70081CD23 /* AppDelegate.swift */,
 				C9C4D59F2BD3A3C70081CD23 /* SceneDelegate.swift */,
@@ -499,7 +525,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo \"PATH is $PATH\"\nif [ -x /opt/homebrew/bin/swiftlint ]; then\n   /opt/homebrew/bin/swiftlint\nelse\n   echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -527,6 +553,7 @@
 				C90CAB342BFAFA1100B42456 /* JoinSessionViewController.swift in Sources */,
 				C91DCC7E2C006AE1001BC065 /* ReusableUICollectionView.swift in Sources */,
 				C91DCC762BFEA1FA001BC065 /* JoinSessionPresenter.swift in Sources */,
+				C964F7AF2C19153E00A37295 /* CoincidencesCoordinator.swift in Sources */,
 				C91332D72C10BEEB0036FC44 /* MovieSelectionOnboardingPresenter.swift in Sources */,
 				C9147CB32C067FCC0086A663 /* DismissJoinSessionDelegate.swift in Sources */,
 				C917E3F72BE6CF8200B34639 /* AuthViewProtocol.swift in Sources */,
@@ -534,10 +561,12 @@
 				4A62804A2BECEB2300102304 /* CreateSessionCollectionCell.swift in Sources */,
 				4A2FB3AC2BF373A10048F5B9 /* UICollectionViewLayout+Extension.swift in Sources */,
 				4A6280442BEAAC3800102304 /* CreateSessionTableViewCell.swift in Sources */,
+				C964F7A92C1913AF00A37295 /* CoincidencesPresenterProtocol.swift in Sources */,
 				4A6280322BDE846900102304 /* MainTableViewCell.swift in Sources */,
 				4A62804C2BF0EB7300102304 /* CustomWarningNotification.swift in Sources */,
 				C91DCC7C2BFEA33E001BC065 /* JoinSessionViewProtocol.swift in Sources */,
 				E2B9BF872BD7B8EF00592578 /* CoordinatorProtocol.swift in Sources */,
+				C964F7B12C19166800A37295 /* CoincidencesSceneFactory.swift in Sources */,
 				C917E3F52BE6CED000B34639 /* AuthCoordinator.swift in Sources */,
 				C91332D52C10BE820036FC44 /* MovieSelectionOnboardingCoordinator.swift in Sources */,
 				C91DCC7A2BFEA31A001BC065 /* JoinSessionPresenterProtocol.swift in Sources */,
@@ -552,6 +581,7 @@
 				E2B9BF932BD7C45B00592578 /* BaseCoordinator.swift in Sources */,
 				C91332DE2C11F0C20036FC44 /* ReusableOnboardingView.swift in Sources */,
 				C9AF1EB52C0A0FA90080FC4A /* OnboardingPresenter.swift in Sources */,
+				C964F7AB2C1914B900A37295 /* CoincidencesViewProtocol.swift in Sources */,
 				C917E3FB2BE6D12000B34639 /* AuthSceneFactory.swift in Sources */,
 				E2B9BFAC2BD8034C00592578 /* OnboardingPresenterProtocol.swift in Sources */,
 				C917E3F92BE6CFC700B34639 /* AuthPresenter.swift in Sources */,
@@ -565,9 +595,11 @@
 				E9A270222BE52BC20088652B /* MistakesViewController.swift in Sources */,
 				C91DCC782BFEA20F001BC065 /* JoinSessionSceneFactory.swift in Sources */,
 				C91332D92C10BF2B0036FC44 /* MovieSelectionOnboardingProtocol.swift in Sources */,
+				C964F7AD2C1914F400A37295 /* CoincidencesPresenter.swift in Sources */,
 				C96895D12BE88E4B002A99E6 /* Resources.swift in Sources */,
 				4A2FB3AE2BF374F60048F5B9 /* CreateSessionPresenterProtocol.swift in Sources */,
 				C91332E02C11F2470036FC44 /* ReusableOnboardingCollectionViewCell.swift in Sources */,
+				C964F7A72C19129B00A37295 /* CoincidencesViewController.swift in Sources */,
 				C9C4D5A02BD3A3C70081CD23 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
