@@ -70,7 +70,11 @@
 		E2B9BFAE2BD8080100592578 /* OnboardingSceneFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFAD2BD8080100592578 /* OnboardingSceneFactory.swift */; };
 		E9A2701F2BE4C2940088652B /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A2701E2BE4C2940088652B /* CGFloat+Extensions.swift */; };
 		E9A270222BE52BC20088652B /* MistakesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A270212BE52BC20088652B /* MistakesViewController.swift */; };
+		E9A9E74C2C133CC600AEF879 /* SessionsListEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A9E74B2C133CC600AEF879 /* SessionsListEmptyView.swift */; };
+		E9A9E74E2C1345D100AEF879 /* SessionsListMovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A9E74D2C1345D100AEF879 /* SessionsListMovieCell.swift */; };
 		E9BEFD802BE7D53A002E940B /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BEFD7F2BE7D53A002E940B /* RoundedButton.swift */; };
+		E9C34A332C135F57002628F9 /* SessionsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C34A322C135F57002628F9 /* SessionsListViewController.swift */; };
+		E9C34A352C136085002628F9 /* SessionsListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C34A342C136085002628F9 /* SessionsListModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -137,7 +141,11 @@
 		E2B9BFAD2BD8080100592578 /* OnboardingSceneFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSceneFactory.swift; sourceTree = "<group>"; };
 		E9A2701E2BE4C2940088652B /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
 		E9A270212BE52BC20088652B /* MistakesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MistakesViewController.swift; sourceTree = "<group>"; };
+		E9A9E74B2C133CC600AEF879 /* SessionsListEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsListEmptyView.swift; sourceTree = "<group>"; };
+		E9A9E74D2C1345D100AEF879 /* SessionsListMovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsListMovieCell.swift; sourceTree = "<group>"; };
 		E9BEFD7F2BE7D53A002E940B /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
+		E9C34A322C135F57002628F9 /* SessionsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsListViewController.swift; sourceTree = "<group>"; };
+		E9C34A342C136085002628F9 /* SessionsListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsListModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,6 +229,7 @@
 				E2B9BF912BD7BF2300592578 /* Protocols */,
 				4A62804D2BF13D7400102304 /* InvitingUsersFlow */,
 				E2B9BFA02BD7CDE500592578 /* FavoriteMoviesFlow */,
+				E9C34A312C135EAC002628F9 /* SessionsListFlow */,
 				E2B9BF9E2BD7CDCB00592578 /* CreateSessionFlow */,
 				E2B9BF9C2BD7CDB800592578 /* AuthFlow */,
 				C90CAB332BFAFA1100B42456 /* JoinSessionFlow */,
@@ -367,6 +376,17 @@
 			path = Mistakes;
 			sourceTree = "<group>";
 		};
+		E9C34A312C135EAC002628F9 /* SessionsListFlow */ = {
+			isa = PBXGroup;
+			children = (
+				E9A9E74D2C1345D100AEF879 /* SessionsListMovieCell.swift */,
+				E9A9E74B2C133CC600AEF879 /* SessionsListEmptyView.swift */,
+				E9C34A322C135F57002628F9 /* SessionsListViewController.swift */,
+				E9C34A342C136085002628F9 /* SessionsListModel.swift */,
+			);
+			path = SessionsListFlow;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -477,6 +497,7 @@
 				C9B57C6C2C0607450026E85D /* DismissJoinSessionViewController.swift in Sources */,
 				4A6280362BDED59F00102304 /* MainSceneFactory.swift in Sources */,
 				4A6280382BDED62600102304 /* MainPresenter.swift in Sources */,
+				E9A9E74E2C1345D100AEF879 /* SessionsListMovieCell.swift in Sources */,
 				4A6280422BE9001200102304 /* CustomNavigationBar.swift in Sources */,
 				4A62804F2BF13DBE00102304 /* InvitingUsersViewController.swift in Sources */,
 				4A6280462BEAB02E00102304 /* CreateSessionCellModel.swift in Sources */,
@@ -489,6 +510,7 @@
 				E9A2701F2BE4C2940088652B /* CGFloat+Extensions.swift in Sources */,
 				E2B9BFAE2BD8080100592578 /* OnboardingSceneFactory.swift in Sources */,
 				E2B9BF892BD7BA2C00592578 /* AppCoordinatorProtocol.swift in Sources */,
+				E9C34A332C135F57002628F9 /* SessionsListViewController.swift in Sources */,
 				E2B9BFA62BD7CF3000592578 /* CreateSessionViewController.swift in Sources */,
 				C90CAB342BFAFA1100B42456 /* JoinSessionViewController.swift in Sources */,
 				C91DCC7E2C006AE1001BC065 /* ReusableUICollectionView.swift in Sources */,
@@ -501,6 +523,7 @@
 				4A6280442BEAAC3800102304 /* CreateSessionTableViewCell.swift in Sources */,
 				4A6280322BDE846900102304 /* MainTableViewCell.swift in Sources */,
 				4A62804C2BF0EB7300102304 /* CustomWarningNotification.swift in Sources */,
+				E9A9E74C2C133CC600AEF879 /* SessionsListEmptyView.swift in Sources */,
 				C91DCC7C2BFEA33E001BC065 /* JoinSessionViewProtocol.swift in Sources */,
 				E2B9BF872BD7B8EF00592578 /* CoordinatorProtocol.swift in Sources */,
 				C917E3F52BE6CED000B34639 /* AuthCoordinator.swift in Sources */,
@@ -512,6 +535,7 @@
 				C9147CB12C0611F50086A663 /* CustomAlertView.swift in Sources */,
 				C91DCC742BFEA1E8001BC065 /* JoinSessionCoordinator.swift in Sources */,
 				E2B9BF932BD7C45B00592578 /* BaseCoordinator.swift in Sources */,
+				E9C34A352C136085002628F9 /* SessionsListModel.swift in Sources */,
 				C9AF1EB52C0A0FA90080FC4A /* OnboardingPresenter.swift in Sources */,
 				C917E3FB2BE6D12000B34639 /* AuthSceneFactory.swift in Sources */,
 				E2B9BFAC2BD8034C00592578 /* OnboardingPresenterProtocol.swift in Sources */,

@@ -91,4 +91,10 @@ enum Resources {
         static let oldVersionText = "Сначала сломали, потом починили.\n Скачайте, обновлённую версию."
         static let oldVersionButtonTitle = "Перейти в магазин".uppercased()
     }
+
+    enum SessionsList {
+        static let title = "Понравившиеся фильмы"
+        static let placeholderTitle = "Пока ничего нет"
+        static let placeholderDescription = "Здесь будут фильмы,\n которые вам понравились"
+    }
 }
