@@ -21,6 +21,6 @@ final class OnboardingCoordinator: BaseCoordinator {
 private extension OnboardingCoordinator {
     func showOnboarding() {
         let viewController = OnboardingSceneFactory.makeOnboardingViewController(with: self)
-        navigationController.pushViewController(viewController, animated: true)
+        navigationController.setViewControllers([viewController], animated: true)
     }
 }
