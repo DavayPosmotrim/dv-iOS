@@ -56,8 +56,12 @@ private extension MainCoordinator {
     }
 
     func showCreateSessionFlow() {
-        let createSessionViewController = CreateSessionViewController(presenter: CreateSessionPresenter())
-        navigationController.pushViewController(createSessionViewController, animated: true)
+        let createSessionCoordinator = CreateSessionCoordinator(
+            type: .createSession,
+            navigationController: navigationController
+        )
+        addChild(createSessionCoordinator)
+        createSessionCoordinator.start()
     }
 
     func showFavoriteMoviesFlow() {
@@ -72,6 +76,5 @@ private extension MainCoordinator {
         )
         addChild(authSessionCoordinator)
         authSessionCoordinator.start()
-
     }
 }

@@ -24,6 +24,8 @@
 		4A62804A2BECEB2300102304 /* CreateSessionCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6280492BECEB2300102304 /* CreateSessionCollectionCell.swift */; };
 		4A62804C2BF0EB7300102304 /* CustomWarningNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A62804B2BF0EB7300102304 /* CustomWarningNotification.swift */; };
 		4A62804F2BF13DBE00102304 /* InvitingUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A62804E2BF13DBE00102304 /* InvitingUsersViewController.swift */; };
+		4AAEABAE2C15EEFC00A14C1D /* CreateSessionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAEABAD2C15EEFC00A14C1D /* CreateSessionCoordinator.swift */; };
+		4AAEABB02C15EF9600A14C1D /* CreateSessionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAEABAF2C15EF9600A14C1D /* CreateSessionFactory.swift */; };
 		C90CAB342BFAFA1100B42456 /* JoinSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90CAB322BFAFA1100B42456 /* JoinSessionViewController.swift */; };
 		C90CAB372BFAFA6B00B42456 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = C90CAB362BFAFA6B00B42456 /* Swinject */; };
 		C91332D32C10B5DC0036FC44 /* MovieSelectionOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91332D22C10B5DB0036FC44 /* MovieSelectionOnboardingViewController.swift */; };
@@ -97,6 +99,8 @@
 		4A6280492BECEB2300102304 /* CreateSessionCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionCollectionCell.swift; sourceTree = "<group>"; };
 		4A62804B2BF0EB7300102304 /* CustomWarningNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWarningNotification.swift; sourceTree = "<group>"; };
 		4A62804E2BF13DBE00102304 /* InvitingUsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitingUsersViewController.swift; sourceTree = "<group>"; };
+		4AAEABAD2C15EEFC00A14C1D /* CreateSessionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionCoordinator.swift; sourceTree = "<group>"; };
+		4AAEABAF2C15EF9600A14C1D /* CreateSessionFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionFactory.swift; sourceTree = "<group>"; };
 		C90CAB322BFAFA1100B42456 /* JoinSessionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinSessionViewController.swift; sourceTree = "<group>"; };
 		C91332D22C10B5DB0036FC44 /* MovieSelectionOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSelectionOnboardingViewController.swift; sourceTree = "<group>"; };
 		C91332D42C10BE820036FC44 /* MovieSelectionOnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSelectionOnboardingCoordinator.swift; sourceTree = "<group>"; };
@@ -381,6 +385,8 @@
 				4A2FB3A72BF362EA0048F5B9 /* CreateSessionPresenter.swift */,
 				4A6280432BEAAC3800102304 /* CreateSessionTableViewCell.swift */,
 				4A6280492BECEB2300102304 /* CreateSessionCollectionCell.swift */,
+				4AAEABAD2C15EEFC00A14C1D /* CreateSessionCoordinator.swift */,
+				4AAEABAF2C15EF9600A14C1D /* CreateSessionFactory.swift */,
 			);
 			path = CreateSessionFlow;
 			sourceTree = "<group>";
@@ -563,9 +569,11 @@
 				4A62803E2BE2C72B00102304 /* MainPresenterProtocol.swift in Sources */,
 				C964B7102BD813B500CF9AF0 /* CustomButtons.swift in Sources */,
 				E9A270222BE52BC20088652B /* MistakesViewController.swift in Sources */,
+				4AAEABB02C15EF9600A14C1D /* CreateSessionFactory.swift in Sources */,
 				C91DCC782BFEA20F001BC065 /* JoinSessionSceneFactory.swift in Sources */,
 				C91332D92C10BF2B0036FC44 /* MovieSelectionOnboardingProtocol.swift in Sources */,
 				C96895D12BE88E4B002A99E6 /* Resources.swift in Sources */,
+				4AAEABAE2C15EEFC00A14C1D /* CreateSessionCoordinator.swift in Sources */,
 				4A2FB3AE2BF374F60048F5B9 /* CreateSessionPresenterProtocol.swift in Sources */,
 				C91332E02C11F2470036FC44 /* ReusableOnboardingCollectionViewCell.swift in Sources */,
 				C9C4D5A02BD3A3C70081CD23 /* SceneDelegate.swift in Sources */,
