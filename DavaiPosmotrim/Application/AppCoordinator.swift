@@ -14,9 +14,7 @@ final class AppCoordinator: BaseCoordinator {
         } else if UserDefaults.standard.value(forKey: Resources.Authentication.savedNameUserDefaultsKey) == nil {
             showAuthFlow()
         } else {
-//            showJoinSessionFlow()
-            showInviteSessionFlow()
-//            showMainFlow()
+            showMainFlow()
         }
     }
 
@@ -57,6 +55,7 @@ private extension AppCoordinator {
     }
 
     func showMainFlow() {
+        childCoordinators.removeAll()
         let mainCoordinator = MainCoordinator(
             type: .main,
             finishDelegate: self,
@@ -104,6 +103,8 @@ extension AppCoordinator: CoordinatorFinishDelegate {
         case .main:
             showJoinSessionFlow()
         case .joinSession:
+            showMainFlow()
+        case . inviteUsers:
             showMainFlow()
         default:
             navigationController.popToRootViewController(animated: false)
