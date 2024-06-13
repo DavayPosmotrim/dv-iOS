@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import CoreMotion
 import CoreGraphics
 
 final class SplashScreenViewController: UIViewController, UIGestureRecognizerDelegate {
@@ -16,8 +15,6 @@ final class SplashScreenViewController: UIViewController, UIGestureRecognizerDel
     var presenter: SplashScreenPresenterProtocol?
     private var animator = UIDynamicAnimator()
     private var gravity = UIGravityBehavior()
-    private var motion = CMMotionManager()
-    private var queue = OperationQueue.current
     private var animationTimer = Timer()
     private var bordersTimer = Timer()
 
@@ -261,7 +258,7 @@ extension SplashScreenViewController {
         bordersTimer = Timer.scheduledTimer(withTimeInterval: 1.6, repeats: false) { _ in
             collision.addBoundary(withIdentifier: "topBorderIdent" as NSCopying,
                                   for: UIBezierPath(rect: self.topView.frame))
-            self.startMoving()
+            self.presenter?.startMoving(gravity: self.gravity)
         }
 
         collision.addBoundary(withIdentifier: "leftBorderIdent" as NSCopying,
@@ -284,19 +281,6 @@ extension SplashScreenViewController {
         label.backgroundColor = UIColor.attentionAdditional
         label.layer.masksToBounds = true
         label.layer.cornerRadius = 16
-    }
-
-    private func startMoving() {
-        guard let queue = queue else { return }
-        motion.startDeviceMotionUpdates(to: queue) { motion, _ in
-            guard let motion = motion else { return }
-            let grav: CMAcceleration = motion.gravity
-            let xAxis = CGFloat(grav.x)
-            let yAxis = CGFloat(grav.y)
-            let point = CGPoint(x: xAxis, y: yAxis)
-            let vector = CGVector(dx: point.x, dy: 0 - point.y)
-            self.gravity.gravityDirection = vector
-        }
     }
 
     private func addTapRecognition() {
