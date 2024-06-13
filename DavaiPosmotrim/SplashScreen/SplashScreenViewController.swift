@@ -200,24 +200,26 @@ extension SplashScreenViewController {
             $0.backgroundColor = .clear
         }
 
-        [backgroundView,
-         davayImageView,
-         boevikLabel,
-         familyLabel,
-         fantasyLabel,
-         musicalLabel,
-         multfilmLabel,
-         thrillerLabel,
-         adventureLabel,
-         biographyLabel,
-         posmotrimLabel,
-         melodrammaLabel,
-         documentaryLabel,
-         topView,
-         bottomView,
-         rightView,
-         leftView,
-         tapView].forEach {
+        [
+            backgroundView,
+            davayImageView,
+            boevikLabel,
+            familyLabel,
+            fantasyLabel,
+            musicalLabel,
+            multfilmLabel,
+            thrillerLabel,
+            adventureLabel,
+            biographyLabel,
+            posmotrimLabel,
+            melodrammaLabel,
+            documentaryLabel,
+            topView,
+            bottomView,
+            rightView,
+            leftView,
+            tapView
+        ].forEach {
             view.addSubview($0)
         }
 
@@ -238,17 +240,19 @@ extension SplashScreenViewController {
     }
 
     private func setupAnimationBehaviour() {
-        let labels = [boevikLabel,
-                  familyLabel,
-                  fantasyLabel,
-                  musicalLabel,
-                  multfilmLabel,
-                  thrillerLabel,
-                  adventureLabel,
-                  biographyLabel,
-                  posmotrimLabel,
-                  melodrammaLabel,
-                  documentaryLabel]
+        let labels = [
+            boevikLabel,
+            familyLabel,
+            fantasyLabel,
+            musicalLabel,
+            multfilmLabel,
+            thrillerLabel,
+            adventureLabel,
+            biographyLabel,
+            posmotrimLabel,
+            melodrammaLabel,
+            documentaryLabel
+        ]
 
         animator = UIDynamicAnimator(referenceView: self.view)
         gravity = UIGravityBehavior(items: labels)
@@ -274,7 +278,7 @@ extension SplashScreenViewController {
     }
 
     private func setupLabel(label: UILabel) {
-        label.font = UIFont(name: "Inter-Regular", size: 20)
+        label.font = UIFont.textSplashFont
         label.textAlignment = .center
         label.textColor = UIColor.baseText
         label.backgroundColor = UIColor.attentionAdditional

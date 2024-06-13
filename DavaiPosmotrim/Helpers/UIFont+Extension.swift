@@ -14,6 +14,7 @@ extension UIFont {
     static let textTitleFont = UIFont(name: "DaysOne-Regular", size: 40)
 
     static let textParagraphRegularFont = UIFont(name: "Inter-Regular", size: 14)
+    static let textSplashFont = UIFont(name: "Inter-Regular", size: 20)
     static let textParagraphBoldFont = UIFont(name: "Inter-Bold", size: 14)
     static let textCaptionRegularFont = UIFont(name: "Inter-Regular", size: 12)
     static let textButtonMediumFont = UIFont(name: "Inter-Medium", size: 14)
