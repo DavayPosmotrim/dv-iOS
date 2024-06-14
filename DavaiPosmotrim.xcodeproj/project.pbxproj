@@ -422,12 +422,20 @@
 			isa = PBXGroup;
 			children = (
 				E9A9E74D2C1345D100AEF879 /* SessionsListMovieCell.swift */,
-				E9A9E74B2C133CC600AEF879 /* SessionsListEmptyView.swift */,
+				E9FA32EC2C1A2DA700036043 /* Elements */,
 				E9C34A322C135F57002628F9 /* SessionsListViewController.swift */,
 				E9C34A342C136085002628F9 /* SessionsListModel.swift */,
 				E9FA32EA2C1A2B6B00036043 /* SessionsListCoordinator.swift */,
 			);
 			path = SessionsListFlow;
+			sourceTree = "<group>";
+		};
+		E9FA32EC2C1A2DA700036043 /* Elements */ = {
+			isa = PBXGroup;
+			children = (
+				E9A9E74B2C133CC600AEF879 /* SessionsListEmptyView.swift */,
+			);
+			path = Elements;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

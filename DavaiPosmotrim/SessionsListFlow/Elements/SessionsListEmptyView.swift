@@ -9,8 +9,7 @@ import UIKit
 
 final class SessionsListEmptyView: UIView {
 
-    // MARK: - Layout properties
-
+    // MARK: - View properties
     private lazy var placeholderStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
@@ -19,9 +18,6 @@ final class SessionsListEmptyView: UIView {
         stack.spacing = .spacingBase
         return stack
     }()
-
-    private lazy var placeholderImageView = UIImageView()
-
     private lazy var placeholderTitleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
@@ -29,7 +25,6 @@ final class SessionsListEmptyView: UIView {
         label.font = .textLabelFont
         return label
     }()
-
     private lazy var placeholderDescriptionLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
@@ -38,9 +33,9 @@ final class SessionsListEmptyView: UIView {
         label.font = .textParagraphRegularFont
         return label
     }()
+    private lazy var placeholderImageView = UIImageView()
 
     // MARK: - Inits
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -52,10 +47,11 @@ final class SessionsListEmptyView: UIView {
     }
 }
 
+// MARK: - Private methods
 private extension SessionsListEmptyView {
+
     func setupUI() {
         self.backgroundColor = .whiteBackground
-
         layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         layer.cornerRadius = .radiusLarge
 
@@ -87,7 +83,7 @@ private extension SessionsListEmptyView {
 
     func setupSubviewsValue() {
         placeholderImageView.image = UIImage(resource: .emptyFolderPlug)
-        placeholderTitleLabel.text = Resources.SessionsList.placeholderTitle
-        placeholderDescriptionLabel.text = Resources.SessionsList.placeholderDescription
+        placeholderTitleLabel.text = Resources.SessionsList.NoSessions.title
+        placeholderDescriptionLabel.text = Resources.SessionsList.NoSessions.description
     }
 }
