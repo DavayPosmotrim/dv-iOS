@@ -84,6 +84,8 @@
 		E9C34A332C135F57002628F9 /* SessionsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C34A322C135F57002628F9 /* SessionsListViewController.swift */; };
 		E9C34A352C136085002628F9 /* SessionsListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C34A342C136085002628F9 /* SessionsListModel.swift */; };
 		E9FA32EB2C1A2B6B00036043 /* SessionsListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FA32EA2C1A2B6B00036043 /* SessionsListCoordinator.swift */; };
+		E9FA32EE2C1A2FF300036043 /* SessionsListPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FA32ED2C1A2FF300036043 /* SessionsListPresenterProtocol.swift */; };
+		E9FA32F02C1A309300036043 /* SessionsListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FA32EF2C1A309300036043 /* SessionsListPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -164,6 +166,8 @@
 		E9C34A322C135F57002628F9 /* SessionsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsListViewController.swift; sourceTree = "<group>"; };
 		E9C34A342C136085002628F9 /* SessionsListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsListModel.swift; sourceTree = "<group>"; };
 		E9FA32EA2C1A2B6B00036043 /* SessionsListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsListCoordinator.swift; sourceTree = "<group>"; };
+		E9FA32ED2C1A2FF300036043 /* SessionsListPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsListPresenterProtocol.swift; sourceTree = "<group>"; };
+		E9FA32EF2C1A309300036043 /* SessionsListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsListPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -426,6 +430,8 @@
 				E9C34A322C135F57002628F9 /* SessionsListViewController.swift */,
 				E9C34A342C136085002628F9 /* SessionsListModel.swift */,
 				E9FA32EA2C1A2B6B00036043 /* SessionsListCoordinator.swift */,
+				E9FA32ED2C1A2FF300036043 /* SessionsListPresenterProtocol.swift */,
+				E9FA32EF2C1A309300036043 /* SessionsListPresenter.swift */,
 			);
 			path = SessionsListFlow;
 			sourceTree = "<group>";
@@ -566,6 +572,7 @@
 				C90CAB342BFAFA1100B42456 /* JoinSessionViewController.swift in Sources */,
 				C91DCC7E2C006AE1001BC065 /* ReusableUICollectionView.swift in Sources */,
 				C91DCC762BFEA1FA001BC065 /* JoinSessionPresenter.swift in Sources */,
+				E9FA32F02C1A309300036043 /* SessionsListPresenter.swift in Sources */,
 				C91332D72C10BEEB0036FC44 /* MovieSelectionOnboardingPresenter.swift in Sources */,
 				C9147CB32C067FCC0086A663 /* DismissJoinSessionDelegate.swift in Sources */,
 				C917E3F72BE6CF8200B34639 /* AuthViewProtocol.swift in Sources */,
@@ -592,6 +599,7 @@
 				E2B9BF932BD7C45B00592578 /* BaseCoordinator.swift in Sources */,
 				E9C34A352C136085002628F9 /* SessionsListModel.swift in Sources */,
 				C91332DE2C11F0C20036FC44 /* ReusableOnboardingView.swift in Sources */,
+				E9FA32EE2C1A2FF300036043 /* SessionsListPresenterProtocol.swift in Sources */,
 				C9AF1EB52C0A0FA90080FC4A /* OnboardingPresenter.swift in Sources */,
 				C917E3FB2BE6D12000B34639 /* AuthSceneFactory.swift in Sources */,
 				E2B9BFAC2BD8034C00592578 /* OnboardingPresenterProtocol.swift in Sources */,
