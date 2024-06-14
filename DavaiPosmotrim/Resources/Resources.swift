@@ -116,7 +116,15 @@ enum Resources {
 
     enum SessionsList {
         static let title = "Понравившиеся фильмы"
-        static let placeholderTitle = "Пока ничего нет"
-        static let placeholderDescription = "Здесь будут фильмы,\n которые вам понравились"
+        // swiftlint:disable:next nesting
+        enum Sessions {
+            static let matchesTitle = "Совпадений:"
+            static let noImageTitle = "Не удалось загрузить фото"
+        }
+        // swiftlint:disable:next nesting
+        enum NoSessions {
+            static let title = "Пока ничего нет"
+            static let description = "Здесь будут фильмы,\n которые вам понравились"
+        }
     }
 }
