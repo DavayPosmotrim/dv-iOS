@@ -15,11 +15,19 @@ struct User: Identifiable, Equatable {
 struct SessionModel: Identifiable, Equatable {
     let id = UUID()
     let date: String
-    let intersections: Int
-    let imageName: String
-    let user: [User]
+    let matches: Int
+    let imageName: String?
+    let users: [User]
 }
 
 struct SessionsListModel {
     let sessions: [SessionModel]
+}
+
+struct SessionsListViewModel {
+    let date: String
+    let users: String
+    let matches: String
+    let matchesWidth: CGFloat
+    let imageName: String?
 }
