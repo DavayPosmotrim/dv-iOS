@@ -83,6 +83,7 @@
 		E9BEFD802BE7D53A002E940B /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BEFD7F2BE7D53A002E940B /* RoundedButton.swift */; };
 		E9C34A332C135F57002628F9 /* SessionsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C34A322C135F57002628F9 /* SessionsListViewController.swift */; };
 		E9C34A352C136085002628F9 /* SessionsListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C34A342C136085002628F9 /* SessionsListModel.swift */; };
+		E9FA32EB2C1A2B6B00036043 /* SessionsListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FA32EA2C1A2B6B00036043 /* SessionsListCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -162,6 +163,7 @@
 		E9BEFD7F2BE7D53A002E940B /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		E9C34A322C135F57002628F9 /* SessionsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsListViewController.swift; sourceTree = "<group>"; };
 		E9C34A342C136085002628F9 /* SessionsListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsListModel.swift; sourceTree = "<group>"; };
+		E9FA32EA2C1A2B6B00036043 /* SessionsListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsListCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -423,6 +425,7 @@
 				E9A9E74B2C133CC600AEF879 /* SessionsListEmptyView.swift */,
 				E9C34A322C135F57002628F9 /* SessionsListViewController.swift */,
 				E9C34A342C136085002628F9 /* SessionsListModel.swift */,
+				E9FA32EA2C1A2B6B00036043 /* SessionsListCoordinator.swift */,
 			);
 			path = SessionsListFlow;
 			sourceTree = "<group>";
@@ -601,6 +604,7 @@
 				4A2FB3AE2BF374F60048F5B9 /* CreateSessionPresenterProtocol.swift in Sources */,
 				C91332E02C11F2470036FC44 /* ReusableOnboardingCollectionViewCell.swift in Sources */,
 				C9C4D5A02BD3A3C70081CD23 /* SceneDelegate.swift in Sources */,
+				E9FA32EB2C1A2B6B00036043 /* SessionsListCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

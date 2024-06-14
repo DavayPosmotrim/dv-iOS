@@ -77,4 +77,13 @@ private extension MainCoordinator {
         addChild(authSessionCoordinator)
         authSessionCoordinator.start()
     }
+
+    func showSessionsList() {
+        let sessionsListCoordinator = SessionsListCoordinator(
+            type: .sessionsList,
+            navigationController: navigationController
+        )
+        addChild(sessionsListCoordinator)
+        sessionsListCoordinator.start()
+    }
 }
