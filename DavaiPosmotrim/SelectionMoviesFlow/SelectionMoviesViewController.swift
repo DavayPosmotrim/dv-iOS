@@ -17,7 +17,7 @@ final class SelectionMoviesViewController: UIViewController {
 
     // MARK: - Private Properties
 
-    private var currentMovieId: UUID?
+//    private var currentMovieId: UUID?
     private enum Keys: String {
         case titleNavBarText = "Выберите фильм"
     }
@@ -50,7 +50,6 @@ final class SelectionMoviesViewController: UIViewController {
               let firstSelection = presenter.getFirstMovie() else {
             fatalError("Presenter or selectionsMovie is empty")
         }
-        self.currentMovieId = firstSelection.id
         let view = CustomMovieSelection(model: firstSelection)
         view.showButtons = true
         if view.showButtons {
@@ -171,9 +170,9 @@ private extension SelectionMoviesViewController {
         }
         centralPaddingView.updateModel(nextModel)
     }
-    
+
     func animateSwipe(direction: CGFloat) {
-        guard let currentMovieId = currentMovieId else {
+        guard let currentMovieId = presenter?.getCurrentMovieId() else {
             return
         }
         let translationX: CGFloat = direction * view.bounds.width
@@ -218,27 +217,8 @@ private extension SelectionMoviesViewController {
             completion()
         }
     }
-}
 
-// MARK: - CustomMovieSelectionDelegate
-
-extension SelectionMoviesViewController: CustomMovieSelectionDelegate {
-    func noButtonTapped(withId id: UUID) {
-        presenter?.removeFromLikedMovies(withId: id)
-        animateOffscreen(direction: -1) {
-            self.showNextMovie()
-        }
-    }
-
-    func yesButtonTapped(withId id: UUID) {
-        presenter?.addToLikedMovies(withId: id)
-        animateOffscreen(direction: 1) {
-            self.showNextMovie()
-        }
-    }
-
-    func comeBackButtonTapped() {
-        self.showComeMovie()
+    func animateComeBack() {
         let originalFrame = self.centralPaddingView.frame
         let originalTransform = self.centralPaddingView.transform
         let startY = self.customNavBar.frame.maxY - originalFrame.height
@@ -262,6 +242,31 @@ extension SelectionMoviesViewController: CustomMovieSelectionDelegate {
             },
             completion: nil
         )
+    }
+}
+
+// MARK: - CustomMovieSelectionDelegate
+
+extension SelectionMoviesViewController: CustomMovieSelectionDelegate {
+    func noButtonTapped(withId id: UUID) {
+        presenter?.removeFromLikedMovies(withId: id)
+        animateOffscreen(direction: -1) {
+            self.showNextMovie()
+        }
+    }
+
+    func yesButtonTapped(withId id: UUID) {
+        presenter?.addToLikedMovies(withId: id)
+        animateOffscreen(direction: 1) {
+            self.showNextMovie()
+        }
+    }
+
+    func comeBackButtonTapped() {
+        if presenter?.canGetPreviousMovie() ?? false {
+            self.showComeMovie()
+            animateComeBack()
+        }
     }
 }
 

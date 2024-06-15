@@ -9,6 +9,8 @@ import Foundation
 
 protocol SelectionMoviesPresenterProtocol: AnyObject {
     func getRandomMatchCount() -> Int
+    func canGetPreviousMovie() -> Bool
+    func getCurrentMovieId() -> UUID?
     func getFirstMovie() -> SelectionMovieCellModel?
     func getNextMovie() -> SelectionMovieCellModel?
     func getPreviousMovie() -> SelectionMovieCellModel?

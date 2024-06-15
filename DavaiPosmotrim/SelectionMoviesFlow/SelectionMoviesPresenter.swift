@@ -14,6 +14,8 @@ final class SelectionMoviesPresenter: SelectionMoviesPresenterProtocol {
     private var selectionsMovie = selectionMovieMockData
     private var currentIndex: Int = 0
     private var likedMovies: [UUID] = []
+    private var currentMovieId: UUID?
+    private var isGetPreviousMovie = true
 
     // MARK: - Public Methods
 
@@ -21,19 +23,39 @@ final class SelectionMoviesPresenter: SelectionMoviesPresenterProtocol {
         return Int.random(in: 0...10)
     }
 
+    func canGetPreviousMovie() -> Bool {
+        guard currentIndex > 0 else {
+                return false
+            }
+        let likePreviousMovie = selectionsMovie[currentIndex - 1].id
+        if likedMovies.contains(likePreviousMovie) {
+            return false
+        }
+        return isGetPreviousMovie
+    }
+
+    func getCurrentMovieId() -> UUID? {
+        return currentMovieId
+    }
+
     func getFirstMovie() -> SelectionMovieCellModel? {
-        return selectionsMovie.first
+        let firstSelection = selectionsMovie.first
+        self.currentMovieId = firstSelection?.id
+        return firstSelection
     }
 
     func getNextMovie() -> SelectionMovieCellModel? {
         guard currentIndex < selectionsMovie.count else { return nil }
         currentIndex += 1
+        currentMovieId = selectionsMovie[currentIndex].id
+        isGetPreviousMovie = true
         return selectionsMovie[currentIndex]
     }
 
     func getPreviousMovie() -> SelectionMovieCellModel? {
-        guard currentIndex > 0 else { return nil }
         currentIndex -= 1
+        currentMovieId = selectionsMovie[currentIndex].id
+        isGetPreviousMovie = false
         return selectionsMovie[currentIndex]
     }
 
