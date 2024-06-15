@@ -192,6 +192,7 @@ class CustomMovieSelection: UIView {
     // MARK: - Actions
 
     @objc private func noButtonTapped() {
+        noButton.setImage(UIImage(named: "activeNoSelectionIcon"), for: .normal)
         delegate?.noButtonTapped(withId: currentMovieId)
     }
 
@@ -200,6 +201,7 @@ class CustomMovieSelection: UIView {
     }
 
     @objc private func yesButtonTapped() {
+        yesButton.setImage(UIImage(named: "activeLikeIcon"), for: .normal)
         delegate?.yesButtonTapped(withId: currentMovieId)
     }
 

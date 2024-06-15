@@ -15,7 +15,7 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
         return createSession.collectionsMovie.isEmpty && createSession.genresMovie.isEmpty
     }
 
-    // MARK: - Public Properties
+    // MARK: - Private Properties
 
     private var createSession = CreateSessionModel(collectionsMovie: [], genresMovie: [])
     private var selectionsMovies = selectionsMockData
@@ -83,7 +83,7 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
     func showNextScreen(navigationController: UINavigationController?) {
         guard let navigationController = navigationController else { return }
 //        let invitingUsersViewController = InvitingUsersViewController()
-        let invitingUsersViewController = SelectionMoviesViewController()
+        let invitingUsersViewController = SelectionMoviesViewController(presenter: SelectionMoviesPresenter())
         navigationController.pushViewController(invitingUsersViewController, animated: true)
     }
 }
