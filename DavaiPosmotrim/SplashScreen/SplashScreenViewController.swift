@@ -10,9 +10,12 @@ import CoreGraphics
 
 final class SplashScreenViewController: UIViewController, UIGestureRecognizerDelegate {
 
-    // MARK: - Stored properties
+    // MARK: - Public properties
 
     var presenter: SplashScreenPresenterProtocol?
+
+    // MARK: - Private properties
+
     private var animator = UIDynamicAnimator()
     private var gravity = UIGravityBehavior()
     private var animationTimer = Timer()
@@ -220,9 +223,7 @@ extension SplashScreenViewController {
             view.addSubview($0)
         }
 
-        [backgroundView, tapView].forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        }
+        [backgroundView, tapView].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
 
         NSLayoutConstraint.activate([
             backgroundView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
@@ -304,6 +305,6 @@ extension SplashScreenViewController {
     }
 }
 
-extension SplashScreenViewController: SplashScreenViewControllerProtocol {
+// MARK: - SplashScreenViewControllerProtocol
 
-}
+extension SplashScreenViewController: SplashScreenViewControllerProtocol {}

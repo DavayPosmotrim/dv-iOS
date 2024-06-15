@@ -9,11 +9,18 @@ import UIKit
 import CoreMotion
 
 final class SplashScreenPresenter: SplashScreenPresenterProtocol {
+
+    // MARK: - Public properties
+
     weak var coordinator: SplashScreenCoordinator?
     weak var view: SplashScreenViewControllerProtocol?
 
+    // MARK: - Private properties
+
     private var motion = CMMotionManager()
     private var queue = OperationQueue.current
+
+    // MARK: - Initializers
 
     init(coordinator: SplashScreenCoordinator) {
         self.coordinator = coordinator
