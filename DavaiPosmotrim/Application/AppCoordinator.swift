@@ -63,6 +63,16 @@ private extension AppCoordinator {
         addChild(mainCoordinator)
         mainCoordinator.start()
     }
+
+    func showSelectionMoviesFlow() {
+        let selectionMoviesCoordinator = SelectionMoviesCoordinator(
+            type: .selectionMovies,
+            finishDelegate: self,
+            navigationController: navigationController
+        )
+        addChild(selectionMoviesCoordinator)
+        selectionMoviesCoordinator.start()
+    }
 }
 
 extension AppCoordinator: CoordinatorFinishDelegate {
@@ -79,6 +89,8 @@ extension AppCoordinator: CoordinatorFinishDelegate {
             showMainFlow()
         case .main:
             print("MainCoordinator finished")
+        case .selectionMovies:
+            showMainFlow()
         default:
             navigationController.popToRootViewController(animated: false)
         }

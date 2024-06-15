@@ -17,7 +17,6 @@ final class SelectionMoviesViewController: UIViewController {
 
     // MARK: - Private Properties
 
-//    private var currentMovieId: UUID?
     private enum Keys: String {
         case titleNavBarText = "Выберите фильм"
     }
@@ -79,6 +78,11 @@ final class SelectionMoviesViewController: UIViewController {
         view.backgroundColor = .white
         setupSubviews()
         setupConstraints()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
     }
 
     // MARK: - Actions
@@ -274,13 +278,10 @@ extension SelectionMoviesViewController: CustomMovieSelectionDelegate {
 
 extension SelectionMoviesViewController: CustomNavigationBarTwoButtonsDelegate {
     func matchRightButtonTapped() {
-        guard let navigationController = navigationController else { return }
-        let coincidencesViewController = CoincidencesViewController()
-        navigationController.pushViewController(coincidencesViewController, animated: true)
+        presenter?.didTapMatchRightButton()
     }
 
     func backButtonTapped() {
-        guard let navigationController = navigationController else { return }
-        navigationController.popViewController(animated: true)
+        presenter?.backButtonTapped()
     }
 }

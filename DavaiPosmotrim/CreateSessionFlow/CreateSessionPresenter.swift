@@ -82,8 +82,7 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
 
     func showNextScreen(navigationController: UINavigationController?) {
         guard let navigationController = navigationController else { return }
-//        let invitingUsersViewController = InvitingUsersViewController()
-        let invitingUsersViewController = SelectionMoviesViewController(presenter: SelectionMoviesPresenter())
+        let invitingUsersViewController = InvitingUsersViewController()
         navigationController.pushViewController(invitingUsersViewController, animated: true)
     }
 }
