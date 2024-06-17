@@ -21,6 +21,7 @@ final class SessionsListCell: UITableViewCell {
     }
     private let placeholderImage = UIImage(resource: .noImagePlug)
     private var matchCountWidth: CGFloat = 124
+    private var isFirstCell = false
 
     // MARK: - View properties
     private lazy var dateLabel: UILabel = {
@@ -96,11 +97,13 @@ final class SessionsListCell: UITableViewCell {
     // MARK: - Public Methods
     override func layoutSubviews() {
         super.layoutSubviews()
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: .spacingMedium, left: 0, bottom: 0, right: 0))
+        let topInset: CGFloat = isFirstCell ? .spacingMedium * 3 : .spacingMedium
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: topInset, left: 0, bottom: 0, right: 0))
     }
 
     func configureCell(for viewModel: SessionsListViewModel) {
         matchCountWidth = viewModel.matchesWidth
+        isFirstCell = viewModel.isFirstCell
         dateLabel.text = viewModel.date
         usersListLabel.text = viewModel.users
         matchCountLabel.text = viewModel.matches

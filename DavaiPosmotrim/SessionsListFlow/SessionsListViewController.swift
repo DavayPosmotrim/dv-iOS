@@ -100,8 +100,10 @@ extension SessionsListViewController: UITableViewDataSource {
               ) as? SessionsListCell else {
             return UITableViewCell()
         }
-        let model = presenter.getSessionForCellBy(index: indexPath.row)
+        var model = presenter.getSessionForCellBy(index: indexPath.row)
+        model.isFirstCell = indexPath.row == 0
         cell.configureCell(for: model)
+        cell.selectionStyle = .none
         return cell
     }
 }
@@ -132,7 +134,7 @@ private extension SessionsListViewController {
 
             tableView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
-            tableView.topAnchor.constraint(equalTo: customNavBar.bottomAnchor, constant: -.spacingBase),
+            tableView.topAnchor.constraint(equalTo: customNavBar.bottomAnchor, constant: -.spacingMedium * 2),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
             sessionsListEmptyView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
