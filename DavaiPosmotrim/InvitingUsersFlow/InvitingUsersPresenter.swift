@@ -91,11 +91,10 @@ final class InvitingUsersPresenter: InvitingUsersPresenterProtocol {
             var index = 0
             let delayInSeconds: TimeInterval = 2
 
-            for name in downloadedNames {
+            downloadedNames.enumerated().forEach() { index, name in
                 DispatchQueue.global().asyncAfter(deadline: .now() + delayInSeconds * Double(index)) { [weak self] in
                     self?.namesArray.append(name)
                 }
-                index += 1
             }
         }
     }

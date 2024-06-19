@@ -47,11 +47,11 @@ final class InvitingUsersViewController: UIViewController {
         button.grayButton.setTitle(code, for: .normal)
         button.grayButton.titleLabel?.font = .textButtonRegularFont
 
-        let icon = UIImage(systemName: "doc.on.doc")?.withRenderingMode(.alwaysOriginal)
+        let icon = UIImage.copyIcon.withRenderingMode(.alwaysOriginal).withTintColor(.iconPrimary)
         button.grayButton.setImage(icon, for: .normal)
         button.grayButton.contentHorizontalAlignment = .center
         button.grayButton.semanticContentAttribute = .forceRightToLeft
-        button.grayButton.tintColor = .iconPrimary
+        button.grayButton.tintColor = .baseText
 
         button.grayButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -60)
         button.grayButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: -60, bottom: 0, right: 0)
