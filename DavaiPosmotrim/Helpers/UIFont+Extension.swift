@@ -17,6 +17,7 @@ extension UIFont {
     static let textParagraphBoldFont = UIFont(name: "Inter-Bold", size: 14)
     static let textCaptionRegularFont = UIFont(name: "Inter-Regular", size: 12)
     static let textButtonMediumFont = UIFont(name: "Inter-Medium", size: 14)
+    static let textButtonRegularFont = UIFont(name: "Inter-Regular", size: 16)
     static let textButtonBoldFont = UIFont(name: "Inter-SemiBold", size: 14)
     static let textDescriptionRegularFont = UIFont(name: "Inter-Regular", size: 16)
 }

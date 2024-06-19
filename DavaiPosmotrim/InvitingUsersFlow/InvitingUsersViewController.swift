@@ -45,6 +45,7 @@ final class InvitingUsersViewController: UIViewController {
         let button = CustomButtons()
         let code = presenter?.getSessionCode()
         button.grayButton.setTitle(code, for: .normal)
+        button.grayButton.titleLabel?.font = .textButtonRegularFont
 
         let icon = UIImage(systemName: "doc.on.doc")?.withRenderingMode(.alwaysOriginal)
         button.grayButton.setImage(icon, for: .normal)
