@@ -95,6 +95,9 @@ enum Resources {
         static let startButtonLabelText = "Начать сеанс".uppercased()
         static let cancelButtonLabelText = "Отменить сеанс".uppercased()
         static let usersLabelText = "Участники"
+
+        static let customLabelUpperText = "Отменить?"
+        static let customLabelLowerText = "Вы действительно хотите отменить уже созданный сеанс?"
     }
 
     enum MainFlow {

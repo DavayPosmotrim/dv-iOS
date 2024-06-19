@@ -322,7 +322,9 @@ extension InvitingUsersViewController: InvitingUsersViewProtocol {
 
     func showCancelSessionDialog() {
         guard let navigationController else { return }
-        let viewController = DismissJoinSessionViewController()
+        let title = Resources.InvitingSession.customLabelUpperText
+        let message = Resources.InvitingSession.customLabelLowerText
+        let viewController = DismissJoinSessionViewController(alertTitle: title, alertMessage: message)
         viewController.delegate = self
         viewController.modalPresentationStyle = .overCurrentContext
         viewController.modalTransitionStyle = .crossDissolve
