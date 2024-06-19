@@ -81,7 +81,7 @@ final class InvitingUsersPresenter: InvitingUsersPresenterProtocol {
     private func createSession() {
         DispatchQueue.global().async {
             let downloadedNames = [
-                ReusableCollectionCellModel(title: "Александр(вы)"),
+                ReusableCollectionCellModel(title: "Александр (вы)"),
                 ReusableCollectionCellModel(title: "Юрий"),
                 ReusableCollectionCellModel(title: "Сергей"),
                 ReusableCollectionCellModel(title: "Эльдар"),

@@ -189,7 +189,6 @@ final class InvitingUsersViewController: UIViewController {
             upperPaddingView,
             collectionView,
             lowerPaddingView,
-            //            usersLabel,
             headerButtonsStack,
             footerButtonsStack,
             customWarningNotification
@@ -227,7 +226,7 @@ final class InvitingUsersViewController: UIViewController {
             lowerPaddingView.topAnchor.constraint(equalTo: footerButtonsStack.topAnchor, constant: -16),
 
             footerButtonsStack.heightAnchor.constraint(equalToConstant: 48+48+16),
-            footerButtonsStack.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+            footerButtonsStack.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -20),
             footerButtonsStack.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
             footerButtonsStack.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16)
         ])

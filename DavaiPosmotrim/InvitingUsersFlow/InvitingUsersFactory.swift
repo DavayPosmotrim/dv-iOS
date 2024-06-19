@@ -7,8 +7,6 @@
 
 import Foundation
 
-import Foundation
-
 struct InvitingUsersFactory {
     static func invitingUsersViewController(with coordinator: InvitingUsersCoordinator) -> InvitingUsersViewController {
         let presenter = InvitingUsersPresenter(coordinator: coordinator)
