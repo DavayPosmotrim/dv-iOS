@@ -231,6 +231,36 @@ final class InvitingUsersViewController: UIViewController {
             footerButtonsStack.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16)
         ])
     }
+
+    private func showWarning(title: String, imageView: UIImage?, color: UIColor, delay: TimeInterval) {
+        UIView.transition(
+            with: self.customWarningNotification,
+            duration: 0.2,
+            options: .transitionCrossDissolve,
+            animations: {
+                self.customWarningNotification.setupNotification(
+                    title: title,
+                    imageView: imageView,
+                    color: color
+                )
+            }
+        ) { _ in
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                UIView.transition(
+                    with: self.customWarningNotification,
+                    duration: 0.2,
+                    options: .transitionCrossDissolve,
+                    animations: {
+                        self.customWarningNotification.setupNotification(
+                            title: Resources.InvitingSession.usersLabelText,
+                            imageView: nil,
+                            color: .whiteBackground,
+                            font: .textLabelFont
+                        )
+                    }, completion: nil)
+            }
+        }
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -261,63 +291,21 @@ extension InvitingUsersViewController: UICollectionViewDataSource {
 
 extension InvitingUsersViewController: InvitingUsersViewProtocol {
     func showFewUsersWarning() {
-        UIView.transition(
-            with: self.customWarningNotification,
-            duration: 0.2,
-            options: .transitionCrossDissolve,
-            animations: {
-                self.customWarningNotification.setupNotification(
-                    title: Resources.InvitingSession.fewUsersWarningText,
-                    imageView: .infoIcon,
-                    color: .attentionAdditional
-                )
-            }
-        ) { _ in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                UIView.transition(
-                    with: self.customWarningNotification,
-                    duration: 0.2,
-                    options: .transitionCrossDissolve,
-                    animations: {
-                        self.customWarningNotification.setupNotification(
-                            title: Resources.InvitingSession.usersLabelText,
-                            imageView: nil,
-                            color: .whiteBackground,
-                            font: .textLabelFont
-                        )
-                    }, completion: nil)
-            }
-        }
+        showWarning(
+            title: Resources.InvitingSession.fewUsersWarningText,
+            imageView: .infoIcon,
+            color: .attentionAdditional,
+            delay: 1.5
+        )
     }
 
     func showCodeCopyWarning() {
-        UIView.transition(
-            with: self.customWarningNotification,
-            duration: 0.2,
-            options: .transitionCrossDissolve,
-            animations: {
-                self.customWarningNotification.setupNotification(
-                    title: Resources.InvitingSession.codeCopyWarningText,
-                    imageView: .doneIcon,
-                    color: .baseSecondaryAccent
-                )
-            }
-        ) { _ in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                UIView.transition(
-                    with: self.customWarningNotification,
-                    duration: 0.2,
-                    options: .transitionCrossDissolve,
-                    animations: {
-                        self.customWarningNotification.setupNotification(
-                            title: Resources.InvitingSession.usersLabelText,
-                            imageView: nil,
-                            color: .whiteBackground,
-                            font: .textLabelFont
-                        )
-                    }, completion: nil)
-            }
-        }
+        showWarning(
+            title: Resources.InvitingSession.codeCopyWarningText,
+            imageView: .doneIcon,
+            color: .baseSecondaryAccent,
+            delay: 1.5
+        )
     }
 
     func showCancelSessionDialog() {
