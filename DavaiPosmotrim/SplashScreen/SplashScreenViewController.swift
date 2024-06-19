@@ -226,14 +226,14 @@ extension SplashScreenViewController {
         [backgroundView, tapView].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
 
         NSLayoutConstraint.activate([
-            backgroundView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            backgroundView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0),
-            backgroundView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
-            backgroundView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
-            tapView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
-            tapView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
-            tapView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0),
-            tapView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0)
+            backgroundView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            tapView.topAnchor.constraint(equalTo: view.topAnchor),
+            tapView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tapView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            tapView.leftAnchor.constraint(equalTo: view.leftAnchor)
         ])
     }
 
@@ -257,19 +257,23 @@ extension SplashScreenViewController {
         let collision = UICollisionBehavior(items: labels)
 
         bordersTimer = Timer.scheduledTimer(withTimeInterval: 1.6, repeats: false) { _ in
-            collision.addBoundary(withIdentifier: "topBorderIdent" as NSCopying,
-                                  for: UIBezierPath(rect: self.topView.frame))
+            collision.addBoundary(
+                withIdentifier: "topBorderIdent" as NSCopying,
+                for: UIBezierPath(rect: self.topView.frame)
+            )
             self.presenter?.startMoving(gravity: self.gravity)
         }
 
-        collision.addBoundary(withIdentifier: "leftBorderIdent" as NSCopying,
-                              for: UIBezierPath(rect: leftView.frame))
-        collision.addBoundary(withIdentifier: "rightBorderIdent" as NSCopying,
-                              for: UIBezierPath(rect: rightView.frame))
-        collision.addBoundary(withIdentifier: "bottomBorderIdent" as NSCopying,
-                              for: UIBezierPath(rect: bottomView.frame))
-        collision.addBoundary(withIdentifier: "davayImageViewIdent" as NSCopying,
-                              for: UIBezierPath(rect: self.davayImageView.frame))
+        collision.addBoundary(withIdentifier: "leftBorderIdent" as NSCopying, for: UIBezierPath(rect: leftView.frame))
+        collision.addBoundary(withIdentifier: "rightBorderIdent" as NSCopying, for: UIBezierPath(rect: rightView.frame))
+        collision.addBoundary(
+            withIdentifier: "bottomBorderIdent" as NSCopying,
+            for: UIBezierPath(rect: bottomView.frame)
+        )
+        collision.addBoundary(
+            withIdentifier: "davayImageViewIdent" as NSCopying,
+            for: UIBezierPath(rect: self.davayImageView.frame)
+        )
 
         animator.addBehavior(gravity)
         animator.addBehavior(collision)
@@ -285,8 +289,7 @@ extension SplashScreenViewController {
     }
 
     private func addTapRecognition() {
-        let tapRecognizer = UITapGestureRecognizer(target: self,
-                                                   action: #selector(screenTapped(gestureRecognizer:)))
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(screenTapped(gestureRecognizer:)))
         tapView.addGestureRecognizer(tapRecognizer)
         tapRecognizer.delegate = self
         tapView.isUserInteractionEnabled = true
