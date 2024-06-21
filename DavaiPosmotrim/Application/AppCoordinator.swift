@@ -13,7 +13,7 @@ final class AppCoordinator: BaseCoordinator {
     }
 
     override func start() {
-        if UserDefaults.standard.value(forKey: "isOnboardingShown") == nil {
+        if UserDefaults.standard.value(forKey: Resources.Onboarding.onboardingUserDefaultsKey) == nil {
             showOnboardingFlow()
         } else if UserDefaults.standard.value(forKey: Resources.Authentication.savedNameUserDefaultsKey) == nil {
             showAuthFlow()
@@ -41,6 +41,16 @@ private extension AppCoordinator {
     func showOnboardingFlow() {
         let onboardingCoordinator = OnboardingCoordinator(
             type: .onboarding,
+            finishDelegate: self,
+            navigationController: navigationController
+        )
+        addChild(onboardingCoordinator)
+        onboardingCoordinator.start()
+    }
+
+    func showMovieSelectionOnboardingFlow() {
+        let onboardingCoordinator = MovieSelectionOnboardingCoordinator(
+            type: .movieSelectionOnboarding,
             finishDelegate: self,
             navigationController: navigationController
         )
@@ -88,6 +98,9 @@ extension AppCoordinator: CoordinatorFinishDelegate {
             return
         case .onboarding:
             showAuthFlow()
+        case .movieSelectionOnboarding:
+            // TODO: add code to start next flow
+            print("MovieSelectionOnboarding")
         case .auth:
             showMainFlow()
         case .main:
