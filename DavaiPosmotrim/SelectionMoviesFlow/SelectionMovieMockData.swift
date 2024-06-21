@@ -25,7 +25,7 @@ let selectionMovieMockData = [
     SelectionMovieCellModel(
         movieImage: "Mok_8",
         nameMovieRu: "Дюна",
-        ratingMovie: "8.5",
+        ratingMovie: "5.5",
         nameMovieEn: "Dune",
         yearMovie: "2021 год",
         countryMovie: ["США", "Канада", "Венгрия"],

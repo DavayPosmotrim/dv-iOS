@@ -56,7 +56,7 @@ class CustomMovieSelection: UIView {
     private lazy var ratingLabel: UILabel = {
         let label = UILabel()
         label.font = .textParagraphBoldFont
-        label.textColor = .doneAdditional
+//        label.textColor = .captionDarkText
         return label
     }()
 
@@ -91,8 +91,8 @@ class CustomMovieSelection: UIView {
 
     private lazy var noButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "inactiveNoSelectionIcon"), for: .normal)
-        button.setImage(UIImage(named: "activeNoSelectionIcon"), for: .highlighted)
+        button.setImage(UIImage.inactiveNoSelectionIcon, for: .normal)
+        button.setImage(UIImage.activeNoSelectionIcon, for: .highlighted)
         button.addTarget(
             self,
             action: #selector(noButtonTapped),
@@ -103,8 +103,8 @@ class CustomMovieSelection: UIView {
 
     private lazy var comeBackButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "inactiveRotateIcon"), for: .normal)
-        button.setImage(UIImage(named: "activeRotateIcon"), for: .highlighted)
+        button.setImage(UIImage.inactiveRotateIcon, for: .normal)
+        button.setImage(UIImage.activeRotateIcon, for: .highlighted)
         button.addTarget(
             self,
             action: #selector(comeBackButtonTapped),
@@ -115,8 +115,8 @@ class CustomMovieSelection: UIView {
 
     private lazy var yesButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "inactiveLikeIcon"), for: .normal)
-        button.setImage(UIImage(named: "activeLikeIcon"), for: .highlighted)
+        button.setImage(UIImage.inactiveLikeIcon, for: .normal)
+        button.setImage(UIImage.activeLikeIcon, for: .highlighted)
         button.addTarget(
             self,
             action: #selector(yesButtonTapped),
@@ -132,15 +132,15 @@ class CustomMovieSelection: UIView {
 
     private lazy var overlayYesView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.white.withAlphaComponent(0.7)
+        view.backgroundColor = UIColor.whiteBackground.withAlphaComponent(0.7)
         return view
-}()
+    }()
 
     private lazy var overlayNoView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.white.withAlphaComponent(0.7)
+        view.backgroundColor = UIColor.whiteBackground.withAlphaComponent(0.7)
         return view
-}()
+    }()
 
     // MARK: - Initializers
 
@@ -174,16 +174,17 @@ class CustomMovieSelection: UIView {
         collectionView.reloadData()
     }
 
-    func updateYesButtonImage(for percentage: CGFloat) {
-        if percentage > 0 {
-            yesButton.setImage(UIImage(named: "activeLikeIcon"), for: .normal)
+    func updateButtonImage(for percentage: CGFloat) {
+        switch percentage {
+        case let percentage where percentage > 0:
+            yesButton.setImage(UIImage.activeLikeIcon, for: .normal)
             overlayYesView.alpha = 1 - percentage
-        } else if percentage < 0 {
-            noButton.setImage(UIImage(named: "activeNoSelectionIcon"), for: .normal)
+        case let percentage where percentage < 0:
+            noButton.setImage(UIImage.activeNoSelectionIcon, for: .normal)
             overlayNoView.alpha = 1 + percentage
-        } else {
-            yesButton.setImage(UIImage(named: "inactiveLikeIcon"), for: .normal)
-            noButton.setImage(UIImage(named: "inactiveNoSelectionIcon"), for: .normal)
+        default:
+            yesButton.setImage(UIImage.inactiveLikeIcon, for: .normal)
+            noButton.setImage(UIImage.inactiveNoSelectionIcon, for: .normal)
             overlayYesView.alpha = 0
             overlayNoView.alpha = 0
         }
@@ -192,7 +193,7 @@ class CustomMovieSelection: UIView {
     // MARK: - Actions
 
     @objc private func noButtonTapped() {
-        noButton.setImage(UIImage(named: "activeNoSelectionIcon"), for: .normal)
+        noButton.setImage(UIImage.activeNoSelectionIcon, for: .normal)
         delegate?.noButtonTapped(withId: currentMovieId)
     }
 
@@ -201,25 +202,28 @@ class CustomMovieSelection: UIView {
     }
 
     @objc private func yesButtonTapped() {
-        yesButton.setImage(UIImage(named: "activeLikeIcon"), for: .normal)
+        yesButton.setImage(UIImage.activeLikeIcon, for: .normal)
         delegate?.yesButtonTapped(withId: currentMovieId)
     }
+}
 
     // MARK: - Private Methods
 
-    private func configureWithModel(model: SelectionMovieCellModel) {
-        self.currentMovieId = model.id
+private extension CustomMovieSelection {
+    func configureWithModel(model: SelectionMovieCellModel) {
+        currentMovieId = model.id
         let image = UIImage(named: model.movieImage)
         imageView.image = image
         nameMovieLabel.text = model.nameMovieRu
         ratingLabel.text = model.ratingMovie
+        ratingLabel.textColor =  Double(model.ratingMovie) ?? 0 < 7 ? .captionDarkText : .doneAdditional
         nameMovieEnLabel.text = model.nameMovieEn
         informationLabel.text = "\(model.yearMovie) · \(model.countryMovie.joined(separator: " · ")) · \(model.timeMovie)"
         self.genresMovie = model.genre
-        updateYesButtonImage(for: 0)
+        updateButtonImage(for: 0)
     }
 
-    private func setupSubviews() {
+    func setupSubviews() {
         [
             imageView,
             linearGradientView,
@@ -235,21 +239,15 @@ class CustomMovieSelection: UIView {
             $0.translatesAutoresizingMaskIntoConstraints = false
             addSubview($0)
         }
-        [overlayYesView].forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-            yesButton.addSubview($0)
-        }
-        [overlayNoView].forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-            noButton.addSubview($0)
-        }
+        overlayYesView.translatesAutoresizingMaskIntoConstraints = false
+        yesButton.addSubview(overlayYesView)
+        overlayNoView.translatesAutoresizingMaskIntoConstraints = false
+        noButton.addSubview(overlayNoView)
         gradientLayer(linearGradientView)
     }
 
-    private func setupConstraints() {
+    func setupConstraints() {
         NSLayoutConstraint.activate([
-//            heightAnchor.constraint(equalToConstant: 584),
-
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             imageView.topAnchor.constraint(equalTo: topAnchor),
             imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
@@ -304,19 +302,19 @@ class CustomMovieSelection: UIView {
         ])
     }
 
-    private func updateCollectionViewHeightConstraint() {
+    func updateCollectionViewHeightConstraint() {
         let contentHeight = collectionView.collectionViewLayout.collectionViewContentSize.height
         collectionViewHeightConstraint?.constant = contentHeight
     }
 
-    private func resizeImage(for collectionHeight: CGFloat) {
+    func resizeImage(for collectionHeight: CGFloat) {
         let remainingHeight = calculateRemainingHeight(for: collectionHeight)
         let newSize = sizeForImage(from: remainingHeight)
         imageView.image = imageView.image?.resized(to: newSize)
     }
 
-    private func calculateRemainingHeight(for collectionHeight: CGFloat) -> CGFloat {
-        var viewTotalHeight: CGFloat = frame.size.height
+    func calculateRemainingHeight(for collectionHeight: CGFloat) -> CGFloat {
+        let viewTotalHeight: CGFloat = frame.size.height
         let verticalPadding: CGFloat = showButtons ? 52 : 28
         let nameMovieLabelHeight = nameMovieLabel.intrinsicContentSize.height
         let ratingLabelHeight = ratingLabel.intrinsicContentSize.height
@@ -332,18 +330,16 @@ class CustomMovieSelection: UIView {
         return remainingHeight
     }
 
-    private func sizeForImage(from remainingHeight: CGFloat) -> CGSize {
-        return CGSize(width: 343, height: remainingHeight)
+    func sizeForImage(from remainingHeight: CGFloat) -> CGSize {
+        return CGSize(width: frame.size.width, height: remainingHeight)
     }
 
-    private func gradientLayer(_ view: UIView) {
+    func gradientLayer(_ view: UIView) {
         let gradientLayer = CAGradientLayer()
         let startColor: UIColor = .white.withAlphaComponent(.zero)
         let endColor: UIColor = .white
         let gradientColors: [CGColor] = [startColor.cgColor, endColor.cgColor]
         gradientLayer.colors = gradientColors
-        let radius = view.bounds.width / 2.0
-        gradientLayer.cornerRadius = radius
         gradientLayer.frame = view.bounds
         gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
         gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
@@ -371,7 +367,7 @@ extension CustomMovieSelection: UICollectionViewDataSource {
         ) as? CustomMovieCollectionCell else {
             return UICollectionViewCell()
         }
-        let genre = genresMovie[indexPath.row]
+        let genre = genresMovie[indexPath.item]
         cell.configure(model: genre)
         return cell
     }

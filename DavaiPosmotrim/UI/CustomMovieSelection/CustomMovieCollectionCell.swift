@@ -50,10 +50,8 @@ final class CustomMovieCollectionCell: UICollectionViewCell {
     // MARK: - Private Methods
 
     private func setupSubviews() {
-        [titleLabel].forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-            contentView.addSubview($0)
-        }
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(titleLabel)
     }
 
     private func setupConstraints() {

@@ -5,21 +5,13 @@
 //  Created by Iurii on 30.05.24.
 //
 
-import Foundation
-
 import UIKit
 
 final class SelectionMoviesViewController: UIViewController {
 
     // MARK: - Public Properties
 
-    var presenter: SelectionMoviesPresenter?
-
-    // MARK: - Private Properties
-
-    private enum Keys: String {
-        case titleNavBarText = "Выберите фильм"
-    }
+    var presenter: SelectionMoviesPresenter
 
     // MARK: - Layout variables
 
@@ -37,18 +29,15 @@ final class SelectionMoviesViewController: UIViewController {
 
     private lazy var customNavBar: UIView = {
         let customNavBar = CustomNavigationBarTwoButtons(
-            title: Keys.titleNavBarText.rawValue,
-            imageBatton: "likeIcon"
+            title: Resources.SelectionMovies.titleNavBarText,
+            imageButton: "likeIcon"
         )
         customNavBar.delegate = self
         return customNavBar
     }()
 
     private lazy var centralPaddingView: CustomMovieSelection = {
-        guard let presenter = presenter,
-              let firstSelection = presenter.getFirstMovie() else {
-            fatalError("Presenter or selectionsMovie is empty")
-        }
+        let firstSelection = presenter.getFirstMovie()
         let view = CustomMovieSelection(model: firstSelection)
         view.showButtons = true
         if view.showButtons {
@@ -75,7 +64,7 @@ final class SelectionMoviesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .whiteBackground
         setupSubviews()
         setupConstraints()
     }
@@ -94,8 +83,8 @@ final class SelectionMoviesViewController: UIViewController {
         switch gesture.state {
         case .changed:
             centralPaddingView.transform = CGAffineTransform(rotationAngle: rotationAngle)
-            centralPaddingView.center = CGPoint(x: view.center.x + translation.x, y: view.center.y + translation.y / 2)
-            self.centralPaddingView.updateYesButtonImage(for: percentage)
+            centralPaddingView.center = CGPoint(x: view.center.x + translation.x, y: centralPaddingView.center.y)
+            self.centralPaddingView.updateButtonImage(for: percentage)
         case .ended:
             let velocity = gesture.velocity(in: view)
             if abs(velocity.x) > 500 {
@@ -104,9 +93,9 @@ final class SelectionMoviesViewController: UIViewController {
             } else {
                 UIView.animate(withDuration: 0.2, animations: {
                     self.centralPaddingView.transform = .identity
-                    self.centralPaddingView.center = self.view.center
+                    self.centralPaddingView.center = CGPoint(x: self.view.center.x, y: self.centralPaddingView.center.y)
                 }, completion: { _ in
-                    self.centralPaddingView.updateYesButtonImage(for: 0)
+                    self.centralPaddingView.updateButtonImage(for: 0)
                 })
             }
         default:
@@ -153,30 +142,8 @@ private extension SelectionMoviesViewController {
         ])
     }
 
-    func updateRandomMatchCount() {
-        if let customNavBar = customNavBar as? CustomNavigationBarTwoButtons,
-           let randomMatchCount = presenter?.getRandomMatchCount() {
-            customNavBar.updateMatchCountLabel(withRandomCount: randomMatchCount)
-        }
-    }
-
-    func showNextMovie() {
-        guard let nextModel = presenter?.getNextMovie() else {
-            return
-        }
-        centralPaddingView.updateModel(nextModel)
-        updateRandomMatchCount()
-    }
-
-    func showComeMovie() {
-        guard let nextModel = presenter?.getPreviousMovie() else {
-            return
-        }
-        centralPaddingView.updateModel(nextModel)
-    }
-
     func animateSwipe(direction: CGFloat) {
-        guard let currentMovieId = presenter?.getCurrentMovieId() else {
+        guard let currentMovieId = presenter.currentMovieId else {
             return
         }
         let translationX: CGFloat = direction * view.bounds.width
@@ -192,33 +159,7 @@ private extension SelectionMoviesViewController {
             UIView.animate(withDuration: 0.5) {
                 self.centralPaddingView.alpha = 1
             }
-            if direction > 0 {
-                self.presenter?.addToLikedMovies(withId: currentMovieId)
-                self.showNextMovie()
-            } else {
-                self.presenter?.removeFromLikedMovies(withId: currentMovieId)
-                self.showNextMovie()
-            }
-        }
-    }
-
-    func animateOffscreen(direction: CGFloat, completion: @escaping () -> Void) {
-        let viewWidth = centralPaddingView.bounds.width
-        let screenWidth = UIScreen.main.bounds.width
-        let translationTransform = CGAffineTransform(translationX: direction * (screenWidth + viewWidth), y: 0)
-        let rotationAngle: CGFloat = direction * .pi / 6
-        UIView.animate(withDuration: 0.7, animations: {
-            let rotationTransform = CGAffineTransform(rotationAngle: rotationAngle)
-            let combinedTransform = rotationTransform.concatenating(translationTransform)
-            self.centralPaddingView.transform = combinedTransform
-            self.centralPaddingView.alpha = 0
-        }) { _ in
-            self.centralPaddingView.transform = .identity
-            self.centralPaddingView.alpha = 0
-            UIView.animate(withDuration: 0.5) {
-                self.centralPaddingView.alpha = 1
-            }
-            completion()
+            self.presenter.swipeNextMovie(withId: currentMovieId, direction: direction)
         }
     }
 
@@ -249,28 +190,58 @@ private extension SelectionMoviesViewController {
     }
 }
 
+// MARK: - SelectionMoviesViewProtocol
+
+extension SelectionMoviesViewController: SelectionMoviesViewProtocol {
+    func updateMatchCountLabel(withRandomCount count: Int) {
+        if let customNavBar = customNavBar as? CustomNavigationBarTwoButtons {
+            customNavBar.updateMatchCountLabel(withRandomCount: count)
+        }
+    }
+
+    func showNextMovie(_ nextModel: SelectionMovieCellModel) {
+        centralPaddingView.updateModel(nextModel)
+    }
+
+    func showPreviousMovie(_ nextModel: SelectionMovieCellModel) {
+        centralPaddingView.updateModel(nextModel)
+        animateComeBack()
+    }
+
+    func animateOffscreen(direction: CGFloat, completion: @escaping () -> Void) {
+        let viewWidth = centralPaddingView.bounds.width
+        let screenWidth = UIScreen.main.bounds.width
+        let translationTransform = CGAffineTransform(translationX: direction * (screenWidth + viewWidth), y: 0)
+        let rotationAngle: CGFloat = direction * .pi / 6
+        UIView.animate(withDuration: 0.7, animations: {
+            let rotationTransform = CGAffineTransform(rotationAngle: rotationAngle)
+            let combinedTransform = rotationTransform.concatenating(translationTransform)
+            self.centralPaddingView.transform = combinedTransform
+            self.centralPaddingView.alpha = 0
+        }) { _ in
+            self.centralPaddingView.transform = .identity
+            self.centralPaddingView.alpha = 0
+            UIView.animate(withDuration: 0.5) {
+                self.centralPaddingView.alpha = 1
+            }
+            completion()
+        }
+    }
+}
+
 // MARK: - CustomMovieSelectionDelegate
 
 extension SelectionMoviesViewController: CustomMovieSelectionDelegate {
     func noButtonTapped(withId id: UUID) {
-        presenter?.removeFromLikedMovies(withId: id)
-        animateOffscreen(direction: -1) {
-            self.showNextMovie()
-        }
+        presenter.noButtonTapped(withId: id)
     }
 
     func yesButtonTapped(withId id: UUID) {
-        presenter?.addToLikedMovies(withId: id)
-        animateOffscreen(direction: 1) {
-            self.showNextMovie()
-        }
+        presenter.yesButtonTapped(withId: id)
     }
 
     func comeBackButtonTapped() {
-        if presenter?.canGetPreviousMovie() ?? false {
-            self.showComeMovie()
-            animateComeBack()
-        }
+        presenter.comeBackButtonTapped()
     }
 }
 
@@ -278,10 +249,10 @@ extension SelectionMoviesViewController: CustomMovieSelectionDelegate {
 
 extension SelectionMoviesViewController: CustomNavigationBarTwoButtonsDelegate {
     func matchRightButtonTapped() {
-        presenter?.didTapMatchRightButton()
+        presenter.didTapMatchRightButton()
     }
 
     func backButtonTapped() {
-        presenter?.backButtonTapped()
+        presenter.backButtonTapped()
     }
 }

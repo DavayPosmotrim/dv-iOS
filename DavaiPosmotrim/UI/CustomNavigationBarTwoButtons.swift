@@ -31,7 +31,7 @@ class CustomNavigationBarTwoButtons: UIView {
 
     private lazy var backButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "customCloseIcon"), for: .normal)
+        button.setImage(UIImage.customCloseIcon, for: .normal)
         button.addTarget(
             self,
             action: #selector(backButtonTapped),
@@ -61,13 +61,13 @@ class CustomNavigationBarTwoButtons: UIView {
 
     // MARK: - Initializers
 
-    init(title: String, imageBatton: String) {
+    init(title: String, imageButton: String) {
         super.init(frame: .zero)
         backgroundColor = .whiteBackground
         setupSubviews()
         setupConstraints()
         titleLabel.text = title
-        matchRightButton.setImage(UIImage(named: imageBatton), for: .normal)
+        matchRightButton.setImage(UIImage(named: imageButton), for: .normal)
         layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         layer.cornerRadius = 24
     }

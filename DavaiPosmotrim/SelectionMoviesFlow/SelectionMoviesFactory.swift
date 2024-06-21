@@ -8,11 +8,12 @@
 import Foundation
 
 struct SelectionMoviesFactory {
-    static func selectionMoviesViewController(
+    static func makeSelectionMoviesViewController(
         with coordinator: SelectionMoviesCoordinator
     ) -> SelectionMoviesViewController {
         let presenter = SelectionMoviesPresenter(coordinator: coordinator)
         let viewController = SelectionMoviesViewController(presenter: presenter)
+        presenter.view = viewController
         return viewController
     }
 }

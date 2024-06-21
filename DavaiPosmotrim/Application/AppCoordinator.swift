@@ -14,7 +14,8 @@ final class AppCoordinator: BaseCoordinator {
         } else if UserDefaults.standard.value(forKey: Resources.Authentication.savedNameUserDefaultsKey) == nil {
             showAuthFlow()
         } else {
-            showMainFlow()
+//            showMainFlow()
+            showSelectionMoviesFlow()
         }
     }
 
@@ -65,6 +66,7 @@ private extension AppCoordinator {
     }
 
     func showSelectionMoviesFlow() {
+        //TODO: - не забыть перенести когда появится экран с которого необходимо запускать
         let selectionMoviesCoordinator = SelectionMoviesCoordinator(
             type: .selectionMovies,
             finishDelegate: self,

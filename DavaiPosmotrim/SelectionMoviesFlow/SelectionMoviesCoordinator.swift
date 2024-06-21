@@ -25,7 +25,7 @@ final class SelectionMoviesCoordinator: BaseCoordinator {
 
 private extension SelectionMoviesCoordinator {
     func showSelectionMoviesScreen() {
-        let selectionMoviesViewController = SelectionMoviesFactory.selectionMoviesViewController(with: self)
+        let selectionMoviesViewController = SelectionMoviesFactory.makeSelectionMoviesViewController(with: self)
         navigationController.pushViewController(selectionMoviesViewController, animated: true)
     }
 }

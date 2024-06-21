@@ -8,10 +8,13 @@
 import Foundation
 
 protocol SelectionMoviesPresenterProtocol: AnyObject {
-    func getRandomMatchCount() -> Int
+    func updateRandomMatchCount()
+    func noButtonTapped(withId id: UUID)
+    func yesButtonTapped(withId id: UUID)
+    func swipeNextMovie(withId id: UUID, direction: CGFloat)
+    func comeBackButtonTapped()
     func canGetPreviousMovie() -> Bool
-    func getCurrentMovieId() -> UUID?
-    func getFirstMovie() -> SelectionMovieCellModel?
+    func getFirstMovie() -> SelectionMovieCellModel
     func getNextMovie() -> SelectionMovieCellModel?
     func getPreviousMovie() -> SelectionMovieCellModel?
     func addToLikedMovies(withId id: UUID)

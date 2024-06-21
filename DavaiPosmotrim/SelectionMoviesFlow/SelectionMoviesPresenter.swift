@@ -12,13 +12,14 @@ final class SelectionMoviesPresenter: SelectionMoviesPresenterProtocol {
     // MARK: - Public Properties
 
     weak var coordinator: SelectionMoviesCoordinator?
+    weak var view: SelectionMoviesViewProtocol?
 
     // MARK: - Private Properties
 
     private var selectionsMovie = selectionMovieMockData
     private var currentIndex: Int = 0
     private var likedMovies: [UUID] = []
-    private var currentMovieId: UUID?
+    private(set) var currentMovieId: UUID?
     private var isGetPreviousMovie = true
 
     init(coordinator: SelectionMoviesCoordinator) {
@@ -27,8 +28,18 @@ final class SelectionMoviesPresenter: SelectionMoviesPresenterProtocol {
 
     // MARK: - Public Methods
 
-    func getRandomMatchCount() -> Int {
-        return Int.random(in: 0...10)
+    func updateRandomMatchCount() {
+        let matchCount = Int.random(in: 0...10)
+        view?.updateMatchCountLabel(withRandomCount: matchCount)
+    }
+
+    func comeBackButtonTapped() {
+        if canGetPreviousMovie() {
+            guard let nextModel = getPreviousMovie() else {
+                return
+            }
+            view?.showPreviousMovie(nextModel)
+        }
     }
 
     func canGetPreviousMovie() -> Bool {
@@ -42,18 +53,48 @@ final class SelectionMoviesPresenter: SelectionMoviesPresenterProtocol {
         return isGetPreviousMovie
     }
 
-    func getCurrentMovieId() -> UUID? {
-        return currentMovieId
-    }
-
-    func getFirstMovie() -> SelectionMovieCellModel? {
-        let firstSelection = selectionsMovie.first
-        self.currentMovieId = firstSelection?.id
+    func getFirstMovie() -> SelectionMovieCellModel {
+        let firstSelection = selectionsMovie[currentIndex]
+        currentMovieId = firstSelection.id
         return firstSelection
     }
 
+    func noButtonTapped(withId id: UUID) {
+        removeFromLikedMovies(withId: id)
+        view?.animateOffscreen(direction: -1) { [self] in
+            guard let nextModel = getNextMovie() else {
+                return
+            }
+            view?.showNextMovie(nextModel)
+        }
+    }
+
+    func yesButtonTapped(withId id: UUID) {
+        addToLikedMovies(withId: id)
+        view?.animateOffscreen(direction: 1) { [self] in
+            guard let nextModel = getNextMovie() else {
+                return
+            }
+            view?.showNextMovie(nextModel)
+            updateRandomMatchCount()
+        }
+    }
+
+    func swipeNextMovie(withId id: UUID, direction: CGFloat) {
+        if direction > 0 {
+            addToLikedMovies(withId: id)
+            updateRandomMatchCount()
+        } else {
+            removeFromLikedMovies(withId: id)
+        }
+        guard let nextModel = getNextMovie() else {
+            return
+        }
+        view?.showNextMovie(nextModel)
+    }
+
     func getNextMovie() -> SelectionMovieCellModel? {
-        guard currentIndex < selectionsMovie.count else { return nil }
+        guard currentIndex < selectionsMovie.count - 1 else { return nil }
         currentIndex += 1
         currentMovieId = selectionsMovie[currentIndex].id
         isGetPreviousMovie = true
