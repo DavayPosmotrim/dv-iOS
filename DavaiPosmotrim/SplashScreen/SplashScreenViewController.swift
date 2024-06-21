@@ -60,7 +60,12 @@ final class SplashScreenViewController: UIViewController, UIGestureRecognizerDel
     }()
 
     private lazy var musicalLabel: UILabel = {
-        var musicalLabel = UILabel(frame: CGRect(x: 200, y: -490, width: 119, height: 40))
+        var musicalLabel = UILabel(frame: CGRect(
+            x: 200,
+            y: -490,
+            width: 119,
+            height: 40
+        ))
         setupLabel(label: musicalLabel)
         musicalLabel.text = Resources.SplashScreen.musicalText
         musicalLabel.transform = CGAffineTransform(rotationAngle: -.pi/6)
@@ -68,7 +73,12 @@ final class SplashScreenViewController: UIViewController, UIGestureRecognizerDel
     }()
 
     private lazy var thrillerLabel: UILabel = {
-        var thrillerLabel = UILabel(frame: CGRect(x: 100, y: -445, width: 124, height: 40))
+        var thrillerLabel = UILabel(frame: CGRect(
+            x: 100,
+            y: -445,
+            width: 124,
+            height: 40
+        ))
         setupLabel(label: thrillerLabel)
         thrillerLabel.text = Resources.SplashScreen.thrillerText
         thrillerLabel.transform = CGAffineTransform(rotationAngle: .pi/6)
@@ -76,7 +86,12 @@ final class SplashScreenViewController: UIViewController, UIGestureRecognizerDel
     }()
 
     private lazy var melodrammaLabel: UILabel = {
-        var melodrammaLabel = UILabel(frame: CGRect(x: 50, y: -400, width: 151, height: 40))
+        var melodrammaLabel = UILabel(frame: CGRect(
+            x: 50,
+            y: -400,
+            width: 151,
+            height: 40
+        ))
         setupLabel(label: melodrammaLabel)
         melodrammaLabel.text = Resources.SplashScreen.melodrammaText
         melodrammaLabel.transform = CGAffineTransform(rotationAngle: -.pi/3)
@@ -84,7 +99,12 @@ final class SplashScreenViewController: UIViewController, UIGestureRecognizerDel
     }()
 
     private lazy var biographyLabel: UILabel = {
-        var biographyLabel = UILabel(frame: CGRect(x: 120, y: -355, width: 147, height: 40))
+        var biographyLabel = UILabel(frame: CGRect(
+            x: 120,
+            y: -355,
+            width: 147,
+            height: 40
+        ))
         setupLabel(label: biographyLabel)
         biographyLabel.text = Resources.SplashScreen.biographyText
         biographyLabel.transform = CGAffineTransform(rotationAngle: -.pi/6)
@@ -92,7 +112,12 @@ final class SplashScreenViewController: UIViewController, UIGestureRecognizerDel
     }()
 
     private lazy var boevikLabel: UILabel = {
-        var boevikLabel = UILabel(frame: CGRect(x: 220, y: -310, width: 111, height: 40))
+        var boevikLabel = UILabel(frame: CGRect(
+            x: 220,
+            y: -310,
+            width: 111,
+            height: 40
+        ))
         setupLabel(label: boevikLabel)
         boevikLabel.text = Resources.SplashScreen.boevikText
         boevikLabel.transform = CGAffineTransform(rotationAngle: .pi/6)
@@ -100,7 +125,12 @@ final class SplashScreenViewController: UIViewController, UIGestureRecognizerDel
     }()
 
     private lazy var fantasyLabel: UILabel = {
-        var fantasyLabel = UILabel(frame: CGRect(x: 70, y: -265, width: 155, height: 40))
+        var fantasyLabel = UILabel(frame: CGRect(
+            x: 70,
+            y: -265,
+            width: 155,
+            height: 40
+        ))
         setupLabel(label: fantasyLabel)
         fantasyLabel.text = Resources.SplashScreen.fantasyText
         fantasyLabel.transform = CGAffineTransform(rotationAngle: -.pi/6)
@@ -108,7 +138,12 @@ final class SplashScreenViewController: UIViewController, UIGestureRecognizerDel
     }()
 
     private lazy var posmotrimLabel: UILabel = {
-        var posmotrimLabel = UILabel(frame: CGRect(x: 150, y: -40, width: 164, height: 40))
+        var posmotrimLabel = UILabel(frame: CGRect(
+            x: 150,
+            y: -40,
+            width: 164,
+            height: 40
+        ))
         setupLabel(label: posmotrimLabel)
         posmotrimLabel.textColor = UIColor.whiteText
         posmotrimLabel.backgroundColor = UIColor.basePrimaryAccent
@@ -117,7 +152,12 @@ final class SplashScreenViewController: UIViewController, UIGestureRecognizerDel
     }()
 
     private lazy var multfilmLabel: UILabel = {
-        var multfilmLabel = UILabel(frame: CGRect(x: 180, y: -220, width: 164, height: 40))
+        var multfilmLabel = UILabel(frame: CGRect(
+            x: 180,
+            y: -220,
+            width: 164,
+            height: 40
+        ))
         setupLabel(label: multfilmLabel)
         multfilmLabel.text = Resources.SplashScreen.multfilmText
         multfilmLabel.transform = CGAffineTransform(rotationAngle: .pi/6)
@@ -125,7 +165,12 @@ final class SplashScreenViewController: UIViewController, UIGestureRecognizerDel
     }()
 
     private lazy var familyLabel: UILabel = {
-        var familyLabel = UILabel(frame: CGRect(x: 80, y: -175, width: 144, height: 40))
+        var familyLabel = UILabel(frame: CGRect(
+            x: 80,
+            y: -175,
+            width: 144,
+            height: 40
+        ))
         setupLabel(label: familyLabel)
         familyLabel.text = Resources.SplashScreen.familyText
         familyLabel.transform = CGAffineTransform(rotationAngle: .pi/6)
@@ -133,7 +178,12 @@ final class SplashScreenViewController: UIViewController, UIGestureRecognizerDel
     }()
 
     private lazy var documentaryLabel: UILabel = {
-        var documentaryLabel = UILabel(frame: CGRect(x: 100, y: -130, width: 210, height: 40))
+        var documentaryLabel = UILabel(frame: CGRect(
+            x: 100,
+            y: -130,
+            width: 210,
+            height: 40
+        ))
         setupLabel(label: documentaryLabel)
         documentaryLabel.text = Resources.SplashScreen.documentaryText
         documentaryLabel.transform = CGAffineTransform(rotationAngle: .pi/3)
@@ -141,7 +191,12 @@ final class SplashScreenViewController: UIViewController, UIGestureRecognizerDel
     }()
 
     private lazy var adventureLabel: UILabel = {
-        var adventureLabel = UILabel(frame: CGRect(x: 100, y: -85, width: 176, height: 40))
+        var adventureLabel = UILabel(frame: CGRect(
+            x: 100,
+            y: -85,
+            width: 176,
+            height: 40
+        ))
         setupLabel(label: adventureLabel)
         adventureLabel.text = Resources.SplashScreen.adventureText
         adventureLabel.transform = CGAffineTransform(rotationAngle: -.pi/6)
@@ -196,7 +251,13 @@ extension SplashScreenViewController {
         topView.frame = CGRect(x: 0, y: safeArea.top, width: 1000, height: 32)
         davayImageView.frame = CGRect(x: davayImageViewX, y: davayImageViewY, width: 200, height: 45)
 
-        [leftView, rightView, bottomView, topView, backgroundView].forEach {
+        [
+            leftView,
+            rightView,
+            bottomView,
+            topView,
+            backgroundView
+        ].forEach {
             $0.backgroundColor = .clear
         }
 
@@ -223,8 +284,13 @@ extension SplashScreenViewController {
             view.addSubview($0)
         }
 
-        [backgroundView, tapView].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        [backgroundView, tapView].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+        setupBackAndTapViewsConstraints()
+    }
 
+    private func setupBackAndTapViewsConstraints() {
         NSLayoutConstraint.activate([
             backgroundView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             backgroundView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
