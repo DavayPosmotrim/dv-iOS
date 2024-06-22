@@ -50,26 +50,10 @@ final class SessionsListPresenter: SessionsListPresenterProtocol {
 
     func getSessionForCellBy(index: Int) -> SessionsListViewModel {
         let session = sessions[index]
-        let users = session.users.map { $0.name }.joined(separator: ", ")
-        let matches = [Resources.SessionsList.Sessions.matchesTitle, String(session.matches)].joined(separator: " ")
-
-        // UILabel.scaleToFit() doesn't work properly inside UITableView
-        var matchesWidth: CGFloat
-        switch session.matches {
-        case 1: matchesWidth = 124
-        case 2...9: matchesWidth = 126
-        case 10...19: matchesWidth = 132
-        case 20...99: matchesWidth = 135
-        case 100...199: matchesWidth = 142
-        case 200...999: matchesWidth = 145
-        default: matchesWidth = 151
-        }
-
         return SessionsListViewModel(
             date: session.date,
-            users: users,
-            matches: matches,
-            matchesWidth: matchesWidth,
+            users: session.users.map { $0.name }.joined(separator: ", "),
+            matches: String(session.matches),
             imageName: session.imageName
         )
     }
@@ -107,7 +91,7 @@ private extension SessionsListPresenter {
         ))
         sessions.append(SessionModel(
             date: "22 сентября 2023",
-            matches: 555,
+            matches: 5555555,
             imageName: nil,
             users: [User(name: "Артём (вы)"), User(name: "Анна")]
         ))

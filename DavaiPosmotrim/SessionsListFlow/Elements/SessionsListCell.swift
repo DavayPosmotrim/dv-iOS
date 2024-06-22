@@ -14,13 +14,14 @@ final class SessionsListCell: UITableViewCell {
 
     // MARK: - Private properties
     private enum CellSpace {
+        static let xxSmall: CGFloat = 2.0
+        static let xSmall: CGFloat = 4.0
         static let small: CGFloat = 8.0
         static let medium: CGFloat = 12.0
         static let large: CGFloat = 16.0
         static let xLarge: CGFloat = 20.0
     }
     private let placeholderImage = UIImage(resource: .noImagePlug)
-    private var matchCountWidth: CGFloat = 124
     private var isFirstCell = false
 
     // MARK: - View properties
@@ -31,15 +32,35 @@ final class SessionsListCell: UITableViewCell {
         label.font = .textLabelFont
         return label
     }()
-    private lazy var matchCountLabel: UILabel = {
+    private lazy var matchStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.distribution = .fill
+        stack.alignment = .center
+        stack.spacing = CellSpace.xSmall
+        stack.backgroundColor = .basePrimaryAccent
+        stack.layer.cornerRadius = .radiusBase
+        stack.layer.masksToBounds = true
+        stack.layoutMargins = UIEdgeInsets(
+            top: CellSpace.xxSmall,
+            left: .spacingBase,
+            bottom: CellSpace.xxSmall,
+            right: .spacingBase
+        )
+        stack.isLayoutMarginsRelativeArrangement = true
+        return stack
+    }()
+    private lazy var matchTitleLabel: UILabel = {
         let label = UILabel()
-        label.backgroundColor = .basePrimaryAccent
-        label.layer.cornerRadius = .radiusBase
-        label.textAlignment = .center
         label.textColor = .whiteText
         label.font = .textParagraphRegularFont
-        // label.sizeToFit()
-        label.layer.masksToBounds = true
+        label.text = Resources.SessionsList.Sessions.matchesTitle
+        return label
+    }()
+    private lazy var matchCountLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .whiteText
+        label.font = .textParagraphRegularFont
         return label
     }()
     private lazy var usersListLabel: UILabel = {
@@ -102,19 +123,18 @@ final class SessionsListCell: UITableViewCell {
     }
 
     func configureCell(for viewModel: SessionsListViewModel) {
-        matchCountWidth = viewModel.matchesWidth
         isFirstCell = viewModel.isFirstCell
         dateLabel.text = viewModel.date
         usersListLabel.text = viewModel.users
         matchCountLabel.text = viewModel.matches
+
         if let imageName = viewModel.imageName {
             movieImageView.image = UIImage(named: imageName)
-            movieImageView.isHidden = false
-            placeholderStackView.isHidden = true
+            hidePlaceholder(true)
         } else {
-            movieImageView.isHidden = true
-            placeholderStackView.isHidden = false
+            hidePlaceholder(false)
         }
+
         setupUI()
         contentView.layoutIfNeeded()
     }
@@ -124,18 +144,23 @@ final class SessionsListCell: UITableViewCell {
 private extension SessionsListCell {
 
     func setupUI() {
-        self.backgroundColor = .baseBackground
+        backgroundColor = .baseBackground
 
         [
             cellBackgroundView,
             dateLabel,
-            matchCountLabel,
+            matchStackView,
             usersListLabel,
             movieBackgroundView,
             movieImageView,
             placeholderStackView
         ].forEach {
             contentView.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+
+        [matchTitleLabel, matchCountLabel].forEach {
+            matchStackView.addArrangedSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
 
@@ -150,14 +175,12 @@ private extension SessionsListCell {
             cellBackgroundView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             cellBackgroundView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 
-            matchCountLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: .spacingBase),
-            matchCountLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -CellSpace.medium),
-            matchCountLabel.heightAnchor.constraint(equalToConstant: .textLabelHeight),
-            matchCountLabel.widthAnchor.constraint(equalToConstant: matchCountWidth),
+            matchStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: .spacingBase),
+            matchStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -CellSpace.medium),
+            matchStackView.heightAnchor.constraint(equalToConstant: .textLabelHeight),
 
             dateLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: .spacingBase),
             dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: CellSpace.large),
-            dateLabel.widthAnchor.constraint(equalToConstant: 215),
             dateLabel.heightAnchor.constraint(equalToConstant: .textLabelHeight),
 
             usersListLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: .spacingBase),
@@ -181,5 +204,10 @@ private extension SessionsListCell {
             placeholderStackView.centerXAnchor.constraint(equalTo: movieBackgroundView.centerXAnchor),
             placeholderStackView.centerYAnchor.constraint(equalTo: movieBackgroundView.centerYAnchor)
         ])
+    }
+
+    func hidePlaceholder(_ isShowing: Bool) {
+        movieImageView.isHidden = !isShowing
+        placeholderStackView.isHidden = isShowing
     }
 }

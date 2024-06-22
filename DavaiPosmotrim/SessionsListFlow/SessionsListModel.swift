@@ -28,7 +28,6 @@ struct SessionsListViewModel {
     let date: String
     let users: String
     let matches: String
-    let matchesWidth: CGFloat
     let imageName: String?
     var isFirstCell = false
 }

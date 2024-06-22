@@ -12,6 +12,15 @@ final class SessionsListViewController: UIViewController, SessionsListViewContro
     // MARK: - Public properties
     var presenter: SessionsListPresenterProtocol
 
+    // MARK: - Private properties
+    private let cellHeightWithVerticalSpacing: CGFloat = 256
+    private var isSessionsListEmpty: Bool = false {
+        didSet {
+            sessionsListEmptyView.isHidden = !isSessionsListEmpty
+            tableView.isHidden = isSessionsListEmpty
+        }
+    }
+
     // MARK: - View properties
     private lazy var customNavBar: UIView = {
         let customNavBar = CustomNavigationBar(title: Resources.SessionsList.title, subtitle: "")
@@ -29,15 +38,6 @@ final class SessionsListViewController: UIViewController, SessionsListViewContro
     }()
     private lazy var backgroundView = UIView()
     private lazy var sessionsListEmptyView = SessionsListEmptyView()
-
-    // MARK: - Private properties
-    private let cellHeightWithVerticalSpacing: CGFloat = 256
-    private var isSessionsListEmpty: Bool = false {
-        didSet {
-            sessionsListEmptyView.isHidden = !isSessionsListEmpty
-            tableView.isHidden = isSessionsListEmpty
-        }
-    }
 
     // MARK: - Inits
     init(presenter: SessionsListPresenterProtocol) {
@@ -115,7 +115,12 @@ private extension SessionsListViewController {
         view.backgroundColor = .whiteBackground
         backgroundView.backgroundColor = .baseBackground
 
-        [backgroundView, sessionsListEmptyView, tableView, customNavBar].forEach {
+        [
+            backgroundView,
+            sessionsListEmptyView,
+            tableView,
+            customNavBar
+        ].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }

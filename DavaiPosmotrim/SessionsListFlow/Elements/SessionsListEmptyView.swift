@@ -51,12 +51,12 @@ final class SessionsListEmptyView: UIView {
 private extension SessionsListEmptyView {
 
     func setupUI() {
-        self.backgroundColor = .whiteBackground
+        backgroundColor = .whiteBackground
         layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         layer.cornerRadius = .radiusLarge
 
         [placeholderStackView].forEach {
-            self.addSubview($0)
+            addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
 
@@ -65,11 +65,9 @@ private extension SessionsListEmptyView {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
 
-        let safeArea = self.safeAreaLayoutGuide
-
         NSLayoutConstraint.activate([
-            placeholderStackView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
-            placeholderStackView.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor),
+            placeholderStackView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
+            placeholderStackView.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor),
 
             placeholderImageView.topAnchor.constraint(equalTo: placeholderStackView.topAnchor),
             placeholderImageView.heightAnchor.constraint(equalToConstant: .placeholderSize),
