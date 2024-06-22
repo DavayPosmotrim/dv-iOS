@@ -76,6 +76,7 @@
 		E2B9BFAA2BD7CF7A00592578 /* FavoriteMoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFA92BD7CF7A00592578 /* FavoriteMoviesViewController.swift */; };
 		E2B9BFAC2BD8034C00592578 /* OnboardingPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFAB2BD8034C00592578 /* OnboardingPresenterProtocol.swift */; };
 		E2B9BFAE2BD8080100592578 /* OnboardingSceneFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFAD2BD8080100592578 /* OnboardingSceneFactory.swift */; };
+		E916A4AB2C26EA6D00B2C5D7 /* SessionsListViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E916A4AA2C26EA6D00B2C5D7 /* SessionsListViewControllerProtocol.swift */; };
 		E9A2701F2BE4C2940088652B /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A2701E2BE4C2940088652B /* CGFloat+Extensions.swift */; };
 		E9A270222BE52BC20088652B /* MistakesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A270212BE52BC20088652B /* MistakesViewController.swift */; };
 		E9A9E74C2C133CC600AEF879 /* SessionsListEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A9E74B2C133CC600AEF879 /* SessionsListEmptyView.swift */; };
@@ -158,6 +159,7 @@
 		E2B9BFA92BD7CF7A00592578 /* FavoriteMoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMoviesViewController.swift; sourceTree = "<group>"; };
 		E2B9BFAB2BD8034C00592578 /* OnboardingPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPresenterProtocol.swift; sourceTree = "<group>"; };
 		E2B9BFAD2BD8080100592578 /* OnboardingSceneFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSceneFactory.swift; sourceTree = "<group>"; };
+		E916A4AA2C26EA6D00B2C5D7 /* SessionsListViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsListViewControllerProtocol.swift; sourceTree = "<group>"; };
 		E9A2701E2BE4C2940088652B /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
 		E9A270212BE52BC20088652B /* MistakesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MistakesViewController.swift; sourceTree = "<group>"; };
 		E9A9E74B2C133CC600AEF879 /* SessionsListEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsListEmptyView.swift; sourceTree = "<group>"; };
@@ -429,6 +431,7 @@
 				E9C34A322C135F57002628F9 /* SessionsListViewController.swift */,
 				E9C34A342C136085002628F9 /* SessionsListModel.swift */,
 				E9FA32EA2C1A2B6B00036043 /* SessionsListCoordinator.swift */,
+				E916A4AA2C26EA6D00B2C5D7 /* SessionsListViewControllerProtocol.swift */,
 				E9FA32ED2C1A2FF300036043 /* SessionsListPresenterProtocol.swift */,
 				E9FA32EF2C1A309300036043 /* SessionsListPresenter.swift */,
 			);
@@ -614,6 +617,7 @@
 				E9A270222BE52BC20088652B /* MistakesViewController.swift in Sources */,
 				4AAEABB02C15EF9600A14C1D /* CreateSessionFactory.swift in Sources */,
 				C91DCC782BFEA20F001BC065 /* JoinSessionSceneFactory.swift in Sources */,
+				E916A4AB2C26EA6D00B2C5D7 /* SessionsListViewControllerProtocol.swift in Sources */,
 				C91332D92C10BF2B0036FC44 /* MovieSelectionOnboardingProtocol.swift in Sources */,
 				C96895D12BE88E4B002A99E6 /* Resources.swift in Sources */,
 				4AAEABAE2C15EEFC00A14C1D /* CreateSessionCoordinator.swift in Sources */,

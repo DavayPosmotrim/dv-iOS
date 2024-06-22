@@ -10,7 +10,7 @@ import Foundation
 protocol SessionsListPresenterProtocol: AnyObject {
     // MARK: - Properties
     var coordinator: SessionsListCoordinator? { get set }
-    var view: SessionsListViewController? { get set }
+    var view: SessionsListViewControllerProtocol? { get set }
     var isSessionsListEmpty: Bool { get }
     var sessionsCount: Int { get }
 

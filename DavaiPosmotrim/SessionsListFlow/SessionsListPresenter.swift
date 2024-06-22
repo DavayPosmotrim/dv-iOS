@@ -11,7 +11,7 @@ final class SessionsListPresenter: SessionsListPresenterProtocol {
 
     // MARK: - Public properties
     weak var coordinator: SessionsListCoordinator?
-    weak var view: SessionsListViewController?
+    weak var view: SessionsListViewControllerProtocol?
     var isSessionsListEmpty: Bool {
         sessions.isEmpty
     }

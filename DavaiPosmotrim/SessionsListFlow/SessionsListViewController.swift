@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class SessionsListViewController: UIViewController {
+final class SessionsListViewController: UIViewController, SessionsListViewControllerProtocol {
 
     // MARK: - Public properties
     var presenter: SessionsListPresenterProtocol
