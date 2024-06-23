@@ -9,7 +9,7 @@ import UIKit
 
 final class AppCoordinator: BaseCoordinator {
     override func start() {
-        if UserDefaults.standard.value(forKey: "isOnboardingShown") == nil {
+        if UserDefaults.standard.value(forKey: Resources.Onboarding.onboardingUserDefaultsKey) == nil {
             showOnboardingFlow()
         } else if UserDefaults.standard.value(forKey: Resources.Authentication.savedNameUserDefaultsKey) == nil {
             showAuthFlow()
@@ -35,6 +35,16 @@ private extension AppCoordinator {
         onboardingCoordinator.start()
     }
 
+    func showMovieSelectionOnboardingFlow() {
+        let onboardingCoordinator = MovieSelectionOnboardingCoordinator(
+            type: .movieSelectionOnboarding,
+            finishDelegate: self,
+            navigationController: navigationController
+        )
+        addChild(onboardingCoordinator)
+        onboardingCoordinator.start()
+    }
+
     func showAuthFlow() {
         let authCoordinator = AuthCoordinator(
             type: .auth,
@@ -42,16 +52,6 @@ private extension AppCoordinator {
             navigationController: navigationController)
         addChild(authCoordinator)
         authCoordinator.start()
-    }
-
-    func showEditFlow() {
-        let editCoordinator = AuthCoordinator(
-            type: .edit,
-            finishDelegate: self,
-            navigationController: navigationController
-        )
-        addChild(editCoordinator)
-        editCoordinator.start()
     }
 
     func showMainFlow() {
@@ -64,6 +64,7 @@ private extension AppCoordinator {
         mainCoordinator.start()
     }
 
+<<<<<<< HEAD
     func showSelectionMoviesFlow() {
         //TODO: - не забыть перенести когда появится экран с которого необходимо запускать
         let selectionMoviesCoordinator = SelectionMoviesCoordinator(
@@ -73,6 +74,16 @@ private extension AppCoordinator {
         )
         addChild(selectionMoviesCoordinator)
         selectionMoviesCoordinator.start()
+=======
+    func showJoinSessionFlow() {
+        let joinSessionCoordinator = JoinSessionCoordinator(
+            type: .joinSession,
+            finishDelegate: self,
+            navigationController: navigationController
+        )
+        addChild(joinSessionCoordinator)
+        joinSessionCoordinator.start()
+>>>>>>> 8f67c3776283683b67dbbbe2adc3957d6639615f
     }
 }
 
@@ -84,13 +95,19 @@ extension AppCoordinator: CoordinatorFinishDelegate {
             return
         case .onboarding:
             showAuthFlow()
+        case .movieSelectionOnboarding:
+            // TODO: add code to start next flow
+            print("MovieSelectionOnboarding")
         case .auth:
             showMainFlow()
-        case .edit:
-            showMainFlow()
         case .main:
+<<<<<<< HEAD
             print("MainCoordinator finished")
         case .selectionMovies:
+=======
+            showJoinSessionFlow()
+        case .joinSession:
+>>>>>>> 8f67c3776283683b67dbbbe2adc3957d6639615f
             showMainFlow()
         default:
             navigationController.popToRootViewController(animated: false)

@@ -11,9 +11,7 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
 
     // MARK: - Public Properties
 
-    var isSessionEmpty: Bool {
-        return createSession.collectionsMovie.isEmpty && createSession.genresMovie.isEmpty
-    }
+    weak var coordinator: CreateSessionCoordinator?
 
     // MARK: - Private Properties
 
@@ -21,7 +19,19 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
     private var selectionsMovies = selectionsMockData
     private var genresMovies = genreMockData
 
+    init(coordinator: CreateSessionCoordinator) {
+        self.coordinator = coordinator
+    }
+
     // MARK: - Public Methods
+
+    func isSessionEmpty(segmentIndex: Int) -> Bool {
+        if segmentIndex == 0 {
+            return createSession.collectionsMovie.isEmpty
+        } else {
+            return createSession.genresMovie.isEmpty
+        }
+    }
 
     func getSelectionsMoviesCount() -> Int {
         return selectionsMovies.count
@@ -46,7 +56,6 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
         }
         let newCollection = CollectionsMovie(id: collection.id, title: collection.title)
         createSession.collectionsMovie.append(newCollection)
-        print(createSession)
     }
 
     func didRemoveCollection(id: UUID?) {
@@ -54,7 +63,6 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
             return
         }
         createSession.collectionsMovie.removeAll { $0.id == id }
-        print(createSession)
     }
 
     func didAddGenres(id: UUID?) {
@@ -64,7 +72,6 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
         }
         let newGenres = GenresMovie(id: genres.id, title: genres.title)
         createSession.genresMovie.append(newGenres)
-        print(createSession)
     }
 
     func didRemoveGenres(id: UUID?) {
@@ -72,17 +79,13 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
             return
         }
         createSession.genresMovie.removeAll { $0.id == id }
-        print(createSession)
     }
 
-    func showPreviousScreen(navigationController: UINavigationController?) {
-        guard let navigationController = navigationController else { return }
-        navigationController.popViewController(animated: true)
+    func backButtonTapped() {
+        coordinator?.finish()
     }
 
-    func showNextScreen(navigationController: UINavigationController?) {
-        guard let navigationController = navigationController else { return }
-        let invitingUsersViewController = InvitingUsersViewController()
-        navigationController.pushViewController(invitingUsersViewController, animated: true)
+    func didTapNextButton() {
+        coordinator?.showInvitingUsersFlow()
     }
 }

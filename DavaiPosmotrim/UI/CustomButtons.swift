@@ -9,6 +9,11 @@ import UIKit
 
 final class CustomButtons: UIView {
 
+    // MARK: - Stored properties
+
+    private let tappedButtonAlpha = 0.7
+    private let unTappedButtonAlpha = 1.0
+
     // MARK: - Lazy properties
 
     lazy var purpleButton: UIButton = {
@@ -16,7 +21,7 @@ final class CustomButtons: UIView {
         button.backgroundColor = .basePrimaryAccent
         button.setTitleColor(.whiteText, for: .normal)
         button.titleLabel?.font = .textButtonMediumFont
-        button.layer.cornerRadius = 14
+        button.layer.cornerRadius = 12
         return button
     }()
 
@@ -24,6 +29,15 @@ final class CustomButtons: UIView {
         let button = UIButton()
         button.backgroundColor = .baseTertiaryAccent
         button.setTitleColor(.whiteText, for: .normal)
+        button.titleLabel?.font = .textButtonMediumFont
+        button.layer.cornerRadius = 12
+        return button
+    }()
+
+    lazy var grayButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .baseBackground
+        button.setTitleColor(.baseText, for: .normal)
         button.titleLabel?.font = .textButtonMediumFont
         button.layer.cornerRadius = 14
         return button
@@ -50,5 +64,23 @@ final class CustomButtons: UIView {
             button.trailingAnchor.constraint(equalTo: trailingAnchor),
             button.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+        setupTapHandling(for: button)
+    }
+
+    // MARK: - Private methods
+
+    private func setupTapHandling(for button: UIButton) {
+        button.addTarget(self, action: #selector(tap), for: .touchDown)
+        button.addTarget(self, action: #selector(unTap), for: .touchUpInside)
+    }
+
+    // MARK: - Handlers
+
+    @objc private func tap() {
+        alpha = tappedButtonAlpha
+    }
+
+    @objc private func unTap() {
+        alpha = unTappedButtonAlpha
     }
 }
