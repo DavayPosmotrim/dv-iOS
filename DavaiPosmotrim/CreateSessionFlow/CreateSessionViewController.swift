@@ -87,20 +87,12 @@ final class CreateSessionViewController: UIViewController {
         return tableView
     }()
 
-<<<<<<< HEAD
-    private lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewLayout.createLeftAlignedLayout(itemHeight: 36)
-        let collectionView = UICollectionView(
-            frame: .zero,
-            collectionViewLayout: layout
-=======
     private lazy var collectionView: UIView = {
         let collectionView = ReusableUICollectionView()
         collectionView.setupCollectionView(
             with: self,
             cell: CreateSessionCollectionCell.self,
             cellIdentifier: CreateSessionCollectionCell.reuseIdentifier
->>>>>>> 8f67c3776283683b67dbbbe2adc3957d6639615f
         )
         collectionView.isHidden = true
 
