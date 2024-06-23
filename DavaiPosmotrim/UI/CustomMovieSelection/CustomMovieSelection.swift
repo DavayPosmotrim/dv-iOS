@@ -56,7 +56,6 @@ class CustomMovieSelection: UIView {
     private lazy var ratingLabel: UILabel = {
         let label = UILabel()
         label.font = .textParagraphBoldFont
-//        label.textColor = .captionDarkText
         return label
     }()
 
