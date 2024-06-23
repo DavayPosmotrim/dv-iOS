@@ -101,6 +101,11 @@ enum Resources {
         static let joinSessionViewController = "JoinSessionViewController"
     }
 
+    enum Coincidences {
+        static let plugLabelText = "Пока ничего нет"
+        static let navBarText = "Совпадения"
+    }
+
     enum Mistakes {
         static let noInternetHeader = "Нет соединения с интернетом"
         static let noInternetText = "Интернет не бом-бом,\n проверьте соединение"

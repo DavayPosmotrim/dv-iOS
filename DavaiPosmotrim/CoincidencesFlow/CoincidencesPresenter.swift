@@ -14,6 +14,8 @@ final class CoincidencesPresenter: CoincidencesPresenterProtocol {
     weak var coordinator: CoincidencesCoordinator?
     weak var view: CoincidencesViewProtocol?
 
+    var moviesArray: [String]?
+
     // MARK: - Initializers
 
     init(coordinator: CoincidencesCoordinator) {
@@ -22,7 +24,7 @@ final class CoincidencesPresenter: CoincidencesPresenterProtocol {
 
     // MARK: - Public methods
 
-    func randomButtonTapped() {
+    func diceButtonTapped() {
         guard let coordinator else { return }
         coordinator.finish()
     }

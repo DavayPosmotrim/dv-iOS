@@ -8,5 +8,6 @@
 import Foundation
 
 protocol CoincidencesPresenterProtocol: AnyObject {
-    func randomButtonTapped()
+    var moviesArray: [String]? { get }
+    func diceButtonTapped()
 }
