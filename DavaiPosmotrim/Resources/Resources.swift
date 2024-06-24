@@ -114,6 +114,9 @@ enum Resources {
         static let oldVersionButtonTitle = "Перейти в магазин".uppercased()
     }
 
+    enum SelectionMovies {
+        static let titleNavBarText = "Выберите фильм"
+
     enum SessionsList {
         static let title = "Понравившиеся фильмы"
         // swiftlint:disable:next nesting
