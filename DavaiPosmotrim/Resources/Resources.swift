@@ -118,4 +118,8 @@ enum Resources {
         static let oldVersionText = "Сначала сломали, потом починили.\n Скачайте, обновлённую версию."
         static let oldVersionButtonTitle = "Перейти в магазин".uppercased()
     }
+
+    enum SelectionMovies {
+        static let titleNavBarText = "Выберите фильм"
+    }
 }

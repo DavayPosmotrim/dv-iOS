@@ -15,10 +15,11 @@ enum CoordinatorType {
     case edit
     case authSession
     case main
-    case makeSession
+    case createSession
     case joinSession
     case coincidencesSession
     case favoriteMovies
+    case selectionMovies
 }
 
 protocol CoordinatorFinishDelegate: AnyObject {
