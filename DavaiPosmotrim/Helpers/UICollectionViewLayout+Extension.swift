@@ -9,9 +9,9 @@ import UIKit
 
 extension UICollectionViewLayout {
 
-    static func createLeftAlignedLayout() -> UICollectionViewLayout {
+    static func createLeftAlignedLayout(itemHeight: CGFloat) -> UICollectionViewLayout {
         let item = NSCollectionLayoutItem(
-            layoutSize: NSCollectionLayoutSize(widthDimension: .estimated(40), heightDimension: .absolute(36))
+            layoutSize: NSCollectionLayoutSize(widthDimension: .estimated(40), heightDimension: .absolute(itemHeight))
         )
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: .init(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(50)),
