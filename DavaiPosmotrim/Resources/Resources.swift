@@ -116,6 +116,7 @@ enum Resources {
 
     enum SelectionMovies {
         static let titleNavBarText = "Выберите фильм"
+    }
 
     enum SessionsList {
         static let title = "Понравившиеся фильмы"
