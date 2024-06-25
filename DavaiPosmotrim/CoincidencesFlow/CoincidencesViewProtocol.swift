@@ -7,4 +7,6 @@
 
 import Foundation
 
-protocol CoincidencesViewProtocol: AnyObject {}
+protocol CoincidencesViewProtocol: AnyObject {
+    func updateUIElements()
+}

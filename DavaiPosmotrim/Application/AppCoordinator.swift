@@ -9,13 +9,14 @@ import UIKit
 
 final class AppCoordinator: BaseCoordinator {
     override func start() {
-        if UserDefaults.standard.value(forKey: Resources.Onboarding.onboardingUserDefaultsKey) == nil {
-            showOnboardingFlow()
-        } else if UserDefaults.standard.value(forKey: Resources.Authentication.savedNameUserDefaultsKey) == nil {
-            showAuthFlow()
-        } else {
-            showMainFlow()
-        }
+//        if UserDefaults.standard.value(forKey: Resources.Onboarding.onboardingUserDefaultsKey) == nil {
+//            showOnboardingFlow()
+//        } else if UserDefaults.standard.value(forKey: Resources.Authentication.savedNameUserDefaultsKey) == nil {
+//            showAuthFlow()
+//        } else {
+//            showMainFlow()
+//        }
+        showCoincidencesFlow()
     }
 
     override func finish() {
@@ -24,6 +25,16 @@ final class AppCoordinator: BaseCoordinator {
 }
 
 private extension AppCoordinator {
+
+    func showCoincidencesFlow() {
+        let coincidencesCoordinator = CoincidencesCoordinator(
+            type: .coincidencesSession,
+            finishDelegate: self,
+            navigationController: navigationController
+        )
+        addChild(coincidencesCoordinator)
+        coincidencesCoordinator.start()
+    }
 
     func showOnboardingFlow() {
         let onboardingCoordinator = OnboardingCoordinator(
@@ -65,7 +76,7 @@ private extension AppCoordinator {
     }
 
     func showSelectionMoviesFlow() {
-        //TODO: - не забыть перенести когда появится экран с которого необходимо запускать
+        // TODO: - не забыть перенести когда появится экран с которого необходимо запускать
         let selectionMoviesCoordinator = SelectionMoviesCoordinator(
             type: .selectionMovies,
             finishDelegate: self,

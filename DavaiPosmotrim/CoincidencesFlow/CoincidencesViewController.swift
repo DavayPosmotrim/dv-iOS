@@ -58,6 +58,14 @@ final class CoincidencesViewController: UIViewController {
         return label
     }()
 
+    private lazy var collectionView: ReusableLikedMoviesUICollectionView = {
+        let collectionView = ReusableLikedMoviesUICollectionView()
+        collectionView.setupCollectionView(with: self)
+        collectionView.isHidden = true
+
+        return collectionView
+    }()
+
     // MARK: - Initializers
 
     init(presenter: CoincidencesPresenterProtocol) {
@@ -80,13 +88,19 @@ final class CoincidencesViewController: UIViewController {
         setupNavBarModel()
         setupSubviews()
         setupConstraints()
-        updateUIElements()
+
+        presenter?.downloadMoviesArrayFromServer()
     }
 
     // MARK: - Private methods
 
     private func setupSubviews() {
-        [navBarView, paddingView, stackView].forEach {
+        [
+            navBarView,
+            paddingView,
+            stackView,
+            collectionView
+        ].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -117,7 +131,12 @@ final class CoincidencesViewController: UIViewController {
 
             plugLabel.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
             plugLabel.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
-            plugLabel.bottomAnchor.constraint(equalTo: stackView.bottomAnchor)
+            plugLabel.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
+
+            collectionView.leadingAnchor.constraint(equalTo: paddingView.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: paddingView.trailingAnchor),
+            collectionView.topAnchor.constraint(equalTo: paddingView.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: paddingView.bottomAnchor)
         ])
     }
 
@@ -144,16 +163,46 @@ final class CoincidencesViewController: UIViewController {
             }
         )
     }
-
-    private func updateUIElements() {
-        if presenter?.moviesArray?.isEmpty == false {
-            setupRightButtonModel()
-            navBarView.setupRightButton(with: customNavBarRightButtonModel)
-            stackView.isHidden = true
-        }
-    }
 }
 
     // MARK: - CoincidencesViewProtocol
 
-extension CoincidencesViewController: CoincidencesViewProtocol {}
+extension CoincidencesViewController: CoincidencesViewProtocol {
+    func updateUIElements() {
+        guard let presenter else { return }
+        if !presenter.moviesArray.isEmpty {
+            setupRightButtonModel()
+            navBarView.setupRightButton(with: customNavBarRightButtonModel)
+            paddingView.isHidden = true
+            stackView.isHidden = true
+            collectionView.isHidden = false
+        }
+    }
+}
+
+    // MARK: - UICollectionViewDataSource
+
+extension CoincidencesViewController: UICollectionViewDataSource {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
+    ) -> Int {
+        guard let presenter else { return .zero }
+        return presenter.moviesArray.count
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
+        guard let presenter,
+              let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: ReusableLikedMoviesCell.reuseIdentifier,
+                for: indexPath
+              ) as? ReusableLikedMoviesCell else {
+            return UICollectionViewCell()
+        }
+        cell.configureCell(with: presenter.getMoviesAtIndex(index: indexPath.item))
+        return cell
+    }
+}
