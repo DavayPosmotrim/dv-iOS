@@ -30,7 +30,7 @@ final class ReusableLikedMoviesCell: UICollectionViewCell {
         label.textColor = .whiteText
         label.font = .textParagraphRegularFont
         label.textAlignment = .left
-        label.numberOfLines = 0
+        label.numberOfLines = 3
 
         return label
     }()
@@ -112,14 +112,23 @@ final class ReusableLikedMoviesCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             gradientView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             gradientView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            gradientView.topAnchor.constraint(equalTo: titleLabel.topAnchor, constant: -40),
-//            gradientView.topAnchor.constraint(equalTo: contentView.centerYAnchor),
             gradientView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
         ])
+
+        var heightAnchor: NSLayoutConstraint
+        switch titleLabel.frame.height {
+        case 60:
+            heightAnchor = gradientView.heightAnchor.constraint(equalToConstant: 116)
+        case 40:
+            heightAnchor = gradientView.heightAnchor.constraint(equalToConstant: 96)
+        default:
+            heightAnchor = gradientView.heightAnchor.constraint(equalToConstant: 76)
+        }
+        NSLayoutConstraint.activate([heightAnchor])
 
         standardImageViewConstraints = [
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
