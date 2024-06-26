@@ -132,6 +132,23 @@ enum Resources {
         static let rightBorderIdent = "rightBorder"
         static let bottomBorderIdent = "bottomBorder"
         static let davayImageViewIdent = "davayImageView"
+	}
 
+    enum SelectionMovies {
+        static let titleNavBarText = "Выберите фильм"
+    }
+
+    enum SessionsList {
+        static let title = "Понравившиеся фильмы"
+        // swiftlint:disable:next nesting
+        enum Sessions {
+            static let matchesTitle = "Совпадений:"
+            static let noImageTitle = "Не удалось загрузить фото"
+        }
+        // swiftlint:disable:next nesting
+        enum NoSessions {
+            static let title = "Пока ничего нет"
+            static let description = "Здесь будут фильмы,\n которые вам понравились"
+        }
     }
 }

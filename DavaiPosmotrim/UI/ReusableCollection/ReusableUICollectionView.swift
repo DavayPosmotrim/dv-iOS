@@ -18,7 +18,7 @@ final class ReusableUICollectionView: UIView {
     // MARK: - Private properties
 
     private lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewLayout.createLeftAlignedLayout()
+        let layout = UICollectionViewLayout.createLeftAlignedLayout(itemHeight: 36)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
 
