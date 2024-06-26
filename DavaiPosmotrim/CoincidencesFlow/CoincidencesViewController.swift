@@ -95,15 +95,13 @@ final class CoincidencesViewController: UIViewController {
     // MARK: - Private methods
 
     private func setupSubviews() {
-        [
-            navBarView,
-            paddingView,
-            stackView,
-            collectionView
-        ].forEach {
+        [navBarView, paddingView, stackView].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
+
+        view.insertSubview(collectionView, belowSubview: navBarView)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
 
         [plugImageView, plugLabel].forEach {
             stackView.addArrangedSubview($0)
@@ -133,10 +131,10 @@ final class CoincidencesViewController: UIViewController {
             plugLabel.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
             plugLabel.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
 
-            collectionView.leadingAnchor.constraint(equalTo: paddingView.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: paddingView.trailingAnchor),
-            collectionView.topAnchor.constraint(equalTo: paddingView.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: paddingView.bottomAnchor)
+            collectionView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            collectionView.topAnchor.constraint(equalTo: navBarView.bottomAnchor, constant: -24),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 

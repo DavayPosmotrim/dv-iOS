@@ -28,13 +28,20 @@ final class ReusableLikedMoviesUICollectionView: UIView {
             ReusableLikedMoviesCell.self,
             forCellWithReuseIdentifier: ReusableLikedMoviesCell.reuseIdentifier
         )
-        collectionView.contentInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
-        collectionView.backgroundColor = .whiteBackground
-        collectionView.layer.cornerRadius = 24
-        collectionView.layer.masksToBounds = true
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.contentInset = UIEdgeInsets(top: 56, left: 16, bottom: 16, right: 16)
+        collectionView.backgroundColor = .clear
+        collectionView.showsVerticalScrollIndicator = false
 
         return collectionView
+    }()
+
+    private lazy var paddingView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .whiteBackground
+        view.layer.cornerRadius = 24
+        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+
+        return view
     }()
 
     // MARK: - Initializers
@@ -59,12 +66,21 @@ final class ReusableLikedMoviesUICollectionView: UIView {
     // MARK: - Private methods
 
     private func setupView() {
-        addSubview(collectionView)
+        [paddingView, collectionView].forEach {
+            addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+
         NSLayoutConstraint.activate([
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
             collectionView.topAnchor.constraint(equalTo: topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
+
+            paddingView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            paddingView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            paddingView.topAnchor.constraint(equalTo: collectionView.topAnchor, constant: 40),
+            paddingView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
 }
@@ -98,5 +114,14 @@ extension ReusableLikedMoviesUICollectionView: UICollectionViewDelegateFlowLayou
         minimumInteritemSpacingForSectionAt section: Int
     ) -> CGFloat {
         return params.cellSpacing
+    }
+}
+
+    // MARK: - UIScrollViewDelegate
+
+extension ReusableLikedMoviesUICollectionView: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offset = scrollView.contentOffset
+        paddingView.transform = CGAffineTransform(translationX: 0, y: min(-offset.y - scrollView.contentInset.top, 0))
     }
 }
