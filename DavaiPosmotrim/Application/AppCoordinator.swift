@@ -55,7 +55,6 @@ private extension AppCoordinator {
     }
 
     func showMainFlow() {
-        childCoordinators.removeAll()
         let mainCoordinator = MainCoordinator(
             type: .main,
             finishDelegate: self,
@@ -63,6 +62,17 @@ private extension AppCoordinator {
         )
         addChild(mainCoordinator)
         mainCoordinator.start()
+    }
+
+    func showSelectionMoviesFlow() {
+        //TODO: - не забыть перенести когда появится экран с которого необходимо запускать
+        let selectionMoviesCoordinator = SelectionMoviesCoordinator(
+            type: .selectionMovies,
+            finishDelegate: self,
+            navigationController: navigationController
+        )
+        addChild(selectionMoviesCoordinator)
+        selectionMoviesCoordinator.start()
     }
 
     func showJoinSessionFlow() {
@@ -73,17 +83,6 @@ private extension AppCoordinator {
         )
         addChild(joinSessionCoordinator)
         joinSessionCoordinator.start()
-    }
-
-    func showInviteSessionFlow() {
-        let inviteSessionCoordinator = InvitingUsersCoordinator(
-            type: .joinSession,
-            finishDelegate: self,
-            navigationController: navigationController
-        )
-        addChild(inviteSessionCoordinator)
-        inviteSessionCoordinator.start()
-
     }
 }
 
@@ -104,7 +103,7 @@ extension AppCoordinator: CoordinatorFinishDelegate {
             showJoinSessionFlow()
         case .joinSession:
             showMainFlow()
-        case . inviteUsers:
+        case .selectionMovies:
             showMainFlow()
         default:
             navigationController.popToRootViewController(animated: false)

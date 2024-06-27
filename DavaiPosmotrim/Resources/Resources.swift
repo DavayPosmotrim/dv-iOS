@@ -127,4 +127,22 @@ enum Resources {
         static let oldVersionText = "Сначала сломали, потом починили.\n Скачайте, обновлённую версию."
         static let oldVersionButtonTitle = "Перейти в магазин".uppercased()
     }
+
+    enum SelectionMovies {
+        static let titleNavBarText = "Выберите фильм"
+    }
+
+    enum SessionsList {
+        static let title = "Понравившиеся фильмы"
+        // swiftlint:disable:next nesting
+        enum Sessions {
+            static let matchesTitle = "Совпадений:"
+            static let noImageTitle = "Не удалось загрузить фото"
+        }
+        // swiftlint:disable:next nesting
+        enum NoSessions {
+            static let title = "Пока ничего нет"
+            static let description = "Здесь будут фильмы,\n которые вам понравились"
+        }
+    }
 }
