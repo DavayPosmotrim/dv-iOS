@@ -77,13 +77,16 @@
 		E2B9BFAC2BD8034C00592578 /* OnboardingPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFAB2BD8034C00592578 /* OnboardingPresenterProtocol.swift */; };
 		E2B9BFAE2BD8080100592578 /* OnboardingSceneFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFAD2BD8080100592578 /* OnboardingSceneFactory.swift */; };
 		E916A4AB2C26EA6D00B2C5D7 /* SessionsListViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E916A4AA2C26EA6D00B2C5D7 /* SessionsListViewControllerProtocol.swift */; };
+		E9208CAD2C2D1DA000A08EFB /* SessionEmptySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9208CAC2C2D1DA000A08EFB /* SessionEmptySection.swift */; };
 		E9512FB82C29FA4F006CA977 /* SessionUserHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9512FB72C29FA4F006CA977 /* SessionUserHeader.swift */; };
+		E9512FBA2C29FC87006CA977 /* SessionUserSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9512FB92C29FC87006CA977 /* SessionUserSection.swift */; };
 		E95F00A42C271851001AAE7E /* SessionUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95F00A32C271851001AAE7E /* SessionUserCell.swift */; };
 		E95F00A62C272381001AAE7E /* SessionMovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95F00A52C272381001AAE7E /* SessionMovieCell.swift */; };
 		E9A2701F2BE4C2940088652B /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A2701E2BE4C2940088652B /* CGFloat+Extensions.swift */; };
 		E9A270222BE52BC20088652B /* MistakesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A270212BE52BC20088652B /* MistakesViewController.swift */; };
 		E9A9E74C2C133CC600AEF879 /* SessionsListEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A9E74B2C133CC600AEF879 /* SessionsListEmptyView.swift */; };
 		E9A9E74E2C1345D100AEF879 /* SessionsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A9E74D2C1345D100AEF879 /* SessionsListCell.swift */; };
+		E9B495062C28779400B653F8 /* SessionMovieSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B495052C28779400B653F8 /* SessionMovieSection.swift */; };
 		E9BEFD802BE7D53A002E940B /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BEFD7F2BE7D53A002E940B /* RoundedButton.swift */; };
 		E9C34A332C135F57002628F9 /* SessionsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C34A322C135F57002628F9 /* SessionsListViewController.swift */; };
 		E9C34A352C136085002628F9 /* SessionsListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C34A342C136085002628F9 /* SessionsListModel.swift */; };
@@ -163,13 +166,16 @@
 		E2B9BFAB2BD8034C00592578 /* OnboardingPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPresenterProtocol.swift; sourceTree = "<group>"; };
 		E2B9BFAD2BD8080100592578 /* OnboardingSceneFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSceneFactory.swift; sourceTree = "<group>"; };
 		E916A4AA2C26EA6D00B2C5D7 /* SessionsListViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsListViewControllerProtocol.swift; sourceTree = "<group>"; };
+		E9208CAC2C2D1DA000A08EFB /* SessionEmptySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionEmptySection.swift; sourceTree = "<group>"; };
 		E9512FB72C29FA4F006CA977 /* SessionUserHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionUserHeader.swift; sourceTree = "<group>"; };
+		E9512FB92C29FC87006CA977 /* SessionUserSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionUserSection.swift; sourceTree = "<group>"; };
 		E95F00A32C271851001AAE7E /* SessionUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionUserCell.swift; sourceTree = "<group>"; };
 		E95F00A52C272381001AAE7E /* SessionMovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionMovieCell.swift; sourceTree = "<group>"; };
 		E9A2701E2BE4C2940088652B /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
 		E9A270212BE52BC20088652B /* MistakesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MistakesViewController.swift; sourceTree = "<group>"; };
 		E9A9E74B2C133CC600AEF879 /* SessionsListEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsListEmptyView.swift; sourceTree = "<group>"; };
 		E9A9E74D2C1345D100AEF879 /* SessionsListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsListCell.swift; sourceTree = "<group>"; };
+		E9B495052C28779400B653F8 /* SessionMovieSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionMovieSection.swift; sourceTree = "<group>"; };
 		E9BEFD7F2BE7D53A002E940B /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		E9C34A322C135F57002628F9 /* SessionsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsListViewController.swift; sourceTree = "<group>"; };
 		E9C34A342C136085002628F9 /* SessionsListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsListModel.swift; sourceTree = "<group>"; };
@@ -452,6 +458,9 @@
 				E95F00A32C271851001AAE7E /* SessionUserCell.swift */,
 				E95F00A52C272381001AAE7E /* SessionMovieCell.swift */,
 				E9512FB72C29FA4F006CA977 /* SessionUserHeader.swift */,
+				E9512FB92C29FC87006CA977 /* SessionUserSection.swift */,
+				E9B495052C28779400B653F8 /* SessionMovieSection.swift */,
+				E9208CAC2C2D1DA000A08EFB /* SessionEmptySection.swift */,
 			);
 			path = Elements;
 			sourceTree = "<group>";
@@ -572,6 +581,7 @@
 				4A6280462BEAB02E00102304 /* CreateSessionCellModel.swift in Sources */,
 				E2B9BFA42BD7CF0300592578 /* MainViewController.swift in Sources */,
 				C96895CF2BE835EA002A99E6 /* AuthPresenterProtocol.swift in Sources */,
+				E9B495062C28779400B653F8 /* SessionMovieSection.swift in Sources */,
 				C9C4D59E2BD3A3C70081CD23 /* AppDelegate.swift in Sources */,
 				E2B9BFA22BD7CEC300592578 /* AuthViewController.swift in Sources */,
 				E95F00A42C271851001AAE7E /* SessionUserCell.swift in Sources */,
@@ -596,6 +606,7 @@
 				4A2FB3AC2BF373A10048F5B9 /* UICollectionViewLayout+Extension.swift in Sources */,
 				4A6280442BEAAC3800102304 /* CreateSessionTableViewCell.swift in Sources */,
 				4A6280322BDE846900102304 /* MainTableViewCell.swift in Sources */,
+				E9208CAD2C2D1DA000A08EFB /* SessionEmptySection.swift in Sources */,
 				4A62804C2BF0EB7300102304 /* CustomWarningNotification.swift in Sources */,
 				E9A9E74C2C133CC600AEF879 /* SessionsListEmptyView.swift in Sources */,
 				C91DCC7C2BFEA33E001BC065 /* JoinSessionViewProtocol.swift in Sources */,
@@ -633,6 +644,7 @@
 				C91332D92C10BF2B0036FC44 /* MovieSelectionOnboardingProtocol.swift in Sources */,
 				C96895D12BE88E4B002A99E6 /* Resources.swift in Sources */,
 				4AAEABAE2C15EEFC00A14C1D /* CreateSessionCoordinator.swift in Sources */,
+				E9512FBA2C29FC87006CA977 /* SessionUserSection.swift in Sources */,
 				4A2FB3AE2BF374F60048F5B9 /* CreateSessionPresenterProtocol.swift in Sources */,
 				C91332E02C11F2470036FC44 /* ReusableOnboardingCollectionViewCell.swift in Sources */,
 				C9C4D5A02BD3A3C70081CD23 /* SceneDelegate.swift in Sources */,
