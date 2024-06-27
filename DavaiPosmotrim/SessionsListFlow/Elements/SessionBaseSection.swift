@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class SessionEmptySection: UICollectionReusableView {
+final class SessionBaseSection: UICollectionReusableView {
 
     // MARK: - Type properties
     static let sectionID = "SessionEmptySection"

@@ -24,12 +24,12 @@
 		4A62804A2BECEB2300102304 /* CreateSessionCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6280492BECEB2300102304 /* CreateSessionCollectionCell.swift */; };
 		4A62804C2BF0EB7300102304 /* CustomWarningNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A62804B2BF0EB7300102304 /* CustomWarningNotification.swift */; };
 		4A62804F2BF13DBE00102304 /* InvitingUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A62804E2BF13DBE00102304 /* InvitingUsersViewController.swift */; };
-		4AAEABAE2C15EEFC00A14C1D /* CreateSessionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAEABAD2C15EEFC00A14C1D /* CreateSessionCoordinator.swift */; };
-		4AAEABB02C15EF9600A14C1D /* CreateSessionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAEABAF2C15EF9600A14C1D /* CreateSessionFactory.swift */; };
 		4AAEABA22C0C66D400A14C1D /* SelectionMovieMockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAEABA12C0C66D400A14C1D /* SelectionMovieMockData.swift */; };
 		4AAEABA42C0C673800A14C1D /* SelectionMovieCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAEABA32C0C673800A14C1D /* SelectionMovieCellModel.swift */; };
 		4AAEABA72C0C81C700A14C1D /* CustomMovieCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAEABA62C0C81C700A14C1D /* CustomMovieCollectionCell.swift */; };
 		4AAEABAC2C148BC000A14C1D /* CoincidencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAEABAB2C148BC000A14C1D /* CoincidencesViewController.swift */; };
+		4AAEABAE2C15EEFC00A14C1D /* CreateSessionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAEABAD2C15EEFC00A14C1D /* CreateSessionCoordinator.swift */; };
+		4AAEABB02C15EF9600A14C1D /* CreateSessionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAEABAF2C15EF9600A14C1D /* CreateSessionFactory.swift */; };
 		4AAEABB22C1761F600A14C1D /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAEABB12C1761F500A14C1D /* UIImage+Extension.swift */; };
 		4AAEABB42C1DB51E00A14C1D /* SelectionMoviesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAEABB32C1DB51E00A14C1D /* SelectionMoviesPresenter.swift */; };
 		4AAEABB62C1DB54900A14C1D /* SelectionMoviesPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAEABB52C1DB54900A14C1D /* SelectionMoviesPresenterProtocol.swift */; };
@@ -91,7 +91,7 @@
 		E2B9BFAC2BD8034C00592578 /* OnboardingPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFAB2BD8034C00592578 /* OnboardingPresenterProtocol.swift */; };
 		E2B9BFAE2BD8080100592578 /* OnboardingSceneFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFAD2BD8080100592578 /* OnboardingSceneFactory.swift */; };
 		E916A4AB2C26EA6D00B2C5D7 /* SessionsListViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E916A4AA2C26EA6D00B2C5D7 /* SessionsListViewControllerProtocol.swift */; };
-		E9208CAD2C2D1DA000A08EFB /* SessionEmptySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9208CAC2C2D1DA000A08EFB /* SessionEmptySection.swift */; };
+		E9208CAD2C2D1DA000A08EFB /* SessionBaseSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9208CAC2C2D1DA000A08EFB /* SessionBaseSection.swift */; };
 		E9512FB82C29FA4F006CA977 /* SessionUserHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9512FB72C29FA4F006CA977 /* SessionUserHeader.swift */; };
 		E9512FBA2C29FC87006CA977 /* SessionUserSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9512FB92C29FC87006CA977 /* SessionUserSection.swift */; };
 		E95F009C2C2702A8001AAE7E /* SessionMoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95F009B2C2702A8001AAE7E /* SessionMoviesViewController.swift */; };
@@ -131,12 +131,12 @@
 		4A6280492BECEB2300102304 /* CreateSessionCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionCollectionCell.swift; sourceTree = "<group>"; };
 		4A62804B2BF0EB7300102304 /* CustomWarningNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWarningNotification.swift; sourceTree = "<group>"; };
 		4A62804E2BF13DBE00102304 /* InvitingUsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitingUsersViewController.swift; sourceTree = "<group>"; };
-		4AAEABAD2C15EEFC00A14C1D /* CreateSessionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionCoordinator.swift; sourceTree = "<group>"; };
-		4AAEABAF2C15EF9600A14C1D /* CreateSessionFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionFactory.swift; sourceTree = "<group>"; };
 		4AAEABA12C0C66D400A14C1D /* SelectionMovieMockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionMovieMockData.swift; sourceTree = "<group>"; };
 		4AAEABA32C0C673800A14C1D /* SelectionMovieCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionMovieCellModel.swift; sourceTree = "<group>"; };
 		4AAEABA62C0C81C700A14C1D /* CustomMovieCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMovieCollectionCell.swift; sourceTree = "<group>"; };
 		4AAEABAB2C148BC000A14C1D /* CoincidencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoincidencesViewController.swift; sourceTree = "<group>"; };
+		4AAEABAD2C15EEFC00A14C1D /* CreateSessionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionCoordinator.swift; sourceTree = "<group>"; };
+		4AAEABAF2C15EF9600A14C1D /* CreateSessionFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionFactory.swift; sourceTree = "<group>"; };
 		4AAEABB12C1761F500A14C1D /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		4AAEABB32C1DB51E00A14C1D /* SelectionMoviesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionMoviesPresenter.swift; sourceTree = "<group>"; };
 		4AAEABB52C1DB54900A14C1D /* SelectionMoviesPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionMoviesPresenterProtocol.swift; sourceTree = "<group>"; };
@@ -198,7 +198,7 @@
 		E2B9BFAB2BD8034C00592578 /* OnboardingPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPresenterProtocol.swift; sourceTree = "<group>"; };
 		E2B9BFAD2BD8080100592578 /* OnboardingSceneFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSceneFactory.swift; sourceTree = "<group>"; };
 		E916A4AA2C26EA6D00B2C5D7 /* SessionsListViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsListViewControllerProtocol.swift; sourceTree = "<group>"; };
-		E9208CAC2C2D1DA000A08EFB /* SessionEmptySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionEmptySection.swift; sourceTree = "<group>"; };
+		E9208CAC2C2D1DA000A08EFB /* SessionBaseSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionBaseSection.swift; sourceTree = "<group>"; };
 		E9512FB72C29FA4F006CA977 /* SessionUserHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionUserHeader.swift; sourceTree = "<group>"; };
 		E9512FB92C29FC87006CA977 /* SessionUserSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionUserSection.swift; sourceTree = "<group>"; };
 		E95F009B2C2702A8001AAE7E /* SessionMoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionMoviesViewController.swift; sourceTree = "<group>"; };
@@ -546,7 +546,7 @@
 				E9512FB72C29FA4F006CA977 /* SessionUserHeader.swift */,
 				E9512FB92C29FC87006CA977 /* SessionUserSection.swift */,
 				E9B495052C28779400B653F8 /* SessionMovieSection.swift */,
-				E9208CAC2C2D1DA000A08EFB /* SessionEmptySection.swift */,
+				E9208CAC2C2D1DA000A08EFB /* SessionBaseSection.swift */,
 			);
 			path = Elements;
 			sourceTree = "<group>";
@@ -700,7 +700,7 @@
 				E95F00A02C270379001AAE7E /* SessionMoviesViewControllerProtocol.swift in Sources */,
 				4A6280322BDE846900102304 /* MainTableViewCell.swift in Sources */,
 				4AAEABBA2C1DD24500A14C1D /* SelectionMoviesCoordinator.swift in Sources */,
-				E9208CAD2C2D1DA000A08EFB /* SessionEmptySection.swift in Sources */,
+				E9208CAD2C2D1DA000A08EFB /* SessionBaseSection.swift in Sources */,
 				4A62804C2BF0EB7300102304 /* CustomWarningNotification.swift in Sources */,
 				E9A9E74C2C133CC600AEF879 /* SessionsListEmptyView.swift in Sources */,
 				C91DCC7C2BFEA33E001BC065 /* JoinSessionViewProtocol.swift in Sources */,

@@ -42,9 +42,9 @@ final class SessionMoviesViewController: UIViewController, SessionMoviesViewCont
     }()
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
-        collectionView.backgroundColor = .baseBackground
+        collectionView.backgroundColor = .whiteBackground
         collectionView.delegate = self
-        collectionView.bounces = false
+        collectionView.alwaysBounceVertical = true
         collectionView.allowsMultipleSelection = false
         collectionView.showsHorizontalScrollIndicator = false
         return collectionView
@@ -197,17 +197,18 @@ private extension SessionMoviesViewController {
         let currentSection: String
         switch type {
         case .users: currentSection = SessionUserSection.sectionID
-        case .empty: currentSection = SessionEmptySection.sectionID
+        case .empty: currentSection = SessionBaseSection.sectionID
         case .movies: currentSection = SessionMovieSection.sectionID
         }
-        let sectionBackgroundDecoration = NSCollectionLayoutDecorationItem.background(elementKind: currentSection)
-        section.decorationItems = [sectionBackgroundDecoration]
+        let baseDecoration = NSCollectionLayoutDecorationItem.background(elementKind: SessionBaseSection.sectionID)
+        let currentSectionDecoration = NSCollectionLayoutDecorationItem.background(elementKind: currentSection)
+        section.decorationItems = [baseDecoration, currentSectionDecoration]
         return section
     }
 
     func registerSectionBackground(layout: UICollectionViewCompositionalLayout) -> UICollectionViewCompositionalLayout {
         layout.register(SessionUserSection.self, forDecorationViewOfKind: SessionUserSection.sectionID)
-        layout.register(SessionEmptySection.self, forDecorationViewOfKind: SessionEmptySection.sectionID)
+        layout.register(SessionBaseSection.self, forDecorationViewOfKind: SessionBaseSection.sectionID)
         layout.register(SessionMovieSection.self, forDecorationViewOfKind: SessionMovieSection.sectionID)
         return layout
     }
