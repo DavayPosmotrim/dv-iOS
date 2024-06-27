@@ -48,6 +48,10 @@ final class SessionsListPresenter: SessionsListPresenterProtocol {
         view?.showListOrEmptyView()
     }
 
+    func showSessionMovies(by sessionIndex: Int) {
+        coordinator?.showMovies(for: sessions[sessionIndex])
+    }
+
     func getSessionForCellBy(index: Int) -> SessionsListViewModel {
         let session = sessions[index]
         return SessionsListViewModel(
