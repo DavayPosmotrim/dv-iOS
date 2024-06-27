@@ -30,22 +30,11 @@ final class SessionMoviesViewController: UIViewController, SessionMoviesViewCont
         }
     }
 
-    private let numberOfSections = 2
-
-    private var session: SessionModel {
-        presenter.session
-    }
-    private var navBarTitle: String {
-        String(session.date.dropLast(5))
-    }
-    private var navBarSubtitle: String {
-        [Resources.SessionsList.Movies.sessionTitle, session.code].joined(separator: " ")
-    }
     private lazy var dataSource = configureDataSource()
 
     // MARK: - View properties
     private lazy var customNavBar: UIView = {
-        let customNavBar = CustomNavigationBar(title: navBarTitle, subtitle: navBarSubtitle)
+        let customNavBar = CustomNavigationBar(title: presenter.sessionDateForTitle, subtitle: presenter.sessionCode)
         customNavBar.delegate = presenter as? any CustomNavigationBarDelegate
         return customNavBar
     }()
@@ -135,100 +124,26 @@ private extension SessionMoviesViewController {
         return layout
     }
 
-//    func createLayout() -> UICollectionViewLayout {
-//
-//        let layout = UICollectionViewCompositionalLayout { (sectionIndex: Int, _) -> NSCollectionLayoutSection? in
-//
-//            let isUserSection = sectionIndex == 0
-//
-//            let itemSize = isUserSection
-//            ? NSCollectionLayoutSize(widthDimension: .estimated(Height.Cell.user), heightDimension: .absolute(Height.Cell.user))
-//            : NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
-//
-//            let item = NSCollectionLayoutItem(layoutSize: itemSize)
-//
-//            let groupSize = NSCollectionLayoutSize(
-//                widthDimension: .fractionalWidth(1.0),
-//                heightDimension: isUserSection
-//                ? .estimated(Height.Cell.user)
-//                : .absolute(Height.Cell.movie)
-//            )
-//
-//            let group = isUserSection
-//            ? NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-//            : NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 2)
-//
-//            group.interItemSpacing = .fixed(isUserSection ? 8 : 16)
-//            group.contentInsets = .init(
-//                top: 0,
-//                leading: 16,
-//                bottom: 0,
-//                trailing: 16
-//            )
-//
-//            let section = NSCollectionLayoutSection(group: group)
-//
-//            section.interGroupSpacing = isUserSection ? 8 : 16
-//            section.contentInsets = .init(
-//                top: 16,
-//                leading: 0,
-//                bottom: 16,
-//                trailing: 0
-//            )
-//
-//            let headerSize = NSCollectionLayoutSize(
-//                widthDimension: .fractionalWidth(1.0),
-//                heightDimension: .estimated(
-//                    isUserSection ? Height.Header.user : Height.Header.movie
-//                )
-//            )
-//
-//            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-//                layoutSize: headerSize,
-//                elementKind: isUserSection ? SessionUserHeader.headerID : SessionMovieHeader.headerID,
-//                alignment: .top
-//            )
-//            section.boundarySupplementaryItems = [sectionHeader]
-//
-//            let sectionBackgroundDecoration = NSCollectionLayoutDecorationItem.background(
-//                elementKind: isUserSection ? SessionUserSection.sectionID : SessionMovieSection.sectionID
-//            )
-//            section.decorationItems = [sectionBackgroundDecoration]
-//
-//            return section
-//        }
-//
-//        layout.register(SessionUserSection.self, forDecorationViewOfKind: SessionUserSection.sectionID)
-//        layout.register(SessionMovieSection.self, forDecorationViewOfKind: SessionMovieSection.sectionID)
-//
-//        return layout
-//    }
-
     func createUsersSectionLayout() -> NSCollectionLayoutSection {
         var section: NSCollectionLayoutSection
         let itemSize = NSCollectionLayoutSize(
-            widthDimension: .estimated(Height.Cell.user),
-            heightDimension: .absolute(Height.Cell.user)
+            widthDimension: .estimated(Size.Cell.user),
+            heightDimension: .absolute(Size.Cell.user)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(Height.Cell.user)
+            widthDimension: .fractionalWidth(Size.fullSize),
+            heightDimension: .estimated(Size.Cell.user)
         )
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        group.interItemSpacing = .fixed(8)
+        group.interItemSpacing = .fixed(Size.smallSpacing)
         section = NSCollectionLayoutSection(group: group)
-        section.interGroupSpacing = 8
-        section.contentInsets = .init(
-            top: 16,
-            leading: 16,
-            bottom: 16,
-            trailing: 16
-        )
+        section.interGroupSpacing = Size.smallSpacing
+        section.contentInsets = createSectionInsets()
 
         let headerSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(Height.Header.user)
+            widthDimension: .fractionalWidth(Size.fullSize),
+            heightDimension: .estimated(Size.Header.user)
         )
         let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: headerSize,
@@ -370,7 +285,7 @@ private extension SessionMoviesViewController {
         snapshot.appendSections(sections)
 
         var usersSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
-        usersSnapshot.append(presenter.session.users)
+        usersSnapshot.append(presenter.users)
         dataSource.apply(usersSnapshot, to: .users, animatingDifferences: false)
 
         var emptySnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
@@ -378,7 +293,7 @@ private extension SessionMoviesViewController {
         dataSource.apply(emptySnapshot, to: .empty, animatingDifferences: false)
 
         var moviesSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
-        moviesSnapshot.append(presenter.session.movies)
+        moviesSnapshot.append(presenter.movies)
         dataSource.apply(moviesSnapshot, to: .movies, animatingDifferences: false)
     }
 }

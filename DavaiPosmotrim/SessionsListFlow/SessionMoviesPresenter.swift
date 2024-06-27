@@ -11,10 +11,22 @@ final class SessionMoviesPresenter: SessionMoviesPresenterProtocol {
 
     // MARK: - Public properties
     var coordinator: SessionsListCoordinator?
-    var session: SessionModel
     var view: SessionMoviesViewControllerProtocol?
+    var users: [User] {
+        session.users
+    }
+    var movies: [SessionMovieModel] {
+        session.movies
+    }
+    var sessionCode: String {
+        [Resources.SessionsList.Movies.sessionTitle, session.code].joined(separator: " ")
+    }
+    var sessionDateForTitle: String {
+        String(session.date.dropLast(5))
+    }
 
     // MARK: - Private properties
+    private var session: SessionModel
 
     // MARK: - Inits
     init(
@@ -29,7 +41,7 @@ final class SessionMoviesPresenter: SessionMoviesPresenterProtocol {
 
     // MARK: - Public methods
     func viewDidLoad() {
-        setupMockData()
+        // TODO: - add code later
     }
 
     func showMovie(by sessionIndex: Int) {
@@ -42,13 +54,5 @@ extension SessionMoviesPresenter: CustomNavigationBarDelegate {
 
     func backButtonTapped() {
         coordinator?.finish()
-    }
-}
-
-// MARK: - Mock data
-private extension SessionMoviesPresenter {
-
-    func setupMockData() {
-        // code will be here
     }
 }
