@@ -18,6 +18,7 @@ enum CoordinatorType {
     case createSession
     case joinSession
     case sessionsList
+    case selectionMovies
 }
 
 protocol CoordinatorFinishDelegate: AnyObject {
