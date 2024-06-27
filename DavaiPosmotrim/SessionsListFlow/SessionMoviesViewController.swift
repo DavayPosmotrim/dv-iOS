@@ -17,7 +17,9 @@ final class SessionMoviesViewController: UIViewController, SessionMoviesViewCont
     }
 
     // MARK: - Private properties
-    private enum Height {
+    private enum Size {
+        static let fullSize: CGFloat = 1
+        static let smallSpacing: CGFloat = 8
         // swiftlint:disable:next nesting
         enum Cell {
             static let user: CGFloat = 36
@@ -157,12 +159,12 @@ private extension SessionMoviesViewController {
     func createEmptySectionLayout() -> NSCollectionLayoutSection {
         var section: NSCollectionLayoutSection
         let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .fractionalHeight(1.0)
+            widthDimension: .fractionalWidth(Size.fullSize),
+            heightDimension: .fractionalHeight(Size.fullSize)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
+            widthDimension: .fractionalWidth(Size.fullSize),
             heightDimension: .absolute(.spacingMedium)
         )
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
@@ -174,24 +176,19 @@ private extension SessionMoviesViewController {
     func createMoviesSectionLayout() -> NSCollectionLayoutSection {
         var section: NSCollectionLayoutSection
         let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .fractionalHeight(1.0)
+            widthDimension: .fractionalWidth(Size.fullSize),
+            heightDimension: .fractionalHeight(Size.fullSize)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(Height.Cell.movie)
+            widthDimension: .fractionalWidth(Size.fullSize),
+            heightDimension: .absolute(Size.Cell.movie)
         )
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 2)
-        group.interItemSpacing = .fixed(16)
+        group.interItemSpacing = .fixed(.spacingMedium)
         section = NSCollectionLayoutSection(group: group)
-        section.interGroupSpacing = 16
-        section.contentInsets = .init(
-            top: 16,
-            leading: 16,
-            bottom: 16,
-            trailing: 16
-        )
+        section.interGroupSpacing = .spacingMedium
+        section.contentInsets = createSectionInsets()
         section = createBackground(for: .movies, on: section)
         return section
     }
@@ -215,6 +212,14 @@ private extension SessionMoviesViewController {
         return layout
     }
 
+    func createSectionInsets() -> NSDirectionalEdgeInsets {
+        NSDirectionalEdgeInsets.init(
+            top: .spacingMedium,
+            leading: .spacingMedium,
+            bottom: .spacingMedium,
+            trailing: .spacingMedium
+        )
+    }
     func createUserCellRegistration() -> UICollectionView.CellRegistration<SessionUserCell, User> {
         UICollectionView.CellRegistration<SessionUserCell, User> { cell, _, user in
             cell.configureCell(for: user)
