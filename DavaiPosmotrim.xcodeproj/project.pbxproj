@@ -80,7 +80,9 @@
 		E9208CAD2C2D1DA000A08EFB /* SessionEmptySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9208CAC2C2D1DA000A08EFB /* SessionEmptySection.swift */; };
 		E9512FB82C29FA4F006CA977 /* SessionUserHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9512FB72C29FA4F006CA977 /* SessionUserHeader.swift */; };
 		E9512FBA2C29FC87006CA977 /* SessionUserSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9512FB92C29FC87006CA977 /* SessionUserSection.swift */; };
+		E95F009C2C2702A8001AAE7E /* SessionMoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95F009B2C2702A8001AAE7E /* SessionMoviesViewController.swift */; };
 		E95F009E2C270308001AAE7E /* SessionMoviesPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95F009D2C270308001AAE7E /* SessionMoviesPresenterProtocol.swift */; };
+		E95F00A02C270379001AAE7E /* SessionMoviesViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95F009F2C270379001AAE7E /* SessionMoviesViewControllerProtocol.swift */; };
 		E95F00A22C2706A4001AAE7E /* SessionMoviesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95F00A12C2706A4001AAE7E /* SessionMoviesPresenter.swift */; };
 		E95F00A42C271851001AAE7E /* SessionUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95F00A32C271851001AAE7E /* SessionUserCell.swift */; };
 		E95F00A62C272381001AAE7E /* SessionMovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95F00A52C272381001AAE7E /* SessionMovieCell.swift */; };
@@ -171,7 +173,9 @@
 		E9208CAC2C2D1DA000A08EFB /* SessionEmptySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionEmptySection.swift; sourceTree = "<group>"; };
 		E9512FB72C29FA4F006CA977 /* SessionUserHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionUserHeader.swift; sourceTree = "<group>"; };
 		E9512FB92C29FC87006CA977 /* SessionUserSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionUserSection.swift; sourceTree = "<group>"; };
+		E95F009B2C2702A8001AAE7E /* SessionMoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionMoviesViewController.swift; sourceTree = "<group>"; };
 		E95F009D2C270308001AAE7E /* SessionMoviesPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionMoviesPresenterProtocol.swift; sourceTree = "<group>"; };
+		E95F009F2C270379001AAE7E /* SessionMoviesViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionMoviesViewControllerProtocol.swift; sourceTree = "<group>"; };
 		E95F00A12C2706A4001AAE7E /* SessionMoviesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionMoviesPresenter.swift; sourceTree = "<group>"; };
 		E95F00A32C271851001AAE7E /* SessionUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionUserCell.swift; sourceTree = "<group>"; };
 		E95F00A52C272381001AAE7E /* SessionMovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionMovieCell.swift; sourceTree = "<group>"; };
@@ -451,7 +455,9 @@
 				E9FA32ED2C1A2FF300036043 /* SessionsListPresenterProtocol.swift */,
 				E9FA32EF2C1A309300036043 /* SessionsListPresenter.swift */,
 				E95F009D2C270308001AAE7E /* SessionMoviesPresenterProtocol.swift */,
+				E95F009F2C270379001AAE7E /* SessionMoviesViewControllerProtocol.swift */,
 				E95F00A12C2706A4001AAE7E /* SessionMoviesPresenter.swift */,
+				E95F009B2C2702A8001AAE7E /* SessionMoviesViewController.swift */,
 			);
 			path = SessionsListFlow;
 			sourceTree = "<group>";
@@ -595,6 +601,7 @@
 				E95F00A22C2706A4001AAE7E /* SessionMoviesPresenter.swift in Sources */,
 				E2B9BFAA2BD7CF7A00592578 /* FavoriteMoviesViewController.swift in Sources */,
 				E9A2701F2BE4C2940088652B /* CGFloat+Extensions.swift in Sources */,
+				E95F009C2C2702A8001AAE7E /* SessionMoviesViewController.swift in Sources */,
 				E2B9BFAE2BD8080100592578 /* OnboardingSceneFactory.swift in Sources */,
 				E2B9BF892BD7BA2C00592578 /* AppCoordinatorProtocol.swift in Sources */,
 				E9C34A332C135F57002628F9 /* SessionsListViewController.swift in Sources */,
@@ -612,6 +619,7 @@
 				4A62804A2BECEB2300102304 /* CreateSessionCollectionCell.swift in Sources */,
 				4A2FB3AC2BF373A10048F5B9 /* UICollectionViewLayout+Extension.swift in Sources */,
 				4A6280442BEAAC3800102304 /* CreateSessionTableViewCell.swift in Sources */,
+				E95F00A02C270379001AAE7E /* SessionMoviesViewControllerProtocol.swift in Sources */,
 				4A6280322BDE846900102304 /* MainTableViewCell.swift in Sources */,
 				E9208CAD2C2D1DA000A08EFB /* SessionEmptySection.swift in Sources */,
 				4A62804C2BF0EB7300102304 /* CustomWarningNotification.swift in Sources */,
