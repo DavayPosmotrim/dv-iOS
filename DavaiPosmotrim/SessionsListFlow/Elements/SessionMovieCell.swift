@@ -12,13 +12,18 @@ final class SessionMovieCell: UICollectionViewCell {
     // MARK: - Type properties
     static let cellID = "SessionMovieCell"
 
+    // MARK: - Public properties
+    var viewModel = SessionMovieModel(name: "", imageName: nil)
+
     // MARK: - Private properties
+    private enum Size {
+        static let placeholderWidth: CGFloat = 80
+        static let placeholderHeight: CGFloat = 90
+        static let spacing: CGFloat = 8
+    }
     private let placeholderImage = UIImage(resource: .noImagePlug)
-    private var hasMovieImage: Bool = false {
-        didSet {
-            movieImageView.isHidden = !hasMovieImage
-            placeholderImageView.isHidden = hasMovieImage
-        }
+    private var hasMovieImage: Bool {
+        movieImageView.image != placeholderImage
     }
 
     // MARK: - View properties
@@ -35,22 +40,8 @@ final class SessionMovieCell: UICollectionViewCell {
 
     // MARK: - Public Methods
     func configureCell(for viewModel: SessionMovieModel) {
-        movieNameLabel.text = viewModel.name
-        movieNameLabel.textColor = hasMovieImage ? .lightText : .headingText
-        movieImageView.contentMode = .scaleAspectFill
-        movieImageView.clipsToBounds = true
-
-//        let imageName = viewModel.imageName ?? ""
-//        movieImageView.image = imageName == "" ? UIImage() : UIImage(named: imageName)
-        movieImageView.image = placeholderImage
-        hidePlaceholder(movieImageView.image != placeholderImage)
-//        if let imageName = viewModel.imageName {
-//            movieImageView.image = UIImage(named: imageName)
-//            hidePlaceholder(true)
-//        } else {
-//            hidePlaceholder(false)
-//        }
-
+        self.viewModel = viewModel
+        setupValues()
         setupUI()
         contentView.layoutIfNeeded()
     }
@@ -73,9 +64,9 @@ private extension SessionMovieCell {
         }
 
         NSLayoutConstraint.activate([
-            movieNameLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
-            movieNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            movieNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 8),
+            movieNameLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Size.spacing),
+            movieNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.spacing),
+            movieNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.spacing),
             movieNameLabel.heightAnchor.constraint(equalToConstant: .textParagraphHeightTwoLines),
 
             movieImageView.topAnchor.constraint(equalTo: bottomAnchor),
@@ -85,13 +76,34 @@ private extension SessionMovieCell {
 
             placeholderImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             placeholderImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            placeholderImageView.heightAnchor.constraint(equalToConstant: 80),
-            placeholderImageView.widthAnchor.constraint(equalToConstant: 90)
+            placeholderImageView.heightAnchor.constraint(equalToConstant: Size.placeholderWidth),
+            placeholderImageView.widthAnchor.constraint(equalToConstant: Size.placeholderHeight)
         ])
     }
 
-    func hidePlaceholder(_ isShowing: Bool) {
-        movieImageView.isHidden = !isShowing
-        placeholderImageView.isHidden = isShowing
+    func setupValues() {
+        movieNameLabel.text = viewModel.name
+        movieNameLabel.textColor = .headingText
+//        movieNameLabel.textColor = hasMovieImage ? .lightText : .headingText
+        movieImageView.contentMode = .scaleAspectFill
+        movieImageView.clipsToBounds = true
+
+        //        let imageName = viewModel.imageName ?? ""
+        //        movieImageView.image = imageName == "" ? UIImage() : UIImage(named: imageName)
+        movieImageView.image = placeholderImage
+        hidePlaceholder()
+        //        if let imageName = viewModel.imageName {
+        //            movieImageView.image = UIImage(named: imageName)
+        //            hidePlaceholder(true)
+        //        } else {
+        //            hidePlaceholder(false)
+        //        }
+
     }
+
+    func hidePlaceholder() {
+        movieImageView.isHidden = !hasMovieImage
+        placeholderImageView.isHidden = hasMovieImage
+    }
+    
 }
