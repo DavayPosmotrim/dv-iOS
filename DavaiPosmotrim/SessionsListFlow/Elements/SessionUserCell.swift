@@ -7,6 +7,8 @@
 
 import UIKit
 
+// TODO: - wait Alex's cell
+
 final class SessionUserCell: UICollectionViewCell {
 
     // MARK: - Type properties

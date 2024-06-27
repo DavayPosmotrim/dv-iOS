@@ -7,6 +7,8 @@
 
 import UIKit
 
+// TODO: - Wait Eldar's cell
+
 final class SessionMovieCell: UICollectionViewCell {
 
     // MARK: - Type properties
@@ -47,6 +49,7 @@ final class SessionMovieCell: UICollectionViewCell {
     }
 }
 
+// MARK: - Private methods
 private extension SessionMovieCell {
 
     func setupUI() {
@@ -84,26 +87,14 @@ private extension SessionMovieCell {
     func setupValues() {
         movieNameLabel.text = viewModel.name
         movieNameLabel.textColor = .headingText
-//        movieNameLabel.textColor = hasMovieImage ? .lightText : .headingText
         movieImageView.contentMode = .scaleAspectFill
         movieImageView.clipsToBounds = true
-
-        //        let imageName = viewModel.imageName ?? ""
-        //        movieImageView.image = imageName == "" ? UIImage() : UIImage(named: imageName)
         movieImageView.image = placeholderImage
         hidePlaceholder()
-        //        if let imageName = viewModel.imageName {
-        //            movieImageView.image = UIImage(named: imageName)
-        //            hidePlaceholder(true)
-        //        } else {
-        //            hidePlaceholder(false)
-        //        }
-
     }
 
     func hidePlaceholder() {
         movieImageView.isHidden = !hasMovieImage
         placeholderImageView.isHidden = hasMovieImage
     }
-    
 }

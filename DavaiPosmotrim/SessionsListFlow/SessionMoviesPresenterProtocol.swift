@@ -8,6 +8,7 @@
 import Foundation
 
 protocol SessionMoviesPresenterProtocol: AnyObject {
+    // MARK: - Properties
     var coordinator: SessionsListCoordinator? { get }
     var view: SessionMoviesViewControllerProtocol? { get }
     var users: [User] { get }
@@ -15,6 +16,7 @@ protocol SessionMoviesPresenterProtocol: AnyObject {
     var sessionCode: String { get }
     var sessionDateForTitle: String { get }
 
+    // MARK: - Methods
     func viewDidLoad()
     func showMovie(by sessionIndex: Int)
 }

@@ -9,8 +9,10 @@ import UIKit
 
 final class SessionMovieSection: UICollectionReusableView {
 
+    // MARK: - Type properties
     static let sectionID = "SessionMovieSection"
 
+    // MARK: - Inits
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .whiteBackground

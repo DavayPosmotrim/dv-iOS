@@ -83,7 +83,7 @@ extension SessionsListViewController: UITableViewDelegate {
         if indexPath.row == presenter.sessionsCount - 1 {
             presenter.updateSessionsList()
         } else {
-            // TODO: - remove if and keep only the next line
+            // TODO: - wait new MainCoordinator
             presenter.showSessionMovies(by: indexPath.row)
         }
     }

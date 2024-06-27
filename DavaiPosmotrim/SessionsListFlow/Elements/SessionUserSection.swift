@@ -9,8 +9,10 @@ import UIKit
 
 final class SessionUserSection: UICollectionReusableView {
 
+    // MARK: - Type properties
     static let sectionID = "SessionUserSection"
 
+    // MARK: - Inits
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .whiteBackground
