@@ -18,4 +18,5 @@ protocol SessionsListPresenterProtocol: AnyObject {
     func viewDidLoad()
     func updateSessionsList()
     func getSessionForCellBy(index: Int) -> SessionsListViewModel
+    func showSessionMovies(by sessionIndex: Int)
 }
