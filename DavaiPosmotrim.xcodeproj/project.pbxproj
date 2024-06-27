@@ -77,6 +77,7 @@
 		E2B9BFAC2BD8034C00592578 /* OnboardingPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFAB2BD8034C00592578 /* OnboardingPresenterProtocol.swift */; };
 		E2B9BFAE2BD8080100592578 /* OnboardingSceneFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFAD2BD8080100592578 /* OnboardingSceneFactory.swift */; };
 		E916A4AB2C26EA6D00B2C5D7 /* SessionsListViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E916A4AA2C26EA6D00B2C5D7 /* SessionsListViewControllerProtocol.swift */; };
+		E9512FB82C29FA4F006CA977 /* SessionUserHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9512FB72C29FA4F006CA977 /* SessionUserHeader.swift */; };
 		E95F00A42C271851001AAE7E /* SessionUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95F00A32C271851001AAE7E /* SessionUserCell.swift */; };
 		E95F00A62C272381001AAE7E /* SessionMovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95F00A52C272381001AAE7E /* SessionMovieCell.swift */; };
 		E9A2701F2BE4C2940088652B /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A2701E2BE4C2940088652B /* CGFloat+Extensions.swift */; };
@@ -162,6 +163,7 @@
 		E2B9BFAB2BD8034C00592578 /* OnboardingPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPresenterProtocol.swift; sourceTree = "<group>"; };
 		E2B9BFAD2BD8080100592578 /* OnboardingSceneFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSceneFactory.swift; sourceTree = "<group>"; };
 		E916A4AA2C26EA6D00B2C5D7 /* SessionsListViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsListViewControllerProtocol.swift; sourceTree = "<group>"; };
+		E9512FB72C29FA4F006CA977 /* SessionUserHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionUserHeader.swift; sourceTree = "<group>"; };
 		E95F00A32C271851001AAE7E /* SessionUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionUserCell.swift; sourceTree = "<group>"; };
 		E95F00A52C272381001AAE7E /* SessionMovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionMovieCell.swift; sourceTree = "<group>"; };
 		E9A2701E2BE4C2940088652B /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
@@ -449,6 +451,7 @@
 				E9A9E74B2C133CC600AEF879 /* SessionsListEmptyView.swift */,
 				E95F00A32C271851001AAE7E /* SessionUserCell.swift */,
 				E95F00A52C272381001AAE7E /* SessionMovieCell.swift */,
+				E9512FB72C29FA4F006CA977 /* SessionUserHeader.swift */,
 			);
 			path = Elements;
 			sourceTree = "<group>";
@@ -584,6 +587,7 @@
 				C91DCC762BFEA1FA001BC065 /* JoinSessionPresenter.swift in Sources */,
 				E9FA32F02C1A309300036043 /* SessionsListPresenter.swift in Sources */,
 				E95F00A62C272381001AAE7E /* SessionMovieCell.swift in Sources */,
+				E9512FB82C29FA4F006CA977 /* SessionUserHeader.swift in Sources */,
 				C91332D72C10BEEB0036FC44 /* MovieSelectionOnboardingPresenter.swift in Sources */,
 				C9147CB32C067FCC0086A663 /* DismissJoinSessionDelegate.swift in Sources */,
 				C917E3F72BE6CF8200B34639 /* AuthViewProtocol.swift in Sources */,
