@@ -86,6 +86,20 @@ enum Resources {
         static let customLabelNoButtonText = "Нет".uppercased()
     }
 
+    enum InvitingSession {
+        static let lowerLabelText = "Если вы пригласили друзей – дождитесь, когда\n они подключаться, прежде чем начать сеанс."
+        static let codeCopyWarningText = "Код сеанса успешно скопирован"
+        static let fewUsersWarningText = "Должно быть хотя бы два участника"
+
+        static let inviteButtonLabelText = "Пригласить".uppercased()
+        static let startButtonLabelText = "Начать сеанс".uppercased()
+        static let cancelButtonLabelText = "Отменить сеанс".uppercased()
+        static let usersLabelText = "Участники"
+
+        static let customLabelUpperText = "Отменить?"
+        static let customLabelLowerText = "Вы действительно хотите отменить уже созданный сеанс?"
+    }
+
     enum MainFlow {
         static let descriptionLabelText = """
     Забудьте о бесконечных спорах и компромиссах

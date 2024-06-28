@@ -58,6 +58,7 @@ private extension MainCoordinator {
     func showCreateSessionFlow() {
         let createSessionCoordinator = CreateSessionCoordinator(
             type: .createSession,
+            finishDelegate: finishDelegate,
             navigationController: navigationController
         )
         addChild(createSessionCoordinator)
