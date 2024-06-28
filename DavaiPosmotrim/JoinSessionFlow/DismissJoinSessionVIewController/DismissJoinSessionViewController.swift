@@ -12,6 +12,8 @@ final class DismissJoinSessionViewController: UIViewController {
     // MARK: - Stored properties
 
     private var customAlertModel: CustomAlertModel?
+    private var alertTitle: String?
+    private var alertMessage: String?
     weak var delegate: DismissJoinSessionDelegate?
 
     // MARK: - Lazy properties
@@ -33,6 +35,16 @@ final class DismissJoinSessionViewController: UIViewController {
         setupView()
     }
 
+    init(alertTitle: String? = nil, alertMessage: String? = nil) {
+        self.alertTitle = alertTitle
+        self.alertMessage = alertMessage
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     // MARK: - Private methods
 
     private func setupView() {
@@ -48,9 +60,12 @@ final class DismissJoinSessionViewController: UIViewController {
     }
 
     private func setupAlert() {
+        let title = alertTitle ?? Resources.JoinSession.customLabelUpperText
+        let alertMessage = alertMessage ?? Resources.JoinSession.customLabelLowerText
+
         customAlertModel = CustomAlertModel(
-            alertTitle: Resources.JoinSession.customLabelUpperText,
-            alertMessage: Resources.JoinSession.customLabelLowerText,
+            alertTitle: title,
+            alertMessage: alertMessage,
             yesAction: { [weak self] in
                 guard let self else { return }
                 self.dismiss(animated: true)

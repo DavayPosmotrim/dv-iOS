@@ -31,7 +31,7 @@ final class MainCoordinator: BaseCoordinator {
         case Keys.createSessionViewController:
             showCreateSessionFlow()
         case Keys.favoriteMoviesViewController:
-            showFavoriteMoviesFlow()
+                showSessionsList()
         case Keys.joinSessionViewController:
             showJoinSessionFlow()
         default:
@@ -58,15 +58,11 @@ private extension MainCoordinator {
     func showCreateSessionFlow() {
         let createSessionCoordinator = CreateSessionCoordinator(
             type: .createSession,
+            finishDelegate: finishDelegate,
             navigationController: navigationController
         )
         addChild(createSessionCoordinator)
         createSessionCoordinator.start()
-    }
-
-    func showFavoriteMoviesFlow() {
-        let favoriteMoviesViewController = FavoriteMoviesViewController()
-        navigationController.setViewControllers([favoriteMoviesViewController], animated: true)
     }
 
     func showJoinSessionFlow() {
@@ -76,5 +72,14 @@ private extension MainCoordinator {
         )
         addChild(authSessionCoordinator)
         authSessionCoordinator.start()
+    }
+
+    func showSessionsList() {
+        let sessionsListCoordinator = SessionsListCoordinator(
+            type: .sessionsList,
+            navigationController: navigationController
+        )
+        addChild(sessionsListCoordinator)
+        sessionsListCoordinator.start()
     }
 }

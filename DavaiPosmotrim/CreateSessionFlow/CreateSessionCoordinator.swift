@@ -14,8 +14,7 @@ final class CreateSessionCoordinator: BaseCoordinator {
     }
 
     func showInvitingUsersFlow() {
-        let invitingUsersViewController = InvitingUsersViewController()
-        navigationController.pushViewController(invitingUsersViewController, animated: true)
+        showInvitingUsersScreen()
     }
 
     override func finish() {
@@ -27,5 +26,15 @@ private extension CreateSessionCoordinator {
     func showCreateSessionScreen() {
         let createSessionViewController = CreateSessionFactory.createSessionViewController(with: self)
         navigationController.pushViewController(createSessionViewController, animated: true)
+    }
+
+    func showInvitingUsersScreen() {
+        let inviteUserCoordinator = InvitingUsersCoordinator(
+            type: .inviteUsers,
+            finishDelegate: finishDelegate,
+            navigationController: navigationController
+        )
+        addChild(inviteUserCoordinator)
+        inviteUserCoordinator.start()
     }
 }
