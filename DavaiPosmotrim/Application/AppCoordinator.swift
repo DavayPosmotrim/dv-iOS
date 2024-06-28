@@ -9,14 +9,13 @@ import UIKit
 
 final class AppCoordinator: BaseCoordinator {
     override func start() {
-//        if UserDefaults.standard.value(forKey: Resources.Onboarding.onboardingUserDefaultsKey) == nil {
-//            showOnboardingFlow()
-//        } else if UserDefaults.standard.value(forKey: Resources.Authentication.savedNameUserDefaultsKey) == nil {
-//            showAuthFlow()
-//        } else {
-//            showMainFlow()
-//        }
-        showCoincidencesFlow()
+        if UserDefaults.standard.value(forKey: Resources.Onboarding.onboardingUserDefaultsKey) == nil {
+            showOnboardingFlow()
+        } else if UserDefaults.standard.value(forKey: Resources.Authentication.savedNameUserDefaultsKey) == nil {
+            showAuthFlow()
+        } else {
+            showMainFlow()
+        }
     }
 
     override func finish() {

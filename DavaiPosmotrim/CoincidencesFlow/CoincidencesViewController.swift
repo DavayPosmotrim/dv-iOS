@@ -145,6 +145,7 @@ final class CoincidencesViewController: UIViewController {
             leftButtonImage: UIImage.customBackIcon,
             leftAction: { [weak self] in
                 guard let self else { return }
+                // TODO: - add code to dismiss screen
                 print("Left button")
             }
         )
@@ -157,6 +158,7 @@ final class CoincidencesViewController: UIViewController {
             rightButtonLabelText: nil,
             rightAction: { [weak self] in
                 guard let self else { return }
+                // TODO: - add code to jump to other viewController
                 print("Right button")
             }
         )
