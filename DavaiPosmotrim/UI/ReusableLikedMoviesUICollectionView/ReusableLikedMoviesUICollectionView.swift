@@ -18,6 +18,8 @@ final class ReusableLikedMoviesUICollectionView: UIView {
         lineSpacing: 16
     )
 
+    private var paddingViewHeightAnchor: NSLayoutConstraint?
+
     // MARK: - Lazy properties
 
     private lazy var collectionView: UICollectionView = {
@@ -79,9 +81,11 @@ final class ReusableLikedMoviesUICollectionView: UIView {
 
             paddingView.leadingAnchor.constraint(equalTo: leadingAnchor),
             paddingView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            paddingView.topAnchor.constraint(equalTo: collectionView.topAnchor, constant: 40),
-            paddingView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            paddingView.topAnchor.constraint(equalTo: topAnchor, constant: 40)
         ])
+
+        paddingViewHeightAnchor = paddingView.heightAnchor.constraint(equalTo: heightAnchor)
+        paddingViewHeightAnchor?.isActive = true
     }
 }
 
@@ -123,5 +127,7 @@ extension ReusableLikedMoviesUICollectionView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset
         paddingView.transform = CGAffineTransform(translationX: 0, y: min(-offset.y - scrollView.contentInset.top, 0))
+
+        paddingViewHeightAnchor?.constant = max(0, offset.y + 40)
     }
 }
