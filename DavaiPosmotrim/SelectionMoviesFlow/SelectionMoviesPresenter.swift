@@ -122,7 +122,11 @@ final class SelectionMoviesPresenter: SelectionMoviesPresenterProtocol {
         coordinator?.showMatchFlow()
     }
 
-    func backButtonTapped() {
-        coordinator?.finish()
+    func cancelButtonTapped() {
+        view?.showCancelSessionDialog()
     }
+
+//    func cancelButtonTapped() {
+//        coordinator?.finish()
+//    }
 }
