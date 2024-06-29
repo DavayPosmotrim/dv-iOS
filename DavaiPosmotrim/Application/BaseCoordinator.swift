@@ -34,6 +34,10 @@ class BaseCoordinator: CoordinatorProtocol {
         print("Coordinator start")
     }
 
+    func startSplash() {
+        print("Splash start")
+    }
+
     func finish() {
         print("Coordinator finish")
     }

@@ -29,4 +29,6 @@ extension UIFont {
     static let textButtonBoldFont = UIFont(name: "Inter-SemiBold", size: 14)
     /// Base/Description - Inter 16px
     static let textDescriptionRegularFont = UIFont(name: "Inter-Regular", size: 16)
+    /// Base/Splash - Inter 20px
+    static let textSplashFont = UIFont(name: "Inter-Regular", size: 20)
 }
