@@ -131,9 +131,21 @@ enum Resources {
     enum SelectionMovies {
         static let titleNavBarText = "Выберите фильм"
 
-        static let customLabelTitleText = "Покинуть сеанс?"
-        static let customLabelUpperText = "Сеанс будет завершён у всех участников."
-        static let customLabelLowerText = "Все совпавшие фильмы вы найдёте в разделе «Понравившиеся фильмы»."
+        static let customLabelUpperText = "Покинуть сеанс?"
+        static let customLabelLowerText = """
+    Сеанс будет завершён у всех участников.
+
+    Все совпавшие фильмы вы найдёте в разделе «Понравившиеся фильмы».
+    """
+
+        static let customOneButtonLabelUpperText = "Сеанс завершён"
+        static let customOneButtonLabelLowerText = """
+    Участник покинул сеанс.
+
+    Все совпавшие фильмы вы найдёте в разделе «Понравившиеся фильмы».
+    """
+
+        static let customOneButtonText = "ХОРОШО"
     }
 
     enum SessionsList {

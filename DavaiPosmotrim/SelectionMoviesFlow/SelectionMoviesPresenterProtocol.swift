@@ -21,4 +21,5 @@ protocol SelectionMoviesPresenterProtocol: AnyObject {
     func removeFromLikedMovies(withId id: UUID)
     func didTapMatchRightButton()
     func cancelButtonTapped()
+    func cancelButtonAlertTapped()
 }

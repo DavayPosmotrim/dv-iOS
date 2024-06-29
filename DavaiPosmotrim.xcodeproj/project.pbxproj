@@ -38,6 +38,9 @@
 		4AAEABBD2C1DD6FA00A14C1D /* MatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAEABBC2C1DD6FA00A14C1D /* MatchViewController.swift */; };
 		4AAEABBF2C261BCB00A14C1D /* SelectionMoviesViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAEABBE2C261BCB00A14C1D /* SelectionMoviesViewProtocol.swift */; };
 		4AAEABC12C2D99D700A14C1D /* CustomProgressButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAEABC02C2D99D700A14C1D /* CustomProgressButton.swift */; };
+		4AAEABC32C2F04D100A14C1D /* CustomAlertOneButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAEABC22C2F04D100A14C1D /* CustomAlertOneButtonView.swift */; };
+		4AAEABC62C301D4000A14C1D /* DismissSelectionMoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAEABC52C301D4000A14C1D /* DismissSelectionMoviesViewController.swift */; };
+		4AAEABC82C301D6A00A14C1D /* DismissSelectionMoviesDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAEABC72C301D6A00A14C1D /* DismissSelectionMoviesDelegate.swift */; };
 		4AE89A442C08ACF9008DD0D4 /* SelectionMoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE89A432C08ACF9008DD0D4 /* SelectionMoviesViewController.swift */; };
 		4AE89A472C08AF53008DD0D4 /* CustomNavigationBarTwoButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE89A462C08AF53008DD0D4 /* CustomNavigationBarTwoButtons.swift */; };
 		4AE89A492C0B2275008DD0D4 /* CustomMovieSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE89A482C0B2274008DD0D4 /* CustomMovieSelection.swift */; };
@@ -141,6 +144,9 @@
 		4AAEABBC2C1DD6FA00A14C1D /* MatchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchViewController.swift; sourceTree = "<group>"; };
 		4AAEABBE2C261BCB00A14C1D /* SelectionMoviesViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionMoviesViewProtocol.swift; sourceTree = "<group>"; };
 		4AAEABC02C2D99D700A14C1D /* CustomProgressButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressButton.swift; sourceTree = "<group>"; };
+		4AAEABC22C2F04D100A14C1D /* CustomAlertOneButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertOneButtonView.swift; sourceTree = "<group>"; };
+		4AAEABC52C301D4000A14C1D /* DismissSelectionMoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissSelectionMoviesViewController.swift; sourceTree = "<group>"; };
+		4AAEABC72C301D6A00A14C1D /* DismissSelectionMoviesDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissSelectionMoviesDelegate.swift; sourceTree = "<group>"; };
 		4AE89A432C08ACF9008DD0D4 /* SelectionMoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionMoviesViewController.swift; sourceTree = "<group>"; };
 		4AE89A462C08AF53008DD0D4 /* CustomNavigationBarTwoButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBarTwoButtons.swift; sourceTree = "<group>"; };
 		4AE89A482C0B2274008DD0D4 /* CustomMovieSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMovieSelection.swift; sourceTree = "<group>"; };
@@ -263,9 +269,19 @@
 			path = MatchFlow;
 			sourceTree = "<group>";
 		};
+		4AAEABC42C301D3400A14C1D /* DismissSelectionMoviesViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4AAEABC52C301D4000A14C1D /* DismissSelectionMoviesViewController.swift */,
+				4AAEABC72C301D6A00A14C1D /* DismissSelectionMoviesDelegate.swift */,
+			);
+			path = DismissSelectionMoviesViewController;
+			sourceTree = "<group>";
+		};
 		4AE89A452C08AD0C008DD0D4 /* SelectionMoviesFlow */ = {
 			isa = PBXGroup;
 			children = (
+				4AAEABC42C301D3400A14C1D /* DismissSelectionMoviesViewController */,
 				4AAEABA12C0C66D400A14C1D /* SelectionMovieMockData.swift */,
 				4AAEABA32C0C673800A14C1D /* SelectionMovieCellModel.swift */,
 				4AE89A432C08ACF9008DD0D4 /* SelectionMoviesViewController.swift */,
@@ -325,6 +341,7 @@
 				4A62804B2BF0EB7300102304 /* CustomWarningNotification.swift */,
 				4A2FB3AF2BF780150048F5B9 /* CustomSegmentedControl.swift */,
 				C9147CB02C0611F50086A663 /* CustomAlertView.swift */,
+				4AAEABC22C2F04D100A14C1D /* CustomAlertOneButtonView.swift */,
 				4AE89A462C08AF53008DD0D4 /* CustomNavigationBarTwoButtons.swift */,
 				4AAEABC02C2D99D700A14C1D /* CustomProgressButton.swift */,
 			);
@@ -673,6 +690,7 @@
 				C90CAB342BFAFA1100B42456 /* JoinSessionViewController.swift in Sources */,
 				C91DCC7E2C006AE1001BC065 /* ReusableUICollectionView.swift in Sources */,
 				C91DCC762BFEA1FA001BC065 /* JoinSessionPresenter.swift in Sources */,
+				4AAEABC82C301D6A00A14C1D /* DismissSelectionMoviesDelegate.swift in Sources */,
 				E9FA32F02C1A309300036043 /* SessionsListPresenter.swift in Sources */,
 				C91332D72C10BEEB0036FC44 /* MovieSelectionOnboardingPresenter.swift in Sources */,
 				C9147CB32C067FCC0086A663 /* DismissJoinSessionDelegate.swift in Sources */,
@@ -707,8 +725,10 @@
 				E2B9BF932BD7C45B00592578 /* BaseCoordinator.swift in Sources */,
 				E9C34A352C136085002628F9 /* SessionsListModel.swift in Sources */,
 				C91332DE2C11F0C20036FC44 /* ReusableOnboardingView.swift in Sources */,
+				4AAEABC32C2F04D100A14C1D /* CustomAlertOneButtonView.swift in Sources */,
 				E9FA32EE2C1A2FF300036043 /* SessionsListPresenterProtocol.swift in Sources */,
 				C9AF1EB52C0A0FA90080FC4A /* OnboardingPresenter.swift in Sources */,
+				4AAEABC62C301D4000A14C1D /* DismissSelectionMoviesViewController.swift in Sources */,
 				C917E3FB2BE6D12000B34639 /* AuthSceneFactory.swift in Sources */,
 				4AAEABA22C0C66D400A14C1D /* SelectionMovieMockData.swift in Sources */,
 				4AAEABBD2C1DD6FA00A14C1D /* MatchViewController.swift in Sources */,

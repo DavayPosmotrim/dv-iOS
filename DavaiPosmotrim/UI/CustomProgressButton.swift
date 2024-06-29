@@ -31,7 +31,7 @@ final class ProgressButton: UIView {
         button.layer.masksToBounds = true
         return button
     }()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -107,14 +107,12 @@ final class ProgressButton: UIView {
             clockwise: true
         )
         progressPath.close()
-
         progressLayer.path = progressPath.cgPath
         progressLayer.strokeColor = UIColor.baseSecondaryAccent.cgColor
         progressLayer.lineWidth = 3
         progressLayer.fillColor = UIColor.clear.cgColor
         progressLayer.lineCap = .round
         progressLayer.strokeEnd = 0
-
         layer.addSublayer(progressLayer)
     }
 
@@ -125,7 +123,6 @@ final class ProgressButton: UIView {
         animation.fillMode = .forwards
         animation.isRemovedOnCompletion = false
         animation.delegate = self
-
         progressLayer.add(animation, forKey: "progressAnim")
     }
 
@@ -141,6 +138,7 @@ final class ProgressButton: UIView {
 }
 
 // MARK: - CAAnimationDelegate
+
 extension ProgressButton: CAAnimationDelegate {
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         if flag {

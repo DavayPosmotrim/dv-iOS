@@ -126,7 +126,8 @@ final class SelectionMoviesPresenter: SelectionMoviesPresenterProtocol {
         view?.showCancelSessionDialog()
     }
 
-//    func cancelButtonTapped() {
-//        coordinator?.finish()
-//    }
+    func cancelButtonAlertTapped() {
+    //TODO: - настроить отмену сессии, когда подключим сеть
+        coordinator?.finish()
+    }
 }

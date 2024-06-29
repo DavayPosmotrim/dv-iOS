@@ -229,14 +229,13 @@ extension SelectionMoviesViewController: SelectionMoviesViewProtocol {
     }
 
     func showCancelSessionDialog() {
-//        guard let navigationController else { return }
-//        let title = Resources.SelectionMovies.customLabelUpperText
-//        let message = Resources.SelectionMovies.customLabelLowerText
-//        let viewController = DismissJoinSessionViewController(alertTitle: title, alertMessage: message)
-//        viewController.delegate = self
-//        viewController.modalPresentationStyle = .overCurrentContext
-//        viewController.modalTransitionStyle = .crossDissolve
-//        navigationController.present(viewController, animated: true)
+        //TODO: - настроить нужный показ алерта, когда подключим сеть
+        guard let navigationController else { return }
+        let viewController = DismissSelectionMoviesViewController(alertType: .oneButton)
+        viewController.delegate = self
+        viewController.modalPresentationStyle = .overCurrentContext
+        viewController.modalTransitionStyle = .crossDissolve
+        navigationController.present(viewController, animated: true)
     }
 }
 
@@ -265,5 +264,13 @@ extension SelectionMoviesViewController: CustomNavigationBarTwoButtonsDelegate {
 
     func backButtonTapped() {
         presenter.cancelButtonTapped()
+    }
+}
+
+// MARK: - DismissJoinSessionDelegate
+
+extension SelectionMoviesViewController: DismissSelectionMoviesDelegate {
+    func finishSelectionMoviesFlow() {
+        presenter.cancelButtonAlertTapped()
     }
 }
