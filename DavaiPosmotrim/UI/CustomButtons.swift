@@ -72,9 +72,9 @@ final class CustomButtons: UIView {
     }
 
     override func layoutSubviews() {
-            super.layoutSubviews()
-            setupProgressLayer()
-        }
+        super.layoutSubviews()
+        setupProgressLayer()
+    }
 
     // MARK: - Public methods
 
@@ -148,13 +148,13 @@ final class CustomButtons: UIView {
     }
 
     func startProgress(duration: TimeInterval) {
-        let animation = CABasicAnimation(keyPath: Resources.CustomButtons.strokeEnd)
+        let animation = CABasicAnimation(keyPath: Resources.AnimationKeys.strokeEnd)
         animation.toValue = 1
         animation.duration = duration
         animation.fillMode = .forwards
         animation.isRemovedOnCompletion = false
         animation.delegate = self
-        progressLayer.add(animation, forKey: Resources.CustomButtons.progressAnimation)
+        progressLayer.add(animation, forKey: Resources.AnimationKeys.progressAnimation)
     }
 
     // MARK: - Handlers

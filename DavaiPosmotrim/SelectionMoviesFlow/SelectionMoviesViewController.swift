@@ -229,9 +229,8 @@ extension SelectionMoviesViewController: SelectionMoviesViewProtocol {
     }
 
     func showCancelSessionDialog() {
-        //TODO: - настроить нужный показ алерта, когда подключим сеть
         guard let navigationController else { return }
-        let viewController = DismissSelectionMoviesViewController(alertType: .oneButton)
+        let viewController = DismissSelectionMoviesViewController()
         viewController.delegate = self
         viewController.modalPresentationStyle = .overCurrentContext
         viewController.modalTransitionStyle = .crossDissolve

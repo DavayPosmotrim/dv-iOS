@@ -7,35 +7,19 @@
 
 import UIKit
 
-enum AlertType {
-    case twoButtons
-    case oneButton
-}
-
 final class DismissSelectionMoviesViewController: UIViewController {
 
     // MARK: - Stored properties
 
-    private var customAlertOneButtonModel: CustomAlertOneButtonModel?
     private var customAlertModel: CustomAlertModel?
-    private var alertTitle: String?
-    private var alertMessage: String?
-    private var alertType: AlertType
+    //TODO: - настроить нужный показ алерта, когда подключим сеть
+    private var alertType: AlertType = .oneButton
     weak var delegate: DismissSelectionMoviesDelegate?
 
     // MARK: - Lazy properties
 
-    private lazy var customAlert: UIView = {
-        switch alertType {
-        case .twoButtons:
-            let view = CustomAlertView()
-            view.setupCustomAlert(with: customAlertModel)
-            return view
-        case .oneButton:
-            let view = CustomAlertOneButtonView()
-            view.setupCustomAlertOneButton(with: customAlertOneButtonModel)
-            return view
-        }
+    private lazy var customAlert: CustomAlertView = {
+        return CustomAlertView()
     }()
 
     // MARK: - Lifecycle
@@ -44,15 +28,6 @@ final class DismissSelectionMoviesViewController: UIViewController {
         super.viewDidLoad()
         setupAlert()
         setupView()
-    }
-
-    init(alertType: AlertType) {
-        self.alertType = alertType
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: - Private methods
@@ -71,33 +46,36 @@ final class DismissSelectionMoviesViewController: UIViewController {
     }
 
     private func setupAlert() {
+        let alertTitle: String
+        let alertMessage: String
         switch alertType {
         case .twoButtons:
-            customAlertModel = CustomAlertModel(
-                alertTitle: Resources.SelectionMovies.customLabelUpperText,
-                alertMessage: Resources.SelectionMovies.customLabelLowerText,
-                yesAction: { [weak self] in
-                    guard let self = self else { return }
-                    self.delegate?.finishSelectionMoviesFlow()
-                    self.dismiss(animated: true)
-                },
-                noAction: { [weak self] in
-                    guard let self = self else { return }
-                    self.dismiss(animated: true)
-                })
-            (customAlert as? CustomAlertView)?.setupCustomAlert(with: customAlertModel)
-
+            alertTitle = Resources.SelectionMovies.customLabelUpperText
+            alertMessage = Resources.SelectionMovies.customLabelLowerText
         case .oneButton:
-            customAlertOneButtonModel = CustomAlertOneButtonModel(
-                alertTitle: Resources.SelectionMovies.customOneButtonLabelUpperText,
-                alertMessage: Resources.SelectionMovies.customOneButtonLabelLowerText,
-                progressAction: { [weak self] in
-                    guard let self = self else { return }
-
-                    self.delegate?.finishSelectionMoviesFlow()
-                    self.dismiss(animated: true)
-                })
-            (customAlert as? CustomAlertOneButtonView)?.setupCustomAlertOneButton(with: customAlertOneButtonModel)
+            alertTitle = Resources.SelectionMovies.customOneButtonLabelUpperText
+            alertMessage = Resources.SelectionMovies.customOneButtonLabelLowerText
         }
+
+        customAlertModel = CustomAlertModel(
+            alertTitle: alertTitle,
+            alertMessage: alertMessage,
+            yesAction: { [weak self] in
+                guard let self = self else { return }
+                self.delegate?.finishSelectionMoviesFlow()
+                self.dismiss(animated: true)
+            },
+            noAction: { [weak self] in
+                guard let self = self else { return }
+                self.dismiss(animated: true)
+            },
+            progressAction: { [weak self] in
+                guard let self = self else { return }
+                self.delegate?.finishSelectionMoviesFlow()
+                self.dismiss(animated: true)
+            },
+            alertType: alertType
+        )
+        customAlert.setupCustomAlert(with: customAlertModel)
     }
 }
