@@ -57,11 +57,11 @@ final class CustomAlertOneButtonView: UIView {
         return label
     }()
 
-    private lazy var progressButton: ProgressButton = {
-        let button = ProgressButton()
-        button.setupView(with: button.blackButton)
-        button.blackButton.setTitle(Resources.SelectionMovies.customOneButtonText, for: .normal)
-        button.blackButton.addTarget(
+    private lazy var progressButton: CustomButtons = {
+        let button = CustomButtons()
+        button.setupView(with: button.progressButton)
+        button.progressButton.setTitle(Resources.SelectionMovies.customOneButtonText, for: .normal)
+        button.progressButton.addTarget(
             self,
             action: #selector(didTapProgressButton),
             for: .touchUpInside

@@ -145,7 +145,7 @@ enum Resources {
     Все совпавшие фильмы вы найдёте в разделе «Понравившиеся фильмы».
     """
 
-        static let customOneButtonText = "ХОРОШО"
+        static let customOneButtonText = "Хорошо".uppercased()
     }
 
     enum SessionsList {
