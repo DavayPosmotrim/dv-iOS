@@ -8,7 +8,9 @@
 import Foundation
 
 protocol CoincidencesPresenterProtocol: AnyObject {
-    var moviesArray: [ReusableLikedMoviesCellModel] { get set }
+    var moviesCount: Int { get }
+    var isArrayEmpty: Bool { get }
+
     func diceButtonTapped()
     func getMoviesAtIndex(index: Int) -> ReusableLikedMoviesCellModel
     func downloadMoviesArrayFromServer()

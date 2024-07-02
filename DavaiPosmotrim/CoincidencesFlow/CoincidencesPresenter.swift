@@ -14,9 +14,20 @@ final class CoincidencesPresenter: CoincidencesPresenterProtocol {
     weak var coordinator: CoincidencesCoordinator?
     weak var view: CoincidencesViewProtocol?
 
-    var moviesArray = [ReusableLikedMoviesCellModel]() {
+    var moviesCount: Int {
+        moviesArray.count
+    }
+
+    var isArrayEmpty: Bool {
+        moviesArray.isEmpty
+    }
+
+    // MARK: - Private Properties
+
+    private var moviesArray = [ReusableLikedMoviesCellModel]() {
         didSet {
             view?.updateUIElements()
+            updateReusableCollection()
         }
     }
 
@@ -29,8 +40,9 @@ final class CoincidencesPresenter: CoincidencesPresenterProtocol {
     // MARK: - Public methods
 
     func diceButtonTapped() {
-        guard let coordinator else { return }
-        coordinator.finish()
+//        guard let coordinator else { return }
+//        coordinator.finish()
+        downloadMoviesArrayFromServer()
     }
 
     func getMoviesAtIndex(index: Int) -> ReusableLikedMoviesCellModel {
@@ -40,22 +52,34 @@ final class CoincidencesPresenter: CoincidencesPresenterProtocol {
     // Метод для имитации загрузки фильмов
     func downloadMoviesArrayFromServer() {
         let downloadedMovies = [
-            ReusableLikedMoviesCellModel(title: "Into the wild", image: UIImage.mok7),
-            ReusableLikedMoviesCellModel(title: "Дюна", image: UIImage.mok8),
-            ReusableLikedMoviesCellModel(title: "Даласский клуб покупателей", image: UIImage.mok9),
-            ReusableLikedMoviesCellModel(title: "Властелин колец: Две крепости", image: nil),
-            ReusableLikedMoviesCellModel(title: "Into the wild", image: UIImage.mok7),
-            ReusableLikedMoviesCellModel(title: "Дюна", image: UIImage.mok8),
-            ReusableLikedMoviesCellModel(title: "Очень длинное название фильма. Такое длинное, что такие, наверное, просто не смотрят", image: UIImage.mok9),
-            ReusableLikedMoviesCellModel(title: "Властелин колец: Братство кольца", image: nil),
-            ReusableLikedMoviesCellModel(title: "1917", image: nil),
-            ReusableLikedMoviesCellModel(title: "Грань будущего", image: nil),
-            ReusableLikedMoviesCellModel(title: "Звездные войны: Возвращение джедая", image: nil),
-            ReusableLikedMoviesCellModel(title: "Властелин колец: Возвращение короля", image: nil)
+            ReusableLikedMoviesCellModel(title: "Into the wild", imageName: "Mok_7"),
+            ReusableLikedMoviesCellModel(title: "Дюна", imageName: "Mok_8"),
+            ReusableLikedMoviesCellModel(title: "Даласский клуб покупателей", imageName: "Mok_9"),
+            ReusableLikedMoviesCellModel(title: "Властелин колец: Две крепости", imageName: nil),
+            ReusableLikedMoviesCellModel(title: "Into the wild", imageName: "Mok_7"),
+            ReusableLikedMoviesCellModel(title: "Дюна", imageName: "Mok_8"),
+            ReusableLikedMoviesCellModel(title: "Очень длинное название фильма. Такое длинное, что такие, наверное, просто не смотрят", imageName: "Mok_9"),
+            ReusableLikedMoviesCellModel(title: "Властелин колец: Братство кольца", imageName: nil),
+            ReusableLikedMoviesCellModel(title: "1917", imageName: nil),
+            ReusableLikedMoviesCellModel(title: "Грань будущего", imageName: nil),
+            ReusableLikedMoviesCellModel(title: "Звездные войны: Возвращение джедая", imageName: nil),
+            ReusableLikedMoviesCellModel(title: "Властелин колец: Возвращение короля", imageName: nil)
         ]
 
         for movie in downloadedMovies {
             self.moviesArray.append(movie)
         }
+    }
+}
+
+    // MARK: - Private methods
+
+private extension CoincidencesPresenter {
+
+    func updateReusableCollection() {
+        NotificationCenter.default.post(
+            name: NSNotification.Name(Resources.ReusableLikedMoviesCollectionView.updateCollectionView),
+            object: nil
+        )
     }
 }

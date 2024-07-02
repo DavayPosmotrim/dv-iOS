@@ -11,7 +11,7 @@ final class CoincidencesViewController: UIViewController {
 
     // MARK: - Stored Properties
 
-    var presenter: CoincidencesPresenterProtocol?
+    private var presenter: CoincidencesPresenterProtocol
     private var customNavBarModel: CustomNavBarModel?
     private var customNavBarRightButtonModel: CustomNavBarRightButtonModel?
 
@@ -89,19 +89,19 @@ final class CoincidencesViewController: UIViewController {
         setupSubviews()
         setupConstraints()
 
-        presenter?.downloadMoviesArrayFromServer()
+        presenter.downloadMoviesArrayFromServer()
     }
+}
 
     // MARK: - Private methods
 
-    private func setupSubviews() {
-        [navBarView, paddingView, stackView].forEach {
+private extension CoincidencesViewController {
+
+    func setupSubviews() {
+        [collectionView, navBarView, paddingView, stackView].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
-
-        view.insertSubview(collectionView, belowSubview: navBarView)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
 
         [plugImageView, plugLabel].forEach {
             stackView.addArrangedSubview($0)
@@ -109,7 +109,7 @@ final class CoincidencesViewController: UIViewController {
         }
     }
 
-    private func setupConstraints() {
+    func setupConstraints() {
         let safeArea = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
             navBarView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -125,12 +125,6 @@ final class CoincidencesViewController: UIViewController {
             stackView.centerXAnchor.constraint(equalTo: paddingView.centerXAnchor),
             stackView.centerYAnchor.constraint(equalTo: paddingView.centerYAnchor),
 
-            plugImageView.topAnchor.constraint(equalTo: stackView.topAnchor),
-
-            plugLabel.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
-            plugLabel.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
-            plugLabel.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
-
             collectionView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             collectionView.topAnchor.constraint(equalTo: navBarView.bottomAnchor, constant: -24),
@@ -138,28 +132,26 @@ final class CoincidencesViewController: UIViewController {
         ])
     }
 
-    private func setupNavBarModel() {
+    func setupNavBarModel() {
         customNavBarModel = CustomNavBarModel(
             titleText: Resources.Coincidences.navBarText,
             subtitleText: nil,
             leftButtonImage: UIImage.customBackIcon,
             leftAction: { [weak self] in
                 guard let self else { return }
-                // TODO: - add code to dismiss screen
-                print("Left button")
+                self.navigationController?.popViewController(animated: true)
             }
         )
     }
 
-    private func setupRightButtonModel() {
+    func setupRightButtonModel() {
         customNavBarRightButtonModel = CustomNavBarRightButtonModel(
             rightButtonImage: UIImage.diceIcon,
             isRightButtonLabelHidden: true,
             rightButtonLabelText: nil,
             rightAction: { [weak self] in
                 guard let self else { return }
-                // TODO: - add code to jump to other viewController
-                print("Right button")
+                self.presenter.diceButtonTapped()
             }
         )
     }
@@ -169,13 +161,16 @@ final class CoincidencesViewController: UIViewController {
 
 extension CoincidencesViewController: CoincidencesViewProtocol {
     func updateUIElements() {
-        guard let presenter else { return }
-        if !presenter.moviesArray.isEmpty {
+        if !presenter.isArrayEmpty {
             setupRightButtonModel()
             navBarView.setupRightButton(with: customNavBarRightButtonModel)
             paddingView.isHidden = true
             stackView.isHidden = true
             collectionView.isHidden = false
+        } else {
+            paddingView.isHidden = false
+            stackView.isHidden = false
+            collectionView.isHidden = true
         }
     }
 }
@@ -187,16 +182,14 @@ extension CoincidencesViewController: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        guard let presenter else { return .zero }
-        return presenter.moviesArray.count
+        return presenter.moviesCount
     }
 
     func collectionView(
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
-        guard let presenter,
-              let cell = collectionView.dequeueReusableCell(
+        guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: ReusableLikedMoviesCell.reuseIdentifier,
                 for: indexPath
               ) as? ReusableLikedMoviesCell else {

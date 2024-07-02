@@ -53,16 +53,33 @@ final class ReusableLikedMoviesUICollectionView: UIView {
         backgroundColor = .clear
 
         setupView()
+        setupNotificationObserver()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
+    deinit {
+        NotificationCenter.default.removeObserver(
+            self,
+            name: NSNotification.Name(Resources.ReusableLikedMoviesCollectionView.updateCollectionView),
+            object: nil
+        )
+    }
+
     // MARK: - Public methods
 
     func setupCollectionView(with controller: UIViewController) {
         collectionView.dataSource = controller as? UICollectionViewDataSource
+    }
+
+    // MARK: - Handlers
+
+    @objc private func updateCollection() {
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
     }
 
     // MARK: - Private methods
@@ -86,6 +103,15 @@ final class ReusableLikedMoviesUICollectionView: UIView {
 
         paddingViewHeightAnchor = paddingView.heightAnchor.constraint(equalTo: heightAnchor)
         paddingViewHeightAnchor?.isActive = true
+    }
+
+    private func setupNotificationObserver() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updateCollection),
+            name: NSNotification.Name(Resources.ReusableLikedMoviesCollectionView.updateCollectionView),
+            object: nil
+        )
     }
 }
 

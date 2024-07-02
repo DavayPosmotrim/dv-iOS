@@ -8,7 +8,7 @@
 struct ReusableLikedMoviesCellModel {
     let id = UUID()
     let title: String
-    let image: UIImage?
+    let imageName: String?
 }
 
 import UIKit
@@ -27,9 +27,8 @@ final class ReusableLikedMoviesCell: UICollectionViewCell {
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .whiteText
         label.font = .textParagraphRegularFont
-        label.textAlignment = .left
+        label.textAlignment = .natural
         label.numberOfLines = 3
 
         return label
@@ -58,9 +57,6 @@ final class ReusableLikedMoviesCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .baseBackground
-        layer.cornerRadius = 16
-        clipsToBounds = true
 
         setupCellView()
         setupConstraints()
@@ -92,23 +88,30 @@ final class ReusableLikedMoviesCell: UICollectionViewCell {
 
     func configureCell(with model: ReusableLikedMoviesCellModel) {
         titleLabel.text = model.title
-        imageView.image = model.image ?? UIImage.noImagePlug
+        imageView.image = UIImage(named: model.imageName ?? "noImagePlug")
         cellId = model.id
 
         updateImageViewConstraints()
+        updateGradientHeight()
         setNeedsLayout()
     }
+}
 
     // MARK: - Private methods
 
-    private func setupCellView() {
+private extension ReusableLikedMoviesCell {
+    func setupCellView() {
+        backgroundColor = .baseBackground
+        layer.cornerRadius = 16
+        clipsToBounds = true
+
         [imageView, gradientView, titleLabel].forEach {
             contentView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
     }
 
-    private func setupConstraints() {
+    func setupConstraints() {
         NSLayoutConstraint.activate([
             gradientView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             gradientView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
@@ -118,17 +121,6 @@ final class ReusableLikedMoviesCell: UICollectionViewCell {
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
         ])
-
-        var heightAnchor: NSLayoutConstraint
-        switch titleLabel.frame.height {
-        case 60:
-            heightAnchor = gradientView.heightAnchor.constraint(equalToConstant: 116)
-        case 40:
-            heightAnchor = gradientView.heightAnchor.constraint(equalToConstant: 96)
-        default:
-            heightAnchor = gradientView.heightAnchor.constraint(equalToConstant: 76)
-        }
-        NSLayoutConstraint.activate([heightAnchor])
 
         standardImageViewConstraints = [
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
@@ -143,7 +135,7 @@ final class ReusableLikedMoviesCell: UICollectionViewCell {
         ]
     }
 
-    private func updateImageViewConstraints() {
+    func updateImageViewConstraints() {
         if imageView.image == UIImage.noImagePlug {
             NSLayoutConstraint.activate(noImagePlugConstraints)
             titleLabel.textColor = .baseText
@@ -151,5 +143,15 @@ final class ReusableLikedMoviesCell: UICollectionViewCell {
         } else {
             NSLayoutConstraint.activate(standardImageViewConstraints)
         }
+    }
+
+    func updateGradientHeight() {
+        let titleHeight = titleLabel.systemLayoutSizeFitting(
+            CGSize(width: contentView.frame.width, height: UIView.layoutFittingCompressedSize.height),
+            withHorizontalFittingPriority: .required,
+            verticalFittingPriority: .fittingSizeLevel
+        ).height
+        NSLayoutConstraint.activate([gradientView.heightAnchor.constraint(equalToConstant: 56 + titleHeight)])
+        contentView.layoutIfNeeded()
     }
 }

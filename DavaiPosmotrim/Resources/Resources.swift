@@ -12,6 +12,10 @@ enum Resources {
         static let updateCollectionView = "updateCollectionView"
     }
 
+    enum ReusableLikedMoviesCollectionView {
+        static let updateCollectionView = "updateLikedMoviesCollectionView"
+    }
+
     enum Onboarding {
         static let onboardingUserDefaultsKey = "isOnboardingShown"
 
