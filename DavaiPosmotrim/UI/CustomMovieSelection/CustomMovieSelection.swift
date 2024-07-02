@@ -177,9 +177,13 @@ class CustomMovieSelection: UIView {
         switch percentage {
         case let percentage where percentage > 0:
             yesButton.setImage(UIImage.activeLikeIcon, for: .normal)
+            noButton.setImage(UIImage.inactiveNoSelectionIcon, for: .normal)
+            overlayNoView.alpha = 0
             overlayYesView.alpha = 1 - percentage
         case let percentage where percentage < 0:
             noButton.setImage(UIImage.activeNoSelectionIcon, for: .normal)
+            yesButton.setImage(UIImage.inactiveLikeIcon, for: .normal)
+            overlayYesView.alpha = 0
             overlayNoView.alpha = 1 + percentage
         default:
             yesButton.setImage(UIImage.inactiveLikeIcon, for: .normal)
