@@ -161,4 +161,9 @@ enum Resources {
             static let description = "Здесь будут фильмы,\n которые вам понравились"
         }
     }
+
+    enum AnimationKeys {
+        static let strokeEnd = "strokeEnd"
+        static let progressAnimation = "progressAnimation"
+    }
 }

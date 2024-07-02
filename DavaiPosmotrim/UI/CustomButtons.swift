@@ -148,13 +148,13 @@ final class CustomButtons: UIView {
     }
 
     func startProgress(duration: TimeInterval) {
-        let animation = CABasicAnimation(keyPath: "strokeEnd")
+        let animation = CABasicAnimation(keyPath: Resources.CustomButtons.strokeEnd)
         animation.toValue = 1
         animation.duration = duration
         animation.fillMode = .forwards
         animation.isRemovedOnCompletion = false
         animation.delegate = self
-        progressLayer.add(animation, forKey: "progressAnim")
+        progressLayer.add(animation, forKey: Resources.CustomButtons.progressAnimation)
     }
 
     // MARK: - Handlers
