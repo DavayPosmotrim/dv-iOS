@@ -100,6 +100,7 @@ final class ReusableLikedMoviesCell: UICollectionViewCell {
     // MARK: - Private methods
 
 private extension ReusableLikedMoviesCell {
+
     func setupCellView() {
         backgroundColor = .baseBackground
         layer.cornerRadius = 16

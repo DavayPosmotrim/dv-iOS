@@ -40,9 +40,8 @@ final class CoincidencesPresenter: CoincidencesPresenterProtocol {
     // MARK: - Public methods
 
     func diceButtonTapped() {
-//        guard let coordinator else { return }
-//        coordinator.finish()
-        downloadMoviesArrayFromServer()
+        guard let coordinator else { return }
+        coordinator.finish()
     }
 
     func getMoviesAtIndex(index: Int) -> ReusableLikedMoviesCellModel {
