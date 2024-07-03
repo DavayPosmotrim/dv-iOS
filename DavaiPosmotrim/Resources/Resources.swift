@@ -128,6 +128,26 @@ enum Resources {
         static let oldVersionButtonTitle = "Перейти в магазин".uppercased()
     }
 
+    enum SplashScreen {
+        static let musicalText = "Мюзикал"
+        static let thrillerText = "Триллер"
+        static let melodrammaText = "Мелодрамма"
+        static let biographyText = "Биография"
+        static let boevikText = "Боевик"
+        static let fantasyText = "Фантастика"
+        static let posmotrimText = "Посмотрим?"
+        static let multfilmText = "Мультфильм"
+        static let familyText = "Семейный"
+        static let documentaryText = "Документальный"
+        static let adventureText = "Приключение"
+
+        static let topBorderIdent = "topBorder"
+        static let leftBorderIdent = "leftBorder"
+        static let rightBorderIdent = "rightBorder"
+        static let bottomBorderIdent = "bottomBorder"
+        static let davayImageViewIdent = "davayImageView"
+	}
+
     enum SelectionMovies {
         static let titleNavBarText = "Выберите фильм"
 
