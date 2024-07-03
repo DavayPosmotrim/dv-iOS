@@ -143,14 +143,9 @@ final class CustomAlertView: UIView {
         progressAction = model.progressAction
         alertType = model.alertType
 
-        switch alertType {
-        case .twoButtons:
-            setupTwoButtonsAlert()
-        case .oneButton:
-            setupOneButtonAlert()
-        default:
-            break
-        }
+        yesButton.isHidden = alertType == .oneButton ? true : false
+        noButton.isHidden = alertType == .oneButton ? true : false
+        progressButton.isHidden = alertType == .oneButton ? false : true
     }
 
     // MARK: - Handlers
@@ -168,18 +163,6 @@ final class CustomAlertView: UIView {
     }
 
     // MARK: - Private methods
-
-    private func setupTwoButtonsAlert() {
-        yesButton.isHidden = false
-        noButton.isHidden = false
-        progressButton.isHidden = true
-    }
-
-    private func setupOneButtonAlert() {
-        progressButton.isHidden = false
-        yesButton.isHidden = true
-        noButton.isHidden = true
-    }
 
     private func closeViewController() {
         progressAction?()

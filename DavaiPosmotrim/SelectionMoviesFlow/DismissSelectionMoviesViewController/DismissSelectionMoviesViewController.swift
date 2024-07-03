@@ -61,16 +61,16 @@ final class DismissSelectionMoviesViewController: UIViewController {
             alertTitle: alertTitle,
             alertMessage: alertMessage,
             yesAction: { [weak self] in
-                guard let self = self else { return }
+                guard let self else { return }
                 self.delegate?.finishSelectionMoviesFlow()
                 self.dismiss(animated: true)
             },
             noAction: { [weak self] in
-                guard let self = self else { return }
+                guard let self else { return }
                 self.dismiss(animated: true)
             },
             progressAction: { [weak self] in
-                guard let self = self else { return }
+                guard let self else { return }
                 self.delegate?.finishSelectionMoviesFlow()
                 self.dismiss(animated: true)
             },
