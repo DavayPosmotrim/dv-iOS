@@ -86,6 +86,20 @@ enum Resources {
         static let customLabelNoButtonText = "Нет".uppercased()
     }
 
+    enum InvitingSession {
+        static let lowerLabelText = "Если вы пригласили друзей – дождитесь, когда\n они подключаться, прежде чем начать сеанс."
+        static let codeCopyWarningText = "Код сеанса успешно скопирован"
+        static let fewUsersWarningText = "Должно быть хотя бы два участника"
+
+        static let inviteButtonLabelText = "Пригласить".uppercased()
+        static let startButtonLabelText = "Начать сеанс".uppercased()
+        static let cancelButtonLabelText = "Отменить сеанс".uppercased()
+        static let usersLabelText = "Участники"
+
+        static let customLabelUpperText = "Отменить?"
+        static let customLabelLowerText = "Вы действительно хотите отменить уже созданный сеанс?"
+    }
+
     enum MainFlow {
         static let descriptionLabelText = """
     Забудьте о бесконечных спорах и компромиссах
@@ -113,6 +127,26 @@ enum Resources {
         static let oldVersionText = "Сначала сломали, потом починили.\n Скачайте, обновлённую версию."
         static let oldVersionButtonTitle = "Перейти в магазин".uppercased()
     }
+
+    enum SplashScreen {
+        static let musicalText = "Мюзикал"
+        static let thrillerText = "Триллер"
+        static let melodrammaText = "Мелодрамма"
+        static let biographyText = "Биография"
+        static let boevikText = "Боевик"
+        static let fantasyText = "Фантастика"
+        static let posmotrimText = "Посмотрим?"
+        static let multfilmText = "Мультфильм"
+        static let familyText = "Семейный"
+        static let documentaryText = "Документальный"
+        static let adventureText = "Приключение"
+
+        static let topBorderIdent = "topBorder"
+        static let leftBorderIdent = "leftBorder"
+        static let rightBorderIdent = "rightBorder"
+        static let bottomBorderIdent = "bottomBorder"
+        static let davayImageViewIdent = "davayImageView"
+	}
 
     enum SelectionMovies {
         static let titleNavBarText = "Выберите фильм"

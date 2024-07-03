@@ -8,6 +8,7 @@
 import UIKit
 
 enum CoordinatorType {
+    case splash
     case app
     case onboarding
     case movieSelectionOnboarding
@@ -19,6 +20,7 @@ enum CoordinatorType {
     case joinSession
     case sessionsList
     case selectionMovies
+    case inviteUsers
 }
 
 protocol CoordinatorFinishDelegate: AnyObject {
@@ -32,6 +34,7 @@ protocol CoordinatorProtocol: AnyObject {
     var childCoordinators: [CoordinatorProtocol] { get set }
 
     func start()
+    func startSplash()
     func finish()
 }
 
