@@ -117,6 +117,7 @@ private extension SessionsListViewController {
     func setupUI() {
         view.backgroundColor = .whiteBackground
         backgroundView.backgroundColor = .baseBackground
+        sessionsListEmptyView.showDescription(true)
 
         [
             backgroundView,
