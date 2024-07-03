@@ -8,5 +8,4 @@
 import Foundation
 
 protocol SessionMoviesViewControllerProtocol: AnyObject {
-    var presenter: SessionMoviesPresenterProtocol { get set }
 }

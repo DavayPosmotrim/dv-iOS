@@ -40,13 +40,14 @@ final class SessionMoviesViewController: UIViewController, SessionMoviesViewCont
         customNavBar.delegate = presenter as? any CustomNavigationBarDelegate
         return customNavBar
     }()
+
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         collectionView.backgroundColor = .whiteBackground
         collectionView.delegate = self
         collectionView.alwaysBounceVertical = true
         collectionView.allowsMultipleSelection = false
-        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.showsVerticalScrollIndicator = false
         return collectionView
     }()
 

@@ -9,8 +9,6 @@ import Foundation
 
 protocol SessionMoviesPresenterProtocol: AnyObject {
     // MARK: - Properties
-    var coordinator: SessionsListCoordinator? { get }
-    var view: SessionMoviesViewControllerProtocol? { get }
     var users: [User] { get }
     var movies: [SessionMovieModel] { get }
     var sessionCode: String { get }

@@ -10,8 +10,8 @@ import Foundation
 final class SessionMoviesPresenter: SessionMoviesPresenterProtocol {
 
     // MARK: - Public properties
-    var coordinator: SessionsListCoordinator?
-    var view: SessionMoviesViewControllerProtocol?
+    weak var coordinator: SessionsListCoordinator?
+    weak var view: SessionMoviesViewControllerProtocol?
     var users: [User] {
         session.users
     }

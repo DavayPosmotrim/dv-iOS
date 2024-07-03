@@ -15,7 +15,7 @@ final class SessionMovieCell: UICollectionViewCell {
     static let cellID = "SessionMovieCell"
 
     // MARK: - Public properties
-    var viewModel = SessionMovieModel(name: "", imageName: nil)
+    private (set) var viewModel = SessionMovieModel(name: "", imageName: nil)
 
     // MARK: - Private properties
     private enum Size {
@@ -23,9 +23,13 @@ final class SessionMovieCell: UICollectionViewCell {
         static let placeholderHeight: CGFloat = 90
         static let spacing: CGFloat = 8
     }
-    private let placeholderImage = UIImage(resource: .noImagePlug)
-    private var hasMovieImage: Bool {
-        movieImageView.image != placeholderImage
+    private let placeholderImage = UIImage.noImagePlug
+    private var hasImage: Bool = true {
+        didSet {
+            movieImageView.isHidden = hasImage ? false : true
+            placeholderImageView.isHidden = hasImage ? true : false
+            movieNameLabel.textColor = .headingText
+        }
     }
 
     // MARK: - View properties
@@ -37,13 +41,20 @@ final class SessionMovieCell: UICollectionViewCell {
         label.sizeToFit()
        return label
     }()
-    private lazy var movieImageView = UIImageView()
+    private lazy var movieImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.image = placeholderImage
+        return imageView
+    }()
     private lazy var placeholderImageView = UIImageView(image: placeholderImage)
 
     // MARK: - Public Methods
     func configureCell(for viewModel: SessionMovieModel) {
         self.viewModel = viewModel
-        setupValues()
+        hasImage = viewModel.imageName != nil
+        movieNameLabel.text = viewModel.name
         setupUI()
         contentView.layoutIfNeeded()
     }
@@ -82,19 +93,5 @@ private extension SessionMovieCell {
             placeholderImageView.heightAnchor.constraint(equalToConstant: Size.placeholderWidth),
             placeholderImageView.widthAnchor.constraint(equalToConstant: Size.placeholderHeight)
         ])
-    }
-
-    func setupValues() {
-        movieNameLabel.text = viewModel.name
-        movieNameLabel.textColor = .headingText
-        movieImageView.contentMode = .scaleAspectFill
-        movieImageView.clipsToBounds = true
-        movieImageView.image = placeholderImage
-        hidePlaceholder()
-    }
-
-    func hidePlaceholder() {
-        movieImageView.isHidden = !hasMovieImage
-        placeholderImageView.isHidden = hasMovieImage
     }
 }
