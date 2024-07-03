@@ -74,6 +74,9 @@ final class DismissJoinSessionViewController: UIViewController {
             noAction: { [weak self] in
                 guard let self else { return }
                 self.dismiss(animated: true)
-            })
+            },
+            progressAction: nil,
+            alertType: .twoButtons
+        )
     }
 }

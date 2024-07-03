@@ -5,14 +5,21 @@
 //  Created by Эльдар Айдумов on 28.05.2024.
 //
 
+import UIKit
+
 struct CustomAlertModel {
     let alertTitle: String?
     let alertMessage: String?
     let yesAction: (() -> Void)?
     let noAction: (() -> Void)?
+    let progressAction: (() -> Void)?
+    let alertType: AlertType
 }
 
-import UIKit
+enum AlertType {
+    case twoButtons
+    case oneButton
+}
 
 final class CustomAlertView: UIView {
 
@@ -20,6 +27,8 @@ final class CustomAlertView: UIView {
 
     private var yesButtonAction: (() -> Void)?
     private var noButtonAction: (() -> Void)?
+    private var progressAction: (() -> Void)?
+    private var alertType: AlertType?
 
     // MARK: - Lazy properties
 
@@ -69,6 +78,21 @@ final class CustomAlertView: UIView {
         return stack
     }()
 
+    private lazy var progressButton: CustomButtons = {
+        let button = CustomButtons()
+        button.setupView(with: button.progressButton)
+        button.progressButton.setTitle(Resources.SelectionMovies.customOneButtonText, for: .normal)
+        button.progressButton.addTarget(
+            self,
+            action: #selector(didTapProgressButton),
+            for: .touchUpInside
+        )
+        button.onProgressComplete = { [weak self] in
+            self?.closeViewController()
+        }
+        return button
+    }()
+
     private lazy var yesButton: UIView = {
         let button = CustomButtons()
         button.frame = CGRect(x: 0, y: 0, width: 0, height: 44)
@@ -101,6 +125,13 @@ final class CustomAlertView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if alertType == .oneButton {
+            progressButton.startProgress(duration: 4)
+        }
+    }
+
     // MARK: - Public methods
 
     func setupCustomAlert(with model: CustomAlertModel?) {
@@ -109,6 +140,12 @@ final class CustomAlertView: UIView {
         lowerLabel.text = model.alertMessage
         yesButtonAction = model.yesAction
         noButtonAction = model.noAction
+        progressAction = model.progressAction
+        alertType = model.alertType
+
+        yesButton.isHidden = alertType == .oneButton ? true : false
+        noButton.isHidden = alertType == .oneButton ? true : false
+        progressButton.isHidden = alertType == .oneButton ? false : true
     }
 
     // MARK: - Handlers
@@ -121,7 +158,15 @@ final class CustomAlertView: UIView {
         noButtonAction?()
     }
 
+    @objc private func didTapProgressButton() {
+        closeViewController()
+    }
+
     // MARK: - Private methods
+
+    private func closeViewController() {
+        progressAction?()
+    }
 
     private func setupConstraints() {
         NSLayoutConstraint.activate([
@@ -155,7 +200,12 @@ final class CustomAlertView: UIView {
 
             noButton.trailingAnchor.constraint(equalTo: buttonStack.trailingAnchor),
             noButton.topAnchor.constraint(equalTo: buttonStack.topAnchor),
-            noButton.bottomAnchor.constraint(equalTo: buttonStack.bottomAnchor)
+            noButton.bottomAnchor.constraint(equalTo: buttonStack.bottomAnchor),
+
+            progressButton.leadingAnchor.constraint(equalTo: buttonStack.leadingAnchor),
+            progressButton.trailingAnchor.constraint(equalTo: buttonStack.trailingAnchor),
+            progressButton.topAnchor.constraint(equalTo: buttonStack.topAnchor),
+            progressButton.bottomAnchor.constraint(equalTo: buttonStack.bottomAnchor)
         ])
     }
 
@@ -174,7 +224,7 @@ final class CustomAlertView: UIView {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
 
-        [yesButton, noButton].forEach {
+        [yesButton, noButton, progressButton].forEach {
             buttonStack.addArrangedSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
