@@ -12,6 +12,10 @@ enum Resources {
         static let updateCollectionView = "updateCollectionView"
     }
 
+    enum ReusableLikedMoviesCollectionView {
+        static let updateCollectionView = "updateLikedMoviesCollectionView"
+    }
+
     enum Onboarding {
         static let onboardingUserDefaultsKey = "isOnboardingShown"
 
@@ -113,6 +117,11 @@ enum Resources {
         static let createSessionViewController = "CreateSessionViewController"
         static let favoriteMoviesViewController = "FavoriteMoviesViewController"
         static let joinSessionViewController = "JoinSessionViewController"
+    }
+
+    enum Coincidences {
+        static let plugLabelText = "Пока ничего нет"
+        static let navBarText = "Совпадения"
     }
 
     enum Mistakes {
