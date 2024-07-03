@@ -61,8 +61,8 @@ final class CoincidencesPresenter: CoincidencesPresenterProtocol {
             ReusableLikedMoviesCellModel(title: "Властелин колец: Братство кольца", imageName: nil),
             ReusableLikedMoviesCellModel(title: "1917", imageName: nil),
             ReusableLikedMoviesCellModel(title: "Грань будущего", imageName: nil),
-            ReusableLikedMoviesCellModel(title: "Звездные войны: Возвращение джедая", imageName: nil),
-            ReusableLikedMoviesCellModel(title: "Властелин колец: Возвращение короля", imageName: nil)
+            ReusableLikedMoviesCellModel(title: "Звездные войны: Возвращение джедая", imageName: "Mok_8"),
+            ReusableLikedMoviesCellModel(title: "Властелин колец: Возвращение короля", imageName: "Mok_7")
         ]
 
         for movie in downloadedMovies {

@@ -20,16 +20,13 @@ final class ReusableLikedMoviesCell: UICollectionViewCell {
     static let reuseIdentifier = "ReusableLikedMoviesCell"
     private var cellId: UUID?
 
-    private var standardImageViewConstraints = [NSLayoutConstraint]()
-    private var noImagePlugConstraints = [NSLayoutConstraint]()
-
     // MARK: - Lazy properties
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = .textParagraphRegularFont
         label.textAlignment = .natural
-        label.numberOfLines = 3
+        label.numberOfLines = 2
 
         return label
     }()
@@ -37,6 +34,15 @@ final class ReusableLikedMoviesCell: UICollectionViewCell {
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
+
+        return imageView
+    }()
+
+    private lazy var placeholderImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .center
+        imageView.isHidden = true
+        imageView.image = UIImage.noImagePlug
 
         return imageView
     }()
@@ -60,8 +66,6 @@ final class ReusableLikedMoviesCell: UICollectionViewCell {
 
         setupCellView()
         setupConstraints()
-
-        layoutIfNeeded()
     }
 
     required init?(coder: NSCoder) {
@@ -74,26 +78,26 @@ final class ReusableLikedMoviesCell: UICollectionViewCell {
         gradientLayer.frame = gradientView.bounds
     }
 
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        NSLayoutConstraint.deactivate(noImagePlugConstraints)
-        NSLayoutConstraint.deactivate(standardImageViewConstraints)
-        gradientView.isHidden = false
-        titleLabel.textColor = .whiteText
-        imageView.image = nil
-        cellId = nil
-    }
-
     // MARK: - Public methods
 
     func configureCell(with model: ReusableLikedMoviesCellModel) {
-        titleLabel.text = model.title
-        imageView.image = UIImage(named: model.imageName ?? "noImagePlug")
         cellId = model.id
+        titleLabel.text = model.title
 
-        updateImageViewConstraints()
+        if let imageName = model.imageName, !imageName.isEmpty {
+            imageView.image = UIImage(named: imageName)
+            imageView.isHidden = false
+            placeholderImageView.isHidden = true
+            gradientView.isHidden = false
+            titleLabel.textColor = .whiteText
+        } else {
+            imageView.isHidden = true
+            placeholderImageView.isHidden = false
+            gradientView.isHidden = true
+            titleLabel.textColor = .baseText
+        }
+
         updateGradientHeight()
-        setNeedsLayout()
     }
 }
 
@@ -105,8 +109,12 @@ private extension ReusableLikedMoviesCell {
         backgroundColor = .baseBackground
         layer.cornerRadius = 16
         clipsToBounds = true
-
-        [imageView, gradientView, titleLabel].forEach {
+        [
+            imageView,
+            placeholderImageView,
+            gradientView,
+            titleLabel
+        ].forEach {
             contentView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -114,6 +122,16 @@ private extension ReusableLikedMoviesCell {
 
     func setupConstraints() {
         NSLayoutConstraint.activate([
+            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+
+            placeholderImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            placeholderImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            placeholderImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            placeholderImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+
             gradientView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             gradientView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             gradientView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
@@ -122,28 +140,6 @@ private extension ReusableLikedMoviesCell {
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
         ])
-
-        standardImageViewConstraints = [
-            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
-        ]
-
-        noImagePlugConstraints = [
-            imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
-        ]
-    }
-
-    func updateImageViewConstraints() {
-        if imageView.image == UIImage.noImagePlug {
-            NSLayoutConstraint.activate(noImagePlugConstraints)
-            titleLabel.textColor = .baseText
-            gradientView.isHidden = true
-        } else {
-            NSLayoutConstraint.activate(standardImageViewConstraints)
-        }
     }
 
     func updateGradientHeight() {
