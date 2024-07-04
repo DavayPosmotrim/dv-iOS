@@ -238,6 +238,15 @@ extension SelectionMoviesViewController: SelectionMoviesViewProtocol {
             completion()
         }
     }
+
+    func showCancelSessionDialog() {
+        guard let navigationController else { return }
+        let viewController = DismissSelectionMoviesViewController()
+        viewController.delegate = self
+        viewController.modalPresentationStyle = .overCurrentContext
+        viewController.modalTransitionStyle = .crossDissolve
+        navigationController.present(viewController, animated: true)
+    }
 }
 
 // MARK: - CustomMovieSelectionDelegate
@@ -256,7 +265,7 @@ extension SelectionMoviesViewController: CustomMovieSelectionDelegate {
     }
 }
 
-// MARK: - CustomNavigationBarDelegate
+// MARK: - CustomNavigationBarTwoButtonsDelegate
 
 extension SelectionMoviesViewController: CustomNavigationBarTwoButtonsDelegate {
     func matchRightButtonTapped() {
@@ -264,6 +273,14 @@ extension SelectionMoviesViewController: CustomNavigationBarTwoButtonsDelegate {
     }
 
     func backButtonTapped() {
-        presenter.backButtonTapped()
+        presenter.cancelButtonTapped()
+    }
+}
+
+// MARK: - DismissJoinSessionDelegate
+
+extension SelectionMoviesViewController: DismissSelectionMoviesDelegate {
+    func finishSelectionMoviesFlow() {
+        presenter.cancelButtonAlertTapped()
     }
 }

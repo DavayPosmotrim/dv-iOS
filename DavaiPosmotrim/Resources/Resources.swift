@@ -12,6 +12,10 @@ enum Resources {
         static let updateCollectionView = "updateCollectionView"
     }
 
+    enum ReusableLikedMoviesCollectionView {
+        static let updateCollectionView = "updateLikedMoviesCollectionView"
+    }
+
     enum Onboarding {
         static let onboardingUserDefaultsKey = "isOnboardingShown"
 
@@ -115,6 +119,11 @@ enum Resources {
         static let joinSessionViewController = "JoinSessionViewController"
     }
 
+    enum Coincidences {
+        static let plugLabelText = "Пока ничего нет"
+        static let navBarText = "Совпадения"
+    }
+
     enum Mistakes {
         static let noInternetHeader = "Нет соединения с интернетом"
         static let noInternetText = "Интернет не бом-бом,\n проверьте соединение"
@@ -150,6 +159,22 @@ enum Resources {
 
     enum SelectionMovies {
         static let titleNavBarText = "Выберите фильм"
+
+        static let customLabelUpperText = "Покинуть сеанс?"
+        static let customLabelLowerText = """
+    Сеанс будет завершён у всех участников.
+
+    Все совпавшие фильмы вы найдёте в разделе «Понравившиеся фильмы».
+    """
+
+        static let customOneButtonLabelUpperText = "Сеанс завершён"
+        static let customOneButtonLabelLowerText = """
+    Участник покинул сеанс.
+
+    Все совпавшие фильмы вы найдёте в разделе «Понравившиеся фильмы».
+    """
+
+        static let customOneButtonText = "Хорошо".uppercased()
     }
 
     enum SessionsList {
@@ -164,5 +189,10 @@ enum Resources {
             static let title = "Пока ничего нет"
             static let description = "Здесь будут фильмы,\n которые вам понравились"
         }
+    }
+
+    enum AnimationKeys {
+        static let strokeEnd = "strokeEnd"
+        static let progressAnimation = "progressAnimation"
     }
 }

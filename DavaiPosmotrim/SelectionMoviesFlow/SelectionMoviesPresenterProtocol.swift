@@ -20,5 +20,6 @@ protocol SelectionMoviesPresenterProtocol: AnyObject {
     func addToLikedMovies(withId id: UUID)
     func removeFromLikedMovies(withId id: UUID)
     func didTapMatchRightButton()
-    func backButtonTapped()
+    func cancelButtonTapped()
+    func cancelButtonAlertTapped()
 }
