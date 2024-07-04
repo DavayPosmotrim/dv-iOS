@@ -325,7 +325,18 @@ extension InvitingUsersViewController: InvitingUsersViewProtocol {
     }
 
     func shareCode(_ code: String) {
-        let activityViewController = UIActivityViewController(activityItems: [code], applicationActivities: nil)
+        let inviteMessage = Resources.InvitingSession.inviteMessageText + code + "\n"
+        let downloadMessage = Resources.InvitingSession.downloadAppText
+
+        // TODO: - вставить ссылки, как будут
+        let combinedMessage = """
+        \(inviteMessage)
+        \(downloadMessage)
+        """
+        let activityViewController = UIActivityViewController(
+            activityItems: [combinedMessage],
+            applicationActivities: nil
+        )
         activityViewController.popoverPresentationController?.sourceView = self.view
         self.present(activityViewController, animated: true, completion: nil)
     }
