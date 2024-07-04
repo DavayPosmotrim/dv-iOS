@@ -105,7 +105,7 @@ private extension SessionMoviesViewController {
             collectionView.topAnchor.constraint(equalTo: customNavBar.bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 
@@ -137,7 +137,10 @@ private extension SessionMoviesViewController {
             widthDimension: .fractionalWidth(Size.fullSize),
             heightDimension: .estimated(Size.Cell.user)
         )
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: groupSize,
+            subitems: [item]
+        )
         group.interItemSpacing = .fixed(Size.smallSpacing)
         section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = Size.smallSpacing
@@ -168,7 +171,11 @@ private extension SessionMoviesViewController {
             widthDimension: .fractionalWidth(Size.fullSize),
             heightDimension: .absolute(.spacingMedium)
         )
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: groupSize,
+            subitem: item,
+            count: 1
+        )
         section = NSCollectionLayoutSection(group: group)
         section = createBackground(for: .empty, on: section)
         return section
@@ -185,7 +192,11 @@ private extension SessionMoviesViewController {
             widthDimension: .fractionalWidth(Size.fullSize),
             heightDimension: .absolute(Size.Cell.movie)
         )
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 2)
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: groupSize,
+            subitem: item,
+            count: 2
+        )
         group.interItemSpacing = .fixed(.spacingMedium)
         section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = .spacingMedium
@@ -292,14 +303,26 @@ private extension SessionMoviesViewController {
 
         var usersSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
         usersSnapshot.append(presenter.users)
-        dataSource.apply(usersSnapshot, to: .users, animatingDifferences: false)
+        dataSource.apply(
+            usersSnapshot,
+            to: .users,
+            animatingDifferences: false
+        )
 
         var emptySnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
         emptySnapshot.append([Int()])
-        dataSource.apply(emptySnapshot, to: .empty, animatingDifferences: false)
+        dataSource.apply(
+            emptySnapshot,
+            to: .empty,
+            animatingDifferences: false
+        )
 
         var moviesSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
         moviesSnapshot.append(presenter.movies)
-        dataSource.apply(moviesSnapshot, to: .movies, animatingDifferences: false)
+        dataSource.apply(
+            moviesSnapshot,
+            to: .movies,
+            animatingDifferences: false
+        )
     }
 }
