@@ -12,6 +12,10 @@ enum Resources {
         static let updateCollectionView = "updateCollectionView"
     }
 
+    enum ReusableLikedMoviesCollectionView {
+        static let updateCollectionView = "updateLikedMoviesCollectionView"
+    }
+
     enum Onboarding {
         static let onboardingUserDefaultsKey = "isOnboardingShown"
 
@@ -98,6 +102,9 @@ enum Resources {
 
         static let customLabelUpperText = "Отменить?"
         static let customLabelLowerText = "Вы действительно хотите отменить уже созданный сеанс?"
+
+        static let inviteMessageText = "Выбор фильма зависит от вас! Код для подключения к сеансу: "
+        static let downloadAppText = "Ссылки для скачивания приложения: \n"
     }
 
     enum MainFlow {
@@ -113,6 +120,11 @@ enum Resources {
         static let createSessionViewController = "CreateSessionViewController"
         static let favoriteMoviesViewController = "FavoriteMoviesViewController"
         static let joinSessionViewController = "JoinSessionViewController"
+    }
+
+    enum Coincidences {
+        static let plugLabelText = "Пока ничего нет"
+        static let navBarText = "Совпадения"
     }
 
     enum Mistakes {
@@ -150,6 +162,22 @@ enum Resources {
 
     enum SelectionMovies {
         static let titleNavBarText = "Выберите фильм"
+
+        static let customLabelUpperText = "Покинуть сеанс?"
+        static let customLabelLowerText = """
+    Сеанс будет завершён у всех участников.
+
+    Все совпавшие фильмы вы найдёте в разделе «Понравившиеся фильмы».
+    """
+
+        static let customOneButtonLabelUpperText = "Сеанс завершён"
+        static let customOneButtonLabelLowerText = """
+    Участник покинул сеанс.
+
+    Все совпавшие фильмы вы найдёте в разделе «Понравившиеся фильмы».
+    """
+
+        static let customOneButtonText = "Хорошо".uppercased()
     }
 
     enum SessionsList {
@@ -169,5 +197,10 @@ enum Resources {
             static let sessionTitle = "Сеанс"
             static let usersTitle = "Участники"
         }
+    }
+
+    enum AnimationKeys {
+        static let strokeEnd = "strokeEnd"
+        static let progressAnimation = "progressAnimation"
     }
 }

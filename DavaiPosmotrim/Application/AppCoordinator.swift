@@ -38,6 +38,16 @@ private extension AppCoordinator {
         splashScreenCoordinator.start()
     }
 
+    func showCoincidencesFlow() {
+        let coincidencesCoordinator = CoincidencesCoordinator(
+            type: .coincidencesSession,
+            finishDelegate: self,
+            navigationController: navigationController
+        )
+        addChild(coincidencesCoordinator)
+        coincidencesCoordinator.start()
+    }
+
     func showOnboardingFlow() {
         let onboardingCoordinator = OnboardingCoordinator(
             type: .onboarding,
@@ -78,7 +88,7 @@ private extension AppCoordinator {
     }
 
     func showSelectionMoviesFlow() {
-        //TODO: - не забыть перенести когда появится экран с которого необходимо запускать
+        // TODO: - не забыть перенести когда появится экран с которого необходимо запускать
         let selectionMoviesCoordinator = SelectionMoviesCoordinator(
             type: .selectionMovies,
             finishDelegate: self,
@@ -120,6 +130,9 @@ extension AppCoordinator: CoordinatorFinishDelegate {
             showMainFlow()
         case .selectionMovies:
             showMainFlow()
+        case .coincidencesSession:
+            // TODO: add code to start next flow
+            print("CoincidencesFlow")
         default:
             navigationController.popToRootViewController(animated: false)
         }
