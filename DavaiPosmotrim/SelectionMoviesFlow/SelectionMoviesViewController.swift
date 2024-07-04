@@ -48,6 +48,12 @@ final class SelectionMoviesViewController: UIViewController {
         }
         return view
     }()
+    
+    private lazy var customMovieDetails: CustomMovieDetails = {
+        let view = CustomMovieDetails(model: movieDescription)
+        
+        return view
+    }()
 
     // MARK: - Initializers
 
@@ -112,7 +118,8 @@ private extension SelectionMoviesViewController {
             backgroundView,
             centralPaddingView,
             upperPaddingView,
-            customNavBar
+            customNavBar,
+            customMovieDetails
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
@@ -138,7 +145,11 @@ private extension SelectionMoviesViewController {
             centralPaddingView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             centralPaddingView.topAnchor.constraint(equalTo: customNavBar.bottomAnchor, constant: 16),
             centralPaddingView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            centralPaddingView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -67)
+            centralPaddingView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -67),
+            
+            customMovieDetails.topAnchor.constraint(equalTo: centralPaddingView.bottomAnchor, constant: 46),
+            customMovieDetails.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            customMovieDetails.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
 
