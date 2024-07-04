@@ -31,6 +31,7 @@ final class SessionsListEmptyView: UIView {
         label.numberOfLines = 2
         label.textColor = .baseText
         label.font = .textParagraphRegularFont
+        label.isHidden = true
         return label
     }()
     private lazy var placeholderImageView = UIImageView()
@@ -44,6 +45,12 @@ final class SessionsListEmptyView: UIView {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - Public Methods
+    func showDescription(_ isShow: Bool) {
+        placeholderDescriptionLabel.isHidden = !isShow
+        layoutSubviews()
     }
 }
 
@@ -80,7 +87,7 @@ private extension SessionsListEmptyView {
     }
 
     func setupSubviewsValue() {
-        placeholderImageView.image = UIImage(resource: .emptyFolderPlug)
+        placeholderImageView.image = UIImage.emptyFolderPlug
         placeholderTitleLabel.text = Resources.SessionsList.NoSessions.title
         placeholderDescriptionLabel.text = Resources.SessionsList.NoSessions.description
     }

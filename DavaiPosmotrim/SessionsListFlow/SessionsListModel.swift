@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct User: Identifiable, Equatable {
+struct User: Identifiable, Equatable, Hashable {
     let id = UUID()
     let name: String
 }
 
-struct SessionModel: Identifiable, Equatable {
+struct SessionModel: Identifiable, Equatable, Hashable {
     let id = UUID()
     let date: String
     let matches: Int
@@ -24,10 +24,3 @@ struct SessionsListModel {
     let sessions: [SessionModel]
 }
 
-struct SessionsListViewModel {
-    let date: String
-    let users: String
-    let matches: String
-    let imageName: String?
-    var isFirstCell = false
-}
