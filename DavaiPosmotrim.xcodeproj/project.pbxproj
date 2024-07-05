@@ -82,6 +82,7 @@
 		C964F7B12C19166800A37295 /* CoincidencesSceneFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C964F7B02C19166800A37295 /* CoincidencesSceneFactory.swift */; };
 		C96895CF2BE835EA002A99E6 /* AuthPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96895CE2BE835EA002A99E6 /* AuthPresenterProtocol.swift */; };
 		C96895D12BE88E4B002A99E6 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96895D02BE88E4B002A99E6 /* Resources.swift */; };
+		C991F0CD2C3812580090543B /* CoincidencesMovieInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C991F0CC2C3812580090543B /* CoincidencesMovieInfoViewController.swift */; };
 		C9AF1EB52C0A0FA90080FC4A /* OnboardingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AF1EB42C0A0FA90080FC4A /* OnboardingPresenter.swift */; };
 		C9B57C6C2C0607450026E85D /* DismissJoinSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B57C6B2C0607450026E85D /* DismissJoinSessionViewController.swift */; };
 		C9C4D59E2BD3A3C70081CD23 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4D59D2BD3A3C70081CD23 /* AppDelegate.swift */; };
@@ -209,6 +210,7 @@
 		C964F7B02C19166800A37295 /* CoincidencesSceneFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoincidencesSceneFactory.swift; sourceTree = "<group>"; };
 		C96895CE2BE835EA002A99E6 /* AuthPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenterProtocol.swift; sourceTree = "<group>"; };
 		C96895D02BE88E4B002A99E6 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
+		C991F0CC2C3812580090543B /* CoincidencesMovieInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoincidencesMovieInfoViewController.swift; sourceTree = "<group>"; };
 		C9AF1EB42C0A0FA90080FC4A /* OnboardingPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPresenter.swift; sourceTree = "<group>"; };
 		C9B57C6B2C0607450026E85D /* DismissJoinSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissJoinSessionViewController.swift; sourceTree = "<group>"; };
 		C9C4D59A2BD3A3C70081CD23 /* DavaiPosmotrim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DavaiPosmotrim.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -378,19 +380,19 @@
 			path = ReusableOnboarding;
 			sourceTree = "<group>";
 		};
-		C91564482C29A1FD00887BBA /* ReusableLikedMoviesUICollectionView */ = {
+		C91564482C29A1FD00887BBA /* ReusableLikedMoviesCell */ = {
 			isa = PBXGroup;
 			children = (
 				C915644B2C29B24E00887BBA /* ReusableLikedMoviesCell.swift */,
 				C915644D2C29D5F500887BBA /* CellGeometricParams.swift */,
 			);
-			path = ReusableLikedMoviesUICollectionView;
+			path = ReusableLikedMoviesCell;
 			sourceTree = "<group>";
 		};
 		C964B70E2BD8137800CF9AF0 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				C91564482C29A1FD00887BBA /* ReusableLikedMoviesUICollectionView */,
+				C91564482C29A1FD00887BBA /* ReusableLikedMoviesCell */,
 				C91332DC2C11F0990036FC44 /* ReusableOnboarding */,
 				C9D44CF42C03FFB90080AD33 /* ReusableCollection */,
 				4AAEABA52C0C817900A14C1D /* CustomMovieSelection */,
@@ -409,6 +411,7 @@
 		C964F7A52C19126500A37295 /* CoincidencesFlow */ = {
 			isa = PBXGroup;
 			children = (
+				C991F0CB2C3812220090543B /* CoincidencesMovieInfoViewController */,
 				C964F7A62C19129B00A37295 /* CoincidencesViewController.swift */,
 				C964F7A82C1913AF00A37295 /* CoincidencesPresenterProtocol.swift */,
 				C964F7AA2C1914B900A37295 /* CoincidencesViewProtocol.swift */,
@@ -417,6 +420,14 @@
 				C964F7B02C19166800A37295 /* CoincidencesSceneFactory.swift */,
 			);
 			path = CoincidencesFlow;
+			sourceTree = "<group>";
+		};
+		C991F0CB2C3812220090543B /* CoincidencesMovieInfoViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C991F0CC2C3812580090543B /* CoincidencesMovieInfoViewController.swift */,
+			);
+			path = CoincidencesMovieInfoViewController;
 			sourceTree = "<group>";
 		};
 		C9B57C6A2C0607050026E85D /* DismissJoinSessionVIewController */ = {
@@ -745,6 +756,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C991F0CD2C3812580090543B /* CoincidencesMovieInfoViewController.swift in Sources */,
 				C9B57C6C2C0607450026E85D /* DismissJoinSessionViewController.swift in Sources */,
 				4A6280362BDED59F00102304 /* MainSceneFactory.swift in Sources */,
 				4A6280382BDED62600102304 /* MainPresenter.swift in Sources */,

@@ -27,7 +27,6 @@ final class CoincidencesPresenter: CoincidencesPresenterProtocol {
     private var moviesArray = [ReusableLikedMoviesCellModel]() {
         didSet {
             view?.updateUIElements()
-            updateReusableCollection()
         }
     }
 
@@ -68,17 +67,5 @@ final class CoincidencesPresenter: CoincidencesPresenterProtocol {
         for movie in downloadedMovies {
             self.moviesArray.append(movie)
         }
-    }
-}
-
-    // MARK: - Private methods
-
-private extension CoincidencesPresenter {
-
-    func updateReusableCollection() {
-        NotificationCenter.default.post(
-            name: NSNotification.Name(Resources.ReusableLikedMoviesCollectionView.updateCollectionView),
-            object: nil
-        )
     }
 }
