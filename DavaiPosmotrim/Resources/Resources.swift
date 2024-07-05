@@ -102,6 +102,9 @@ enum Resources {
 
         static let customLabelUpperText = "Отменить?"
         static let customLabelLowerText = "Вы действительно хотите отменить уже созданный сеанс?"
+
+        static let inviteMessageText = "Выбор фильма зависит от вас! Код для подключения к сеансу: "
+        static let downloadAppText = "Ссылки для скачивания приложения: \n"
     }
 
     enum MainFlow {
@@ -188,6 +191,11 @@ enum Resources {
         enum NoSessions {
             static let title = "Пока ничего нет"
             static let description = "Здесь будут фильмы,\n которые вам понравились"
+        }
+        // swiftlint:disable:next nesting
+        enum Movies {
+            static let sessionTitle = "Сеанс"
+            static let usersTitle = "Участники"
         }
     }
 
