@@ -27,7 +27,6 @@
 		4AAEABA22C0C66D400A14C1D /* SelectionMovieMockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAEABA12C0C66D400A14C1D /* SelectionMovieMockData.swift */; };
 		4AAEABA42C0C673800A14C1D /* SelectionMovieCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAEABA32C0C673800A14C1D /* SelectionMovieCellModel.swift */; };
 		4AAEABA72C0C81C700A14C1D /* CustomMovieCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAEABA62C0C81C700A14C1D /* CustomMovieCollectionCell.swift */; };
-		4AAEABAC2C148BC000A14C1D /* CoincidencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAEABAB2C148BC000A14C1D /* CoincidencesViewController.swift */; };
 		4AAEABAE2C15EEFC00A14C1D /* CreateSessionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAEABAD2C15EEFC00A14C1D /* CreateSessionCoordinator.swift */; };
 		4AAEABB02C15EF9600A14C1D /* CreateSessionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAEABAF2C15EF9600A14C1D /* CreateSessionFactory.swift */; };
 		4AAEABB22C1761F600A14C1D /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAEABB12C1761F500A14C1D /* UIImage+Extension.swift */; };
@@ -59,7 +58,6 @@
 		C91332E02C11F2470036FC44 /* ReusableOnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91332DF2C11F2470036FC44 /* ReusableOnboardingCollectionViewCell.swift */; };
 		C9147CB12C0611F50086A663 /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9147CB02C0611F50086A663 /* CustomAlertView.swift */; };
 		C9147CB32C067FCC0086A663 /* DismissJoinSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9147CB22C067FCC0086A663 /* DismissJoinSessionDelegate.swift */; };
-		C915644A2C29A36C00887BBA /* ReusableLikedMoviesUICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91564492C29A36C00887BBA /* ReusableLikedMoviesUICollectionView.swift */; };
 		C915644C2C29B24E00887BBA /* ReusableLikedMoviesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C915644B2C29B24E00887BBA /* ReusableLikedMoviesCell.swift */; };
 		C915644E2C29D5F500887BBA /* CellGeometricParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = C915644D2C29D5F500887BBA /* CellGeometricParams.swift */; };
 		C917E3F52BE6CED000B34639 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C917E3F42BE6CED000B34639 /* AuthCoordinator.swift */; };
@@ -147,7 +145,6 @@
 		4AAEABA12C0C66D400A14C1D /* SelectionMovieMockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionMovieMockData.swift; sourceTree = "<group>"; };
 		4AAEABA32C0C673800A14C1D /* SelectionMovieCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionMovieCellModel.swift; sourceTree = "<group>"; };
 		4AAEABA62C0C81C700A14C1D /* CustomMovieCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMovieCollectionCell.swift; sourceTree = "<group>"; };
-		4AAEABAB2C148BC000A14C1D /* CoincidencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoincidencesViewController.swift; sourceTree = "<group>"; };
 		4AAEABAD2C15EEFC00A14C1D /* CreateSessionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionCoordinator.swift; sourceTree = "<group>"; };
 		4AAEABAF2C15EF9600A14C1D /* CreateSessionFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionFactory.swift; sourceTree = "<group>"; };
 		4AAEABB12C1761F500A14C1D /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
@@ -178,7 +175,6 @@
 		C91332DF2C11F2470036FC44 /* ReusableOnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableOnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
 		C9147CB02C0611F50086A663 /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
 		C9147CB22C067FCC0086A663 /* DismissJoinSessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissJoinSessionDelegate.swift; sourceTree = "<group>"; };
-		C91564492C29A36C00887BBA /* ReusableLikedMoviesUICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableLikedMoviesUICollectionView.swift; sourceTree = "<group>"; };
 		C915644B2C29B24E00887BBA /* ReusableLikedMoviesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableLikedMoviesCell.swift; sourceTree = "<group>"; };
 		C915644D2C29D5F500887BBA /* CellGeometricParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellGeometricParams.swift; sourceTree = "<group>"; };
 		C917E3F42BE6CED000B34639 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
@@ -365,7 +361,6 @@
 		C91564482C29A1FD00887BBA /* ReusableLikedMoviesUICollectionView */ = {
 			isa = PBXGroup;
 			children = (
-				C91564492C29A36C00887BBA /* ReusableLikedMoviesUICollectionView.swift */,
 				C915644B2C29B24E00887BBA /* ReusableLikedMoviesCell.swift */,
 				C915644D2C29D5F500887BBA /* CellGeometricParams.swift */,
 			);
@@ -813,7 +808,6 @@
 				4A62803E2BE2C72B00102304 /* MainPresenterProtocol.swift in Sources */,
 				C964B7102BD813B500CF9AF0 /* CustomButtons.swift in Sources */,
 				E9A270222BE52BC20088652B /* MistakesViewController.swift in Sources */,
-				C915644A2C29A36C00887BBA /* ReusableLikedMoviesUICollectionView.swift in Sources */,
 				4AAEABB02C15EF9600A14C1D /* CreateSessionFactory.swift in Sources */,
 				C91DCC782BFEA20F001BC065 /* JoinSessionSceneFactory.swift in Sources */,
 				E916A4AB2C26EA6D00B2C5D7 /* SessionsListViewControllerProtocol.swift in Sources */,

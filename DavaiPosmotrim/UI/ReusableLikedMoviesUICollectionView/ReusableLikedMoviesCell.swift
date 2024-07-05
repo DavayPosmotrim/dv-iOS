@@ -109,6 +109,7 @@ private extension ReusableLikedMoviesCell {
         backgroundColor = .baseBackground
         layer.cornerRadius = 16
         clipsToBounds = true
+
         [
             imageView,
             placeholderImageView,

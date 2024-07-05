@@ -14,6 +14,14 @@ final class CoincidencesViewController: UIViewController {
     private var presenter: CoincidencesPresenterProtocol
     private var customNavBarModel: CustomNavBarModel?
     private var customNavBarRightButtonModel: CustomNavBarRightButtonModel?
+    private var paddingViewHeightAnchor: NSLayoutConstraint?
+
+    private let params = CellGeometricParams(
+        cellCount: 2,
+        cellHeight: 240,
+        cellSpacing: 16,
+        lineSpacing: 16
+    )
 
     // MARK: - Lazy Properties
 
@@ -58,10 +66,19 @@ final class CoincidencesViewController: UIViewController {
         return label
     }()
 
-    private lazy var collectionView: ReusableLikedMoviesUICollectionView = {
-        let collectionView = ReusableLikedMoviesUICollectionView()
-        collectionView.setupCollectionView(with: self)
-        collectionView.isHidden = true
+    private lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(
+            ReusableLikedMoviesCell.self,
+            forCellWithReuseIdentifier: ReusableLikedMoviesCell.reuseIdentifier
+        )
+        collectionView.contentInset = UIEdgeInsets(top: 56, left: 16, bottom: 16, right: 16)
+        collectionView.backgroundColor = .clear
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.allowsMultipleSelection = false
 
         return collectionView
     }()
@@ -98,10 +115,15 @@ final class CoincidencesViewController: UIViewController {
 private extension CoincidencesViewController {
 
     func setupSubviews() {
-        [collectionView, navBarView, paddingView, stackView].forEach {
-            view.addSubview($0)
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        }
+        [
+            paddingView,
+            collectionView,
+            navBarView,
+            stackView
+        ].forEach {
+                view.addSubview($0)
+                $0.translatesAutoresizingMaskIntoConstraints = false
+            }
 
         [plugImageView, plugLabel].forEach {
             stackView.addArrangedSubview($0)
@@ -120,7 +142,6 @@ private extension CoincidencesViewController {
             paddingView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             paddingView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             paddingView.topAnchor.constraint(equalTo: navBarView.bottomAnchor, constant: 16),
-            paddingView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
             stackView.centerXAnchor.constraint(equalTo: paddingView.centerXAnchor),
             stackView.centerYAnchor.constraint(equalTo: paddingView.centerYAnchor),
@@ -130,6 +151,9 @@ private extension CoincidencesViewController {
             collectionView.topAnchor.constraint(equalTo: navBarView.bottomAnchor, constant: -24),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+
+        paddingViewHeightAnchor = paddingView.heightAnchor.constraint(equalTo: collectionView.heightAnchor)
+        paddingViewHeightAnchor?.isActive = true
     }
 
     func setupNavBarModel() {
@@ -164,20 +188,20 @@ extension CoincidencesViewController: CoincidencesViewProtocol {
         if !presenter.isArrayEmpty {
             setupRightButtonModel()
             navBarView.setupRightButton(with: customNavBarRightButtonModel)
-            paddingView.isHidden = true
             stackView.isHidden = true
             collectionView.isHidden = false
         } else {
-            paddingView.isHidden = false
             stackView.isHidden = false
             collectionView.isHidden = true
         }
+        collectionView.reloadData()
     }
 }
 
     // MARK: - UICollectionViewDataSource
 
 extension CoincidencesViewController: UICollectionViewDataSource {
+
     func collectionView(
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
@@ -190,12 +214,63 @@ extension CoincidencesViewController: UICollectionViewDataSource {
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: ReusableLikedMoviesCell.reuseIdentifier,
-                for: indexPath
-              ) as? ReusableLikedMoviesCell else {
+            withReuseIdentifier: ReusableLikedMoviesCell.reuseIdentifier,
+            for: indexPath
+        ) as? ReusableLikedMoviesCell else {
             return UICollectionViewCell()
         }
         cell.configureCell(with: presenter.getMoviesAtIndex(index: indexPath.item))
+
         return cell
+    }
+}
+
+    // MARK: - UICollectionViewDelegateFlowLayout
+
+extension CoincidencesViewController: UICollectionViewDelegateFlowLayout {
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        let collectionInset: CGFloat = 16
+        let availableWidth = collectionView.frame.width - collectionInset * 2 - params.paddingWidth
+        let cellWidth = availableWidth / CGFloat(params.cellCount)
+
+        return CGSize(width: cellWidth, height: params.cellHeight)
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        minimumLineSpacingForSectionAt section: Int
+    ) -> CGFloat {
+        return params.lineSpacing
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        minimumInteritemSpacingForSectionAt section: Int
+    ) -> CGFloat {
+        return params.cellSpacing
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? ReusableLikedMoviesCell else { return }
+        print("Movie[\(indexPath.item)]")
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+
+extension CoincidencesViewController: UIScrollViewDelegate {
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offset = scrollView.contentOffset
+        paddingView.transform = CGAffineTransform(translationX: 0, y: min(-offset.y - scrollView.contentInset.top, 0))
+
+        paddingViewHeightAnchor?.constant = max(0, offset.y + 40)
     }
 }
