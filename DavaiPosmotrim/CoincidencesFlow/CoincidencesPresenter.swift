@@ -68,4 +68,10 @@ final class CoincidencesPresenter: CoincidencesPresenterProtocol {
             self.moviesArray.append(movie)
         }
     }
+
+    // TODO: - rewrite method to get movie from UserDefaults according to it's id
+
+    func getMovieInfo(from array: [SelectionMovieCellModel]) -> SelectionMovieCellModel? {
+        return array.randomElement()
+    }
 }

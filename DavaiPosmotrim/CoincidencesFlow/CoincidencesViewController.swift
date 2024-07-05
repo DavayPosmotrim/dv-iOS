@@ -258,8 +258,12 @@ extension CoincidencesViewController: UICollectionViewDelegateFlowLayout {
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? ReusableLikedMoviesCell else { return }
-        print("Movie[\(indexPath.item)]")
+        if let viewModel = presenter.getMovieInfo(from: selectionMovieMockData) {
+            let viewController = CoincidencesMovieInfoViewController(viewModel: viewModel)
+            navigationController?.pushViewController(viewController, animated: true)
+        } else {
+            print("There's no models in array")
+        }
     }
 }
 

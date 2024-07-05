@@ -125,6 +125,8 @@ enum Resources {
     enum Coincidences {
         static let plugLabelText = "Пока ничего нет"
         static let navBarText = "Совпадения"
+
+        static let navBarTitle = "Понравившийся фильм"
     }
 
     enum Mistakes {

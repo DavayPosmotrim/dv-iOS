@@ -14,4 +14,5 @@ protocol CoincidencesPresenterProtocol: AnyObject {
     func diceButtonTapped()
     func getMoviesAtIndex(index: Int) -> ReusableLikedMoviesCellModel
     func downloadMoviesArrayFromServer()
+    func getMovieInfo(from array: [SelectionMovieCellModel]) -> SelectionMovieCellModel?
 }
