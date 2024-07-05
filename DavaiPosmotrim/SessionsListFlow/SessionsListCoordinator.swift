@@ -17,6 +17,13 @@ final class SessionsListCoordinator: BaseCoordinator {
     override func finish() {
         navigationController.popViewController(animated: true)
     }
+
+    func showMovies(for session: SessionModel) {
+        let presenter = SessionMoviesPresenter(coordinator: self, session: session)
+        let viewController = SessionMoviesViewController(presenter: presenter)
+        presenter.view = viewController
+        navigationController.pushViewController(viewController, animated: true)
+    }
 }
 
 // MARK: - Private methods

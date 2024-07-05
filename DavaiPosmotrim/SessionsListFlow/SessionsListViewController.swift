@@ -80,8 +80,11 @@ extension SessionsListViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
-        if indexPath.row == 0 {
+        if indexPath.row == presenter.sessionsCount - 1 {
             presenter.updateSessionsList()
+        } else {
+            // TODO: - wait new MainCoordinator
+            presenter.showSessionMovies(by: indexPath.row)
         }
     }
 }
@@ -114,6 +117,7 @@ private extension SessionsListViewController {
     func setupUI() {
         view.backgroundColor = .whiteBackground
         backgroundView.backgroundColor = .baseBackground
+        sessionsListEmptyView.showDescription(true)
 
         [
             backgroundView,
