@@ -49,6 +49,7 @@ final class SessionsListPresenter: SessionsListPresenterProtocol {
     }
 
     func showSessionMovies(by sessionIndex: Int) {
+        coordinator?.showMovies(for: sessions[sessionIndex])
     }
 }
 

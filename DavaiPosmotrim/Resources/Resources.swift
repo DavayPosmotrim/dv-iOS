@@ -192,6 +192,11 @@ enum Resources {
             static let title = "Пока ничего нет"
             static let description = "Здесь будут фильмы,\n которые вам понравились"
         }
+        // swiftlint:disable:next nesting
+        enum Movies {
+            static let sessionTitle = "Сеанс"
+            static let usersTitle = "Участники"
+        }
     }
 
     enum AnimationKeys {
