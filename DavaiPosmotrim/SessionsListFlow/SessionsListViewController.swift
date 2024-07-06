@@ -87,6 +87,9 @@ extension SessionsListViewController: UICollectionViewDelegate {
         guard let cell = collectionView.cellForItem(at: indexPath) as? SessionsListCell else { return }
         if indexPath.row == presenter.sessionsCount - 1 {
             presenter.updateSessionsList()
+        } else {
+            // TODO: - wait new MainCoordinator
+            presenter.showSessionMovies(by: indexPath.row)
         }
     }
 }
