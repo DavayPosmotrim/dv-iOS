@@ -14,7 +14,7 @@ final class CoincidencesCoordinator: BaseCoordinator {
     }
 
     override func finish() {
-        finishDelegate?.didFinish(self)
+        navigationController.popViewController(animated: true)
     }
 }
 

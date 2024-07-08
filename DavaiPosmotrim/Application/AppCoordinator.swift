@@ -41,7 +41,6 @@ private extension AppCoordinator {
     func showCoincidencesFlow() {
         let coincidencesCoordinator = CoincidencesCoordinator(
             type: .coincidencesSession,
-            finishDelegate: self,
             navigationController: navigationController
         )
         addChild(coincidencesCoordinator)
@@ -130,9 +129,6 @@ extension AppCoordinator: CoordinatorFinishDelegate {
             showMainFlow()
         case .selectionMovies:
             showMainFlow()
-        case .coincidencesSession:
-            // TODO: add code to start next flow
-            print("CoincidencesFlow")
         default:
             navigationController.popToRootViewController(animated: false)
         }

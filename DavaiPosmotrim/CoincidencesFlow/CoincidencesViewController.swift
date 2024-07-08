@@ -163,7 +163,7 @@ private extension CoincidencesViewController {
             leftButtonImage: UIImage.customBackIcon,
             leftAction: { [weak self] in
                 guard let self else { return }
-                self.navigationController?.popViewController(animated: true)
+                self.presenter.backButtonTapped()
             }
         )
     }

@@ -38,9 +38,14 @@ final class CoincidencesPresenter: CoincidencesPresenterProtocol {
 
     // MARK: - Public methods
 
-    func diceButtonTapped() {
+    func backButtonTapped() {
         guard let coordinator else { return }
         coordinator.finish()
+    }
+
+    func diceButtonTapped() {
+        guard let coordinator else { return }
+        // TODO: add code to jump to RouletteFlow
     }
 
     func getMoviesAtIndex(index: Int) -> ReusableLikedMoviesCellModel {

@@ -11,6 +11,7 @@ protocol CoincidencesPresenterProtocol: AnyObject {
     var moviesCount: Int { get }
     var isArrayEmpty: Bool { get }
 
+    func backButtonTapped()
     func diceButtonTapped()
     func getMoviesAtIndex(index: Int) -> ReusableLikedMoviesCellModel
     func downloadMoviesArrayFromServer()
