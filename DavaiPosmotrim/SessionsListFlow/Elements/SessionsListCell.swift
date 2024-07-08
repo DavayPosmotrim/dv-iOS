@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class SessionsListCell: UITableViewCell {
+final class SessionsListCell: UICollectionViewCell {
 
     // MARK: - Type properties
     static let cellID = "SessionsListCell"
@@ -21,8 +21,13 @@ final class SessionsListCell: UITableViewCell {
         static let large: CGFloat = 16.0
         static let xLarge: CGFloat = 20.0
     }
-    private let placeholderImage = UIImage(resource: .noImagePlug)
-    private var isFirstCell = false
+    private let placeholderImage = UIImage.noImagePlug
+    private var hasImage: Bool = true {
+        didSet {
+            movieImageView.isHidden = hasImage ? false : true
+            placeholderStackView.isHidden = hasImage ? true : false
+        }
+    }
 
     // MARK: - View properties
     private lazy var dateLabel: UILabel = {
@@ -116,25 +121,8 @@ final class SessionsListCell: UITableViewCell {
     private lazy var placeholderImageView = UIImageView(image: placeholderImage)
 
     // MARK: - Public Methods
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        let topInset: CGFloat = isFirstCell ? .spacingMedium * 3 : .spacingMedium
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: topInset, left: 0, bottom: 0, right: 0))
-    }
-
-    func configureCell(for viewModel: SessionsListViewModel) {
-        isFirstCell = viewModel.isFirstCell
-        dateLabel.text = viewModel.date
-        usersListLabel.text = viewModel.users
-        matchCountLabel.text = viewModel.matches
-
-        if let imageName = viewModel.imageName {
-            movieImageView.image = UIImage(named: imageName)
-            hidePlaceholder(true)
-        } else {
-            hidePlaceholder(false)
-        }
-
+    func configureCell(for viewModel: SessionModel) {
+        setupValues(for: viewModel)
         setupUI()
         contentView.layoutIfNeeded()
     }
@@ -204,6 +192,17 @@ private extension SessionsListCell {
             placeholderStackView.centerXAnchor.constraint(equalTo: movieBackgroundView.centerXAnchor),
             placeholderStackView.centerYAnchor.constraint(equalTo: movieBackgroundView.centerYAnchor)
         ])
+    }
+
+    func setupValues(for viewModel: SessionModel) {
+        dateLabel.text = viewModel.date
+        usersListLabel.text = viewModel.users.map { $0.name }.joined(separator: ", ")
+        matchCountLabel.text = String(viewModel.matches)
+        hasImage = viewModel.imageName != nil
+
+        if let imageName = viewModel.imageName {
+            movieImageView.image = UIImage(named: imageName)
+        }
     }
 
     func hidePlaceholder(_ isShowing: Bool) {

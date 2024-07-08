@@ -32,19 +32,6 @@ struct SessionsListModel {
     let sessions: [SessionModel]
 }
 
-struct SessionsListViewModel {
-    let date: String
-    let users: String
-    let matches: String
-    let imageName: String?
-    var isFirstCell = false
-}
-
-struct SessionMoviesViewModel {
-    let session: SessionModel
-    let movies: [SessionMovieModel]
-}
-
 // MARK: - Mock data
 extension SessionModel {
     static let mockData: [SessionModel] = [

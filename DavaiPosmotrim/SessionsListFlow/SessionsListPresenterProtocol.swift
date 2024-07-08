@@ -11,10 +11,10 @@ protocol SessionsListPresenterProtocol: AnyObject {
     // MARK: - Properties
     var isSessionsListEmpty: Bool { get }
     var sessionsCount: Int { get }
+    var sessions: [SessionModel] { get }
 
     // MARK: - Methods
     func viewDidLoad()
     func updateSessionsList()
-    func getSessionForCellBy(index: Int) -> SessionsListViewModel
     func showSessionMovies(by sessionIndex: Int)
 }
