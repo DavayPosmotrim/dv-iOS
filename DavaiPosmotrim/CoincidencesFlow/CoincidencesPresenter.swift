@@ -41,7 +41,7 @@ final class CoincidencesPresenter: CoincidencesPresenterProtocol {
 
     func diceButtonTapped() {
         guard let coordinator else { return }
-        coordinator.finish()
+        coordinator.showRouletteFlow()
     }
 
     func getMoviesAtIndex(index: Int) -> ReusableLikedMoviesCellModel {

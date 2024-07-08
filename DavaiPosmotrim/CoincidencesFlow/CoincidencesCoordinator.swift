@@ -16,6 +16,14 @@ final class CoincidencesCoordinator: BaseCoordinator {
     override func finish() {
         finishDelegate?.didFinish(self)
     }
+
+    func showRouletteFlow() {
+        let rouletteCoordinator = RouletteCoordinator(
+            type: .roulette,
+            navigationController: navigationController)
+        addChild(rouletteCoordinator)
+        rouletteCoordinator.start()
+    }
 }
 
 private extension CoincidencesCoordinator {
