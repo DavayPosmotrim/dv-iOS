@@ -27,7 +27,6 @@
 		4AAEABA22C0C66D400A14C1D /* SelectionMovieMockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAEABA12C0C66D400A14C1D /* SelectionMovieMockData.swift */; };
 		4AAEABA42C0C673800A14C1D /* SelectionMovieCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAEABA32C0C673800A14C1D /* SelectionMovieCellModel.swift */; };
 		4AAEABA72C0C81C700A14C1D /* CustomMovieCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAEABA62C0C81C700A14C1D /* CustomMovieCollectionCell.swift */; };
-		4AAEABAC2C148BC000A14C1D /* CoincidencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAEABAB2C148BC000A14C1D /* CoincidencesViewController.swift */; };
 		4AAEABAE2C15EEFC00A14C1D /* CreateSessionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAEABAD2C15EEFC00A14C1D /* CreateSessionCoordinator.swift */; };
 		4AAEABB02C15EF9600A14C1D /* CreateSessionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAEABAF2C15EF9600A14C1D /* CreateSessionFactory.swift */; };
 		4AAEABB22C1761F600A14C1D /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAEABB12C1761F500A14C1D /* UIImage+Extension.swift */; };
@@ -46,7 +45,6 @@
 		5A69B62E2C33F6BA00E9E3F7 /* SelectionMovieDetailsCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A69B62D2C33F6BA00E9E3F7 /* SelectionMovieDetailsCellModel.swift */; };
 		5A69B6302C33F8F000E9E3F7 /* CustomRatingCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A69B62F2C33F8F000E9E3F7 /* CustomRatingCollectionCell.swift */; };
 		5A69B6322C33F95E00E9E3F7 /* CustomRolesCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A69B6312C33F95E00E9E3F7 /* CustomRolesCollectionCell.swift */; };
-		5A69B6342C33FCBD00E9E3F7 /* SelectionMovieDetailsMockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A69B6332C33FCBD00E9E3F7 /* SelectionMovieDetailsMockData.swift */; };
 		5AEEACC82C0A1E3900F18BF9 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AEEACC42C0A1E3900F18BF9 /* SplashScreenViewController.swift */; };
 		5AEEACCE2C10766F00F18BF9 /* SplashScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AEEACCD2C10766F00F18BF9 /* SplashScreenPresenter.swift */; };
 		5AEEACD02C10770200F18BF9 /* SplashScreenPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AEEACCF2C10770200F18BF9 /* SplashScreenPresenterProtocol.swift */; };
@@ -152,7 +150,6 @@
 		4AAEABA12C0C66D400A14C1D /* SelectionMovieMockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionMovieMockData.swift; sourceTree = "<group>"; };
 		4AAEABA32C0C673800A14C1D /* SelectionMovieCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionMovieCellModel.swift; sourceTree = "<group>"; };
 		4AAEABA62C0C81C700A14C1D /* CustomMovieCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMovieCollectionCell.swift; sourceTree = "<group>"; };
-		4AAEABAB2C148BC000A14C1D /* CoincidencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoincidencesViewController.swift; sourceTree = "<group>"; };
 		4AAEABAD2C15EEFC00A14C1D /* CreateSessionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionCoordinator.swift; sourceTree = "<group>"; };
 		4AAEABAF2C15EF9600A14C1D /* CreateSessionFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionFactory.swift; sourceTree = "<group>"; };
 		4AAEABB12C1761F500A14C1D /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
@@ -171,7 +168,6 @@
 		5A69B62D2C33F6BA00E9E3F7 /* SelectionMovieDetailsCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionMovieDetailsCellModel.swift; sourceTree = "<group>"; };
 		5A69B62F2C33F8F000E9E3F7 /* CustomRatingCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRatingCollectionCell.swift; sourceTree = "<group>"; };
 		5A69B6312C33F95E00E9E3F7 /* CustomRolesCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRolesCollectionCell.swift; sourceTree = "<group>"; };
-		5A69B6332C33FCBD00E9E3F7 /* SelectionMovieDetailsMockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionMovieDetailsMockData.swift; sourceTree = "<group>"; };
 		5AEEACC42C0A1E3900F18BF9 /* SplashScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
 		5AEEACCD2C10766F00F18BF9 /* SplashScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenPresenter.swift; sourceTree = "<group>"; };
 		5AEEACCF2C10770200F18BF9 /* SplashScreenPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenPresenterProtocol.swift; sourceTree = "<group>"; };
@@ -321,7 +317,6 @@
 				4AAEABB72C1DD20A00A14C1D /* SelectionMoviesFactory.swift */,
 				4AAEABB92C1DD24400A14C1D /* SelectionMoviesCoordinator.swift */,
 				5A69B62D2C33F6BA00E9E3F7 /* SelectionMovieDetailsCellModel.swift */,
-				5A69B6332C33FCBD00E9E3F7 /* SelectionMovieDetailsMockData.swift */,
 			);
 			path = SelectionMoviesFlow;
 			sourceTree = "<group>";
@@ -800,7 +795,6 @@
 				C917E3F52BE6CED000B34639 /* AuthCoordinator.swift in Sources */,
 				C91332D52C10BE820036FC44 /* MovieSelectionOnboardingCoordinator.swift in Sources */,
 				C91DCC7A2BFEA31A001BC065 /* JoinSessionPresenterProtocol.swift in Sources */,
-				5A69B6342C33FCBD00E9E3F7 /* SelectionMovieDetailsMockData.swift in Sources */,
 				C91332D32C10B5DC0036FC44 /* MovieSelectionOnboardingViewController.swift in Sources */,
 				E2B9BF972BD7C67600592578 /* OnboardingCoordinator.swift in Sources */,
 				4A2FB3B02BF780150048F5B9 /* CustomSegmentedControl.swift in Sources */,

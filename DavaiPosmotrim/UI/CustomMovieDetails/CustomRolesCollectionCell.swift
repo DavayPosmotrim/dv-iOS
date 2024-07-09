@@ -15,10 +15,12 @@ final class CustomRolesCollectionCell: UICollectionViewCell {
 
     // MARK: - Layout variables
 
-    private lazy var roleLabel: UILabel = {
+    lazy var roleLabel: UILabel = {
         let roleLabel = UILabel()
-        roleLabel.textColor = .whiteText
+        roleLabel.textColor = .baseText
         roleLabel.font = .textParagraphRegularFont
+        roleLabel.backgroundColor = .baseBackground
+        roleLabel.layer.cornerRadius = 12
         return roleLabel
     }()
 
@@ -26,8 +28,8 @@ final class CustomRolesCollectionCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.backgroundColor = .basePrimaryAccent
         contentView.layer.cornerRadius = 12
+        contentView.backgroundColor = .baseBackground
         setupSubviews()
         setupConstraints()
     }
@@ -58,4 +60,3 @@ final class CustomRolesCollectionCell: UICollectionViewCell {
         ])
     }
 }
-

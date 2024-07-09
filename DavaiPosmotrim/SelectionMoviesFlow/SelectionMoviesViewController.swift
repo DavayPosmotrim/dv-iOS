@@ -48,10 +48,14 @@ final class SelectionMoviesViewController: UIViewController {
         }
         return view
     }()
-    
+
     private lazy var customMovieDetails: CustomMovieDetails = {
-        let view = CustomMovieDetails(model: movieDescription)
-        
+        let firstDecsription = presenter.getFirstMovie()
+        let view = CustomMovieDetails(model: firstDecsription.details)
+        let swipeGuesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture))
+        swipeGuesture.direction = .up
+        view.swipeView.addGestureRecognizer(swipeGuesture)
+        view.swipeView.isUserInteractionEnabled = true
         return view
     }()
 
@@ -108,6 +112,11 @@ final class SelectionMoviesViewController: UIViewController {
             break
         }
     }
+
+    @objc func handleSwipeGesture(_ gesture: UISwipeGestureRecognizer) {
+        let direction = gesture.direction
+        gesture.direction = changeDirection(direction: direction)
+    }
 }
 
 // MARK: - Private methods
@@ -146,11 +155,41 @@ private extension SelectionMoviesViewController {
             centralPaddingView.topAnchor.constraint(equalTo: customNavBar.bottomAnchor, constant: 16),
             centralPaddingView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             centralPaddingView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -67),
-            
-            customMovieDetails.topAnchor.constraint(equalTo: centralPaddingView.bottomAnchor, constant: 46),
+
+            customMovieDetails.topAnchor.constraint(equalTo: centralPaddingView.bottomAnchor, constant: 16),
             customMovieDetails.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            customMovieDetails.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            customMovieDetails.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            customMovieDetails.heightAnchor.constraint(equalToConstant: countViewHeight())
         ])
+    }
+
+    private func changeDirection(direction: UISwipeGestureRecognizer.Direction) -> UISwipeGestureRecognizer.Direction {
+        if direction == .up {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.customMovieDetails.transform = CGAffineTransform(
+                    translationX: 0,
+                    y: -(self.centralPaddingView.frame.height) - 16
+                )
+                self.customMovieDetails.detailsText.textColor = .baseText
+            })
+            return .down
+        } else {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.customMovieDetails.transform = CGAffineTransform(translationX: 0, y: 0)
+                self.customMovieDetails.detailsText.textColor = .captionLightText
+            })
+            return .up
+        }
+    }
+
+    private func countViewHeight() -> CGFloat {
+        var safeArea: UIEdgeInsets {
+            let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+            return scene?.windows.first?.safeAreaInsets ?? .zero
+        }
+        let viewHeight = view.frame.height
+        let calculatedHeight = viewHeight - safeArea.top - customNavBar.frame.height - 16
+        return calculatedHeight
     }
 
     func animateSwipe(direction: CGFloat) {
@@ -212,10 +251,12 @@ extension SelectionMoviesViewController: SelectionMoviesViewProtocol {
 
     func showNextMovie(_ nextModel: SelectionMovieCellModel) {
         centralPaddingView.updateModel(nextModel)
+        customMovieDetails.updateModel(model: nextModel.details)
     }
 
     func showPreviousMovie(_ nextModel: SelectionMovieCellModel) {
         centralPaddingView.updateModel(nextModel)
+        customMovieDetails.updateModel(model: nextModel.details)
         animateComeBack()
     }
 

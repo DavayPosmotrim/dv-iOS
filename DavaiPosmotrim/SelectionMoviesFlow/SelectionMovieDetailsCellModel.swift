@@ -9,13 +9,10 @@ import Foundation
 
 struct SelectionMovieDetailsCellModel {
     let descreption: String
-    let mainRoles: [String]
-    let derictor: String
-    let rating: [RatingCell]
-}
-
-struct RatingCell {
-    let name: String
-    let rating: String
-    let votesAmount: Int
+    let ratingKp: Float
+    let ratingImdb: Float
+    let votesKp: Int
+    let votesImdb: Int
+    let directors: [String]
+    let actors: [String]
 }
