@@ -163,7 +163,7 @@ private extension SelectionMoviesViewController {
         ])
     }
 
-    private func changeDirection(direction: UISwipeGestureRecognizer.Direction) -> UISwipeGestureRecognizer.Direction {
+    func changeDirection(direction: UISwipeGestureRecognizer.Direction) -> UISwipeGestureRecognizer.Direction {
         if direction == .up {
             UIView.animate(withDuration: 0.3, animations: {
                 self.customMovieDetails.transform = CGAffineTransform(
@@ -182,7 +182,7 @@ private extension SelectionMoviesViewController {
         }
     }
 
-    private func countViewHeight() -> CGFloat {
+    func countViewHeight() -> CGFloat {
         var safeArea: UIEdgeInsets {
             let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
             return scene?.windows.first?.safeAreaInsets ?? .zero

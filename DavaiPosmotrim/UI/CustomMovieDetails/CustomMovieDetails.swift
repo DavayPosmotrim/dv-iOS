@@ -8,19 +8,31 @@
 import UIKit
 
 final class CustomMovieDetails: UIView, UICollectionViewDelegate {
+    
+    // MARK: - Public Properties
 
     var data: SelectionMovieDetailsCellModel
+    
+    // MARK: - Layout variables
+    
+    lazy var detailsText: UILabel = {
+        var detailsText = UILabel()
+        detailsText.font = .textParagraphRegularFont
+        detailsText.textColor = .captionLightText
+        detailsText.numberOfLines = 0
+        return detailsText
+    }()
+    
+    lazy var swipeView: UIView = {
+        var swipeView = UIView()
+        swipeView.backgroundColor = .clear
+        return swipeView
+    }()
 
     private lazy var mainScroll: UIScrollView = {
         var mainScroll = UIScrollView()
         mainScroll.isScrollEnabled = true
         return mainScroll
-    }()
-
-    lazy var swipeView: UIView = {
-        var swipeView = UIView()
-        swipeView.backgroundColor = .clear
-        return swipeView
     }()
 
     private lazy var slider: UIImageView = {
@@ -33,14 +45,6 @@ final class CustomMovieDetails: UIView, UICollectionViewDelegate {
         detailsLabel.text = "Подробнее о фильме"
         detailsLabel.font = .textLabelFont
         return detailsLabel
-    }()
-
-    lazy var detailsText: UILabel = {
-        var detailsText = UILabel()
-        detailsText.font = .textParagraphRegularFont
-        detailsText.textColor = .captionLightText
-        detailsText.numberOfLines = 0
-        return detailsText
     }()
 
     private lazy var mainRolesLabel: UILabel = {
@@ -110,6 +114,8 @@ final class CustomMovieDetails: UIView, UICollectionViewDelegate {
 
         return ratingCollection
     }()
+    
+    // MARK: - Initializers
 
     init(model: SelectionMovieDetailsCellModel) {
         data = model
@@ -126,12 +132,42 @@ final class CustomMovieDetails: UIView, UICollectionViewDelegate {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Public Methods
 
     override func layoutSubviews() {
         super.layoutSubviews()
         mainRolesCollectionView.layoutIfNeeded()
         ratingCollection.layoutIfNeeded()
     }
+    
+    func setContentSize() {
+        let contentRect: CGRect = mainScroll.subviews.reduce(into: .zero) { rect, view in
+            rect = rect.union(view.frame)
+        }
+        mainScroll.contentSize = CGSize(width: frame.width, height: contentRect.height)
+    }
+
+    func collectionsReloadData() {
+        mainRolesCollectionView.reloadData()
+        ratingCollection.reloadData()
+    }
+
+    func updateModel(model: SelectionMovieDetailsCellModel) {
+        data = model
+        setupWithModel(model: model)
+        setContentSize()
+        collectionsReloadData()
+    }
+
+    func setupWithModel(model: SelectionMovieDetailsCellModel) {
+        detailsText.text = model.descreption
+        directorCell.text = model.directors[0]
+        mainRolesCollectionView.reloadData()
+        ratingCollection.reloadData()
+    }
+    
+    // MARK: - Private Methods
 
     private func setupContraints() {
 
@@ -214,33 +250,10 @@ final class CustomMovieDetails: UIView, UICollectionViewDelegate {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
     }
-
-    func setContentSize() {
-        let contentRect: CGRect = mainScroll.subviews.reduce(into: .zero) { rect, view in
-            rect = rect.union(view.frame)
-        }
-        mainScroll.contentSize = CGSize(width: frame.width, height: contentRect.height)
-    }
-
-    func collectionsReloadData() {
-        mainRolesCollectionView.reloadData()
-        ratingCollection.reloadData()
-    }
-
-    func updateModel(model: SelectionMovieDetailsCellModel) {
-        data = model
-        setupWithModel(model: model)
-        setContentSize()
-        collectionsReloadData()
-    }
-
-    func setupWithModel(model: SelectionMovieDetailsCellModel) {
-        detailsText.text = model.descreption
-        directorCell.text = model.directors[0]
-        mainRolesCollectionView.reloadData()
-        ratingCollection.reloadData()
-    }
 }
+
+// MARK: - UICollectionViewDataSource
+
 extension CustomMovieDetails: UICollectionViewDataSource {
     func collectionView(
         _ collectionView: UICollectionView,
