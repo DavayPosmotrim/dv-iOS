@@ -28,6 +28,9 @@ extension CGFloat {
     /// Spacing/Medium = 16px
     static let spacingMedium = 16.0
 
+    /// Spacing/Large = 24px
+    static let spacingLarge = 24.0
+
     /// Spacing/Extra Large = 32px
     static let spacingExtraLarge = 32.0
 

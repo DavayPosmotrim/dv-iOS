@@ -20,7 +20,7 @@ final class SessionsListPresenter: SessionsListPresenterProtocol {
     }
 
     // MARK: - Private properties
-    private var sessions: [SessionModel]
+    private (set) var sessions: [SessionModel]
 
     // MARK: - Inits
     init(
@@ -48,14 +48,8 @@ final class SessionsListPresenter: SessionsListPresenterProtocol {
         view?.showListOrEmptyView()
     }
 
-    func getSessionForCellBy(index: Int) -> SessionsListViewModel {
-        let session = sessions[index]
-        return SessionsListViewModel(
-            date: session.date,
-            users: session.users.map { $0.name }.joined(separator: ", "),
-            matches: String(session.matches),
-            imageName: session.imageName
-        )
+    func showSessionMovies(by sessionIndex: Int) {
+        coordinator?.showMovies(for: sessions[sessionIndex])
     }
 }
 
@@ -71,29 +65,6 @@ extension SessionsListPresenter: CustomNavigationBarDelegate {
 private extension SessionsListPresenter {
 
     func setupMockData() {
-        sessions.append(SessionModel(
-            date: "23 сентября 2023",
-            matches: 1,
-            imageName: "Mok_5",
-            users: [User(name: "Артём (вы)"), User(name: "Анна"), User(name: "Никита"), User(name: "Руслан")]
-        ))
-        sessions.append(SessionModel(
-            date: "22 сентября 2023",
-            matches: 12,
-            imageName: "Mok_6",
-            users: [User(name: "Артём (вы)"), User(name: "Анна")]
-        ))
-        sessions.append(SessionModel(
-            date: "20 сентября 2023",
-            matches: 3,
-            imageName: "Mok_3",
-            users: [User(name: "Артём (вы)"), User(name: "Анна"), User(name: "Никита")]
-        ))
-        sessions.append(SessionModel(
-            date: "22 сентября 2023",
-            matches: 5555555,
-            imageName: nil,
-            users: [User(name: "Артём (вы)"), User(name: "Анна")]
-        ))
+        sessions = SessionModel.mockData
     }
 }

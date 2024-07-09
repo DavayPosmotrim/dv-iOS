@@ -142,6 +142,7 @@ final class MainViewController: UIViewController {
         setupConstraints()
         setupAuthNotificationObserver()
         setupJoinNotificationObserver()
+        setupTableViewHeightConstraint()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -210,17 +211,18 @@ final class MainViewController: UIViewController {
             imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
 
-            descriptionLabel.heightAnchor.constraint(equalToConstant: 48),
-            descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 64),
-            descriptionLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 150),
-            descriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            descriptionLabel.bottomAnchor.constraint(equalTo: paddingView.topAnchor, constant: -24),
-
             paddingView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             paddingView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             paddingView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
+            tableView.leadingAnchor.constraint(equalTo: paddingView.leadingAnchor, constant: 16),
+            tableView.topAnchor.constraint(equalTo: editButton.bottomAnchor, constant: 36),
+            tableView.trailingAnchor.constraint(equalTo: paddingView.trailingAnchor, constant: -16),
+            tableView.bottomAnchor.constraint(equalTo: paddingView.bottomAnchor, constant: -100),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -80),
+
             nameLabel.leadingAnchor.constraint(equalTo: paddingView.leadingAnchor, constant: 32),
+            nameLabel.bottomAnchor.constraint(equalTo: tableView.topAnchor, constant: -56),
             nameLabel.topAnchor.constraint(equalTo: paddingView.topAnchor, constant: 16),
 
             editButton.heightAnchor.constraint(equalToConstant: 40),
@@ -228,10 +230,18 @@ final class MainViewController: UIViewController {
             editButton.topAnchor.constraint(equalTo: paddingView.topAnchor, constant: 16),
             editButton.trailingAnchor.constraint(equalTo: paddingView.trailingAnchor, constant: -32),
 
-            tableView.leadingAnchor.constraint(equalTo: paddingView.leadingAnchor, constant: 16),
-            tableView.topAnchor.constraint(equalTo: editButton.bottomAnchor, constant: 36),
-            tableView.trailingAnchor.constraint(equalTo: paddingView.trailingAnchor, constant: -16),
-            tableView.bottomAnchor.constraint(equalTo: paddingView.bottomAnchor, constant: -100)
+            descriptionLabel.heightAnchor.constraint(equalToConstant: 48),
+            descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 64),
+            descriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            descriptionLabel.bottomAnchor.constraint(equalTo: paddingView.topAnchor, constant: -24)
+        ])
+    }
+
+    private func setupTableViewHeightConstraint() {
+        tableView.layoutIfNeeded()
+        let tableViewHeight = tableView.contentSize.height
+        NSLayoutConstraint.activate([
+            tableView.heightAnchor.constraint(equalToConstant: tableViewHeight)
         ])
     }
 }

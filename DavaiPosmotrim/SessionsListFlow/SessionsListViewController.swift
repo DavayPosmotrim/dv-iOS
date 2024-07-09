@@ -11,15 +11,23 @@ final class SessionsListViewController: UIViewController, SessionsListViewContro
 
     // MARK: - Public properties
     var presenter: SessionsListPresenterProtocol
+    enum Section: Int, Hashable, CaseIterable {
+        case empty, sessions
+    }
 
     // MARK: - Private properties
-    private let cellHeightWithVerticalSpacing: CGFloat = 256
     private var isSessionsListEmpty: Bool = false {
         didSet {
             sessionsListEmptyView.isHidden = !isSessionsListEmpty
-            tableView.isHidden = isSessionsListEmpty
+            collectionView.isHidden = isSessionsListEmpty
         }
     }
+    private enum Size {
+        static let fullSize: CGFloat = 1
+        static let smallSpacing: CGFloat = 8
+        static let sessionHeight: CGFloat = 240
+    }
+    private lazy var dataSource = configureDataSource()
 
     // MARK: - View properties
     private lazy var customNavBar: UIView = {
@@ -29,12 +37,14 @@ final class SessionsListViewController: UIViewController, SessionsListViewContro
         customNavBar.delegate = presenter as? any CustomNavigationBarDelegate
         return customNavBar
     }()
-    private lazy var tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.backgroundColor = .clear
-        tableView.separatorStyle = .none
-        tableView.showsVerticalScrollIndicator = false
-        return tableView
+    private lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
+        collectionView.backgroundColor = .clear
+        collectionView.delegate = self
+        collectionView.alwaysBounceVertical = true
+        collectionView.allowsMultipleSelection = false
+        collectionView.showsVerticalScrollIndicator = false
+        return collectionView
     }()
     private lazy var backgroundView = UIView()
     private lazy var sessionsListEmptyView = SessionsListEmptyView()
@@ -54,9 +64,7 @@ final class SessionsListViewController: UIViewController, SessionsListViewContro
         super.viewDidLoad()
         presenter.viewDidLoad()
         setupUI()
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(SessionsListCell.self, forCellReuseIdentifier: SessionsListCell.cellID)
+        applySnapshot()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -66,45 +74,23 @@ final class SessionsListViewController: UIViewController, SessionsListViewContro
 
     // MARK: - Public methods
     func showListOrEmptyView() {
-        tableView.reloadData()
+        collectionView.reloadData()
         isSessionsListEmpty = presenter.isSessionsListEmpty
     }
 }
 
-// MARK: - UITableViewDelegate
-extension SessionsListViewController: UITableViewDelegate {
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        cellHeightWithVerticalSpacing
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: false)
-        if indexPath.row == 0 {
+// MARK: - UICollectionViewDelegate
+extension SessionsListViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: false)
+        // TODO: - add code later
+        guard let cell = collectionView.cellForItem(at: indexPath) as? SessionsListCell else { return }
+        if indexPath.row == presenter.sessionsCount - 1 {
             presenter.updateSessionsList()
+        } else {
+            // TODO: - wait new MainCoordinator
+            presenter.showSessionMovies(by: indexPath.row)
         }
-    }
-}
-
-// MARK: - UITableViewDataSource
-extension SessionsListViewController: UITableViewDataSource {
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter.sessionsCount
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: SessionsListCell.cellID,
-                for: indexPath
-              ) as? SessionsListCell else {
-            return UITableViewCell()
-        }
-        var model = presenter.getSessionForCellBy(index: indexPath.row)
-        model.isFirstCell = indexPath.row == 0
-        cell.configureCell(for: model)
-        cell.selectionStyle = .none
-        return cell
     }
 }
 
@@ -114,11 +100,12 @@ private extension SessionsListViewController {
     func setupUI() {
         view.backgroundColor = .whiteBackground
         backgroundView.backgroundColor = .baseBackground
+        sessionsListEmptyView.showDescription(true)
 
         [
             backgroundView,
             sessionsListEmptyView,
-            tableView,
+            collectionView,
             customNavBar
         ].forEach {
             view.addSubview($0)
@@ -133,19 +120,100 @@ private extension SessionsListViewController {
             backgroundView.topAnchor.constraint(equalTo: safeArea.topAnchor),
             backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
-            customNavBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            customNavBar.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            customNavBar.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             customNavBar.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            customNavBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 
-            tableView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
-            tableView.topAnchor.constraint(equalTo: customNavBar.bottomAnchor, constant: -.spacingMedium * 2),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            collectionView.topAnchor.constraint(equalTo: customNavBar.bottomAnchor, constant: -.spacingMedium * 3),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
             sessionsListEmptyView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             sessionsListEmptyView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             sessionsListEmptyView.topAnchor.constraint(equalTo: customNavBar.bottomAnchor, constant: .spacingMedium),
             sessionsListEmptyView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+
+    func createLayout() -> UICollectionViewLayout {
+        let sectionProvider = { (sectionIndex: Int, _: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+            guard let sectionType = Section(rawValue: sectionIndex) else { return nil }
+            let group = sectionType == .empty
+            ? NSCollectionLayoutGroup.vertical(layoutSize: self.setSize(for: .empty), subitems: [self.setItem()])
+            : NSCollectionLayoutGroup.vertical(layoutSize: self.setSize(for: .sessions), subitems: [self.setItem()])
+            let section = NSCollectionLayoutSection(group: group)
+            section.interGroupSpacing = sectionType == .empty ? .zero : .spacingMedium
+            return section
+        }
+        return UICollectionViewCompositionalLayout(sectionProvider: sectionProvider)
+    }
+
+    func setItem() -> NSCollectionLayoutItem {
+        NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(Size.fullSize),
+            heightDimension: .fractionalHeight(Size.fullSize)
+        ))
+    }
+
+    func setSize(for type: Section) -> NSCollectionLayoutSize {
+        NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(Size.fullSize),
+            heightDimension: .absolute(type == .empty ? .spacingMedium * 4 : Size.sessionHeight)
+        )
+    }
+    func createEmptyCellRegistration() -> UICollectionView.CellRegistration<UICollectionViewCell, Int> {
+        UICollectionView.CellRegistration<UICollectionViewCell, Int> { _, _, _ in
+        }
+    }
+
+    func createSessionCellRegistration() -> UICollectionView.CellRegistration<SessionsListCell, SessionModel> {
+        UICollectionView.CellRegistration<SessionsListCell, SessionModel> { cell, _, session in
+            cell.configureCell(for: session)
+        }
+    }
+
+    func configureDataSource() -> UICollectionViewDiffableDataSource<Section, AnyHashable> {
+        let emptyCellRegistration = createEmptyCellRegistration()
+        let sessionCellRegistration = createSessionCellRegistration()
+
+        let dataSource = UICollectionViewDiffableDataSource<Section, AnyHashable>(collectionView: collectionView) {
+            // swiftlint:disable:next closure_parameter_position
+            (collectionView, indexPath, item) -> UICollectionViewCell? in
+            return Section(rawValue: indexPath.section) == .empty
+            ? collectionView.dequeueConfiguredReusableCell(
+                using: emptyCellRegistration,
+                for: indexPath,
+                item: item as? Int
+            )
+            : collectionView.dequeueConfiguredReusableCell(
+                using: sessionCellRegistration,
+                for: indexPath,
+                item: item as? SessionModel
+            )
+        }
+        return dataSource
+    }
+
+    func applySnapshot() {
+        let sections = Section.allCases
+        var snapshot = NSDiffableDataSourceSnapshot<Section, AnyHashable>()
+        snapshot.appendSections(sections)
+
+        var emptySnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
+        emptySnapshot.append([Int()])
+        dataSource.apply(
+            emptySnapshot,
+            to: .empty,
+            animatingDifferences: false
+        )
+
+        var moviesSnapshot = NSDiffableDataSourceSectionSnapshot<AnyHashable>()
+        moviesSnapshot.append(presenter.sessions)
+        dataSource.apply(
+            moviesSnapshot,
+            to: .sessions,
+            animatingDifferences: false
+        )
     }
 }
