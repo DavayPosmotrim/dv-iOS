@@ -8,8 +8,12 @@
 import UIKit
 
 final class CustomRatingCollectionCell: UICollectionViewCell {
+    
+    // MARK: - Stored Properties
 
     static let reuseIdentifier = "CustomRatingCollectionCell"
+    
+    // MARK: - Layout variables
 
     private lazy var rating: UILabel = {
         var rating = UILabel()
@@ -35,6 +39,8 @@ final class CustomRatingCollectionCell: UICollectionViewCell {
         name.font = .textCaptionRegularFont
         return name
     }()
+    
+    //MARK: - Initializers
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -46,6 +52,8 @@ final class CustomRatingCollectionCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Public Methods
 
     func configureKinopoiskRatingCell(ratingNumber: Float, votes: Int) {
         rating.text = String(ratingNumber)
@@ -60,6 +68,8 @@ final class CustomRatingCollectionCell: UICollectionViewCell {
         name.text = "Рейтинг IMDb"
         configureBackground(number: ratingNumber)
     }
+    
+    // MARK: - Private Methods
 
     private func configureBackground(number: Float) {
         if number >= 7.0 {
