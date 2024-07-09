@@ -58,7 +58,7 @@ private extension MainCoordinator {
     func showCreateSessionFlow() {
         let createSessionCoordinator = CreateSessionCoordinator(
             type: .createSession,
-            finishDelegate: finishDelegate,
+            finishDelegate: self,
             navigationController: navigationController
         )
         addChild(createSessionCoordinator)
@@ -68,6 +68,7 @@ private extension MainCoordinator {
     func showJoinSessionFlow() {
         let authSessionCoordinator = AuthCoordinator(
             type: .authSession,
+            finishDelegate: self,
             navigationController: navigationController
         )
         addChild(authSessionCoordinator)
@@ -81,5 +82,41 @@ private extension MainCoordinator {
         )
         addChild(sessionsListCoordinator)
         sessionsListCoordinator.start()
+    }
+}
+
+// MARK: - CoordinatorFinishDelegate
+
+extension MainCoordinator: CoordinatorFinishDelegate {
+    func didFinish(_ coordinator: CoordinatorProtocol) {
+        childCoordinators.removeAll()
+        switch coordinator.type {
+        case .createSession:
+            navigationController.popToRootViewController(animated: true)
+        case .movieSelectionOnboarding:
+            break
+        case .auth:
+            break
+        case .edit:
+            break
+        case .authSession:
+            break
+        case .main:
+            break
+        case .joinSession:
+            navigationController.popToRootViewController(animated: true)
+        case .coincidencesSession:
+            break
+        case .favoriteMovies:
+            break
+        case .sessionsList:
+            break
+        case .selectionMovies:
+            break
+        case .inviteUsers:
+            navigationController.popToRootViewController(animated: true)
+        default:
+            navigationController.popToRootViewController(animated: false)
+        }
     }
 }

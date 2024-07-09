@@ -18,7 +18,7 @@ final class CreateSessionCoordinator: BaseCoordinator {
     }
 
     override func finish() {
-        navigationController.popViewController(animated: true)
+        finishDelegate?.didFinish(self)
     }
 }
 
