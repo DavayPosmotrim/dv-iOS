@@ -7,23 +7,23 @@
 
 import UIKit
 
-final class CustomMovieDetails: UIView, UICollectionViewDelegate {
-    
+final class CustomMovieDetails: UIView {
+
     // MARK: - Public Properties
 
     var data: SelectionMovieDetailsCellModel
-    
+
     // MARK: - Layout variables
-    
-    lazy var detailsText: UILabel = {
+
+    private lazy var detailsText: UILabel = {
         var detailsText = UILabel()
         detailsText.font = .textParagraphRegularFont
         detailsText.textColor = .captionLightText
         detailsText.numberOfLines = 0
         return detailsText
     }()
-    
-    lazy var swipeView: UIView = {
+
+    private lazy var swipeView: UIView = {
         var swipeView = UIView()
         swipeView.backgroundColor = .clear
         return swipeView
@@ -35,14 +35,11 @@ final class CustomMovieDetails: UIView, UICollectionViewDelegate {
         return mainScroll
     }()
 
-    private lazy var slider: UIImageView = {
-        var slider = UIImageView(image: .slider)
-        return slider
-    }()
+    private lazy var slider: UIImageView = UIImageView(image: .slider)
 
     private lazy var detailsLabel: UILabel = {
         var detailsLabel = UILabel()
-        detailsLabel.text = "Подробнее о фильме"
+        detailsLabel.text = Resources.MovieDetails.movieDetailsText
         detailsLabel.font = .textLabelFont
         return detailsLabel
     }()
@@ -50,7 +47,7 @@ final class CustomMovieDetails: UIView, UICollectionViewDelegate {
     private lazy var mainRolesLabel: UILabel = {
         var mainRolesLabel = UILabel()
         mainRolesLabel.font = .textLabelFont
-        mainRolesLabel.text = "В главных ролях"
+        mainRolesLabel.text = Resources.MovieDetails.mainRolesText
         return mainRolesLabel
     }()
 
@@ -71,7 +68,7 @@ final class CustomMovieDetails: UIView, UICollectionViewDelegate {
     private lazy var directorLabel: UILabel = {
         var directorLabel = UILabel()
         directorLabel.font = .textLabelFont
-        directorLabel.text = "Режиссёр"
+        directorLabel.text = Resources.MovieDetails.directorText
         return directorLabel
     }()
 
@@ -91,7 +88,7 @@ final class CustomMovieDetails: UIView, UICollectionViewDelegate {
 
     private lazy var ratingLabel: UILabel = {
         var ratingLabel = UILabel()
-        ratingLabel.text = "Оценки"
+        ratingLabel.text = Resources.MovieDetails.votesText
         ratingLabel.font = .textLabelFont
         return ratingLabel
     }()
@@ -100,6 +97,7 @@ final class CustomMovieDetails: UIView, UICollectionViewDelegate {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.estimatedItemSize = CGSize(width: 200, height: 58)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         let ratingCollection = UICollectionView(
             frame: .zero,
             collectionViewLayout: layout
@@ -114,7 +112,7 @@ final class CustomMovieDetails: UIView, UICollectionViewDelegate {
 
         return ratingCollection
     }()
-    
+
     // MARK: - Initializers
 
     init(model: SelectionMovieDetailsCellModel) {
@@ -132,8 +130,8 @@ final class CustomMovieDetails: UIView, UICollectionViewDelegate {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    // MARK: - Public Methods
+
+    // MARK: - Lifecycle
 
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -141,6 +139,8 @@ final class CustomMovieDetails: UIView, UICollectionViewDelegate {
         ratingCollection.layoutIfNeeded()
     }
     
+    // MARK: - Public Methods
+
     func setContentSize() {
         let contentRect: CGRect = mainScroll.subviews.reduce(into: .zero) { rect, view in
             rect = rect.union(view.frame)
@@ -161,18 +161,29 @@ final class CustomMovieDetails: UIView, UICollectionViewDelegate {
     }
 
     func setupWithModel(model: SelectionMovieDetailsCellModel) {
-        detailsText.text = model.descreption
+        detailsText.text = model.description
         directorCell.text = model.directors[0]
-        mainRolesCollectionView.reloadData()
-        ratingCollection.reloadData()
+        collectionsReloadData()
+    }
+
+    func changeFontColor(_ direction: UISwipeGestureRecognizer.Direction) {
+        if direction == .up {
+            detailsText.textColor = .baseText
+        } else {
+            detailsText.textColor = .captionLightText
+        }
     }
     
+    func setUpSwipeView(_ swipeGuesture: UISwipeGestureRecognizer) {
+        swipeView.addGestureRecognizer(swipeGuesture)
+        swipeView.isUserInteractionEnabled = true
+    }
+
     // MARK: - Private Methods
 
     private func setupContraints() {
 
         NSLayoutConstraint.activate([
-
             slider.topAnchor.constraint(equalTo: topAnchor, constant: 12),
             slider.centerXAnchor.constraint(equalTo: centerXAnchor),
             slider.widthAnchor.constraint(equalToConstant: 48),
@@ -222,16 +233,18 @@ final class CustomMovieDetails: UIView, UICollectionViewDelegate {
             ratingLabel.heightAnchor.constraint(equalToConstant: 24),
 
             ratingCollection.topAnchor.constraint(equalTo: ratingLabel.bottomAnchor),
-            ratingCollection.leadingAnchor.constraint(equalTo: mainScroll.leadingAnchor, constant: 16),
+            ratingCollection.leadingAnchor.constraint(equalTo: mainScroll.leadingAnchor),
             ratingCollection.trailingAnchor.constraint(equalTo: trailingAnchor),
             ratingCollection.heightAnchor.constraint(equalToConstant: 70)
-
         ])
-
     }
 
     private func setupSubviews() {
-        [mainScroll, swipeView, slider].forEach {
+        [
+            mainScroll,
+            swipeView,
+            slider
+        ].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -267,7 +280,7 @@ extension CustomMovieDetails: UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
             let mainRole = data.actors[indexPath.row]
-            cell.roleLabel.text = mainRole
+            cell.configure(name: mainRole)
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(

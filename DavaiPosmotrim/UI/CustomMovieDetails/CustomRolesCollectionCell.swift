@@ -15,7 +15,7 @@ final class CustomRolesCollectionCell: UICollectionViewCell {
 
     // MARK: - Layout variables
 
-    lazy var roleLabel: UILabel = {
+    private lazy var roleLabel: UILabel = {
         let roleLabel = UILabel()
         roleLabel.textColor = .baseText
         roleLabel.font = .textParagraphRegularFont
@@ -28,10 +28,7 @@ final class CustomRolesCollectionCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.layer.cornerRadius = 12
-        contentView.backgroundColor = .baseBackground
-        setupSubviews()
-        setupConstraints()
+        setupCell()
     }
 
     required init?(coder: NSCoder) {
@@ -45,13 +42,14 @@ final class CustomRolesCollectionCell: UICollectionViewCell {
     }
 
     // MARK: - Private Methods
-
-    private func setupSubviews() {
+    
+    private func setupCell() {
+        contentView.layer.cornerRadius = 12
+        contentView.backgroundColor = .baseBackground
+        
         roleLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(roleLabel)
-    }
-
-    private func setupConstraints() {
+        
         NSLayoutConstraint.activate([
             roleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
             roleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),

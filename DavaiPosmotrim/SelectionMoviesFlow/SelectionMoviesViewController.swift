@@ -54,8 +54,7 @@ final class SelectionMoviesViewController: UIViewController {
         let view = CustomMovieDetails(model: firstDecsription.details)
         let swipeGuesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture))
         swipeGuesture.direction = .up
-        view.swipeView.addGestureRecognizer(swipeGuesture)
-        view.swipeView.isUserInteractionEnabled = true
+        view.setUpSwipeView(swipeGuesture)
         return view
     }()
 
@@ -170,13 +169,13 @@ private extension SelectionMoviesViewController {
                     translationX: 0,
                     y: -(self.centralPaddingView.frame.height) - 16
                 )
-                self.customMovieDetails.detailsText.textColor = .baseText
+                self.customMovieDetails.changeFontColor(direction)
             })
             return .down
         } else {
             UIView.animate(withDuration: 0.3, animations: {
                 self.customMovieDetails.transform = CGAffineTransform(translationX: 0, y: 0)
-                self.customMovieDetails.detailsText.textColor = .captionLightText
+                self.customMovieDetails.changeFontColor(direction)
             })
             return .up
         }

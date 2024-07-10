@@ -8,7 +8,7 @@
 import Foundation
 
 struct SelectionMovieDetailsCellModel {
-    let descreption: String
+    let description: String
     let ratingKp: Float
     let ratingImdb: Float
     let votesKp: Int

@@ -8,11 +8,11 @@
 import UIKit
 
 final class CustomRatingCollectionCell: UICollectionViewCell {
-    
+
     // MARK: - Stored Properties
 
     static let reuseIdentifier = "CustomRatingCollectionCell"
-    
+
     // MARK: - Layout variables
 
     private lazy var rating: UILabel = {
@@ -39,8 +39,8 @@ final class CustomRatingCollectionCell: UICollectionViewCell {
         name.font = .textCaptionRegularFont
         return name
     }()
-    
-    //MARK: - Initializers
+
+    // MARK: - Initializers
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -52,28 +52,36 @@ final class CustomRatingCollectionCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - Public Methods
 
     func configureKinopoiskRatingCell(ratingNumber: Float, votes: Int) {
         rating.text = String(ratingNumber)
-        votesAmount.text = "\(String(votes)) оценок"
-        name.text = "Рейтинг Кинопоиска"
-        configureBackground(number: ratingNumber)
+        votesAmount.text = formatInt(votes) + (Resources.MovieDetails.howManyVotesText)
+        name.text = Resources.MovieDetails.kinoPoiskRatingText
+        configureBackground(ratingNumber)
     }
 
     func configureIMDBRatingCell(ratingNumber: Float, votes: Int) {
         rating.text = String(ratingNumber)
-        votesAmount.text = "\(String(votes)) оценок"
-        name.text = "Рейтинг IMDb"
-        configureBackground(number: ratingNumber)
+        votesAmount.text = formatInt(votes) + (Resources.MovieDetails.howManyVotesText)
+        name.text = Resources.MovieDetails.iMDBRatingText
+        configureBackground(ratingNumber)
     }
-    
+
     // MARK: - Private Methods
 
-    private func configureBackground(number: Float) {
+    private func formatInt(_ number: Int) -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.groupingSeparator = " "
+        guard let newNumber = numberFormatter.string(for: number) else { return String(number) }
+        return newNumber
+    }
+
+    private func configureBackground(_ number: Float) {
         if number >= 7.0 {
-            contentView.backgroundColor = .lightSecondaryAccent
+            contentView.backgroundColor = .baseSecondaryAccent
         } else if number >= 5.0 {
             contentView.backgroundColor = .attentionAdditional
         } else {
