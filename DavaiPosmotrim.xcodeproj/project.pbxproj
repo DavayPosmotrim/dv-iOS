@@ -45,6 +45,9 @@
 		5A69B62E2C33F6BA00E9E3F7 /* SelectionMovieDetailsCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A69B62D2C33F6BA00E9E3F7 /* SelectionMovieDetailsCellModel.swift */; };
 		5A69B6302C33F8F000E9E3F7 /* CustomRatingCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A69B62F2C33F8F000E9E3F7 /* CustomRatingCollectionCell.swift */; };
 		5A69B6322C33F95E00E9E3F7 /* CustomRolesCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A69B6312C33F95E00E9E3F7 /* CustomRolesCollectionCell.swift */; };
+		5AA4F08B2C3E94F50088DDEE /* CustomMovieDetailsCollectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA4F08A2C3E94F50088DDEE /* CustomMovieDetailsCollectionHeader.swift */; };
+		5AA4F08D2C3EA2CB0088DDEE /* LeftAllignedLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA4F08C2C3EA2CB0088DDEE /* LeftAllignedLayout.swift */; };
+		5AA4F08F2C3EA6A50088DDEE /* CustomMovieDetailsCollectionFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA4F08E2C3EA6A50088DDEE /* CustomMovieDetailsCollectionFooter.swift */; };
 		5AEEACC82C0A1E3900F18BF9 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AEEACC42C0A1E3900F18BF9 /* SplashScreenViewController.swift */; };
 		5AEEACCE2C10766F00F18BF9 /* SplashScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AEEACCD2C10766F00F18BF9 /* SplashScreenPresenter.swift */; };
 		5AEEACD02C10770200F18BF9 /* SplashScreenPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AEEACCF2C10770200F18BF9 /* SplashScreenPresenterProtocol.swift */; };
@@ -178,6 +181,9 @@
 		5A69B62D2C33F6BA00E9E3F7 /* SelectionMovieDetailsCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionMovieDetailsCellModel.swift; sourceTree = "<group>"; };
 		5A69B62F2C33F8F000E9E3F7 /* CustomRatingCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRatingCollectionCell.swift; sourceTree = "<group>"; };
 		5A69B6312C33F95E00E9E3F7 /* CustomRolesCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRolesCollectionCell.swift; sourceTree = "<group>"; };
+		5AA4F08A2C3E94F50088DDEE /* CustomMovieDetailsCollectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMovieDetailsCollectionHeader.swift; sourceTree = "<group>"; };
+		5AA4F08C2C3EA2CB0088DDEE /* LeftAllignedLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAllignedLayout.swift; sourceTree = "<group>"; };
+		5AA4F08E2C3EA6A50088DDEE /* CustomMovieDetailsCollectionFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMovieDetailsCollectionFooter.swift; sourceTree = "<group>"; };
 		5AEEACC42C0A1E3900F18BF9 /* SplashScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
 		5AEEACCD2C10766F00F18BF9 /* SplashScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenPresenter.swift; sourceTree = "<group>"; };
 		5AEEACCF2C10770200F18BF9 /* SplashScreenPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenPresenterProtocol.swift; sourceTree = "<group>"; };
@@ -347,6 +353,9 @@
 				5A69B62B2C33F5F000E9E3F7 /* CustomMovieDetails.swift */,
 				5A69B62F2C33F8F000E9E3F7 /* CustomRatingCollectionCell.swift */,
 				5A69B6312C33F95E00E9E3F7 /* CustomRolesCollectionCell.swift */,
+				5AA4F08A2C3E94F50088DDEE /* CustomMovieDetailsCollectionHeader.swift */,
+				5AA4F08C2C3EA2CB0088DDEE /* LeftAllignedLayout.swift */,
+				5AA4F08E2C3EA6A50088DDEE /* CustomMovieDetailsCollectionFooter.swift */,
 			);
 			path = CustomMovieDetails;
 			sourceTree = "<group>";
@@ -781,6 +790,8 @@
 				4AE89A492C0B2275008DD0D4 /* CustomMovieSelection.swift in Sources */,
 				4AAEABB62C1DB54900A14C1D /* SelectionMoviesPresenterProtocol.swift in Sources */,
 				E2EFF0F02C0613D30022D54C /* InvitingUsersCoordinator.swift in Sources */,
+				5AA4F08D2C3EA2CB0088DDEE /* LeftAllignedLayout.swift in Sources */,
+				5AA4F08F2C3EA6A50088DDEE /* CustomMovieDetailsCollectionFooter.swift in Sources */,
 				C96895CF2BE835EA002A99E6 /* AuthPresenterProtocol.swift in Sources */,
 				E9B495062C28779400B653F8 /* SessionMovieSection.swift in Sources */,
 				C9C4D59E2BD3A3C70081CD23 /* AppDelegate.swift in Sources */,
@@ -871,6 +882,7 @@
 				4A6280402BE3F23100102304 /* MainCellModel.swift in Sources */,
 				C91DCC802C00B4F0001BC065 /* ReusableUICollectionViewCell.swift in Sources */,
 				5AEEACD02C10770200F18BF9 /* SplashScreenPresenterProtocol.swift in Sources */,
+				5AA4F08B2C3E94F50088DDEE /* CustomMovieDetailsCollectionHeader.swift in Sources */,
 				4A62803E2BE2C72B00102304 /* MainPresenterProtocol.swift in Sources */,
 				C964B7102BD813B500CF9AF0 /* CustomButtons.swift in Sources */,
 				E9A270222BE52BC20088652B /* MistakesViewController.swift in Sources */,

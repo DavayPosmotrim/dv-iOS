@@ -44,46 +44,31 @@ final class CustomMovieDetails: UIView {
         return detailsLabel
     }()
 
-    private lazy var mainRolesLabel: UILabel = {
-        var mainRolesLabel = UILabel()
-        mainRolesLabel.font = .textLabelFont
-        mainRolesLabel.text = Resources.MovieDetails.mainRolesText
-        return mainRolesLabel
-    }()
-
-    private lazy var mainRolesCollectionView: UICollectionView = {
-        let layout = UICollectionViewLayout.createLeftAlignedLayout(itemHeight: 28)
-        let mainRolesCollectionView = UICollectionView(
+    private lazy var actorsAndDirectirsCollectionView: UICollectionView = {
+        let layout = LearAllignedLayout()
+        layout.estimatedItemSize = CGSize(width: 140, height: 28)
+        layout.headerReferenceSize = CGSize(width: frame.size.width, height: 36)
+        layout.footerReferenceSize = CGSize(width: frame.size.width, height: 24)
+        let actorsAndDirectirsCollectionView = UICollectionView(
             frame: .zero,
             collectionViewLayout: layout
         )
-        mainRolesCollectionView.register(
+        actorsAndDirectirsCollectionView.register(
             CustomRolesCollectionCell.self,
             forCellWithReuseIdentifier: CustomRolesCollectionCell.reuseIdentifier
         )
-        mainRolesCollectionView.isScrollEnabled = false
-        return mainRolesCollectionView
-    }()
-
-    private lazy var directorLabel: UILabel = {
-        var directorLabel = UILabel()
-        directorLabel.font = .textLabelFont
-        directorLabel.text = Resources.MovieDetails.directorText
-        return directorLabel
-    }()
-
-    private lazy var directorCellBackground: UIView = {
-       var directorCellBackground = UIView()
-        directorCellBackground.backgroundColor = .baseBackground
-        directorCellBackground.layer.cornerRadius = 12
-        return directorCellBackground
-    }()
-
-    private lazy var directorCell: UILabel = {
-        var directorCell = UILabel()
-        directorCell.font = .textParagraphRegularFont
-        directorCell.backgroundColor = .clear
-        return directorCell
+        actorsAndDirectirsCollectionView.register(
+            CustomMovieDetailsCollectionHeader.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: CustomMovieDetailsCollectionHeader.identifier
+        )
+        actorsAndDirectirsCollectionView.register(
+            CustomMovieDetailsCollectionFooter.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
+            withReuseIdentifier: CustomMovieDetailsCollectionFooter.identifier
+        )
+        actorsAndDirectirsCollectionView.isScrollEnabled = false
+        return actorsAndDirectirsCollectionView
     }()
 
     private lazy var ratingLabel: UILabel = {
@@ -120,8 +105,9 @@ final class CustomMovieDetails: UIView {
         super.init(frame: .zero)
         layer.cornerRadius = 24
         backgroundColor = .whiteBackground
-        mainRolesCollectionView.dataSource = self
+        actorsAndDirectirsCollectionView.dataSource = self
         ratingCollection.dataSource = self
+        actorsAndDirectirsCollectionView.delegate = self
         setupSubviews()
         setupContraints()
         updateModel(model: model)
@@ -135,10 +121,10 @@ final class CustomMovieDetails: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        mainRolesCollectionView.layoutIfNeeded()
+        actorsAndDirectirsCollectionView.layoutIfNeeded()
         ratingCollection.layoutIfNeeded()
     }
-    
+
     // MARK: - Public Methods
 
     func setContentSize() {
@@ -149,7 +135,7 @@ final class CustomMovieDetails: UIView {
     }
 
     func collectionsReloadData() {
-        mainRolesCollectionView.reloadData()
+        actorsAndDirectirsCollectionView.reloadData()
         ratingCollection.reloadData()
     }
 
@@ -162,7 +148,6 @@ final class CustomMovieDetails: UIView {
 
     func setupWithModel(model: SelectionMovieDetailsCellModel) {
         detailsText.text = model.description
-        directorCell.text = model.directors[0]
         collectionsReloadData()
     }
 
@@ -207,28 +192,12 @@ final class CustomMovieDetails: UIView {
             detailsText.leadingAnchor.constraint(equalTo: mainScroll.leadingAnchor, constant: 16),
             detailsText.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
 
-            mainRolesLabel.topAnchor.constraint(equalTo: detailsText.bottomAnchor, constant: 24),
-            mainRolesLabel.leadingAnchor.constraint(equalTo: mainScroll.leadingAnchor, constant: 16),
-            mainRolesLabel.heightAnchor.constraint(equalToConstant: 24),
+            actorsAndDirectirsCollectionView.topAnchor.constraint(equalTo: detailsText.bottomAnchor, constant: 24),
+            actorsAndDirectirsCollectionView.leadingAnchor.constraint(equalTo: mainScroll.leadingAnchor, constant: 16),
+            actorsAndDirectirsCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            actorsAndDirectirsCollectionView.heightAnchor.constraint(equalToConstant: 212),
 
-            mainRolesCollectionView.topAnchor.constraint(equalTo: mainRolesLabel.bottomAnchor),
-            mainRolesCollectionView.leadingAnchor.constraint(equalTo: mainScroll.leadingAnchor),
-            mainRolesCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            mainRolesCollectionView.heightAnchor.constraint(equalToConstant: 88),
-
-            directorLabel.topAnchor.constraint(equalTo: mainRolesCollectionView.bottomAnchor, constant: 12),
-            directorLabel.leadingAnchor.constraint(equalTo: mainScroll.leadingAnchor, constant: 16),
-            directorLabel.heightAnchor.constraint(equalToConstant: 24),
-
-            directorCell.topAnchor.constraint(equalTo: directorLabel.bottomAnchor, constant: 12),
-            directorCell.leadingAnchor.constraint(equalTo: mainScroll.leadingAnchor, constant: 28),
-
-            directorCellBackground.topAnchor.constraint(equalTo: directorCell.topAnchor, constant: -4),
-            directorCellBackground.bottomAnchor.constraint(equalTo: directorCell.bottomAnchor, constant: 4),
-            directorCellBackground.leadingAnchor.constraint(equalTo: directorCell.leadingAnchor, constant: -12),
-            directorCellBackground.trailingAnchor.constraint(equalTo: directorCell.trailingAnchor, constant: 12),
-
-            ratingLabel.topAnchor.constraint(equalTo: directorCell.bottomAnchor, constant: 24),
+            ratingLabel.topAnchor.constraint(equalTo: actorsAndDirectirsCollectionView.bottomAnchor),
             ratingLabel.leadingAnchor.constraint(equalTo: mainScroll.leadingAnchor, constant: 16),
             ratingLabel.heightAnchor.constraint(equalToConstant: 24),
 
@@ -251,11 +220,7 @@ final class CustomMovieDetails: UIView {
         [
             detailsLabel,
             detailsText,
-            mainRolesLabel,
-            mainRolesCollectionView,
-            directorLabel,
-            directorCellBackground,
-            directorCell,
+            actorsAndDirectirsCollectionView,
             ratingLabel,
             ratingCollection
         ].forEach {
@@ -272,16 +237,22 @@ extension CustomMovieDetails: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
-        if collectionView == self.mainRolesCollectionView {
+        if collectionView == self.actorsAndDirectirsCollectionView {
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: CustomRolesCollectionCell.reuseIdentifier,
                 for: indexPath
             ) as? CustomRolesCollectionCell else {
                 return UICollectionViewCell()
             }
-            let mainRole = data.actors[indexPath.row]
-            cell.configure(name: mainRole)
-            return cell
+            if indexPath.section == 0 {
+                let mainRole = data.actors[indexPath.row]
+                cell.configure(name: mainRole)
+                return cell
+            } else {
+                let mainRole = data.directors[indexPath.row]
+                cell.configure(name: mainRole)
+                return cell
+            }
         } else {
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: CustomRatingCollectionCell.reuseIdentifier,
@@ -302,11 +273,56 @@ extension CustomMovieDetails: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        if collectionView == self.mainRolesCollectionView {
-            return data.actors.count
+        if collectionView == self.actorsAndDirectirsCollectionView {
+            if section == 0 {
+                return data.actors.count
+            } else {
+                return data.directors.count
+            }
         } else {
-            //TODO: Сделать разные возврат в зависимости от колличества данных
+            // TODO: Сделать разные возврат в зависимости от колличества данных
             return 2
+        }
+    }
+}
+
+extension CustomMovieDetails: UICollectionViewDelegate {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        if collectionView == self.actorsAndDirectirsCollectionView {
+            return 2
+        } else {
+            return 1
+        }
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        viewForSupplementaryElementOfKind kind: String,
+        at indexPath: IndexPath
+    ) -> UICollectionReusableView {
+        if kind == UICollectionView.elementKindSectionHeader {
+            guard let header = collectionView.dequeueReusableSupplementaryView(
+                ofKind: UICollectionView.elementKindSectionHeader,
+                withReuseIdentifier: CustomMovieDetailsCollectionHeader.identifier,
+                for: indexPath
+            ) as? CustomMovieDetailsCollectionHeader else {
+                return UICollectionReusableView()
+            }
+            if indexPath.section == 0 {
+                header.configure(text: Resources.MovieDetails.mainRolesText)
+            } else {
+                header.configure(text: Resources.MovieDetails.directorText)
+            }
+            return header
+        } else {
+            guard let footer = collectionView.dequeueReusableSupplementaryView(
+                ofKind: UICollectionView.elementKindSectionFooter,
+                withReuseIdentifier: CustomMovieDetailsCollectionFooter.identifier,
+                for: indexPath
+            ) as? CustomMovieDetailsCollectionFooter else {
+                return UICollectionReusableView()
+            }
+            return footer
         }
     }
 }
