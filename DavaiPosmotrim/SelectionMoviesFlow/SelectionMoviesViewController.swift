@@ -164,18 +164,18 @@ private extension SelectionMoviesViewController {
 
     func changeDirection(direction: UISwipeGestureRecognizer.Direction) -> UISwipeGestureRecognizer.Direction {
         if direction == .up {
+            self.customMovieDetails.collectionsReloadData()
             UIView.animate(withDuration: 0.3, animations: {
                 self.customMovieDetails.transform = CGAffineTransform(
                     translationX: 0,
                     y: -(self.centralPaddingView.frame.height) - 16
                 )
-                self.customMovieDetails.changeFontColor(direction)
+                self.customMovieDetails.heightAnchor.constraint(equalToConstant: self.countViewHeight()).isActive = true
             })
             return .down
         } else {
             UIView.animate(withDuration: 0.3, animations: {
                 self.customMovieDetails.transform = CGAffineTransform(translationX: 0, y: 0)
-                self.customMovieDetails.changeFontColor(direction)
             })
             return .up
         }
@@ -250,11 +250,13 @@ extension SelectionMoviesViewController: SelectionMoviesViewProtocol {
 
     func showNextMovie(_ nextModel: SelectionMovieCellModel) {
         centralPaddingView.updateModel(nextModel)
+        centralPaddingView.frame.size.height = countViewHeight()
         customMovieDetails.updateModel(model: nextModel.details)
     }
 
     func showPreviousMovie(_ nextModel: SelectionMovieCellModel) {
         centralPaddingView.updateModel(nextModel)
+        centralPaddingView.frame.size.height = countViewHeight()
         customMovieDetails.updateModel(model: nextModel.details)
         animateComeBack()
     }

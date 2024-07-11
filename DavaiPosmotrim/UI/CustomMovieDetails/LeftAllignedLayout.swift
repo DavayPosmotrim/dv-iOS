@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class LearAllignedLayout: UICollectionViewFlowLayout {
+final class LeftAllignedLayout: UICollectionViewFlowLayout {
 
     required override init() {
         super.init()
@@ -25,7 +25,7 @@ final class LearAllignedLayout: UICollectionViewFlowLayout {
     }
 
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        guard let att = super.layoutAttributesForElements(in:rect) else { return [] }
+        guard let att = super.layoutAttributesForElements(in: rect) else { return [] }
         var xPoint: CGFloat = sectionInset.left
         var yPoint: CGFloat = -1.0
 

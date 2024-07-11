@@ -8,9 +8,9 @@
 import UIKit
 
 final class CustomMovieDetailsCollectionFooter: UICollectionReusableView {
-    
+
     static let identifier = "CustomMovieDetailsCollectionFooter"
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .clear
