@@ -40,8 +40,14 @@ final class CoincidencesPresenter: CoincidencesPresenterProtocol {
     // MARK: - Public methods
 
     func diceButtonTapped() {
-        guard let coordinator else { return }
-        coordinator.showRouletteFlow()
+        guard let coordinator, let view else { return }
+        if moviesCount >= 3 {
+            if UserDefaults.standard.value(forKey: Resources.RouletteFlow.isRouletteOnboardingShown) == nil {
+                view.showRouletteOnboarding()
+            } else {
+                coordinator.showRouletteFlow()
+            }
+        }
     }
 
     func getMoviesAtIndex(index: Int) -> ReusableLikedMoviesCellModel {

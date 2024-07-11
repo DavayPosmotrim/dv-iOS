@@ -9,4 +9,5 @@ import Foundation
 
 protocol CoincidencesViewProtocol: AnyObject {
     func updateUIElements()
+    func showRouletteOnboarding()
 }

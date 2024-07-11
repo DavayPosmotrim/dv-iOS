@@ -173,6 +173,13 @@ extension CoincidencesViewController: CoincidencesViewProtocol {
             collectionView.isHidden = true
         }
     }
+
+    func showRouletteOnboarding() {
+        let viewController = RouletteOnboardingViewController()
+        viewController.modalTransitionStyle = .crossDissolve
+        viewController.modalPresentationStyle = .overCurrentContext
+        navigationController?.present(viewController, animated: true)
+    }
 }
 
     // MARK: - UICollectionViewDataSource

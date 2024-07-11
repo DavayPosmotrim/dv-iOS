@@ -127,6 +127,15 @@ enum Resources {
         static let navBarText = "Совпадения"
     }
 
+    enum RouletteFlow {
+        static let isRouletteOnboardingShown = "RouletteOnboardingIsShown"
+
+        static let titleLabelText = "Доверьтесь случаю"
+        static let upperLabelText = "Если понравилось много фильмов и тяжело определиться, что же посмотреть."
+        static let lowerLabelText = "Рандомно выберем фильм из всех понравившихся в этом сеансе."
+        static let proceedButtonText = "Понял, принял".uppercased()
+    }
+
     enum Mistakes {
         static let noInternetHeader = "Нет соединения с интернетом"
         static let noInternetText = "Интернет не бом-бом,\n проверьте соединение"

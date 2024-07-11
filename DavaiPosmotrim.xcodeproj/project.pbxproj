@@ -89,6 +89,7 @@
 		C9AE34FF2C3C17A10005A87B /* RoulettePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE34FE2C3C17A10005A87B /* RoulettePresenter.swift */; };
 		C9AE35012C3C17F20005A87B /* RouletteViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE35002C3C17F20005A87B /* RouletteViewProtocol.swift */; };
 		C9AE35032C3C180F0005A87B /* RoulettePresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE35022C3C180F0005A87B /* RoulettePresenterProtocol.swift */; };
+		C9AE35062C3C32910005A87B /* RouletteOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE35052C3C32910005A87B /* RouletteOnboardingViewController.swift */; };
 		C9AF1EB52C0A0FA90080FC4A /* OnboardingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AF1EB42C0A0FA90080FC4A /* OnboardingPresenter.swift */; };
 		C9B57C6C2C0607450026E85D /* DismissJoinSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B57C6B2C0607450026E85D /* DismissJoinSessionViewController.swift */; };
 		C9C4D59E2BD3A3C70081CD23 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4D59D2BD3A3C70081CD23 /* AppDelegate.swift */; };
@@ -223,6 +224,7 @@
 		C9AE34FE2C3C17A10005A87B /* RoulettePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoulettePresenter.swift; sourceTree = "<group>"; };
 		C9AE35002C3C17F20005A87B /* RouletteViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouletteViewProtocol.swift; sourceTree = "<group>"; };
 		C9AE35022C3C180F0005A87B /* RoulettePresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoulettePresenterProtocol.swift; sourceTree = "<group>"; };
+		C9AE35052C3C32910005A87B /* RouletteOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouletteOnboardingViewController.swift; sourceTree = "<group>"; };
 		C9AF1EB42C0A0FA90080FC4A /* OnboardingPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPresenter.swift; sourceTree = "<group>"; };
 		C9B57C6B2C0607450026E85D /* DismissJoinSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissJoinSessionViewController.swift; sourceTree = "<group>"; };
 		C9C4D59A2BD3A3C70081CD23 /* DavaiPosmotrim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DavaiPosmotrim.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -437,6 +439,7 @@
 		C9AE34F72C3BE1CE0005A87B /* RouletteFlow */ = {
 			isa = PBXGroup;
 			children = (
+				C9AE35042C3C326E0005A87B /* RouletteOnboarding */,
 				C9AE34FA2C3C160D0005A87B /* RouletteCoordinator.swift */,
 				C9AE34FC2C3C16AB0005A87B /* RouletteSceneFactory.swift */,
 				C9AE34F82C3BE1F50005A87B /* RouletteViewController.swift */,
@@ -445,6 +448,14 @@
 				C9AE35002C3C17F20005A87B /* RouletteViewProtocol.swift */,
 			);
 			path = RouletteFlow;
+			sourceTree = "<group>";
+		};
+		C9AE35042C3C326E0005A87B /* RouletteOnboarding */ = {
+			isa = PBXGroup;
+			children = (
+				C9AE35052C3C32910005A87B /* RouletteOnboardingViewController.swift */,
+			);
+			path = RouletteOnboarding;
 			sourceTree = "<group>";
 		};
 		C9B57C6A2C0607050026E85D /* DismissJoinSessionVIewController */ = {
@@ -777,6 +788,7 @@
 				C9AE34F92C3BE1F50005A87B /* RouletteViewController.swift in Sources */,
 				C9B57C6C2C0607450026E85D /* DismissJoinSessionViewController.swift in Sources */,
 				4A6280362BDED59F00102304 /* MainSceneFactory.swift in Sources */,
+				C9AE35062C3C32910005A87B /* RouletteOnboardingViewController.swift in Sources */,
 				C9AE34FB2C3C160E0005A87B /* RouletteCoordinator.swift in Sources */,
 				4A6280382BDED62600102304 /* MainPresenter.swift in Sources */,
 				E9A9E74E2C1345D100AEF879 /* SessionsListCell.swift in Sources */,
