@@ -178,6 +178,7 @@ enum Resources {
     """
 
         static let customOneButtonText = "Хорошо".uppercased()
+        static let continueButtonText = "Продолжить сеанс".uppercased()
     }
 
     enum SessionsList {

@@ -40,7 +40,7 @@ class CustomNavigationBarTwoButtons: UIView {
         return button
     }()
 
-    private lazy var matchRightButton: UIButton = {
+     lazy var matchRightButton: UIButton = {
         let button = UIButton()
         button.addTarget(
             self,

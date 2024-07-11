@@ -13,4 +13,5 @@ protocol SelectionMoviesViewProtocol: AnyObject {
     func showNextMovie(_ nextModel: SelectionMovieCellModel)
     func showPreviousMovie(_ nextModel: SelectionMovieCellModel)
     func showCancelSessionDialog()
+    func showMatch(matchModel: SelectionMovieCellModel)
 }

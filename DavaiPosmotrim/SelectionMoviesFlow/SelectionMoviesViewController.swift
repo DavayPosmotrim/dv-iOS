@@ -12,6 +12,7 @@ final class SelectionMoviesViewController: UIViewController {
     // MARK: - Public Properties
 
     var presenter: SelectionMoviesPresenter
+   private var matchSelectionVC: MatchSelectionMoviesViewController?
 
     // MARK: - Layout variables
 
@@ -76,7 +77,7 @@ final class SelectionMoviesViewController: UIViewController {
 
     // MARK: - Actions
 
-    @objc func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
+    @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: view)
         let percentage = translation.x / view.bounds.width
         let rotationAngle: CGFloat = .pi / 6 * percentage
@@ -188,6 +189,23 @@ private extension SelectionMoviesViewController {
             completion: nil
         )
     }
+
+    func animateMatchViewControllerToHeartIcon() {
+        guard let matchVC = matchSelectionVC,
+              let customNavBar = customNavBar as? CustomNavigationBarTwoButtons else { return }
+        let heartIconFrame = customNavBar.matchRightButton.convert(customNavBar.matchRightButton.bounds, to: view)
+        let scaleX = heartIconFrame.width / matchVC.view.bounds.width
+        let scaleY = heartIconFrame.height / matchVC.view.bounds.height
+        let translationX = heartIconFrame.midX - matchVC.view.center.x
+        let translationY = heartIconFrame.midY - matchVC.view.center.y
+        UIView.animate(withDuration: 0.5, animations: {
+            matchVC.view.transform = CGAffineTransform(scaleX: scaleX, y: scaleY)
+                .concatenating(CGAffineTransform(translationX: translationX, y: translationY))
+        }) { _ in
+            matchVC.dismiss(animated: false, completion: nil)
+            self.presenter.updateRandomMatchCount()
+        }
+    }
 }
 
 // MARK: - SelectionMoviesViewProtocol
@@ -235,6 +253,19 @@ extension SelectionMoviesViewController: SelectionMoviesViewProtocol {
         viewController.modalPresentationStyle = .overCurrentContext
         viewController.modalTransitionStyle = .crossDissolve
         navigationController.present(viewController, animated: true)
+    }
+
+    func showMatch(matchModel: SelectionMovieCellModel) {
+        guard let navigationController else { return }
+        let viewController = MatchSelectionMoviesViewController(matchSelection: matchModel)
+        viewController.modalPresentationStyle = .overFullScreen
+        viewController.modalTransitionStyle = .crossDissolve
+        navigationController.present(viewController, animated: true)
+        
+        self.matchSelectionVC = viewController
+        viewController.dismissCompletion = { [weak self] in
+            self?.animateMatchViewControllerToHeartIcon()
+        }
     }
 }
 
