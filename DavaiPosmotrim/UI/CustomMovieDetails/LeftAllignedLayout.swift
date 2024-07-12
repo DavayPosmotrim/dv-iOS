@@ -31,8 +31,10 @@ final class LeftAllignedLayout: UICollectionViewFlowLayout {
 
         for attribute in att {
             if attribute.representedElementCategory != .cell { continue }
-
-            if attribute.frame.origin.y >= yPoint { xPoint = sectionInset.left }
+            if attribute.indexPath.section == 3 {
+                continue
+            }
+            if attribute.frame.origin.y >= yPoint { xPoint = sectionInset.left + 16}
             attribute.frame.origin.x = xPoint
             xPoint += attribute.frame.width + minimumInteritemSpacing
             yPoint = attribute.frame.maxY

@@ -27,7 +27,7 @@ final class CustomMovieDetails: UIView {
         let layout = LeftAllignedLayout()
         layout.headerReferenceSize = CGSize(width: frame.size.width, height: 36)
         layout.footerReferenceSize = CGSize(width: frame.size.width, height: 24)
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 16)
         layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         let actorsAndDirectirsCollectionView = UICollectionView(
             frame: .zero,

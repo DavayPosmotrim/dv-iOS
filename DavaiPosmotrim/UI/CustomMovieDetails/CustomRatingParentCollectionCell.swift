@@ -24,7 +24,7 @@ final class CustomRatingParentCollectionCell: UICollectionViewCell {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.estimatedItemSize = CGSize(width: 200, height: 58)
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 16)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         let ratingCollection = UICollectionView(
             frame: .zero,
             collectionViewLayout: layout
