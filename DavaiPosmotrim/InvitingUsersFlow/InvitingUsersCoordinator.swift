@@ -15,6 +15,15 @@ final class InvitingUsersCoordinator: BaseCoordinator {
     override func finish() {
         finishDelegate?.didFinish(self)
     }
+
+    func showSelectionMovieScreen() {
+        let selectionMovieCoordinator = SelectionMoviesCoordinator(
+            type: .selectionMovies,
+            finishDelegate: finishDelegate,
+            navigationController: navigationController)
+        addChild(selectionMovieCoordinator)
+        selectionMovieCoordinator.start()
+    }
 }
 
 private extension InvitingUsersCoordinator {

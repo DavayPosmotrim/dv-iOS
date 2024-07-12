@@ -78,6 +78,7 @@ private extension MainCoordinator {
     func showSessionsList() {
         let sessionsListCoordinator = SessionsListCoordinator(
             type: .sessionsList,
+            finishDelegate: self,
             navigationController: navigationController
         )
         addChild(sessionsListCoordinator)
@@ -91,32 +92,10 @@ extension MainCoordinator: CoordinatorFinishDelegate {
     func didFinish(_ coordinator: CoordinatorProtocol) {
         childCoordinators.removeAll()
         switch coordinator.type {
-        case .createSession:
-            navigationController.popToRootViewController(animated: true)
-        case .movieSelectionOnboarding:
-            break
-        case .auth:
-            break
-        case .edit:
-            break
-        case .authSession:
-            break
-        case .main:
-            break
-        case .joinSession:
-            navigationController.popToRootViewController(animated: true)
-        case .coincidencesSession:
-            break
-        case .favoriteMovies:
-            break
-        case .sessionsList:
-            break
         case .selectionMovies:
-            break
-        case .inviteUsers:
-            navigationController.popToRootViewController(animated: true)
+            showSessionsList()
         default:
-            navigationController.popToRootViewController(animated: false)
+            navigationController.popToRootViewController(animated: true)
         }
     }
 }

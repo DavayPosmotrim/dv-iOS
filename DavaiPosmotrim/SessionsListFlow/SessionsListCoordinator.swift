@@ -15,7 +15,7 @@ final class SessionsListCoordinator: BaseCoordinator {
     }
 
     override func finish() {
-        navigationController.popViewController(animated: true)
+        finishDelegate?.didFinish(self)
     }
 
     func showMovies(for session: SessionModel) {

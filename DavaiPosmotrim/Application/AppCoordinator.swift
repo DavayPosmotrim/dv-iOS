@@ -87,17 +87,6 @@ private extension AppCoordinator {
         mainCoordinator.start()
     }
 
-    func showSelectionMoviesFlow() {
-        // TODO: - не забыть перенести когда появится экран с которого необходимо запускать
-        let selectionMoviesCoordinator = SelectionMoviesCoordinator(
-            type: .selectionMovies,
-            finishDelegate: self,
-            navigationController: navigationController
-        )
-        addChild(selectionMoviesCoordinator)
-        selectionMoviesCoordinator.start()
-    }
-
     func showJoinSessionFlow() {
         let joinSessionCoordinator = JoinSessionCoordinator(
             type: .joinSession,
@@ -127,8 +116,6 @@ extension AppCoordinator: CoordinatorFinishDelegate {
         case .main:
             showJoinSessionFlow()
         case .joinSession:
-            showMainFlow()
-        case .selectionMovies:
             showMainFlow()
         case .coincidencesSession:
             // TODO: add code to start next flow
