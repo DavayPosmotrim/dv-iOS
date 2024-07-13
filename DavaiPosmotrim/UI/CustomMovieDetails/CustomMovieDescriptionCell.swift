@@ -15,11 +15,11 @@ final class CustomMovieDescriptionCollectionCell: UICollectionViewCell {
 
     // MARK: - Layout variables
 
-    private lazy var discriptionLabel: UILabel = {
-        var discriptionLabel = UILabel()
-        discriptionLabel.font = .textParagraphRegularFont
-        discriptionLabel.numberOfLines = 0
-        return discriptionLabel
+    private lazy var descriptionLabel: UILabel = {
+        var descriptionLabel = UILabel()
+        descriptionLabel.font = .textParagraphRegularFont
+        descriptionLabel.numberOfLines = 0
+        return descriptionLabel
     }()
 
     // MARK: - Lifecycle
@@ -36,20 +36,20 @@ final class CustomMovieDescriptionCollectionCell: UICollectionViewCell {
     // MARK: - Public Methods
 
     func configure(text: String) {
-        discriptionLabel.text = text
+        descriptionLabel.text = text
     }
 
     // MARK: - Private Methods
 
     private func setupCell() {
-        discriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(discriptionLabel)
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(descriptionLabel)
 
         NSLayoutConstraint.activate([
-            discriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            discriptionLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-            discriptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            discriptionLabel.widthAnchor.constraint(equalToConstant: contentView.frame.width - 32)
+            descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            descriptionLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
+            descriptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -32)
         ])
     }
 }

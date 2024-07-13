@@ -23,48 +23,41 @@ final class CustomMovieDetails: UIView {
 
     private lazy var slider: UIImageView = UIImageView(image: .slider)
 
-    private lazy var actorsAndDirectirsCollectionView: UICollectionView = {
+    private lazy var actorsAndDirectorsCollectionView: UICollectionView = {
         let layout = LeftAllignedLayout()
         layout.headerReferenceSize = CGSize(width: frame.size.width, height: 36)
         layout.footerReferenceSize = CGSize(width: frame.size.width, height: 24)
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 16)
         layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-        let actorsAndDirectirsCollectionView = UICollectionView(
+        let actorsAndDirectorsCollectionView = UICollectionView(
             frame: .zero,
             collectionViewLayout: layout
         )
-        actorsAndDirectirsCollectionView.register(
+        actorsAndDirectorsCollectionView.register(
             CustomRolesCollectionCell.self,
             forCellWithReuseIdentifier: CustomRolesCollectionCell.reuseIdentifier
         )
-        actorsAndDirectirsCollectionView.register(
+        actorsAndDirectorsCollectionView.register(
             CustomMovieDescriptionCollectionCell.self,
             forCellWithReuseIdentifier: CustomMovieDescriptionCollectionCell.reuseIdentifier
         )
-        actorsAndDirectirsCollectionView.register(
+        actorsAndDirectorsCollectionView.register(
             CustomRatingParentCollectionCell.self,
             forCellWithReuseIdentifier: CustomRatingParentCollectionCell.reuseIdentifier
         )
-        actorsAndDirectirsCollectionView.register(
+        actorsAndDirectorsCollectionView.register(
             CustomMovieDetailsCollectionHeader.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: CustomMovieDetailsCollectionHeader.identifier
         )
-        actorsAndDirectirsCollectionView.register(
+        actorsAndDirectorsCollectionView.register(
             CustomMovieDetailsCollectionFooter.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
             withReuseIdentifier: CustomMovieDetailsCollectionFooter.identifier
         )
-        actorsAndDirectirsCollectionView.showsVerticalScrollIndicator = false
-        actorsAndDirectirsCollectionView.isScrollEnabled = true
-        return actorsAndDirectirsCollectionView
-    }()
-
-    private lazy var ratingLabel: UILabel = {
-        var ratingLabel = UILabel()
-        ratingLabel.text = Resources.MovieDetails.votesText
-        ratingLabel.font = .textLabelFont
-        return ratingLabel
+        actorsAndDirectorsCollectionView.showsVerticalScrollIndicator = false
+        actorsAndDirectorsCollectionView.isScrollEnabled = true
+        return actorsAndDirectorsCollectionView
     }()
 
     // MARK: - Initializers
@@ -74,8 +67,8 @@ final class CustomMovieDetails: UIView {
         super.init(frame: .zero)
         layer.cornerRadius = 24
         backgroundColor = .whiteBackground
-        actorsAndDirectirsCollectionView.dataSource = self
-        actorsAndDirectirsCollectionView.delegate = self
+        actorsAndDirectorsCollectionView.dataSource = self
+        actorsAndDirectorsCollectionView.delegate = self
         setupSubviews()
         setupContraints()
         updateModel(model: model)
@@ -89,23 +82,18 @@ final class CustomMovieDetails: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        actorsAndDirectirsCollectionView.layoutIfNeeded()
+        actorsAndDirectorsCollectionView.layoutIfNeeded()
     }
 
     // MARK: - Public Methods
 
-    func collectionsReloadData() {
-        actorsAndDirectirsCollectionView.reloadData()
+    func collectionReloadData() {
+        actorsAndDirectorsCollectionView.reloadData()
     }
 
     func updateModel(model: SelectionMovieDetailsCellModel) {
         data = model
-        setupWithModel(model: model)
-        collectionsReloadData()
-    }
-
-    func setupWithModel(model: SelectionMovieDetailsCellModel) {
-        collectionsReloadData()
+        actorsAndDirectorsCollectionView.reloadData()
     }
 
     func setUpSwipeView(_ swipeGuesture: UISwipeGestureRecognizer) {
@@ -128,10 +116,10 @@ final class CustomMovieDetails: UIView {
             swipeView.trailingAnchor.constraint(equalTo: trailingAnchor),
             swipeView.heightAnchor.constraint(equalToConstant: 30),
 
-            actorsAndDirectirsCollectionView.topAnchor.constraint(equalTo: swipeView.bottomAnchor),
-            actorsAndDirectirsCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            actorsAndDirectirsCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            actorsAndDirectirsCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            actorsAndDirectorsCollectionView.topAnchor.constraint(equalTo: swipeView.bottomAnchor),
+            actorsAndDirectorsCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            actorsAndDirectorsCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            actorsAndDirectorsCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
 
@@ -139,7 +127,7 @@ final class CustomMovieDetails: UIView {
         [
             swipeView,
             slider,
-            actorsAndDirectirsCollectionView
+            actorsAndDirectorsCollectionView
         ].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
