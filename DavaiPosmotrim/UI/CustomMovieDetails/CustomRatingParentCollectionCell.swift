@@ -97,6 +97,7 @@ extension CustomRatingParentCollectionCell: UICollectionViewDataSource {
         ) as? CustomRatingCollectionCell else {
             return UICollectionViewCell()
         }
+        collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .right, animated: true)
         if indexPath.row == 0 {
             cell.configureIMDBRatingCell(ratingNumber: ratingImdb, votes: votesImdb)
         } else {
