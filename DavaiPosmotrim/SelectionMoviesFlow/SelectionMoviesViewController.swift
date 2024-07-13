@@ -12,7 +12,9 @@ final class SelectionMoviesViewController: UIViewController {
     // MARK: - Public Properties
 
     var presenter: SelectionMoviesPresenter
-   private var matchSelectionVC: MatchSelectionMoviesViewController?
+    private var matchSelectionVC: MatchSelectionMoviesViewController?
+    private var customNavBarModel: CustomNavBarModel?
+    private var customNavBarRightButtonModel: CustomNavBarRightButtonModel?
 
     // MARK: - Layout variables
 
@@ -28,13 +30,11 @@ final class SelectionMoviesViewController: UIViewController {
         return view
     }()
 
-    private lazy var customNavBar: UIView = {
-        let customNavBar = CustomNavigationBarTwoButtons(
-            title: Resources.SelectionMovies.titleNavBarText,
-            imageButton: "likeIcon"
-        )
-        customNavBar.delegate = self
-        return customNavBar
+    private lazy var customNavBar: CustomNavBar = {
+        let navBar = CustomNavBar()
+        navBar.setupCustomNavBar(with: customNavBarModel)
+        navBar.setupRightButton(with: customNavBarRightButtonModel)
+        return navBar
     }()
 
     private lazy var centralPaddingView: CustomMovieSelection = {
@@ -66,6 +66,8 @@ final class SelectionMoviesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .whiteBackground
+        setupNavBarModel()
+        setupRightButtonModel()
         setupSubviews()
         setupConstraints()
     }
@@ -132,6 +134,7 @@ private extension SelectionMoviesViewController {
             upperPaddingView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             upperPaddingView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
 
+            customNavBar.heightAnchor.constraint(equalToConstant: 64),
             customNavBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             customNavBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             customNavBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -141,6 +144,30 @@ private extension SelectionMoviesViewController {
             centralPaddingView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             centralPaddingView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -67)
         ])
+    }
+
+    func setupNavBarModel() {
+        customNavBarModel = CustomNavBarModel(
+            titleText: Resources.SelectionMovies.titleNavBarText,
+            subtitleText: nil,
+            leftButtonImage: UIImage.customCloseIcon,
+            leftAction: { [weak self] in
+                guard let self else { return }
+                self.presenter.cancelButtonTapped()
+            }
+        )
+    }
+
+    func setupRightButtonModel() {
+        customNavBarRightButtonModel = CustomNavBarRightButtonModel(
+            rightButtonImage: UIImage.likeIcon,
+            isRightButtonLabelHidden: false,
+            rightButtonLabelText: Resources.SelectionMovies.rightButtonLabelText,
+            rightAction: { [weak self] in
+                guard let self else { return }
+                self.presenter.didTapMatchRightButton()
+            }
+        )
     }
 
     func animateSwipe(direction: CGFloat) {
@@ -192,8 +219,8 @@ private extension SelectionMoviesViewController {
 
     func animateMatchViewControllerToHeartIcon() {
         guard let matchVC = matchSelectionVC,
-              let customNavBar = customNavBar as? CustomNavigationBarTwoButtons else { return }
-        let heartIconFrame = customNavBar.matchRightButton.convert(customNavBar.matchRightButton.bounds, to: view)
+              let customNavBar = customNavBar as? CustomNavBar else { return }
+        let heartIconFrame = customNavBar.getRightButtonFrameIn(view: view)
         let scaleX = heartIconFrame.width / matchVC.view.bounds.width
         let scaleY = heartIconFrame.height / matchVC.view.bounds.height
         let translationX = heartIconFrame.midX - matchVC.view.center.x
@@ -212,7 +239,7 @@ private extension SelectionMoviesViewController {
 
 extension SelectionMoviesViewController: SelectionMoviesViewProtocol {
     func updateMatchCountLabel(withRandomCount count: Int) {
-        if let customNavBar = customNavBar as? CustomNavigationBarTwoButtons {
+        if let customNavBar = customNavBar as? CustomNavBar {
             customNavBar.updateMatchCountLabel(withRandomCount: count)
         }
     }
@@ -281,18 +308,6 @@ extension SelectionMoviesViewController: CustomMovieSelectionDelegate {
 
     func comeBackButtonTapped() {
         presenter.comeBackButtonTapped()
-    }
-}
-
-// MARK: - CustomNavigationBarTwoButtonsDelegate
-
-extension SelectionMoviesViewController: CustomNavigationBarTwoButtonsDelegate {
-    func matchRightButtonTapped() {
-        presenter.didTapMatchRightButton()
-    }
-
-    func backButtonTapped() {
-        presenter.cancelButtonTapped()
     }
 }
 
