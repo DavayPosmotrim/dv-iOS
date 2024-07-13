@@ -16,12 +16,6 @@ final class MatchSelectionMoviesViewController: UIViewController {
 
     // MARK: - Lazy properties
 
-    private lazy var containerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .clear
-        return view
-    }()
-
     private lazy var backgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = .baseBackground
@@ -116,11 +110,13 @@ final class MatchSelectionMoviesViewController: UIViewController {
     }
 
     private func setupSubviews() {
-        view.addSubview(containerView)
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        [backgroundView, lowerPaddingView, centralPaddingView].forEach {
+        [
+            backgroundView,
+            lowerPaddingView,
+            centralPaddingView
+        ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
-            containerView.addSubview($0)
+            view.addSubview($0)
         }
         [lookImageView].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -134,24 +130,19 @@ final class MatchSelectionMoviesViewController: UIViewController {
 
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            containerView.topAnchor.constraint(equalTo: view.topAnchor),
-            containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-
-            backgroundView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            backgroundView.topAnchor.constraint(equalTo: containerView.topAnchor),
-            backgroundView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            backgroundView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundView.topAnchor.constraint(equalTo: view.topAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
             lowerPaddingView.heightAnchor.constraint(equalToConstant: 84),
-            lowerPaddingView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            lowerPaddingView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            lowerPaddingView.bottomAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.bottomAnchor),
+            lowerPaddingView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            lowerPaddingView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            lowerPaddingView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
 
-            centralPaddingView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
-            centralPaddingView.topAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.topAnchor, constant: 16),
-            centralPaddingView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
+            centralPaddingView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            centralPaddingView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            centralPaddingView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             centralPaddingView.bottomAnchor.constraint(equalTo: lowerPaddingView.topAnchor, constant: -16),
 
             lookImageView.heightAnchor.constraint(equalToConstant: 136),

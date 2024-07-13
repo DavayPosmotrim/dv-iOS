@@ -261,7 +261,6 @@ extension SelectionMoviesViewController: SelectionMoviesViewProtocol {
         viewController.modalPresentationStyle = .overFullScreen
         viewController.modalTransitionStyle = .crossDissolve
         navigationController.present(viewController, animated: true)
-        
         self.matchSelectionVC = viewController
         viewController.dismissCompletion = { [weak self] in
             self?.animateMatchViewControllerToHeartIcon()

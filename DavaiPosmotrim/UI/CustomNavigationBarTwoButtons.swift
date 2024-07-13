@@ -40,6 +40,7 @@ class CustomNavigationBarTwoButtons: UIView {
         return button
     }()
 
+    // TODO: - вернуть private после написания метода для расчета координат Button
      lazy var matchRightButton: UIButton = {
         let button = UIButton()
         button.addTarget(

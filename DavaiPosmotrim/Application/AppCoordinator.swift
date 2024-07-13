@@ -18,7 +18,7 @@ final class AppCoordinator: BaseCoordinator {
         } else if UserDefaults.standard.value(forKey: Resources.Authentication.savedNameUserDefaultsKey) == nil {
             showAuthFlow()
         } else {
-            showSelectionMoviesFlow()
+            showMainFlow()
         }
     }
 
