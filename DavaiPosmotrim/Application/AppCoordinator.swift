@@ -48,6 +48,7 @@ private extension AppCoordinator {
         onboardingCoordinator.start()
     }
 
+    //TODO: - Переделать и убрать отсюда после удаления обсерверов в ветке JoinSessionFlow, вынести логику отображения туда
 
     func showMovieSelectionOnboardingFlow() {
         let onboardingCoordinator = MovieSelectionOnboardingCoordinator(

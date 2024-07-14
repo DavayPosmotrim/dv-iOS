@@ -92,6 +92,8 @@ extension MainCoordinator: CoordinatorFinishDelegate {
     func didFinish(_ coordinator: CoordinatorProtocol) {
         childCoordinators.removeAll()
         switch coordinator.type {
+        case .authSession:
+            return
         case .selectionMovies:
             showSessionsList()
         default:
