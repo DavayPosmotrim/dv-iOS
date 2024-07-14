@@ -17,7 +17,11 @@ final class InvitingUsersCoordinator: BaseCoordinator {
     }
 
     func showStartSessionScreen() {
-        showMovieSelectionOnboardingScreen()
+        if UserDefaults.standard.value(forKey: Resources.MovieSelectionOnboarding.movieSelectionOnboardingUserDefaultsKey) == nil {
+            showMovieSelectionOnboardingScreen()
+        } else {
+            showSelectionMovieScreen()
+        }
     }
 }
 
