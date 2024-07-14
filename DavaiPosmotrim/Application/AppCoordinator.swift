@@ -48,6 +48,7 @@ private extension AppCoordinator {
         onboardingCoordinator.start()
     }
 
+
     func showMovieSelectionOnboardingFlow() {
         let onboardingCoordinator = MovieSelectionOnboardingCoordinator(
             type: .movieSelectionOnboarding,
@@ -76,6 +77,8 @@ private extension AppCoordinator {
         addChild(mainCoordinator)
         mainCoordinator.start()
     }
+
+//TODO: - Переделать и убрать отсюда после удаления обсерверов в ветке JoinSessionFlow
 
     func showJoinSessionFlow() {
         let joinSessionCoordinator = JoinSessionCoordinator(

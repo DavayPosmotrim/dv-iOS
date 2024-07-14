@@ -48,7 +48,7 @@ final class InvitingUsersPresenter: InvitingUsersPresenterProtocol {
 
     func startButtonTapped() {
         //TODO: - после подключения сети доделать проверку на количество юзеров и в зависимости от этого показывать варнинг или стартовать сеанс
-        namesArray.count > 1 ? coordinator?.showSelectionMovieScreen() : view?.showFewUsersWarning()
+        namesArray.count > 1 ? coordinator?.showStartSessionScreen() : view?.showFewUsersWarning()
     }
 
     func codeButtonTapped() {

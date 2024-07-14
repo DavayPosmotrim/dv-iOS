@@ -16,6 +16,17 @@ final class InvitingUsersCoordinator: BaseCoordinator {
         finishDelegate?.didFinish(self)
     }
 
+    func showStartSessionScreen() {
+        showMovieSelectionOnboardingScreen()
+    }
+}
+
+private extension InvitingUsersCoordinator {
+    func showInvitingUsersScreen() {
+        let invitingUsersViewController = InvitingUsersFactory.invitingUsersViewController(with: self)
+        navigationController.pushViewController(invitingUsersViewController, animated: true)
+    }
+
     func showSelectionMovieScreen() {
         let selectionMovieCoordinator = SelectionMoviesCoordinator(
             type: .selectionMovies,
@@ -24,11 +35,27 @@ final class InvitingUsersCoordinator: BaseCoordinator {
         addChild(selectionMovieCoordinator)
         selectionMovieCoordinator.start()
     }
+
+    func showMovieSelectionOnboardingScreen() {
+        let movieSelectionOnboardingCoordinator = MovieSelectionOnboardingCoordinator(
+            type: .movieSelectionOnboarding,
+            finishDelegate: self,
+            navigationController: navigationController)
+        addChild(movieSelectionOnboardingCoordinator)
+        movieSelectionOnboardingCoordinator.start()
+    }
 }
 
-private extension InvitingUsersCoordinator {
-    func showInvitingUsersScreen() {
-        let invitingUsersViewController = InvitingUsersFactory.invitingUsersViewController(with: self)
-        navigationController.pushViewController(invitingUsersViewController, animated: true)
+// MARK: - CoordinatorFinishDelegate
+
+extension InvitingUsersCoordinator: CoordinatorFinishDelegate {
+    func didFinish(_ coordinator: any CoordinatorProtocol) {
+        switch coordinator.type {
+        case .movieSelectionOnboarding:
+            showSelectionMovieScreen()
+            removeChild(coordinator)
+        default:
+            return
+        }
     }
 }

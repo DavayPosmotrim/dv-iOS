@@ -21,6 +21,6 @@ final class MovieSelectionOnboardingCoordinator: BaseCoordinator {
 private extension MovieSelectionOnboardingCoordinator {
     func showMovieSelectionOnboarding() {
         let viewController = MovieSelectionOnboardingSceneFactory.makeMovieSelectionOnboardingViewController(with: self)
-        navigationController.setViewControllers([viewController], animated: true)
+        navigationController.pushViewController(viewController, animated: true)
     }
 }
