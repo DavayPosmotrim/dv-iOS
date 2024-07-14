@@ -177,6 +177,7 @@ private extension SelectionMoviesViewController {
             UIView.animate(withDuration: 0.3, animations: {
                 self.customMovieDetails.transform = CGAffineTransform(translationX: 0, y: 0)
             })
+            self.customMovieDetails.collectionReloadData()
             return .up
         }
     }

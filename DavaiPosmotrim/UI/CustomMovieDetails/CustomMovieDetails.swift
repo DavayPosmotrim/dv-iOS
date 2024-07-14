@@ -89,6 +89,7 @@ final class CustomMovieDetails: UIView {
 
     func collectionReloadData() {
         actorsAndDirectorsCollectionView.reloadData()
+        actorsAndDirectorsCollectionView.setContentOffset(.zero, animated: true)
     }
 
     func updateModel(model: SelectionMovieDetailsCellModel) {
@@ -232,9 +233,9 @@ extension CustomMovieDetails: UICollectionViewDelegate {
             let section = indexPath.section
             switch section {
             case 0:
-                header.configure(text: Resources.MovieDetails.mainRolesText)
-            case 1:
                 header.configure(text: Resources.MovieDetails.movieDetailsText)
+            case 1:
+                header.configure(text: Resources.MovieDetails.mainRolesText)
             case 2:
                 header.configure(text: Resources.MovieDetails.directorText)
             case 3:
