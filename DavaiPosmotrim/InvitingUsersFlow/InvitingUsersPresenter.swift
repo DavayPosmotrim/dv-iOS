@@ -88,7 +88,6 @@ final class InvitingUsersPresenter: InvitingUsersPresenterProtocol {
                 ReusableCollectionCellModel(title: "Максим")
             ]
 
-            var index = 0
             let delayInSeconds: TimeInterval = 2
 
             downloadedNames.enumerated().forEach() { index, name in

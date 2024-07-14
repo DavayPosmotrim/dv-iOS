@@ -22,11 +22,6 @@ final class MainPresenter: MainPresenterProtocol {
         coordinator.showNextScreen(screen: screen)
     }
 
-    func finishCoordinator() {
-        guard let coordinator else { return }
-        coordinator.finish()
-    }
-
     func checkUserNameProperty() -> String {
         guard let savedName = UserDefaults.standard.string(
             forKey: Resources.Authentication.savedNameUserDefaultsKey
