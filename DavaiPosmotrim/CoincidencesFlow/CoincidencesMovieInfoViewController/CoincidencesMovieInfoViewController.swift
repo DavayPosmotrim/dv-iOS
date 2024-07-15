@@ -29,6 +29,8 @@ final class CoincidencesMovieInfoViewController: UIViewController {
         return view
     }()
 
+    private lazy var movieInfo = CustomMovieDetails(model: viewModel.details, viewHeightValue: view.frame.height)
+
     // MARK: - Initializers
 
     init(viewModel: SelectionMovieCellModel) {
@@ -58,7 +60,7 @@ final class CoincidencesMovieInfoViewController: UIViewController {
 private extension CoincidencesMovieInfoViewController {
 
     func setupSubviews() {
-        [navBarView, movieCard].forEach {
+        [navBarView, movieCard, movieInfo].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -75,7 +77,12 @@ private extension CoincidencesMovieInfoViewController {
             movieCard.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
             movieCard.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
             movieCard.topAnchor.constraint(equalTo: navBarView.bottomAnchor, constant: 16),
-            movieCard.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -67)
+            movieCard.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -67),
+
+            movieInfo.topAnchor.constraint(equalTo: movieCard.bottomAnchor, constant: 16),
+            movieInfo.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            movieInfo.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            movieInfo.heightAnchor.constraint(equalToConstant: movieInfo.countViewHeight())
         ])
     }
 
