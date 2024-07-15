@@ -51,7 +51,7 @@ final class SelectionMoviesViewController: UIViewController {
 
     private lazy var customMovieDetails: CustomMovieDetails = {
         let firstDecsription = presenter.getFirstMovie()
-        let view = CustomMovieDetails(model: firstDecsription.details)
+        let view = CustomMovieDetails(model: firstDecsription.details, viewHeightValue: view.frame.height)
         return view
     }()
 
@@ -145,16 +145,12 @@ private extension SelectionMoviesViewController {
             centralPaddingView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             centralPaddingView.topAnchor.constraint(equalTo: customNavBar.bottomAnchor, constant: 16),
             centralPaddingView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            centralPaddingView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -67)
-        ])
-        customMovieDetails.getHeights(viewHeightValue: view.frame.height)
-        let calculatedHeight = customMovieDetails.countViewHeight()
+            centralPaddingView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -67),
 
-        NSLayoutConstraint.activate([
             customMovieDetails.topAnchor.constraint(equalTo: centralPaddingView.bottomAnchor, constant: 16),
             customMovieDetails.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             customMovieDetails.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            customMovieDetails.heightAnchor.constraint(equalToConstant: calculatedHeight)
+            customMovieDetails.heightAnchor.constraint(equalToConstant: customMovieDetails.countViewHeight())
         ])
     }
 
