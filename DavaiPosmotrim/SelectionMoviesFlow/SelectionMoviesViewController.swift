@@ -164,7 +164,7 @@ private extension SelectionMoviesViewController {
 
     func changeDirection(direction: UISwipeGestureRecognizer.Direction) -> UISwipeGestureRecognizer.Direction {
         if direction == .up {
-            self.customMovieDetails.collectionReloadData()
+            customMovieDetails.collectionReloadData()
             UIView.animate(withDuration: 0.3, animations: {
                 self.customMovieDetails.transform = CGAffineTransform(
                     translationX: 0,
@@ -177,7 +177,7 @@ private extension SelectionMoviesViewController {
             UIView.animate(withDuration: 0.3, animations: {
                 self.customMovieDetails.transform = CGAffineTransform(translationX: 0, y: 0)
             })
-            self.customMovieDetails.collectionReloadData()
+            customMovieDetails.collectionReloadData()
             return .up
         }
     }

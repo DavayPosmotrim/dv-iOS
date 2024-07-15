@@ -37,5 +37,4 @@ final class CustomMovieDetailsCollectionHeader: UICollectionReusableView {
     func configure(text: String) {
         label.text = text
     }
-
 }
