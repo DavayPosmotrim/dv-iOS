@@ -48,18 +48,6 @@ private extension AppCoordinator {
         onboardingCoordinator.start()
     }
 
-    //TODO: - Переделать и убрать отсюда после удаления обсерверов в ветке JoinSessionFlow, вынести логику отображения туда
-
-    func showMovieSelectionOnboardingFlow() {
-        let onboardingCoordinator = MovieSelectionOnboardingCoordinator(
-            type: .movieSelectionOnboarding,
-            finishDelegate: self,
-            navigationController: navigationController
-        )
-        addChild(onboardingCoordinator)
-        onboardingCoordinator.start()
-    }
-
     func showAuthFlow() {
         let authCoordinator = AuthCoordinator(
             type: .auth,
@@ -78,18 +66,6 @@ private extension AppCoordinator {
         addChild(mainCoordinator)
         mainCoordinator.start()
     }
-
-//TODO: - Переделать и убрать отсюда после удаления обсерверов в ветке JoinSessionFlow
-
-    func showJoinSessionFlow() {
-        let joinSessionCoordinator = JoinSessionCoordinator(
-            type: .joinSession,
-            finishDelegate: self,
-            navigationController: navigationController
-        )
-        addChild(joinSessionCoordinator)
-        joinSessionCoordinator.start()
-    }
 }
 
 extension AppCoordinator: CoordinatorFinishDelegate {
@@ -102,14 +78,7 @@ extension AppCoordinator: CoordinatorFinishDelegate {
             return
         case .onboarding:
             showAuthFlow()
-        case .movieSelectionOnboarding:
-            // TODO: add code to start next flow
-            print("MovieSelectionOnboarding")
         case .auth:
-            showMainFlow()
-        case .main:
-            showJoinSessionFlow()
-        case .joinSession:
             showMainFlow()
         default:
             navigationController.popToRootViewController(animated: false)

@@ -33,7 +33,7 @@ final class MainCoordinator: BaseCoordinator {
         case Keys.favoriteMoviesViewController:
                 showSessionsList()
         case Keys.joinSessionViewController:
-            showJoinSessionFlow()
+            showJoinSessionAuth()
         default:
             break
         }
@@ -65,7 +65,7 @@ private extension MainCoordinator {
         createSessionCoordinator.start()
     }
 
-    func showJoinSessionFlow() {
+    func showJoinSessionAuth() {
         let authSessionCoordinator = AuthCoordinator(
             type: .authSession,
             finishDelegate: self,
@@ -73,6 +73,16 @@ private extension MainCoordinator {
         )
         addChild(authSessionCoordinator)
         authSessionCoordinator.start()
+    }
+
+    func showJoinSessionFlow() {
+        let joinSessionCoordinator = JoinSessionCoordinator(
+            type: .joinSession,
+            finishDelegate: self,
+            navigationController: navigationController
+        )
+        addChild(joinSessionCoordinator)
+        joinSessionCoordinator.start()
     }
 
     func showSessionsList() {
@@ -93,7 +103,7 @@ extension MainCoordinator: CoordinatorFinishDelegate {
         childCoordinators.removeAll()
         switch coordinator.type {
         case .authSession:
-            return
+            showJoinSessionFlow()
         case .selectionMovies:
             showSessionsList()
         default:

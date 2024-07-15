@@ -87,13 +87,6 @@ final class AuthPresenter: AuthPresenterProtocol {
         }
     }
 
-    func startJoinSessionFlowNotification() {
-        NotificationCenter.default.post(
-            name: NSNotification.Name(Resources.MainScreen.startJoinSessionFlow),
-            object: nil
-        )
-    }
-
     func handleEnterButtonTap(with name: String) -> String {
         if name.isEmpty {
             view?.updateUIElements(
