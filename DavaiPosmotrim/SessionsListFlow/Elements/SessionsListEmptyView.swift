@@ -87,7 +87,7 @@ private extension SessionsListEmptyView {
     }
 
     func setupSubviewsValue() {
-        placeholderImageView.image = UIImage(resource: .emptyFolderPlug)
+        placeholderImageView.image = UIImage.emptyFolderPlug
         placeholderTitleLabel.text = Resources.SessionsList.NoSessions.title
         placeholderDescriptionLabel.text = Resources.SessionsList.NoSessions.description
     }

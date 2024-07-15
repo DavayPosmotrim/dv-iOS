@@ -49,6 +49,15 @@ final class SelectionMoviesViewController: UIViewController {
         return view
     }()
 
+    private lazy var customMovieDetails: CustomMovieDetails = {
+        let firstDecsription = presenter.getFirstMovie()
+        let view = CustomMovieDetails(model: firstDecsription.details)
+        let swipeGuesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture))
+        swipeGuesture.direction = .up
+        view.setUpSwipeView(swipeGuesture)
+        return view
+    }()
+
     // MARK: - Initializers
 
     init(presenter: SelectionMoviesPresenter) {
@@ -102,6 +111,11 @@ final class SelectionMoviesViewController: UIViewController {
             break
         }
     }
+
+    @objc func handleSwipeGesture(_ gesture: UISwipeGestureRecognizer) {
+        let direction = gesture.direction
+        gesture.direction = changeDirection(direction: direction)
+    }
 }
 
 // MARK: - Private methods
@@ -112,7 +126,8 @@ private extension SelectionMoviesViewController {
             backgroundView,
             centralPaddingView,
             upperPaddingView,
-            customNavBar
+            customNavBar,
+            customMovieDetails
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
@@ -138,8 +153,43 @@ private extension SelectionMoviesViewController {
             centralPaddingView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             centralPaddingView.topAnchor.constraint(equalTo: customNavBar.bottomAnchor, constant: 16),
             centralPaddingView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            centralPaddingView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -67)
+            centralPaddingView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -67),
+
+            customMovieDetails.topAnchor.constraint(equalTo: centralPaddingView.bottomAnchor, constant: 16),
+            customMovieDetails.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            customMovieDetails.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            customMovieDetails.heightAnchor.constraint(equalToConstant: countViewHeight())
         ])
+    }
+
+    func changeDirection(direction: UISwipeGestureRecognizer.Direction) -> UISwipeGestureRecognizer.Direction {
+        if direction == .up {
+            customMovieDetails.collectionReloadData()
+            UIView.animate(withDuration: 0.3, animations: {
+                self.customMovieDetails.transform = CGAffineTransform(
+                    translationX: 0,
+                    y: -(self.centralPaddingView.frame.height) - 16
+                )
+                self.customMovieDetails.heightAnchor.constraint(equalToConstant: self.countViewHeight()).isActive = true
+            })
+            return .down
+        } else {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.customMovieDetails.transform = CGAffineTransform(translationX: 0, y: 0)
+            })
+            customMovieDetails.collectionReloadData()
+            return .up
+        }
+    }
+
+    func countViewHeight() -> CGFloat {
+        var safeArea: UIEdgeInsets {
+            let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+            return scene?.windows.first?.safeAreaInsets ?? .zero
+        }
+        let viewHeight = view.frame.height
+        let calculatedHeight = viewHeight - safeArea.top - customNavBar.frame.height - 16
+        return calculatedHeight
     }
 
     func animateSwipe(direction: CGFloat) {
@@ -201,10 +251,14 @@ extension SelectionMoviesViewController: SelectionMoviesViewProtocol {
 
     func showNextMovie(_ nextModel: SelectionMovieCellModel) {
         centralPaddingView.updateModel(nextModel)
+        centralPaddingView.frame.size.height = countViewHeight()
+        customMovieDetails.updateModel(model: nextModel.details)
     }
 
     func showPreviousMovie(_ nextModel: SelectionMovieCellModel) {
         centralPaddingView.updateModel(nextModel)
+        centralPaddingView.frame.size.height = countViewHeight()
+        customMovieDetails.updateModel(model: nextModel.details)
         animateComeBack()
     }
 
