@@ -41,6 +41,7 @@ private extension AppCoordinator {
     func showCoincidencesFlow() {
         let coincidencesCoordinator = CoincidencesCoordinator(
             type: .coincidencesSession,
+            finishDelegate: self,
             navigationController: navigationController
         )
         addChild(coincidencesCoordinator)

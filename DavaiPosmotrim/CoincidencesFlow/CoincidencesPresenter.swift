@@ -48,6 +48,12 @@ final class CoincidencesPresenter: CoincidencesPresenterProtocol {
         // TODO: add code to jump to RouletteFlow
     }
 
+    func coincidencesCellTapped() {
+        guard let coordinator,
+              let viewModel = getMovieInfo(from: selectionMovieMockData) else { return }
+        coordinator.showCoincidencesInfo(with: viewModel)
+    }
+
     func getMoviesAtIndex(index: Int) -> ReusableLikedMoviesCellModel {
         moviesArray[index]
     }

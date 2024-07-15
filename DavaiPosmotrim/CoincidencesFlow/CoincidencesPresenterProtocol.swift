@@ -13,6 +13,7 @@ protocol CoincidencesPresenterProtocol: AnyObject {
 
     func backButtonTapped()
     func diceButtonTapped()
+    func coincidencesCellTapped()
     func getMoviesAtIndex(index: Int) -> ReusableLikedMoviesCellModel
     func downloadMoviesArrayFromServer()
     func getMovieInfo(from array: [SelectionMovieCellModel]) -> SelectionMovieCellModel?

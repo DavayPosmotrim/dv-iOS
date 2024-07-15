@@ -14,7 +14,12 @@ final class CoincidencesCoordinator: BaseCoordinator {
     }
 
     override func finish() {
-        navigationController.popViewController(animated: true)
+        finishDelegate?.didFinish(self)
+    }
+
+    func showCoincidencesInfo(with viewModel: SelectionMovieCellModel) {
+        let viewController = CoincidencesMovieInfoViewController(viewModel: viewModel)
+        navigationController.pushViewController(viewController, animated: true)
     }
 }
 
