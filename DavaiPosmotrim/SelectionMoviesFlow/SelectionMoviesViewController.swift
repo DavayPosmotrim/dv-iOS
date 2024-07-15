@@ -230,8 +230,7 @@ private extension SelectionMoviesViewController {
     }
 
     func animateMatchViewControllerToHeartIcon() {
-        guard let matchVC = matchSelectionVC,
-              let customNavBar = customNavBar as? CustomNavBar else { return }
+        guard let matchVC = matchSelectionVC else { return }
         let heartIconFrame = customNavBar.getRightButtonFrameIn(view: view)
         let scaleX = heartIconFrame.width / matchVC.view.bounds.width
         let scaleY = heartIconFrame.height / matchVC.view.bounds.height
@@ -251,9 +250,7 @@ private extension SelectionMoviesViewController {
 
 extension SelectionMoviesViewController: SelectionMoviesViewProtocol {
     func updateMatchCountLabel(withRandomCount count: Int) {
-        if let customNavBar = customNavBar as? CustomNavBar {
-            customNavBar.updateMatchCountLabel(withRandomCount: count)
-        }
+        customNavBar.updateMatchCountLabel(withRandomCount: count)
     }
 
     func showNextMovie(_ nextModel: SelectionMovieCellModel) {
