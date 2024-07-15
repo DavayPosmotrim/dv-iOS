@@ -24,6 +24,10 @@ final class SessionsListCoordinator: BaseCoordinator {
         presenter.view = viewController
         navigationController.pushViewController(viewController, animated: true)
     }
+
+    func showPreviewsScreen() {
+        navigationController.popViewController(animated: true)
+    }
 }
 
 // MARK: - Private methods

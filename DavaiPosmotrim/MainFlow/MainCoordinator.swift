@@ -97,7 +97,7 @@ extension MainCoordinator: CoordinatorFinishDelegate {
         case .selectionMovies:
             showSessionsList()
         default:
-            showMain()
+            navigationController.popToRootViewController(animated: true)
         }
     }
 }
