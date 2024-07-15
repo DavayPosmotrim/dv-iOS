@@ -158,6 +158,7 @@ private extension SelectionMoviesViewController {
         ])
     }
 
+<<<<<<< HEAD
     func setupNavBarModel() {
         customNavBarModel = CustomNavBarModel(
             titleText: Resources.SelectionMovies.titleNavBarText,
@@ -182,6 +183,38 @@ private extension SelectionMoviesViewController {
         )
     }
 
+    func changeDirection(direction: UISwipeGestureRecognizer.Direction) -> UISwipeGestureRecognizer.Direction {
+        if direction == .up {
+            customMovieDetails.collectionReloadData()
+            UIView.animate(withDuration: 0.3, animations: {
+                self.customMovieDetails.transform = CGAffineTransform(
+                    translationX: 0,
+                    y: -(self.centralPaddingView.frame.height) - 16
+                )
+                self.customMovieDetails.heightAnchor.constraint(equalToConstant: self.countViewHeight()).isActive = true
+            })
+            return .down
+        } else {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.customMovieDetails.transform = CGAffineTransform(translationX: 0, y: 0)
+            })
+            customMovieDetails.collectionReloadData()
+            return .up
+        }
+    }
+
+    func countViewHeight() -> CGFloat {
+        var safeArea: UIEdgeInsets {
+            let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+            return scene?.windows.first?.safeAreaInsets ?? .zero
+        }
+        let viewHeight = view.frame.height
+        let calculatedHeight = viewHeight - safeArea.top - customNavBar.frame.height - 16
+        return calculatedHeight
+    }
+
+=======
+>>>>>>> develop
     func animateSwipe(direction: CGFloat) {
         guard let currentMovieId = presenter.currentMovieId else {
             return
