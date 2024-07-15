@@ -12,12 +12,18 @@ final class CustomMovieDetails: UIView {
     // MARK: - Public Properties
 
     var data: SelectionMovieDetailsCellModel
+    var centralPaddingHeight: CGFloat = 0
+    var viewHeight: CGFloat = 0
 
     // MARK: - Layout variables
 
     private lazy var swipeView: UIView = {
         var swipeView = UIView()
         swipeView.backgroundColor = .clear
+        let swipeGuesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture))
+        swipeGuesture.direction = .up
+        swipeView.addGestureRecognizer(swipeGuesture)
+        swipeView.isUserInteractionEnabled = true
         return swipeView
     }()
 
@@ -85,7 +91,46 @@ final class CustomMovieDetails: UIView {
         actorsAndDirectorsCollectionView.layoutIfNeeded()
     }
 
+    @objc func handleSwipeGesture(_ gesture: UISwipeGestureRecognizer) {
+        let direction = gesture.direction
+        gesture.direction = changeDirection(direction: direction)
+    }
+
     // MARK: - Public Methods
+
+    func changeDirection(direction: UISwipeGestureRecognizer.Direction) -> UISwipeGestureRecognizer.Direction {
+        if direction == .up {
+            collectionReloadData()
+            UIView.animate(withDuration: 0.3, animations: {
+                self.transform = CGAffineTransform(
+                    translationX: 0,
+                    y: -(self.centralPaddingHeight) - 16
+                )
+                self.heightAnchor.constraint(equalToConstant: self.countViewHeight()).isActive = true
+            })
+            return .down
+        } else {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.transform = CGAffineTransform(translationX: 0, y: 0)
+            })
+            collectionReloadData()
+            return .up
+        }
+    }
+
+    func getHeights(viewHeightValue: CGFloat) {
+        viewHeight = viewHeightValue
+    }
+
+    func countViewHeight() -> CGFloat {
+        var safeArea: UIEdgeInsets {
+            let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+            return scene?.windows.first?.safeAreaInsets ?? .zero
+        }
+        let calculatedHeight = viewHeight - safeArea.top - 80
+        centralPaddingHeight = viewHeight - safeArea.top - safeArea.bottom - 67 - 80
+        return calculatedHeight
+    }
 
     func collectionReloadData() {
         actorsAndDirectorsCollectionView.reloadData()
@@ -95,11 +140,6 @@ final class CustomMovieDetails: UIView {
     func updateModel(model: SelectionMovieDetailsCellModel) {
         data = model
         actorsAndDirectorsCollectionView.reloadData()
-    }
-
-    func setUpSwipeView(_ swipeGuesture: UISwipeGestureRecognizer) {
-        swipeView.addGestureRecognizer(swipeGuesture)
-        swipeView.isUserInteractionEnabled = true
     }
 
     // MARK: - Private Methods
