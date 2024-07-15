@@ -166,6 +166,7 @@ private extension SelectionMoviesViewController {
         ])
     }
 
+<<<<<<< HEAD
     func setupNavBarModel() {
         customNavBarModel = CustomNavBarModel(
             titleText: Resources.SelectionMovies.titleNavBarText,
@@ -188,8 +189,7 @@ private extension SelectionMoviesViewController {
                 self.presenter.didTapMatchRightButton()
             }
         )
-    }
-
+=======
     func changeDirection(direction: UISwipeGestureRecognizer.Direction) -> UISwipeGestureRecognizer.Direction {
         if direction == .up {
             customMovieDetails.collectionReloadData()
@@ -218,6 +218,7 @@ private extension SelectionMoviesViewController {
         let viewHeight = view.frame.height
         let calculatedHeight = viewHeight - safeArea.top - customNavBar.frame.height - 16
         return calculatedHeight
+>>>>>>> develop
     }
 
     func animateSwipe(direction: CGFloat) {

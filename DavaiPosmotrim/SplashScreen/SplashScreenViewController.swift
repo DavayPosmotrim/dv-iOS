@@ -321,6 +321,16 @@ extension SplashScreenViewController {
         animator = UIDynamicAnimator(referenceView: self.view)
         gravity = UIGravityBehavior(items: labels)
         let collision = UICollisionBehavior(items: labels)
+        collision.addBoundary(
+            withIdentifier: "davayImageViewIdent" as NSCopying,
+            for: UIBezierPath(rect: self.davayImageView.frame)
+        )
+        collision.addBoundary(withIdentifier: "leftBorderIdent" as NSCopying, for: UIBezierPath(rect: leftView.frame))
+        collision.addBoundary(withIdentifier: "rightBorderIdent" as NSCopying, for: UIBezierPath(rect: rightView.frame))
+        collision.addBoundary(
+            withIdentifier: "bottomBorderIdent" as NSCopying,
+            for: UIBezierPath(rect: bottomView.frame)
+        )
 
         bordersTimer = Timer.scheduledTimer(withTimeInterval: 1.6, repeats: false) { _ in
             collision.addBoundary(
@@ -329,17 +339,6 @@ extension SplashScreenViewController {
             )
             self.presenter?.startMoving(gravity: self.gravity)
         }
-
-        collision.addBoundary(withIdentifier: "leftBorderIdent" as NSCopying, for: UIBezierPath(rect: leftView.frame))
-        collision.addBoundary(withIdentifier: "rightBorderIdent" as NSCopying, for: UIBezierPath(rect: rightView.frame))
-        collision.addBoundary(
-            withIdentifier: "bottomBorderIdent" as NSCopying,
-            for: UIBezierPath(rect: bottomView.frame)
-        )
-        collision.addBoundary(
-            withIdentifier: "davayImageViewIdent" as NSCopying,
-            for: UIBezierPath(rect: self.davayImageView.frame)
-        )
 
         animator.addBehavior(gravity)
         animator.addBehavior(collision)
