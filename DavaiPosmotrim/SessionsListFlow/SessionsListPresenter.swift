@@ -20,7 +20,7 @@ final class SessionsListPresenter: SessionsListPresenterProtocol {
     }
 
     // MARK: - Private properties
-    private var sessions: [SessionModel]
+    private (set) var sessions: [SessionModel]
 
     // MARK: - Inits
     init(
@@ -50,16 +50,6 @@ final class SessionsListPresenter: SessionsListPresenterProtocol {
 
     func showSessionMovies(by sessionIndex: Int) {
         coordinator?.showMovies(for: sessions[sessionIndex])
-    }
-
-    func getSessionForCellBy(index: Int) -> SessionsListViewModel {
-        let session = sessions[index]
-        return SessionsListViewModel(
-            date: session.date,
-            users: session.users.map { $0.name }.joined(separator: ", "),
-            matches: String(session.matches),
-            imageName: session.imageName
-        )
     }
 }
 

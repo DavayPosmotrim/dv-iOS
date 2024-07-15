@@ -188,6 +188,18 @@ enum Resources {
 
         static let customOneButtonText = "Хорошо".uppercased()
     }
+    
+    
+    enum MovieDetails {
+        static let kinoPoiskRatingText = "Рейтинг Кинопоиска"
+        static let iMDBRatingText = "Рейтинг IMDb"
+        
+        static let movieDetailsText = "Подробнее о фильме"
+        static let mainRolesText = "В главных ролях"
+        static let directorText = "Режиссёр"
+        static let votesText = "Оценки"
+        static let howManyVotesText = " оценок"
+    }
 
     enum SessionsList {
         static let title = "Понравившиеся фильмы"
