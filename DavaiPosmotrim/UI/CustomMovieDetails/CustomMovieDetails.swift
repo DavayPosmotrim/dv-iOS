@@ -9,11 +9,14 @@ import UIKit
 
 final class CustomMovieDetails: UIView {
 
-    // MARK: - Public Properties
+    // MARK: - Private Properties
 
-    var data: SelectionMovieDetailsCellModel
-    var centralPaddingHeight: CGFloat = 0
-    var viewHeight: CGFloat
+    private var data: SelectionMovieDetailsCellModel
+    private var viewHeight: CGFloat
+
+    private var centralPaddingHeight: CGFloat = 0
+    private let navBarAndSpaceHeight: CGFloat = 80
+    private let navBarAndAllTheSpacesHeight: CGFloat = 147
 
     // MARK: - Layout variables
 
@@ -106,8 +109,8 @@ final class CustomMovieDetails: UIView {
             let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
             return scene?.windows.first?.safeAreaInsets ?? .zero
         }
-        let calculatedHeight = viewHeight - safeArea.top - 80
-        centralPaddingHeight = viewHeight - safeArea.top - safeArea.bottom - 147
+        let calculatedHeight = viewHeight - safeArea.top - navBarAndSpaceHeight
+        centralPaddingHeight = viewHeight - safeArea.top - safeArea.bottom - navBarAndAllTheSpacesHeight
         return calculatedHeight
     }
 

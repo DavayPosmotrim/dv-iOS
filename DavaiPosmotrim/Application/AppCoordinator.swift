@@ -13,14 +13,13 @@ final class AppCoordinator: BaseCoordinator {
     }
 
     override func start() {
-        showSelectionMoviesFlow()
-//        if UserDefaults.standard.value(forKey: Resources.Onboarding.onboardingUserDefaultsKey) == nil {
-//            showOnboardingFlow()
-//        } else if UserDefaults.standard.value(forKey: Resources.Authentication.savedNameUserDefaultsKey) == nil {
-//            showAuthFlow()
-//        } else {
-//            showMainFlow()
-//        }
+        if UserDefaults.standard.value(forKey: Resources.Onboarding.onboardingUserDefaultsKey) == nil {
+            showOnboardingFlow()
+        } else if UserDefaults.standard.value(forKey: Resources.Authentication.savedNameUserDefaultsKey) == nil {
+            showAuthFlow()
+        } else {
+            showMainFlow()
+        }
     }
 
     override func finish() {
