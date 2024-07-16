@@ -162,7 +162,7 @@ enum Resources {
 
     enum SelectionMovies {
         static let titleNavBarText = "Выберите фильм"
-
+        static let rightButtonLabelText = "0"
         static let customLabelUpperText = "Покинуть сеанс?"
         static let customLabelLowerText = """
     Сеанс будет завершён у всех участников.
@@ -178,6 +178,19 @@ enum Resources {
     """
 
         static let customOneButtonText = "Хорошо".uppercased()
+        static let continueButtonText = "Продолжить сеанс".uppercased()
+    }
+    
+    
+    enum MovieDetails {
+        static let kinoPoiskRatingText = "Рейтинг Кинопоиска"
+        static let iMDBRatingText = "Рейтинг IMDb"
+        
+        static let movieDetailsText = "Подробнее о фильме"
+        static let mainRolesText = "В главных ролях"
+        static let directorText = "Режиссёр"
+        static let votesText = "Оценки"
+        static let howManyVotesText = " оценок"
     }
 
     enum SessionsList {

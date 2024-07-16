@@ -17,4 +17,5 @@ struct SelectionMovieCellModel {
     let countryMovie: [String]
     let timeMovie: String
     let genre: [CollectionsCellModel]
+    let details: SelectionMovieDetailsCellModel
 }

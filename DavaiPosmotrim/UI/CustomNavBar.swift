@@ -114,6 +114,14 @@ final class CustomNavBar: UIView {
         rightButtonAction = model.rightAction
     }
 
+    func updateMatchCountLabel(withRandomCount count: Int) {
+        rightButtonLabel.text = "\(count)"
+    }
+
+    func getRightButtonFrameIn(view: UIView) -> CGRect {
+        return rightButton.convert(rightButton.bounds, to: view)
+    }
+
     // MARK: - Private methods
 
     private func setupView() {
