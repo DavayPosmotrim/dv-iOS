@@ -38,29 +38,9 @@ private extension AppCoordinator {
         splashScreenCoordinator.start()
     }
 
-    func showCoincidencesFlow() {
-        let coincidencesCoordinator = CoincidencesCoordinator(
-            type: .coincidencesSession,
-            finishDelegate: self,
-            navigationController: navigationController
-        )
-        addChild(coincidencesCoordinator)
-        coincidencesCoordinator.start()
-    }
-
     func showOnboardingFlow() {
         let onboardingCoordinator = OnboardingCoordinator(
             type: .onboarding,
-            finishDelegate: self,
-            navigationController: navigationController
-        )
-        addChild(onboardingCoordinator)
-        onboardingCoordinator.start()
-    }
-
-    func showMovieSelectionOnboardingFlow() {
-        let onboardingCoordinator = MovieSelectionOnboardingCoordinator(
-            type: .movieSelectionOnboarding,
             finishDelegate: self,
             navigationController: navigationController
         )
@@ -86,27 +66,6 @@ private extension AppCoordinator {
         addChild(mainCoordinator)
         mainCoordinator.start()
     }
-
-    func showSelectionMoviesFlow() {
-        // TODO: - не забыть перенести когда появится экран с которого необходимо запускать
-        let selectionMoviesCoordinator = SelectionMoviesCoordinator(
-            type: .selectionMovies,
-            finishDelegate: self,
-            navigationController: navigationController
-        )
-        addChild(selectionMoviesCoordinator)
-        selectionMoviesCoordinator.start()
-    }
-
-    func showJoinSessionFlow() {
-        let joinSessionCoordinator = JoinSessionCoordinator(
-            type: .joinSession,
-            finishDelegate: self,
-            navigationController: navigationController
-        )
-        addChild(joinSessionCoordinator)
-        joinSessionCoordinator.start()
-    }
 }
 
 extension AppCoordinator: CoordinatorFinishDelegate {
@@ -119,17 +78,17 @@ extension AppCoordinator: CoordinatorFinishDelegate {
             return
         case .onboarding:
             showAuthFlow()
-        case .movieSelectionOnboarding:
-            // TODO: add code to start next flow
-            print("MovieSelectionOnboarding")
         case .auth:
             showMainFlow()
+<<<<<<< HEAD
         case .main:
             showJoinSessionFlow()
         case .joinSession:
             showMainFlow()
         case .selectionMovies:
             showMainFlow()
+=======
+>>>>>>> develop
         default:
             navigationController.popToRootViewController(animated: false)
         }

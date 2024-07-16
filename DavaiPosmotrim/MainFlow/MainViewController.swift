@@ -141,7 +141,6 @@ final class MainViewController: UIViewController {
         setupSubviews()
         setupConstraints()
         setupAuthNotificationObserver()
-        setupJoinNotificationObserver()
         setupTableViewHeightConstraint()
     }
 
@@ -160,11 +159,6 @@ final class MainViewController: UIViewController {
         nameLabel.text = presenter?.getUserName(notification)
     }
 
-    @objc private func finishMainFlow() {
-        guard let presenter else { return }
-        presenter.finishCoordinator()
-    }
-
     // MARK: - Private methods
 
     private func setupAuthNotificationObserver() {
@@ -172,15 +166,6 @@ final class MainViewController: UIViewController {
             self,
             selector: #selector(updateUserName(_:)),
             name: Notification.Name(Resources.Authentication.authDidFinishNotification),
-            object: nil
-        )
-    }
-
-    private func setupJoinNotificationObserver() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(finishMainFlow),
-            name: NSNotification.Name(Resources.MainScreen.startJoinSessionFlow),
             object: nil
         )
     }
