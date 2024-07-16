@@ -53,6 +53,6 @@ final class SessionMoviesPresenter: SessionMoviesPresenterProtocol {
 extension SessionMoviesPresenter: CustomNavigationBarDelegate {
 
     func backButtonTapped() {
-        coordinator?.showPreviewsScreen()
+        coordinator?.showPreviousScreen()
     }
 }
