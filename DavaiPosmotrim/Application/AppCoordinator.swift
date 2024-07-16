@@ -80,15 +80,6 @@ extension AppCoordinator: CoordinatorFinishDelegate {
             showAuthFlow()
         case .auth:
             showMainFlow()
-<<<<<<< HEAD
-        case .main:
-            showJoinSessionFlow()
-        case .joinSession:
-            showMainFlow()
-        case .selectionMovies:
-            showMainFlow()
-=======
->>>>>>> develop
         default:
             navigationController.popToRootViewController(animated: false)
         }
