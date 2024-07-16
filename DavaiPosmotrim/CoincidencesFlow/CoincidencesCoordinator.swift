@@ -24,6 +24,13 @@ final class CoincidencesCoordinator: BaseCoordinator {
         addChild(rouletteCoordinator)
         rouletteCoordinator.start()
     }
+
+    func showRouletteOnboarding() {
+        let viewController = RouletteOnboardingViewController()
+        viewController.modalTransitionStyle = .crossDissolve
+        viewController.modalPresentationStyle = .overCurrentContext
+        navigationController.present(viewController, animated: true)
+    }
 }
 
 private extension CoincidencesCoordinator {

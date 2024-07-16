@@ -162,23 +162,19 @@ private extension CoincidencesViewController {
 extension CoincidencesViewController: CoincidencesViewProtocol {
     func updateUIElements() {
         if !presenter.isArrayEmpty {
-            setupRightButtonModel()
-            navBarView.setupRightButton(with: customNavBarRightButtonModel)
             paddingView.isHidden = true
             stackView.isHidden = true
             collectionView.isHidden = false
+
+            if presenter.moviesCount >= 3 {
+                setupRightButtonModel()
+                navBarView.setupRightButton(with: customNavBarRightButtonModel)
+            }
         } else {
             paddingView.isHidden = false
             stackView.isHidden = false
             collectionView.isHidden = true
         }
-    }
-
-    func showRouletteOnboarding() {
-        let viewController = RouletteOnboardingViewController()
-        viewController.modalTransitionStyle = .crossDissolve
-        viewController.modalPresentationStyle = .overCurrentContext
-        navigationController?.present(viewController, animated: true)
     }
 }
 

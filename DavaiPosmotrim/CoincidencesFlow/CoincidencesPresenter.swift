@@ -27,6 +27,7 @@ final class CoincidencesPresenter: CoincidencesPresenterProtocol {
     private var moviesArray = [ReusableLikedMoviesCellModel]() {
         didSet {
             view?.updateUIElements()
+            showRouletteOnboarding()
             updateReusableCollection()
         }
     }
@@ -40,14 +41,8 @@ final class CoincidencesPresenter: CoincidencesPresenterProtocol {
     // MARK: - Public methods
 
     func diceButtonTapped() {
-        guard let coordinator, let view else { return }
-        if moviesCount >= 3 {
-            if UserDefaults.standard.value(forKey: Resources.RouletteFlow.isRouletteOnboardingShown) == nil {
-                view.showRouletteOnboarding()
-            } else {
-                coordinator.showRouletteFlow()
-            }
-        }
+        guard let coordinator else { return }
+        coordinator.showRouletteFlow()
     }
 
     func getMoviesAtIndex(index: Int) -> ReusableLikedMoviesCellModel {
@@ -86,5 +81,13 @@ private extension CoincidencesPresenter {
             name: NSNotification.Name(Resources.ReusableLikedMoviesCollectionView.updateCollectionView),
             object: nil
         )
+    }
+
+    func showRouletteOnboarding() {
+        guard let coordinator else { return }
+        if UserDefaults.standard.value(forKey: Resources.RouletteFlow.isRouletteOnboardingShown) == nil &&
+     moviesCount >= 3 {
+            coordinator.showRouletteOnboarding()
+        }
     }
 }

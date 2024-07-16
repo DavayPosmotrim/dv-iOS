@@ -14,9 +14,8 @@ final class RouletteCoordinator: BaseCoordinator {
     }
 
     override func finish() {
-        navigationController.popViewController(animated: true)
+        finishDelegate?.didFinish(self)
     }
-
 }
 
 private extension RouletteCoordinator {
