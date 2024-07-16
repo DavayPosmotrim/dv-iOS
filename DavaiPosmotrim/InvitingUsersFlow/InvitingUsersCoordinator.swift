@@ -8,6 +8,7 @@
 import Foundation
 
 final class InvitingUsersCoordinator: BaseCoordinator {
+
     override func start() {
         showInvitingUsersScreen()
     }
@@ -26,6 +27,7 @@ final class InvitingUsersCoordinator: BaseCoordinator {
 }
 
 private extension InvitingUsersCoordinator {
+    
     func showInvitingUsersScreen() {
         let invitingUsersViewController = InvitingUsersFactory.invitingUsersViewController(with: self)
         navigationController.pushViewController(invitingUsersViewController, animated: true)

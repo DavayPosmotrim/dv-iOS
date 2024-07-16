@@ -25,7 +25,7 @@ final class SessionsListCoordinator: BaseCoordinator {
         navigationController.pushViewController(viewController, animated: true)
     }
 
-    func showPreviewsScreen() {
+    func showPreviousScreen() {
         navigationController.popViewController(animated: true)
     }
 }
