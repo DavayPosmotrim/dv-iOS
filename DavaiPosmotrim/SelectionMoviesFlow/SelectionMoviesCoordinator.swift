@@ -14,8 +14,13 @@ final class SelectionMoviesCoordinator: BaseCoordinator {
     }
 
     func showMatchFlow() {
-        let matchViewController = MatchViewController()
-        navigationController.pushViewController(matchViewController, animated: true)
+            let coincidencesCoordinator = CoincidencesCoordinator(
+                type: .coincidencesSession,
+                finishDelegate: finishDelegate,
+                navigationController: navigationController
+            )
+            addChild(coincidencesCoordinator)
+            coincidencesCoordinator.start()
     }
 
     override func finish() {

@@ -48,7 +48,7 @@ final class InvitingUsersPresenter: InvitingUsersPresenterProtocol {
 
     func startButtonTapped() {
         //TODO: - после подключения сети доделать проверку на количество юзеров и в зависимости от этого показывать варнинг или стартовать сеанс
-        view?.showFewUsersWarning()
+        namesArray.count > 1 ? coordinator?.showStartSessionScreen() : view?.showFewUsersWarning()
     }
 
     func codeButtonTapped() {
@@ -88,7 +88,6 @@ final class InvitingUsersPresenter: InvitingUsersPresenterProtocol {
                 ReusableCollectionCellModel(title: "Максим")
             ]
 
-            var index = 0
             let delayInSeconds: TimeInterval = 2
 
             downloadedNames.enumerated().forEach() { index, name in

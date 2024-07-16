@@ -15,7 +15,7 @@ final class SessionsListCoordinator: BaseCoordinator {
     }
 
     override func finish() {
-        navigationController.popViewController(animated: true)
+        finishDelegate?.didFinish(self)
     }
 
     func showMovies(for session: SessionModel) {
@@ -23,6 +23,10 @@ final class SessionsListCoordinator: BaseCoordinator {
         let viewController = SessionMoviesViewController(presenter: presenter)
         presenter.view = viewController
         navigationController.pushViewController(viewController, animated: true)
+    }
+
+    func showPreviousScreen() {
+        navigationController.popViewController(animated: true)
     }
 }
 
