@@ -109,10 +109,10 @@ final class InvitingUsersViewController: UIViewController {
 
     private lazy var cancelButton: UIView = {
         let button = CustomButtons()
-        button.grayButton.backgroundColor = .whiteBackground
-        button.setupView(with: button.grayButton)
-        button.grayButton.setTitle(Resources.InvitingSession.cancelButtonLabelText, for: .normal)
-        button.grayButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
+        button.clearButton.backgroundColor = .whiteBackground
+        button.setupView(with: button.clearButton)
+        button.clearButton.setTitle(Resources.InvitingSession.cancelButtonLabelText, for: .normal)
+        button.clearButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
 
         return button
     }()
