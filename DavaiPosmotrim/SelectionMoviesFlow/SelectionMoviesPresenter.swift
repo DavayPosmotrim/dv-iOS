@@ -94,6 +94,7 @@ final class SelectionMoviesPresenter: SelectionMoviesPresenterProtocol {
     func swipeNextMovie(withId id: UUID, direction: CGFloat) {
         if direction > 0 {
             addToLikedMovies(withId: id)
+            checkIfIndexesMatch(withId: id)
         } else {
             removeFromLikedMovies(withId: id)
         }
