@@ -28,6 +28,15 @@ class CustomMovieSelection: UIView {
         }
     }
 
+    var showCollection: Bool = false {
+        didSet {
+            collectionView.isHidden = !showCollection
+
+            let collectionOffset: CGFloat = -24
+            informationLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: collectionOffset).isActive = true
+        }
+    }
+
     // MARK: - Private Properties
 
     private var genresMovie: [CollectionsCellModel] = []
@@ -124,10 +133,7 @@ class CustomMovieSelection: UIView {
         return button
     }()
 
-    private lazy var linearGradientView: UIView = {
-        let view = UIView()
-        return view
-    }()
+    private lazy var linearGradientView = UIView()
 
     private lazy var overlayYesView: UIView = {
         let view = UIView()
