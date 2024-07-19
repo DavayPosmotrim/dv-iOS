@@ -16,6 +16,14 @@ final class RouletteCoordinator: BaseCoordinator {
     override func finish() {
         finishDelegate?.didFinish(self)
     }
+
+    func showRouletteStartViewController(with delegate: RouletteStartViewControllerDelegate?) {
+        let viewController = RouletteStartViewController()
+        viewController.modalTransitionStyle = .crossDissolve
+        viewController.modalPresentationStyle = .overCurrentContext
+        viewController.delegate = delegate
+        navigationController.present(viewController, animated: true)
+    }
 }
 
 private extension RouletteCoordinator {

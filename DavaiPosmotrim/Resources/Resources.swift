@@ -134,6 +134,16 @@ enum Resources {
         static let upperLabelText = "Если понравилось много фильмов и тяжело определиться, что же посмотреть."
         static let lowerLabelText = "Рандомно выберем фильм из всех понравившихся в этом сеансе."
         static let proceedButtonText = "Понял, принял".uppercased()
+
+        static let startTitleLabelText = "Случайный выбор"
+        static let startUpperLabelText = "Из всех совпадений выберем один фильм. После выбора, сеанс завершится."
+        static let startUpperBoldLabelText = "Из всех совпадений выберем один фильм."
+        static let startLowerLabelText = "Остальные участники подключатся автоматически."
+        static let beginButtonText = "Начать".uppercased()
+        static let cancelButtonText = "Отменить".uppercased()
+
+        static let usersCollectionLowerText = "Начнём магию, когда подключатся все участники"
+        static let usersCollectionTitleText = "Ждём участников..."
     }
 
     enum Mistakes {
@@ -188,12 +198,11 @@ enum Resources {
 
         static let customOneButtonText = "Хорошо".uppercased()
     }
-    
-    
+
     enum MovieDetails {
         static let kinoPoiskRatingText = "Рейтинг Кинопоиска"
         static let iMDBRatingText = "Рейтинг IMDb"
-        
+
         static let movieDetailsText = "Подробнее о фильме"
         static let mainRolesText = "В главных ролях"
         static let directorText = "Режиссёр"

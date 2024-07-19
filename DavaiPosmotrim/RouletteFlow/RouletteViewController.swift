@@ -14,9 +14,15 @@ final class RouletteViewController: UIViewController {
     private var presenter: RoulettePresenterProtocol
     private var scrollTimer: Timer?
 
+    private let usersCollectionModel = ReusableCollectionModel(
+        image: nil,
+        upperText: nil,
+        lowerText: Resources.RouletteFlow.usersCollectionLowerText
+    )
+
     // MARK: - Lazy Properties
 
-    private lazy var collectionView: UICollectionView = {
+    private lazy var movieCardCollectionView: UICollectionView = {
         let layout = CustomHorizontalCollectionLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
 
@@ -31,6 +37,39 @@ final class RouletteViewController: UIViewController {
         collectionView.bouncesZoom = true
         collectionView.isUserInteractionEnabled = false
         collectionView.showsHorizontalScrollIndicator = false
+
+        return collectionView
+    }()
+
+    private lazy var paddingView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .whiteBackground
+        view.layer.cornerRadius = 24
+        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+
+        return view
+    }()
+
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .textHeadingFont
+        label.textColor = .headingText
+        label.numberOfLines = 1
+        label.textAlignment = .natural
+        label.text = Resources.RouletteFlow.usersCollectionTitleText
+
+        return label
+    }()
+
+    private lazy var usersCollectionView: UIView = {
+        let collectionView = ReusableUICollectionView()
+        collectionView.setupCollectionView(
+            with: self,
+            cell: ReusableUICollectionViewCell.self,
+            cellIdentifier: ReusableUICollectionViewCell.reuseIdentifier,
+            and: usersCollectionModel
+        )
+        collectionView.deactivateUserInteraction()
 
         return collectionView
     }()
@@ -63,6 +102,7 @@ final class RouletteViewController: UIViewController {
         super.viewDidAppear(animated)
 
         startScrolling()
+        presenter.startRouletteController(with: self)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -74,42 +114,64 @@ final class RouletteViewController: UIViewController {
     // MARK: - Handlers
 
     @objc private func handleScroll() {
-        let currentOffset = collectionView.contentOffset
+        let currentOffset = movieCardCollectionView.contentOffset
         let nextOffset = CGPoint(x: currentOffset.x + 1, y: currentOffset.y)
 
-        if nextOffset.x <= collectionView.contentSize.width - collectionView.bounds.width {
-            collectionView.setContentOffset(nextOffset, animated: false)
+        if nextOffset.x <= movieCardCollectionView.contentSize.width - movieCardCollectionView.bounds.width {
+            movieCardCollectionView.setContentOffset(nextOffset, animated: false)
         } else {
             let firstIndexPath = IndexPath(row: 0, section: 0)
-            collectionView.scrollToItem(
+            movieCardCollectionView.scrollToItem(
                 at: firstIndexPath,
                 at: .centeredHorizontally,
                 animated: false
             )
         }
     }
+}
 
-    // MARK: - Private methods
+// MARK: - Private methods
 
-    private func setupSubviews() {
-        [collectionView].forEach {
+private extension RouletteViewController {
+    func setupSubviews() {
+        [movieCardCollectionView, paddingView].forEach {
             view.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+
+        [titleLabel, usersCollectionView].forEach {
+            paddingView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
     }
 
-    private func setupConstraints() {
+    func setupConstraints() {
         let safeArea = view.safeAreaLayoutGuide
 
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor)
+            movieCardCollectionView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            movieCardCollectionView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+            movieCardCollectionView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            movieCardCollectionView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+
+            paddingView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            paddingView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            paddingView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            paddingView.heightAnchor.constraint(greaterThanOrEqualToConstant: 236),
+            paddingView.heightAnchor.constraint(lessThanOrEqualToConstant: 360),
+
+            titleLabel.leadingAnchor.constraint(equalTo: paddingView.leadingAnchor, constant: 16),
+            titleLabel.trailingAnchor.constraint(equalTo: paddingView.trailingAnchor, constant: -16),
+            titleLabel.topAnchor.constraint(equalTo: paddingView.topAnchor, constant: 16),
+
+            usersCollectionView.leadingAnchor.constraint(equalTo: paddingView.leadingAnchor),
+            usersCollectionView.trailingAnchor.constraint(equalTo: paddingView.trailingAnchor),
+            usersCollectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
+            usersCollectionView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
         ])
     }
 
-    private func startScrolling() {
+    func startScrolling() {
         scrollTimer = Timer.scheduledTimer(
             timeInterval: 0.01,
             target: self,
@@ -119,7 +181,7 @@ final class RouletteViewController: UIViewController {
         )
     }
 
-    private func stopScrolling() {
+    func stopScrolling() {
         scrollTimer?.invalidate()
         scrollTimer = nil
     }
@@ -132,23 +194,34 @@ extension RouletteViewController: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        return presenter.moviesCount
+        if collectionView == movieCardCollectionView {
+            return presenter.moviesCount
+        } else {
+            return presenter.usersCount
+        }
     }
 
     func collectionView(
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: RouletteCollectionViewCell.reuseIdentifier,
-            for: indexPath
-        ) as? RouletteCollectionViewCell else {
-            return UICollectionViewCell()
+        if collectionView == movieCardCollectionView {
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: RouletteCollectionViewCell.reuseIdentifier,
+                for: indexPath
+            ) as? RouletteCollectionViewCell else { return UICollectionViewCell() }
+
+            cell.configureCell(with: presenter.getMoviesAtIndex(index: indexPath.item))
+            return cell
+        } else {
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: ReusableUICollectionViewCell.reuseIdentifier,
+                for: indexPath
+            ) as? ReusableUICollectionViewCell else { return UICollectionViewCell() }
+
+            cell.configureCell(with: presenter.getNamesAtIndex(index: indexPath.item))
+            return cell
         }
-
-        cell.configureCell(with: presenter.getMoviesAtIndex(index: indexPath.row))
-
-        return cell
     }
 }
 
@@ -180,3 +253,15 @@ extension RouletteViewController: UICollectionViewDelegateFlowLayout {
     // MARK: - RouletteViewProtocol
 
 extension RouletteViewController: RouletteViewProtocol {}
+
+    // MARK: - RouletteViewProtocol
+
+extension RouletteViewController: RouletteStartViewControllerDelegate {
+    func didTapCancelButton() {
+        presenter.finishRoulette()
+    }
+
+    func didTapBeginButton() {
+        presenter.downloadUsersArray()
+    }
+}

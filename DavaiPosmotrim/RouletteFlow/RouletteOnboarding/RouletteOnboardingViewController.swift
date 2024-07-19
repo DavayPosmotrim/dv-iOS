@@ -126,7 +126,7 @@ private extension RouletteOnboardingViewController {
             blurredView.topAnchor.constraint(equalTo: view.topAnchor),
             blurredView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
-            paddingView.leadingAnchor.constraint(equalTo: blurredView.leadingAnchor),
+            paddingView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             paddingView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             paddingView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             paddingView.heightAnchor.constraint(greaterThanOrEqualToConstant: 326),

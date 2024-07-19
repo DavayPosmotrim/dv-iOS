@@ -20,6 +20,7 @@ final class CoincidencesCoordinator: BaseCoordinator {
     func showRouletteFlow() {
         let rouletteCoordinator = RouletteCoordinator(
             type: .roulette,
+            finishDelegate: self,
             navigationController: navigationController)
         addChild(rouletteCoordinator)
         rouletteCoordinator.start()
@@ -38,4 +39,18 @@ private extension CoincidencesCoordinator {
         let viewController = CoincidencesSceneFactory.makeCoincidencesViewController(with: self)
         navigationController.pushViewController(viewController, animated: true)
     }
+}
+
+    // MARK: - CoordinatorFinishDelegate
+
+extension CoincidencesCoordinator: CoordinatorFinishDelegate {
+func didFinish(_ coordinator: any CoordinatorProtocol) {
+    switch coordinator.type {
+    case .roulette:
+        navigationController.popViewController(animated: true)
+        removeChild(coordinator)
+    default:
+        return
+    }
+}
 }

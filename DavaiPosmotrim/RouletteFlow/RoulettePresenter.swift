@@ -19,9 +19,18 @@ final class RoulettePresenter: RoulettePresenterProtocol {
         return totalElements
     }
 
+    var usersCount: Int {
+        usersArray.count
+    }
+
     // MARK: - Private Properties
 
     private var moviesArray = [SelectionMovieCellModel]()
+    private var usersArray = [ReusableCollectionCellModel]() {
+        didSet {
+            updateReusableCollection()
+        }
+    }
 
     private let buffer = 200
     private var totalElements = Int()
@@ -33,6 +42,16 @@ final class RoulettePresenter: RoulettePresenterProtocol {
     }
 
     // MARK: - Public methods
+
+    func startRouletteController(with delegate: RouletteStartViewControllerDelegate?) {
+        guard let coordinator else { return }
+        coordinator.showRouletteStartViewController(with: delegate)
+    }
+
+    func finishRoulette() {
+        guard let coordinator else { return }
+        coordinator.finish()
+    }
 
     func getMoviesAtIndex(index: Int) -> SelectionMovieCellModel {
         let safeIndex = index % moviesArray.count
@@ -47,5 +66,46 @@ final class RoulettePresenter: RoulettePresenterProtocol {
         for movie in downloadedMovies {
             moviesArray.append(movie)
         }
+    }
+
+    func getNamesAtIndex(index: Int) -> ReusableCollectionCellModel {
+        usersArray[index]
+    }
+
+    // Метод для имитации присоединения пользователей
+    func downloadUsersArray() {
+        DispatchQueue.global().async {
+            let downloadedNames = [
+                ReusableCollectionCellModel(title: "Эльдар(вы)"),
+                ReusableCollectionCellModel(title: "Юрий"),
+                ReusableCollectionCellModel(title: "Сергей"),
+                ReusableCollectionCellModel(title: "Александр"),
+                ReusableCollectionCellModel(title: "Максим")
+            ]
+
+            let delayInSeconds: TimeInterval = 2
+            let dispatchGroup = DispatchGroup()
+
+            downloadedNames.enumerated().forEach { index, name in
+                dispatchGroup.enter()
+                DispatchQueue.global().asyncAfter(deadline: .now() + delayInSeconds * Double(index)) {
+                    self.usersArray.append(name)
+                    dispatchGroup.leave()
+                }
+            }
+
+            dispatchGroup.notify(queue: .main) {
+//                self.coordinator?.showStartSessionScreen()
+            }
+        }
+    }
+
+    // MARK: - Private methods
+
+    private func updateReusableCollection() {
+        NotificationCenter.default.post(
+            name: NSNotification.Name(Resources.ReusableCollectionView.updateCollectionView),
+            object: nil
+        )
     }
 }
