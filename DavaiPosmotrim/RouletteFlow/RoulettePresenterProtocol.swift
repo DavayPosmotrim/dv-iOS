@@ -7,4 +7,9 @@
 
 import Foundation
 
-protocol RoulettePresenterProtocol: AnyObject {}
+protocol RoulettePresenterProtocol: AnyObject {
+    var moviesCount: Int { get }
+
+    func getMoviesAtIndex(index: Int) -> SelectionMovieCellModel
+    func downloadMoviesArray()
+}
