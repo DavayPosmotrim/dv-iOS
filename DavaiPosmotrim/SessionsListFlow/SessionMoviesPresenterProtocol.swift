@@ -9,8 +9,8 @@ import Foundation
 
 protocol SessionMoviesPresenterProtocol: AnyObject {
     // MARK: - Properties
-    var movies: [SessionMovieModel] { get }
     var users: [ReusableCollectionCellModel] { get }
+    var movies: [ReusableLikedMoviesCellModel] { get }
     var sessionCode: String { get }
     var sessionDateForTitle: String { get }
 

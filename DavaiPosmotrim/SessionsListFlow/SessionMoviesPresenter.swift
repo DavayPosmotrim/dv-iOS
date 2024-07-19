@@ -15,7 +15,7 @@ final class SessionMoviesPresenter: SessionMoviesPresenterProtocol {
     var users: [ReusableCollectionCellModel] {
         session.users
     }
-    var movies: [SessionMovieModel] {
+    var movies: [ReusableLikedMoviesCellModel] {
         session.movies
     }
     var sessionCode: String {

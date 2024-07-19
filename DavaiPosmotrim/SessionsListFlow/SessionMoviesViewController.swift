@@ -247,9 +247,12 @@ private extension SessionMoviesViewController {
         }
     }
 
-    func createMovieCellRegistration() -> UICollectionView.CellRegistration<SessionMovieCell, SessionMovieModel> {
-        UICollectionView.CellRegistration<SessionMovieCell, SessionMovieModel> { cell, _, movie in
-            cell.configureCell(for: movie)
+    func createMovieCellRegistration() -> UICollectionView.CellRegistration<
+        ReusableLikedMoviesCell,
+        ReusableLikedMoviesCellModel
+    > {
+        UICollectionView.CellRegistration<ReusableLikedMoviesCell, ReusableLikedMoviesCellModel> { cell, _, movie in
+            cell.configureCell(with: movie)
         }
     }
 
@@ -284,7 +287,7 @@ private extension SessionMoviesViewController {
                 return collectionView.dequeueConfiguredReusableCell(
                     using: movieCellRegistration,
                     for: indexPath,
-                    item: item as? SessionMovieModel
+                    item: item as? ReusableLikedMoviesCellModel
                 )
             case .none:
                 fatalError("Unknown section!")

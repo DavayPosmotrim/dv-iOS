@@ -13,14 +13,8 @@ struct SessionModel: Identifiable, Equatable, Hashable {
     let date: String
     let matches: Int
     let imageName: String?
-    let users: [User]
-    let movies: [SessionMovieModel]
-}
-
-struct SessionMovieModel: Identifiable, Equatable, Hashable {
-    let id = UUID()
-    let name: String
-    let imageName: String?
+    let users: [ReusableCollectionCellModel]
+    let movies: [ReusableLikedMoviesCellModel]
 }
 
 struct SessionsListModel {
@@ -35,54 +29,59 @@ extension SessionModel {
             date: "23 сентября 2023",
             matches: 1,
             imageName: "Mok_5",
-            movies: SessionMovieModel.mockData
             users: [
                 ReusableCollectionCellModel(title: "Артём (вы)"),
                 ReusableCollectionCellModel(title: "Анна"),
                 ReusableCollectionCellModel(title: "Никита"),
                 ReusableCollectionCellModel(title: "Руслан")
             ],
+            movies: mockMoviesData
         ),
         SessionModel(
             code: "VMst456",
             date: "22 сентября 2023",
             matches: 12,
             imageName: "Mok_6",
-            movies: SessionMovieModel.mockData
             users: [ReusableCollectionCellModel(title: "Артём (вы)"), ReusableCollectionCellModel(title: "Анна")],
+            movies: mockMoviesData
         ),
         SessionModel(
             code: "VMst456",
             date: "20 сентября 2023",
             matches: 3,
             imageName: "Mok_3",
-            movies: SessionMovieModel.mockData
             users: [
                 ReusableCollectionCellModel(title: "Артём (вы)"),
                 ReusableCollectionCellModel(title: "Анна"),
                 ReusableCollectionCellModel(title: "Никита")
             ],
+            movies: mockMoviesData
         ),
         SessionModel(
             code: "VMst456",
             date: "22 сентября 2023",
             matches: 5555555,
             imageName: nil,
-            movies: SessionMovieModel.mockData
             users: [ReusableCollectionCellModel(title: "Артём (вы)"), ReusableCollectionCellModel(title: "Анна")],
+            movies: mockMoviesData
         )
     ]
-}
 
-extension SessionMovieModel {
-    static let mockData: [SessionMovieModel] = [
-        SessionMovieModel(name: "Общество мёртвых поэтов", imageName: "Mok_5"),
-        SessionMovieModel(name: "Супербродяга", imageName: "Mok_6"),
-        SessionMovieModel(name: "Скотт Пилигрим против всех", imageName: "Mok_3"),
-        SessionMovieModel(name: "Дюна", imageName: "Mok_5"),
-        SessionMovieModel(name: "Дюна 2", imageName: nil),
-        SessionMovieModel(name: "Властелин колец: Две крепости", imageName: nil),
-        SessionMovieModel(name: "Властелин колец: Четыре крепости", imageName: nil),
-        SessionMovieModel(name: "Властелин колец: Двадцать две крепости", imageName: nil)
+    static let mockMoviesData: [ReusableLikedMoviesCellModel] = [
+        ReusableLikedMoviesCellModel(title: "Into the wild", imageName: "Mok_7"),
+        ReusableLikedMoviesCellModel(title: "Дюна", imageName: "Mok_8"),
+        ReusableLikedMoviesCellModel(title: "Даласский клуб покупателей", imageName: "Mok_9"),
+        ReusableLikedMoviesCellModel(title: "Властелин колец: Две крепости", imageName: nil),
+        ReusableLikedMoviesCellModel(title: "Into the wild", imageName: "Mok_7"),
+        ReusableLikedMoviesCellModel(title: "Дюна", imageName: "Mok_8"),
+        ReusableLikedMoviesCellModel(
+            title: "Очень длинное название фильма. Такое длинное, что такие, наверное, просто не смотрят",
+            imageName: "Mok_9"
+        ),
+        ReusableLikedMoviesCellModel(title: "Властелин колец: Братство кольца", imageName: nil),
+        ReusableLikedMoviesCellModel(title: "1917", imageName: nil),
+        ReusableLikedMoviesCellModel(title: "Грань будущего", imageName: nil),
+        ReusableLikedMoviesCellModel(title: "Звездные войны: Возвращение джедая", imageName: "Mok_8"),
+        ReusableLikedMoviesCellModel(title: "Властелин колец: Возвращение короля", imageName: "Mok_7")
     ]
 }
