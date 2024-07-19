@@ -160,10 +160,11 @@ extension RouletteViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        return CGSize(
-            width: 240,
-            height: 420
-        )
+        let collectionInset: CGFloat = 64
+        let cellHeight: CGFloat = 420
+        let cellWidth = collectionView.frame.width - collectionInset * 2
+
+        return CGSize(width: cellWidth, height: cellHeight)
     }
 
     func collectionView(
@@ -171,7 +172,8 @@ extension RouletteViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         minimumLineSpacingForSectionAt section: Int
     ) -> CGFloat {
-        return 48
+        let lineSpacing: CGFloat = 48
+        return lineSpacing
     }
 }
 
