@@ -12,10 +12,10 @@ final class SessionMoviesPresenter: SessionMoviesPresenterProtocol {
     // MARK: - Public properties
     weak var coordinator: SessionsListCoordinator?
     weak var view: SessionMoviesViewControllerProtocol?
-    var users: [User] {
+    var users: [ReusableCollectionCellModel] {
         session.users
     }
-    var movies: [SessionMovieModel] {
+    var movies: [ReusableLikedMoviesCellModel] {
         session.movies
     }
     var sessionCode: String {
@@ -45,7 +45,11 @@ final class SessionMoviesPresenter: SessionMoviesPresenterProtocol {
     }
 
     func showMovie(by sessionIndex: Int) {
-        print(#fileID, #function)
+        // TODO: - change mock data later
+        if sessionIndex > selectionMovieMockData.count - 1 { return }
+        let viewModel = selectionMovieMockData[sessionIndex]
+
+        coordinator?.showMovieInfo(with: viewModel)
     }
 }
 
