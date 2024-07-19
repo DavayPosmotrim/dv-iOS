@@ -25,6 +25,11 @@ final class SessionsListCoordinator: BaseCoordinator {
         navigationController.pushViewController(viewController, animated: true)
     }
 
+    func showMovieInfo(with viewModel: SelectionMovieCellModel) {
+        let viewController = CoincidencesMovieInfoViewController(viewModel: viewModel)
+        navigationController.pushViewController(viewController, animated: true)
+    }
+
     func showPreviousScreen() {
         navigationController.popViewController(animated: true)
     }

@@ -45,7 +45,11 @@ final class SessionMoviesPresenter: SessionMoviesPresenterProtocol {
     }
 
     func showMovie(by sessionIndex: Int) {
-        print(#fileID, #function)
+        // TODO: - change mock data later
+        if sessionIndex > selectionMovieMockData.count - 1 { return }
+        let viewModel = selectionMovieMockData[sessionIndex]
+
+        coordinator?.showMovieInfo(with: viewModel)
     }
 }
 

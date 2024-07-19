@@ -75,9 +75,12 @@ extension SessionMoviesViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard Section(rawValue: indexPath.section) != .users,
-            let cell = collectionView.cellForItem(at: indexPath) as? SessionMovieCell else { return }
-        // TODO: - open VC with movie
-        print("Movie[\(indexPath.item)] name:", cell.viewModel.name)
+            let cell = collectionView.cellForItem(at: indexPath) as? ReusableLikedMoviesCell else { return }
+
+        // TODO: - change random to real index later
+        let index = Int.random(in: 0...selectionMovieMockData.count)
+
+        presenter.showMovie(by: index)
     }
 }
 
