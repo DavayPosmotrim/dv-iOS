@@ -7,4 +7,7 @@
 
 import Foundation
 
-protocol RouletteViewProtocol: AnyObject {}
+protocol RouletteViewProtocol: AnyObject {
+    func startRouletteScroll()
+    func hideUsersView()
+}

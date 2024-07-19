@@ -20,6 +20,11 @@ final class RouletteViewController: UIViewController {
         lowerText: Resources.RouletteFlow.usersCollectionLowerText
     )
 
+    private var isScrolling = false
+    private var targetVelocity: CGFloat = 40 // Adjust as needed
+    private var velocityAdjustment: CGFloat = 0.05 // Adjust for smoothness
+    private var displayLink: CADisplayLink?
+
     // MARK: - Lazy Properties
 
     private lazy var movieCardCollectionView: UICollectionView = {
@@ -252,9 +257,25 @@ extension RouletteViewController: UICollectionViewDelegateFlowLayout {
 
     // MARK: - RouletteViewProtocol
 
-extension RouletteViewController: RouletteViewProtocol {}
+extension RouletteViewController: RouletteViewProtocol {
+    func startRouletteScroll() {
+        movieCardCollectionView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
 
-    // MARK: - RouletteViewProtocol
+        isScrolling = true
+        targetVelocity = 30
+
+        displayLink = CADisplayLink(target: self, selector: #selector(updateScroll))
+        displayLink?.add(to: .main, forMode: .default)
+    }
+
+    func hideUsersView() {
+        paddingView.isHidden = true
+        titleLabel.isHidden = true
+        usersCollectionView.isHidden = true
+    }
+}
+
+    // MARK: - RouletteStartViewControllerDelegate
 
 extension RouletteViewController: RouletteStartViewControllerDelegate {
     func didTapCancelButton() {
@@ -263,5 +284,47 @@ extension RouletteViewController: RouletteStartViewControllerDelegate {
 
     func didTapBeginButton() {
         presenter.downloadUsersArray()
+    }
+}
+
+    // MARK: - RouletteAnimation
+
+extension RouletteViewController {
+
+    @objc func updateScroll() {
+        guard isScrolling else { return }
+
+        let newOffset = movieCardCollectionView.contentOffset.x + targetVelocity
+        movieCardCollectionView.setContentOffset(CGPoint(x: newOffset, y: 0), animated: false)
+
+        // Check if it needs to slow down
+        if targetVelocity > 0 {
+            targetVelocity -= velocityAdjustment
+        }
+
+        // If the target velocity is low enough, stop scrolling
+        if targetVelocity < 0 {
+            stopRouletteScroll()
+        }
+        print(targetVelocity)
+    }
+
+    func stopRouletteScroll() {
+        isScrolling = false
+
+        // Ensure we have the correct layout to calculate item size
+        guard let layout = movieCardCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
+        let itemWidth = layout.itemSize.width
+        let centerOffset = movieCardCollectionView.bounds.size.width / 2
+        let nearestIndex = Int(ceil((movieCardCollectionView.contentOffset.x + centerOffset) / itemWidth))
+
+        // clamp nearestIndex to valid range
+        let numberOfItems = movieCardCollectionView.numberOfItems(inSection: 0)
+        let clampedIndex = max(0, min(nearestIndex, numberOfItems - 1))
+
+        stopScrolling()
+        let visibleItems = movieCardCollectionView.indexPathsForVisibleItems
+        guard let indexPath = visibleItems.last else { return  }
+        movieCardCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
     }
 }

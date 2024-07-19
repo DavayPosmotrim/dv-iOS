@@ -32,7 +32,7 @@ final class RoulettePresenter: RoulettePresenterProtocol {
         }
     }
 
-    private let buffer = 200
+    private let buffer = 1000
     private var totalElements = Int()
 
     // MARK: - Initializers
@@ -95,7 +95,8 @@ final class RoulettePresenter: RoulettePresenterProtocol {
             }
 
             dispatchGroup.notify(queue: .main) {
-//                self.coordinator?.showStartSessionScreen()
+                self.view?.hideUsersView()
+                self.view?.startRouletteScroll()
             }
         }
     }
