@@ -114,7 +114,6 @@
 		E2B9BFA22BD7CEC300592578 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFA12BD7CEC300592578 /* AuthViewController.swift */; };
 		E2B9BFA42BD7CF0300592578 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFA32BD7CF0300592578 /* MainViewController.swift */; };
 		E2B9BFA62BD7CF3000592578 /* CreateSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFA52BD7CF3000592578 /* CreateSessionViewController.swift */; };
-		E2B9BFAA2BD7CF7A00592578 /* FavoriteMoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFA92BD7CF7A00592578 /* FavoriteMoviesViewController.swift */; };
 		E2B9BFAC2BD8034C00592578 /* OnboardingPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFAB2BD8034C00592578 /* OnboardingPresenterProtocol.swift */; };
 		E2B9BFAE2BD8080100592578 /* OnboardingSceneFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BFAD2BD8080100592578 /* OnboardingSceneFactory.swift */; };
 		E2EFF0EC2C06134B0022D54C /* InvitingUsersPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2EFF0EB2C06134B0022D54C /* InvitingUsersPresenterProtocol.swift */; };
@@ -130,8 +129,6 @@
 		E95F009E2C270308001AAE7E /* SessionMoviesPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95F009D2C270308001AAE7E /* SessionMoviesPresenterProtocol.swift */; };
 		E95F00A02C270379001AAE7E /* SessionMoviesViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95F009F2C270379001AAE7E /* SessionMoviesViewControllerProtocol.swift */; };
 		E95F00A22C2706A4001AAE7E /* SessionMoviesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95F00A12C2706A4001AAE7E /* SessionMoviesPresenter.swift */; };
-		E95F00A42C271851001AAE7E /* SessionUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95F00A32C271851001AAE7E /* SessionUserCell.swift */; };
-		E95F00A62C272381001AAE7E /* SessionMovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95F00A52C272381001AAE7E /* SessionMovieCell.swift */; };
 		E9A2701F2BE4C2940088652B /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A2701E2BE4C2940088652B /* CGFloat+Extensions.swift */; };
 		E9A270222BE52BC20088652B /* MistakesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A270212BE52BC20088652B /* MistakesViewController.swift */; };
 		E9A9E74C2C133CC600AEF879 /* SessionsListEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A9E74B2C133CC600AEF879 /* SessionsListEmptyView.swift */; };
@@ -253,7 +250,6 @@
 		E2B9BFA12BD7CEC300592578 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		E2B9BFA32BD7CF0300592578 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		E2B9BFA52BD7CF3000592578 /* CreateSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionViewController.swift; sourceTree = "<group>"; };
-		E2B9BFA92BD7CF7A00592578 /* FavoriteMoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMoviesViewController.swift; sourceTree = "<group>"; };
 		E2B9BFAB2BD8034C00592578 /* OnboardingPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPresenterProtocol.swift; sourceTree = "<group>"; };
 		E2B9BFAD2BD8080100592578 /* OnboardingSceneFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSceneFactory.swift; sourceTree = "<group>"; };
 		E2EFF0EB2C06134B0022D54C /* InvitingUsersPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitingUsersPresenterProtocol.swift; sourceTree = "<group>"; };
@@ -269,8 +265,6 @@
 		E95F009D2C270308001AAE7E /* SessionMoviesPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionMoviesPresenterProtocol.swift; sourceTree = "<group>"; };
 		E95F009F2C270379001AAE7E /* SessionMoviesViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionMoviesViewControllerProtocol.swift; sourceTree = "<group>"; };
 		E95F00A12C2706A4001AAE7E /* SessionMoviesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionMoviesPresenter.swift; sourceTree = "<group>"; };
-		E95F00A32C271851001AAE7E /* SessionUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionUserCell.swift; sourceTree = "<group>"; };
-		E95F00A52C272381001AAE7E /* SessionMovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionMovieCell.swift; sourceTree = "<group>"; };
 		E9A2701E2BE4C2940088652B /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
 		E9A270212BE52BC20088652B /* MistakesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MistakesViewController.swift; sourceTree = "<group>"; };
 		E9A9E74B2C133CC600AEF879 /* SessionsListEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsListEmptyView.swift; sourceTree = "<group>"; };
@@ -501,7 +495,6 @@
 				E2B9BF912BD7BF2300592578 /* Protocols */,
 				5AEEACC52C0A1E3900F18BF9 /* SplashScreen */,
 				4A62804D2BF13D7400102304 /* InvitingUsersFlow */,
-				E2B9BFA02BD7CDE500592578 /* FavoriteMoviesFlow */,
 				E9C34A312C135EAC002628F9 /* SessionsListFlow */,
 				E2B9BF9E2BD7CDCB00592578 /* CreateSessionFlow */,
 				4AE89A452C08AD0C008DD0D4 /* SelectionMoviesFlow */,
@@ -638,14 +631,6 @@
 			path = CreateSessionFlow;
 			sourceTree = "<group>";
 		};
-		E2B9BFA02BD7CDE500592578 /* FavoriteMoviesFlow */ = {
-			isa = PBXGroup;
-			children = (
-				E2B9BFA92BD7CF7A00592578 /* FavoriteMoviesViewController.swift */,
-			);
-			path = FavoriteMoviesFlow;
-			sourceTree = "<group>";
-		};
 		E9A270202BE52B980088652B /* Mistakes */ = {
 			isa = PBXGroup;
 			children = (
@@ -677,8 +662,6 @@
 			children = (
 				E9A9E74D2C1345D100AEF879 /* SessionsListCell.swift */,
 				E9A9E74B2C133CC600AEF879 /* SessionsListEmptyView.swift */,
-				E95F00A32C271851001AAE7E /* SessionUserCell.swift */,
-				E95F00A52C272381001AAE7E /* SessionMovieCell.swift */,
 				E9512FB72C29FA4F006CA977 /* SessionUserHeader.swift */,
 				E9512FB92C29FC87006CA977 /* SessionUserSection.swift */,
 				E9B495052C28779400B653F8 /* SessionMovieSection.swift */,
@@ -815,10 +798,8 @@
 				C9C4D59E2BD3A3C70081CD23 /* AppDelegate.swift in Sources */,
 				E2B9BFA22BD7CEC300592578 /* AuthViewController.swift in Sources */,
 				4AE89A442C08ACF9008DD0D4 /* SelectionMoviesViewController.swift in Sources */,
-				E95F00A42C271851001AAE7E /* SessionUserCell.swift in Sources */,
 				4A6280482BEAB1FA00102304 /* MovieMockData.swift in Sources */,
 				E95F00A22C2706A4001AAE7E /* SessionMoviesPresenter.swift in Sources */,
-				E2B9BFAA2BD7CF7A00592578 /* FavoriteMoviesViewController.swift in Sources */,
 				E9A2701F2BE4C2940088652B /* CGFloat+Extensions.swift in Sources */,
 				E2EFF0EC2C06134B0022D54C /* InvitingUsersPresenterProtocol.swift in Sources */,
 				E95F009C2C2702A8001AAE7E /* SessionMoviesViewController.swift in Sources */,
@@ -835,7 +816,6 @@
 				5A367C1C2C3FF0530071FC97 /* CustomRatingParentCollectionCell.swift in Sources */,
 				4AAEABC82C301D6A00A14C1D /* DismissSelectionMoviesDelegate.swift in Sources */,
 				E9FA32F02C1A309300036043 /* SessionsListPresenter.swift in Sources */,
-				E95F00A62C272381001AAE7E /* SessionMovieCell.swift in Sources */,
 				E9512FB82C29FA4F006CA977 /* SessionUserHeader.swift in Sources */,
 				C91332D72C10BEEB0036FC44 /* MovieSelectionOnboardingPresenter.swift in Sources */,
 				C9147CB32C067FCC0086A663 /* DismissJoinSessionDelegate.swift in Sources */,
