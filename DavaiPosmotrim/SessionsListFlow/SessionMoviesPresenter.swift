@@ -12,7 +12,7 @@ final class SessionMoviesPresenter: SessionMoviesPresenterProtocol {
     // MARK: - Public properties
     weak var coordinator: SessionsListCoordinator?
     weak var view: SessionMoviesViewControllerProtocol?
-    var users: [User] {
+    var users: [ReusableCollectionCellModel] {
         session.users
     }
     var movies: [SessionMovieModel] {

@@ -233,9 +233,12 @@ private extension SessionMoviesViewController {
             trailing: .spacingMedium
         )
     }
-    func createUserCellRegistration() -> UICollectionView.CellRegistration<SessionUserCell, User> {
-        UICollectionView.CellRegistration<SessionUserCell, User> { cell, _, user in
-            cell.configureCell(for: user)
+    func createUserCellRegistration() -> UICollectionView.CellRegistration<
+        ReusableUICollectionViewCell,
+        ReusableCollectionCellModel
+    > {
+        UICollectionView.CellRegistration<ReusableUICollectionViewCell, ReusableCollectionCellModel> { cell, _, user in
+            cell.configureCell(with: user)
         }
     }
 
@@ -269,7 +272,7 @@ private extension SessionMoviesViewController {
                 return collectionView.dequeueConfiguredReusableCell(
                     using: userCellRegistration,
                     for: indexPath,
-                    item: item as? User
+                    item: item as? ReusableCollectionCellModel
                 )
             case .empty:
                 return collectionView.dequeueConfiguredReusableCell(
