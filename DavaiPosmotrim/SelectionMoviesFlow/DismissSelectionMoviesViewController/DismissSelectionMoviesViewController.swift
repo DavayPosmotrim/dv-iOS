@@ -12,8 +12,7 @@ final class DismissSelectionMoviesViewController: UIViewController {
     // MARK: - Stored properties
 
     private var customAlertModel: CustomAlertModel?
-    //TODO: - настроить нужный показ алерта, когда подключим сеть
-    private var alertType: AlertType = .oneButton
+    private var alertType: AlertType
     weak var delegate: DismissSelectionMoviesDelegate?
 
     // MARK: - Lazy properties
@@ -21,6 +20,17 @@ final class DismissSelectionMoviesViewController: UIViewController {
     private lazy var customAlert: CustomAlertView = {
         return CustomAlertView()
     }()
+
+    // MARK: - Initializers
+
+    init(alertType: AlertType) {
+        self.alertType = alertType
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     // MARK: - Lifecycle
 
@@ -62,8 +72,8 @@ final class DismissSelectionMoviesViewController: UIViewController {
             alertMessage: alertMessage,
             yesAction: { [weak self] in
                 guard let self else { return }
-                self.delegate?.finishSelectionMoviesFlow()
                 self.dismiss(animated: true)
+                self.delegate?.closeAlertTypeTwoButtons()
             },
             noAction: { [weak self] in
                 guard let self else { return }
@@ -71,7 +81,7 @@ final class DismissSelectionMoviesViewController: UIViewController {
             },
             progressAction: { [weak self] in
                 guard let self else { return }
-                self.delegate?.finishSelectionMoviesFlow()
+                self.delegate?.closeAlertTypeOneButton()
                 self.dismiss(animated: true)
             },
             alertType: alertType

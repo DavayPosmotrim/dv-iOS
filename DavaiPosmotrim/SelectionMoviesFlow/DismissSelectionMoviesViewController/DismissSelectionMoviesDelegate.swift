@@ -8,5 +8,6 @@
 import Foundation
 
 protocol DismissSelectionMoviesDelegate: AnyObject {
-    func finishSelectionMoviesFlow()
+    func closeAlertTypeTwoButtons()
+    func closeAlertTypeOneButton()
 }

@@ -284,9 +284,9 @@ extension SelectionMoviesViewController: SelectionMoviesViewProtocol {
         }
     }
 
-    func showCancelSessionDialog() {
+    func showCancelSessionDialog(alertType: AlertType) {
         guard let navigationController else { return }
-        let viewController = DismissSelectionMoviesViewController()
+        let viewController = DismissSelectionMoviesViewController(alertType: alertType)
         viewController.delegate = self
         viewController.modalPresentationStyle = .overCurrentContext
         viewController.modalTransitionStyle = .crossDissolve
@@ -325,7 +325,13 @@ extension SelectionMoviesViewController: CustomMovieSelectionDelegate {
 // MARK: - DismissJoinSessionDelegate
 
 extension SelectionMoviesViewController: DismissSelectionMoviesDelegate {
-    func finishSelectionMoviesFlow() {
+    func closeAlertTypeTwoButtons() {
+        presenter.kickOutAll()
+        //TODO: - раскоментить presenter.cancelButtonAlertTapped(), когда правильно настроим метод presenter.kickOutAll()
+//        presenter.cancelButtonAlertTapped()
+    }
+
+    func closeAlertTypeOneButton() {
         presenter.cancelButtonAlertTapped()
     }
 }

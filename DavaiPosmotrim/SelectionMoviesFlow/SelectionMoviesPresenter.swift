@@ -94,6 +94,7 @@ final class SelectionMoviesPresenter: SelectionMoviesPresenterProtocol {
     func swipeNextMovie(withId id: UUID, direction: CGFloat) {
         if direction > 0 {
             addToLikedMovies(withId: id)
+            checkIfIndexesMatch(withId: id)
         } else {
             removeFromLikedMovies(withId: id)
         }
@@ -133,11 +134,15 @@ final class SelectionMoviesPresenter: SelectionMoviesPresenterProtocol {
     }
 
     func cancelButtonTapped() {
-        view?.showCancelSessionDialog()
+        view?.showCancelSessionDialog(alertType: .twoButtons)
     }
 
     func cancelButtonAlertTapped() {
-    //TODO: - настроить отмену сессии, когда подключим сеть
         coordinator?.finish()
+    }
+
+    func kickOutAll() {
+        //TODO: - настроить отмену сессии у остальных пользователей, когда подключим сеть
+        view?.showCancelSessionDialog(alertType: .oneButton)
     }
 }
