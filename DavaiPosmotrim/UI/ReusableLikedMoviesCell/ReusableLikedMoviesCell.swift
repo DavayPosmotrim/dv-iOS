@@ -5,7 +5,7 @@
 //  Created by Эльдар Айдумов on 24.06.2024.
 //
 
-struct ReusableLikedMoviesCellModel {
+struct ReusableLikedMoviesCellModel: Identifiable, Equatable, Hashable {
     let id = UUID()
     let title: String
     let imageName: String?
@@ -109,6 +109,7 @@ private extension ReusableLikedMoviesCell {
         backgroundColor = .baseBackground
         layer.cornerRadius = 16
         clipsToBounds = true
+
         [
             imageView,
             placeholderImageView,

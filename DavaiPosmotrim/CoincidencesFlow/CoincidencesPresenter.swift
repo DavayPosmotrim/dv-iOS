@@ -28,7 +28,6 @@ final class CoincidencesPresenter: CoincidencesPresenterProtocol {
         didSet {
             view?.updateUIElements()
             showRouletteOnboarding()
-            updateReusableCollection()
         }
     }
 
@@ -40,9 +39,20 @@ final class CoincidencesPresenter: CoincidencesPresenterProtocol {
 
     // MARK: - Public methods
 
+    func backButtonTapped() {
+        guard let coordinator else { return }
+        coordinator.finish()
+    }
+
     func diceButtonTapped() {
         guard let coordinator else { return }
         coordinator.showRouletteFlow()
+    }
+
+    func coincidencesCellTapped() {
+        guard let coordinator,
+              let viewModel = getMovieInfo(from: selectionMovieMockData) else { return }
+        coordinator.showCoincidencesInfo(with: viewModel)
     }
 
     func getMoviesAtIndex(index: Int) -> ReusableLikedMoviesCellModel {
@@ -70,17 +80,11 @@ final class CoincidencesPresenter: CoincidencesPresenterProtocol {
             self.moviesArray.append(movie)
         }
     }
-}
 
-    // MARK: - Private methods
+    // TODO: - rewrite method to get movie from UserDefaults according to it's id
 
-private extension CoincidencesPresenter {
-
-    func updateReusableCollection() {
-        NotificationCenter.default.post(
-            name: NSNotification.Name(Resources.ReusableLikedMoviesCollectionView.updateCollectionView),
-            object: nil
-        )
+    func getMovieInfo(from array: [SelectionMovieCellModel]) -> SelectionMovieCellModel? {
+        return array.randomElement()
     }
 
     func showRouletteOnboarding() {

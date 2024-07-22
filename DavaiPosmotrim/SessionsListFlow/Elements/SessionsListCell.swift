@@ -196,7 +196,7 @@ private extension SessionsListCell {
 
     func setupValues(for viewModel: SessionModel) {
         dateLabel.text = viewModel.date
-        usersListLabel.text = viewModel.users.map { $0.name }.joined(separator: ", ")
+        usersListLabel.text = viewModel.users.map { $0.title }.joined(separator: ", ")
         matchCountLabel.text = String(viewModel.matches)
         hasImage = viewModel.imageName != nil
 

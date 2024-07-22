@@ -12,9 +12,6 @@ final class SelectionMoviesViewController: UIViewController {
     // MARK: - Public Properties
 
     var presenter: SelectionMoviesPresenter
-    private var matchSelectionVC: MatchSelectionMoviesViewController?
-    private var customNavBarModel: CustomNavBarModel?
-    private var customNavBarRightButtonModel: CustomNavBarRightButtonModel?
 
     // MARK: - Layout variables
 
@@ -30,11 +27,13 @@ final class SelectionMoviesViewController: UIViewController {
         return view
     }()
 
-    private lazy var customNavBar: CustomNavBar = {
-        let navBar = CustomNavBar()
-        navBar.setupCustomNavBar(with: customNavBarModel)
-        navBar.setupRightButton(with: customNavBarRightButtonModel)
-        return navBar
+    private lazy var customNavBar: UIView = {
+        let customNavBar = CustomNavigationBarTwoButtons(
+            title: Resources.SelectionMovies.titleNavBarText,
+            imageButton: "likeIcon"
+        )
+        customNavBar.delegate = self
+        return customNavBar
     }()
 
     private lazy var centralPaddingView: CustomMovieSelection = {
@@ -52,7 +51,10 @@ final class SelectionMoviesViewController: UIViewController {
 
     private lazy var customMovieDetails: CustomMovieDetails = {
         let firstDecsription = presenter.getFirstMovie()
-        let view = CustomMovieDetails(model: firstDecsription.details, viewHeightValue: view.frame.height)
+        let view = CustomMovieDetails(model: firstDecsription.details)
+        let swipeGuesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture))
+        swipeGuesture.direction = .up
+        view.setUpSwipeView(swipeGuesture)
         return view
     }()
 
@@ -72,8 +74,6 @@ final class SelectionMoviesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .whiteBackground
-        setupNavBarModel()
-        setupRightButtonModel()
         setupSubviews()
         setupConstraints()
     }
@@ -85,7 +85,7 @@ final class SelectionMoviesViewController: UIViewController {
 
     // MARK: - Actions
 
-    @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
+    @objc func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: view)
         let percentage = translation.x / view.bounds.width
         let rotationAngle: CGFloat = .pi / 6 * percentage
@@ -110,6 +110,11 @@ final class SelectionMoviesViewController: UIViewController {
         default:
             break
         }
+    }
+
+    @objc func handleSwipeGesture(_ gesture: UISwipeGestureRecognizer) {
+        let direction = gesture.direction
+        gesture.direction = changeDirection(direction: direction)
     }
 }
 
@@ -141,7 +146,6 @@ private extension SelectionMoviesViewController {
             upperPaddingView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             upperPaddingView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
 
-            customNavBar.heightAnchor.constraint(equalToConstant: 64),
             customNavBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             customNavBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             customNavBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -154,32 +158,38 @@ private extension SelectionMoviesViewController {
             customMovieDetails.topAnchor.constraint(equalTo: centralPaddingView.bottomAnchor, constant: 16),
             customMovieDetails.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             customMovieDetails.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            customMovieDetails.heightAnchor.constraint(equalToConstant: customMovieDetails.countViewHeight())
+            customMovieDetails.heightAnchor.constraint(equalToConstant: countViewHeight())
         ])
     }
 
-    func setupNavBarModel() {
-        customNavBarModel = CustomNavBarModel(
-            titleText: Resources.SelectionMovies.titleNavBarText,
-            subtitleText: nil,
-            leftButtonImage: UIImage.customCloseIcon,
-            leftAction: { [weak self] in
-                guard let self else { return }
-                self.presenter.cancelButtonTapped()
-            }
-        )
+    func changeDirection(direction: UISwipeGestureRecognizer.Direction) -> UISwipeGestureRecognizer.Direction {
+        if direction == .up {
+            customMovieDetails.collectionReloadData()
+            UIView.animate(withDuration: 0.3, animations: {
+                self.customMovieDetails.transform = CGAffineTransform(
+                    translationX: 0,
+                    y: -(self.centralPaddingView.frame.height) - 16
+                )
+                self.customMovieDetails.heightAnchor.constraint(equalToConstant: self.countViewHeight()).isActive = true
+            })
+            return .down
+        } else {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.customMovieDetails.transform = CGAffineTransform(translationX: 0, y: 0)
+            })
+            customMovieDetails.collectionReloadData()
+            return .up
+        }
     }
 
-    func setupRightButtonModel() {
-        customNavBarRightButtonModel = CustomNavBarRightButtonModel(
-            rightButtonImage: UIImage.likeIcon,
-            isRightButtonLabelHidden: false,
-            rightButtonLabelText: Resources.SelectionMovies.rightButtonLabelText,
-            rightAction: { [weak self] in
-                guard let self else { return }
-                self.presenter.didTapMatchRightButton()
-            }
-        )
+    func countViewHeight() -> CGFloat {
+        var safeArea: UIEdgeInsets {
+            let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+            return scene?.windows.first?.safeAreaInsets ?? .zero
+        }
+        let viewHeight = view.frame.height
+        let calculatedHeight = viewHeight - safeArea.top - customNavBar.frame.height - 16
+        return calculatedHeight
     }
 
     func animateSwipe(direction: CGFloat) {
@@ -228,38 +238,26 @@ private extension SelectionMoviesViewController {
             completion: nil
         )
     }
-
-    func animateMatchViewControllerToHeartIcon() {
-        guard let matchVC = matchSelectionVC else { return }
-        let heartIconFrame = customNavBar.getRightButtonFrameIn(view: view)
-        let scaleX = heartIconFrame.width / matchVC.view.bounds.width
-        let scaleY = heartIconFrame.height / matchVC.view.bounds.height
-        let translationX = heartIconFrame.midX - matchVC.view.center.x
-        let translationY = heartIconFrame.midY - matchVC.view.center.y
-        UIView.animate(withDuration: 0.5, animations: {
-            matchVC.view.transform = CGAffineTransform(scaleX: scaleX, y: scaleY)
-                .concatenating(CGAffineTransform(translationX: translationX, y: translationY))
-        }) { _ in
-            matchVC.dismiss(animated: false, completion: nil)
-            self.presenter.updateRandomMatchCount()
-        }
-    }
 }
 
 // MARK: - SelectionMoviesViewProtocol
 
 extension SelectionMoviesViewController: SelectionMoviesViewProtocol {
     func updateMatchCountLabel(withRandomCount count: Int) {
-        customNavBar.updateMatchCountLabel(withRandomCount: count)
+        if let customNavBar = customNavBar as? CustomNavigationBarTwoButtons {
+            customNavBar.updateMatchCountLabel(withRandomCount: count)
+        }
     }
 
     func showNextMovie(_ nextModel: SelectionMovieCellModel) {
         centralPaddingView.updateModel(nextModel)
+        centralPaddingView.frame.size.height = countViewHeight()
         customMovieDetails.updateModel(model: nextModel.details)
     }
 
     func showPreviousMovie(_ nextModel: SelectionMovieCellModel) {
         centralPaddingView.updateModel(nextModel)
+        centralPaddingView.frame.size.height = countViewHeight()
         customMovieDetails.updateModel(model: nextModel.details)
         animateComeBack()
     }
@@ -284,25 +282,13 @@ extension SelectionMoviesViewController: SelectionMoviesViewProtocol {
         }
     }
 
-    func showCancelSessionDialog(alertType: AlertType) {
+    func showCancelSessionDialog() {
         guard let navigationController else { return }
-        let viewController = DismissSelectionMoviesViewController(alertType: alertType)
+        let viewController = DismissSelectionMoviesViewController()
         viewController.delegate = self
         viewController.modalPresentationStyle = .overCurrentContext
         viewController.modalTransitionStyle = .crossDissolve
         navigationController.present(viewController, animated: true)
-    }
-
-    func showMatch(matchModel: SelectionMovieCellModel) {
-        guard let navigationController else { return }
-        let viewController = MatchSelectionMoviesViewController(matchSelection: matchModel)
-        viewController.modalPresentationStyle = .overFullScreen
-        viewController.modalTransitionStyle = .crossDissolve
-        navigationController.present(viewController, animated: true)
-        self.matchSelectionVC = viewController
-        viewController.dismissCompletion = { [weak self] in
-            self?.animateMatchViewControllerToHeartIcon()
-        }
     }
 }
 
@@ -322,16 +308,22 @@ extension SelectionMoviesViewController: CustomMovieSelectionDelegate {
     }
 }
 
+// MARK: - CustomNavigationBarTwoButtonsDelegate
+
+extension SelectionMoviesViewController: CustomNavigationBarTwoButtonsDelegate {
+    func matchRightButtonTapped() {
+        presenter.didTapMatchRightButton()
+    }
+
+    func backButtonTapped() {
+        presenter.cancelButtonTapped()
+    }
+}
+
 // MARK: - DismissJoinSessionDelegate
 
 extension SelectionMoviesViewController: DismissSelectionMoviesDelegate {
-    func closeAlertTypeTwoButtons() {
-        presenter.kickOutAll()
-        //TODO: - раскоментить presenter.cancelButtonAlertTapped(), когда правильно настроим метод presenter.kickOutAll()
-//        presenter.cancelButtonAlertTapped()
-    }
-
-    func closeAlertTypeOneButton() {
+    func finishSelectionMoviesFlow() {
         presenter.cancelButtonAlertTapped()
     }
 }

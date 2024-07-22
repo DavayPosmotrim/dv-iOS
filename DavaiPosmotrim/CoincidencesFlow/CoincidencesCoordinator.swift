@@ -32,6 +32,11 @@ final class CoincidencesCoordinator: BaseCoordinator {
         viewController.modalPresentationStyle = .overCurrentContext
         navigationController.present(viewController, animated: true)
     }
+
+    func showCoincidencesInfo(with viewModel: SelectionMovieCellModel) {
+        let viewController = CoincidencesMovieInfoViewController(viewModel: viewModel)
+        navigationController.pushViewController(viewController, animated: true)
+    }
 }
 
 private extension CoincidencesCoordinator {
