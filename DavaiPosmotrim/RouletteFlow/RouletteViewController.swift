@@ -21,8 +21,8 @@ final class RouletteViewController: UIViewController {
     )
 
     private var isScrolling = false
-    private var targetVelocity: CGFloat = 40 // Adjust as needed
-    private var velocityAdjustment: CGFloat = 0.05 // Adjust for smoothness
+    private var targetVelocity: CGFloat = .random(in: 80...100)
+    private var velocityAdjustment: CGFloat = 1
     private var displayLink: CADisplayLink?
 
     // MARK: - Lazy Properties
@@ -262,7 +262,6 @@ extension RouletteViewController: RouletteViewProtocol {
         movieCardCollectionView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
 
         isScrolling = true
-        targetVelocity = 30
 
         displayLink = CADisplayLink(target: self, selector: #selector(updateScroll))
         displayLink?.add(to: .main, forMode: .default)
@@ -297,12 +296,10 @@ extension RouletteViewController {
         let newOffset = movieCardCollectionView.contentOffset.x + targetVelocity
         movieCardCollectionView.setContentOffset(CGPoint(x: newOffset, y: 0), animated: false)
 
-        // Check if it needs to slow down
         if targetVelocity > 0 {
             targetVelocity -= velocityAdjustment
         }
 
-        // If the target velocity is low enough, stop scrolling
         if targetVelocity < 0 {
             stopRouletteScroll()
         }
@@ -310,19 +307,10 @@ extension RouletteViewController {
     }
 
     func stopRouletteScroll() {
+        stopScrolling()
+
         isScrolling = false
 
-        // Ensure we have the correct layout to calculate item size
-        guard let layout = movieCardCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
-        let itemWidth = layout.itemSize.width
-        let centerOffset = movieCardCollectionView.bounds.size.width / 2
-        let nearestIndex = Int(ceil((movieCardCollectionView.contentOffset.x + centerOffset) / itemWidth))
-
-        // clamp nearestIndex to valid range
-        let numberOfItems = movieCardCollectionView.numberOfItems(inSection: 0)
-        let clampedIndex = max(0, min(nearestIndex, numberOfItems - 1))
-
-        stopScrolling()
         let visibleItems = movieCardCollectionView.indexPathsForVisibleItems
         guard let indexPath = visibleItems.last else { return  }
         movieCardCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)

@@ -24,10 +24,14 @@ final class CoincidencesPresenter: CoincidencesPresenterProtocol {
 
     // MARK: - Private Properties
 
+    private let delayInSeconds: TimeInterval = 1
+
     private var moviesArray = [ReusableLikedMoviesCellModel]() {
         didSet {
             view?.updateUIElements()
-            showRouletteOnboarding()
+            DispatchQueue.main.asyncAfter(deadline: .now() + delayInSeconds) {
+                self.showRouletteOnboarding()
+            }
         }
     }
 

@@ -15,7 +15,8 @@ final class RoulettePresenter: RoulettePresenterProtocol {
     weak var view: RouletteViewProtocol?
 
     var moviesCount: Int {
-        totalElements = moviesArray.count + buffer
+        let buffer = 1000
+        let totalElements = moviesArray.count + buffer
         return totalElements
     }
 
@@ -31,9 +32,6 @@ final class RoulettePresenter: RoulettePresenterProtocol {
             updateReusableCollection()
         }
     }
-
-    private let buffer = 1000
-    private var totalElements = Int()
 
     // MARK: - Initializers
 

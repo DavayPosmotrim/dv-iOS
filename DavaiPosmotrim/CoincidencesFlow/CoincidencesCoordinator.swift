@@ -49,13 +49,13 @@ private extension CoincidencesCoordinator {
     // MARK: - CoordinatorFinishDelegate
 
 extension CoincidencesCoordinator: CoordinatorFinishDelegate {
-func didFinish(_ coordinator: any CoordinatorProtocol) {
-    switch coordinator.type {
-    case .roulette:
-        navigationController.popViewController(animated: true)
-        removeChild(coordinator)
-    default:
-        return
+    func didFinish(_ coordinator: any CoordinatorProtocol) {
+        switch coordinator.type {
+        case .roulette:
+            navigationController.popViewController(animated: true)
+            removeChild(coordinator)
+        default:
+            return
+        }
     }
-}
 }
