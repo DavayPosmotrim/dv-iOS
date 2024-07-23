@@ -21,6 +21,9 @@ final class SelectionMoviesPresenter: SelectionMoviesPresenterProtocol {
     private var likedMovies: [UUID] = []
     private(set) var currentMovieId: UUID?
     private var isGetPreviousMovie = true
+    // TODO: - для теста showMatch() пока нет сети
+    private var moviesViewedCount: Int = 0
+    private var matchCount: Int = 0
 
     init(coordinator: SelectionMoviesCoordinator) {
         self.coordinator = coordinator
@@ -29,7 +32,7 @@ final class SelectionMoviesPresenter: SelectionMoviesPresenterProtocol {
     // MARK: - Public Methods
 
     func updateRandomMatchCount() {
-        let matchCount = Int.random(in: 0...10)
+        matchCount += 1
         view?.updateMatchCountLabel(withRandomCount: matchCount)
     }
 
@@ -72,18 +75,26 @@ final class SelectionMoviesPresenter: SelectionMoviesPresenterProtocol {
     func yesButtonTapped(withId id: UUID) {
         addToLikedMovies(withId: id)
         view?.animateOffscreen(direction: 1) { [self] in
+            checkIfIndexesMatch(withId: id)
             guard let nextModel = getNextMovie() else {
                 return
             }
             view?.showNextMovie(nextModel)
-            updateRandomMatchCount()
+        }
+    }
+
+    func checkIfIndexesMatch(withId id: UUID) {
+        // TODO: - для теста showMatch() пока нет сети
+        moviesViewedCount += 1
+        if moviesViewedCount == 2 && currentMovieId == id {
+            view?.showMatch(matchModel: selectionsMovie[currentIndex])
         }
     }
 
     func swipeNextMovie(withId id: UUID, direction: CGFloat) {
         if direction > 0 {
             addToLikedMovies(withId: id)
-            updateRandomMatchCount()
+            checkIfIndexesMatch(withId: id)
         } else {
             removeFromLikedMovies(withId: id)
         }
@@ -123,11 +134,15 @@ final class SelectionMoviesPresenter: SelectionMoviesPresenterProtocol {
     }
 
     func cancelButtonTapped() {
-        view?.showCancelSessionDialog()
+        view?.showCancelSessionDialog(alertType: .twoButtons)
     }
 
     func cancelButtonAlertTapped() {
-    //TODO: - настроить отмену сессии, когда подключим сеть
         coordinator?.finish()
+    }
+
+    func kickOutAll() {
+        //TODO: - настроить отмену сессии у остальных пользователей, когда подключим сеть
+        view?.showCancelSessionDialog(alertType: .oneButton)
     }
 }

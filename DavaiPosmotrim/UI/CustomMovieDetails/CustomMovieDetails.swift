@@ -9,15 +9,24 @@ import UIKit
 
 final class CustomMovieDetails: UIView {
 
-    // MARK: - Public Properties
+    // MARK: - Private Properties
 
-    var data: SelectionMovieDetailsCellModel
+    private var data: SelectionMovieDetailsCellModel
+    private var viewHeight: CGFloat
+
+    private var centralPaddingHeight: CGFloat = 0
+    private let navBarAndSpaceHeight: CGFloat = 80
+    private let navBarAndAllTheSpacesHeight: CGFloat = 147
 
     // MARK: - Layout variables
 
     private lazy var swipeView: UIView = {
         var swipeView = UIView()
         swipeView.backgroundColor = .clear
+        let swipeGuesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture))
+        swipeGuesture.direction = .up
+        swipeView.addGestureRecognizer(swipeGuesture)
+        swipeView.isUserInteractionEnabled = true
         return swipeView
     }()
 
@@ -62,8 +71,9 @@ final class CustomMovieDetails: UIView {
 
     // MARK: - Initializers
 
-    init(model: SelectionMovieDetailsCellModel) {
+    init(model: SelectionMovieDetailsCellModel, viewHeightValue: CGFloat) {
         data = model
+        viewHeight = viewHeightValue
         super.init(frame: .zero)
         layer.cornerRadius = 24
         backgroundColor = .whiteBackground
@@ -85,21 +95,28 @@ final class CustomMovieDetails: UIView {
         actorsAndDirectorsCollectionView.layoutIfNeeded()
     }
 
+    // MARK: - Actions
+
+    @objc func handleSwipeGesture(_ gesture: UISwipeGestureRecognizer) {
+        let direction = gesture.direction
+        gesture.direction = changeDirection(direction: direction)
+    }
+
     // MARK: - Public Methods
 
-    func collectionReloadData() {
-        actorsAndDirectorsCollectionView.reloadData()
-        actorsAndDirectorsCollectionView.setContentOffset(.zero, animated: true)
+    func countViewHeight() -> CGFloat {
+        var safeArea: UIEdgeInsets {
+            let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+            return scene?.windows.first?.safeAreaInsets ?? .zero
+        }
+        let calculatedHeight = viewHeight - safeArea.top - navBarAndSpaceHeight
+        centralPaddingHeight = viewHeight - safeArea.top - safeArea.bottom - navBarAndAllTheSpacesHeight
+        return calculatedHeight
     }
 
     func updateModel(model: SelectionMovieDetailsCellModel) {
         data = model
         actorsAndDirectorsCollectionView.reloadData()
-    }
-
-    func setUpSwipeView(_ swipeGuesture: UISwipeGestureRecognizer) {
-        swipeView.addGestureRecognizer(swipeGuesture)
-        swipeView.isUserInteractionEnabled = true
     }
 
     // MARK: - Private Methods
@@ -132,6 +149,31 @@ final class CustomMovieDetails: UIView {
         ].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+    }
+
+    private func collectionReloadData() {
+        actorsAndDirectorsCollectionView.reloadData()
+        actorsAndDirectorsCollectionView.setContentOffset(.zero, animated: true)
+    }
+
+    private func changeDirection(direction: UISwipeGestureRecognizer.Direction) -> UISwipeGestureRecognizer.Direction {
+        if direction == .up {
+            collectionReloadData()
+            UIView.animate(withDuration: 0.3, animations: {
+                self.transform = CGAffineTransform(
+                    translationX: 0,
+                    y: -(self.centralPaddingHeight) - 16
+                )
+                self.heightAnchor.constraint(equalToConstant: self.countViewHeight()).isActive = true
+            })
+            return .down
+        } else {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.transform = CGAffineTransform(translationX: 0, y: 0)
+            })
+            collectionReloadData()
+            return .up
         }
     }
 }

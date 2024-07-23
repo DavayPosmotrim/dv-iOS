@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct ReusableCollectionCellModel {
+struct ReusableCollectionCellModel: Identifiable, Equatable, Hashable {
     let id = UUID()
     let title: String
 }

@@ -75,9 +75,12 @@ extension SessionMoviesViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard Section(rawValue: indexPath.section) != .users,
-            let cell = collectionView.cellForItem(at: indexPath) as? SessionMovieCell else { return }
-        // TODO: - open VC with movie
-        print("Movie[\(indexPath.item)] name:", cell.viewModel.name)
+            let cell = collectionView.cellForItem(at: indexPath) as? ReusableLikedMoviesCell else { return }
+
+        // TODO: - change random to real index later
+        let index = Int.random(in: 0...selectionMovieMockData.count)
+
+        presenter.showMovie(by: index)
     }
 }
 
@@ -233,9 +236,12 @@ private extension SessionMoviesViewController {
             trailing: .spacingMedium
         )
     }
-    func createUserCellRegistration() -> UICollectionView.CellRegistration<SessionUserCell, User> {
-        UICollectionView.CellRegistration<SessionUserCell, User> { cell, _, user in
-            cell.configureCell(for: user)
+    func createUserCellRegistration() -> UICollectionView.CellRegistration<
+        ReusableUICollectionViewCell,
+        ReusableCollectionCellModel
+    > {
+        UICollectionView.CellRegistration<ReusableUICollectionViewCell, ReusableCollectionCellModel> { cell, _, user in
+            cell.configureCell(with: user)
         }
     }
 
@@ -244,9 +250,12 @@ private extension SessionMoviesViewController {
         }
     }
 
-    func createMovieCellRegistration() -> UICollectionView.CellRegistration<SessionMovieCell, SessionMovieModel> {
-        UICollectionView.CellRegistration<SessionMovieCell, SessionMovieModel> { cell, _, movie in
-            cell.configureCell(for: movie)
+    func createMovieCellRegistration() -> UICollectionView.CellRegistration<
+        ReusableLikedMoviesCell,
+        ReusableLikedMoviesCellModel
+    > {
+        UICollectionView.CellRegistration<ReusableLikedMoviesCell, ReusableLikedMoviesCellModel> { cell, _, movie in
+            cell.configureCell(with: movie)
         }
     }
 
@@ -269,7 +278,7 @@ private extension SessionMoviesViewController {
                 return collectionView.dequeueConfiguredReusableCell(
                     using: userCellRegistration,
                     for: indexPath,
-                    item: item as? User
+                    item: item as? ReusableCollectionCellModel
                 )
             case .empty:
                 return collectionView.dequeueConfiguredReusableCell(
@@ -281,7 +290,7 @@ private extension SessionMoviesViewController {
                 return collectionView.dequeueConfiguredReusableCell(
                     using: movieCellRegistration,
                     for: indexPath,
-                    item: item as? SessionMovieModel
+                    item: item as? ReusableLikedMoviesCellModel
                 )
             case .none:
                 fatalError("Unknown section!")

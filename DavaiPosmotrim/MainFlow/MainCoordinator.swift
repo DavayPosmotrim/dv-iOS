@@ -33,7 +33,7 @@ final class MainCoordinator: BaseCoordinator {
         case Keys.favoriteMoviesViewController:
                 showSessionsList()
         case Keys.joinSessionViewController:
-            showJoinSessionFlow()
+            showJoinSessionAuth()
         default:
             break
         }
@@ -58,28 +58,56 @@ private extension MainCoordinator {
     func showCreateSessionFlow() {
         let createSessionCoordinator = CreateSessionCoordinator(
             type: .createSession,
-            finishDelegate: finishDelegate,
+            finishDelegate: self,
             navigationController: navigationController
         )
         addChild(createSessionCoordinator)
         createSessionCoordinator.start()
     }
 
-    func showJoinSessionFlow() {
+    func showJoinSessionAuth() {
         let authSessionCoordinator = AuthCoordinator(
             type: .authSession,
+            finishDelegate: self,
             navigationController: navigationController
         )
         addChild(authSessionCoordinator)
         authSessionCoordinator.start()
     }
 
+    func showJoinSessionFlow() {
+        let joinSessionCoordinator = JoinSessionCoordinator(
+            type: .joinSession,
+            finishDelegate: self,
+            navigationController: navigationController
+        )
+        addChild(joinSessionCoordinator)
+        joinSessionCoordinator.start()
+    }
+
     func showSessionsList() {
         let sessionsListCoordinator = SessionsListCoordinator(
             type: .sessionsList,
+            finishDelegate: self,
             navigationController: navigationController
         )
         addChild(sessionsListCoordinator)
         sessionsListCoordinator.start()
+    }
+}
+
+// MARK: - CoordinatorFinishDelegate
+
+extension MainCoordinator: CoordinatorFinishDelegate {
+    func didFinish(_ coordinator: CoordinatorProtocol) {
+        childCoordinators.removeAll()
+        switch coordinator.type {
+        case .authSession:
+            showJoinSessionFlow()
+        case .selectionMovies:
+            showSessionsList()
+        default:
+            navigationController.popToRootViewController(animated: true)
+        }
     }
 }

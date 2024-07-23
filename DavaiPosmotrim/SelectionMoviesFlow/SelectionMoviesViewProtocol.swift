@@ -12,5 +12,6 @@ protocol SelectionMoviesViewProtocol: AnyObject {
     func animateOffscreen(direction: CGFloat, completion: @escaping () -> Void)
     func showNextMovie(_ nextModel: SelectionMovieCellModel)
     func showPreviousMovie(_ nextModel: SelectionMovieCellModel)
-    func showCancelSessionDialog()
+    func showCancelSessionDialog(alertType: AlertType)
+    func showMatch(matchModel: SelectionMovieCellModel)
 }

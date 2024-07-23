@@ -14,8 +14,13 @@ final class SelectionMoviesCoordinator: BaseCoordinator {
     }
 
     func showMatchFlow() {
-        let matchViewController = MatchViewController()
-        navigationController.pushViewController(matchViewController, animated: true)
+            let coincidencesCoordinator = CoincidencesCoordinator(
+                type: .coincidencesSession,
+                finishDelegate: self,
+                navigationController: navigationController
+            )
+            addChild(coincidencesCoordinator)
+            coincidencesCoordinator.start()
     }
 
     override func finish() {
@@ -23,9 +28,25 @@ final class SelectionMoviesCoordinator: BaseCoordinator {
     }
 }
 
+    // MARK: - Private methods
+
 private extension SelectionMoviesCoordinator {
     func showSelectionMoviesScreen() {
         let selectionMoviesViewController = SelectionMoviesFactory.makeSelectionMoviesViewController(with: self)
         navigationController.pushViewController(selectionMoviesViewController, animated: true)
+    }
+}
+
+    // MARK: - CoordinatorFinishDelegate
+
+extension SelectionMoviesCoordinator: CoordinatorFinishDelegate {
+    func didFinish(_ coordinator: any CoordinatorProtocol) {
+        switch coordinator.type {
+        case .coincidencesSession:
+            navigationController.popViewController(animated: true)
+            removeChild(coordinator)
+        default:
+            return
+        }
     }
 }

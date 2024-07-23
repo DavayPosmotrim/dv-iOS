@@ -230,7 +230,8 @@ private extension SelectionMoviesViewController {
     }
 
     func animateMatchViewControllerToHeartIcon() {
-        guard let matchVC = matchSelectionVC else { return }
+        guard let matchVC = matchSelectionVC,
+              let customNavBar = customNavBar as? CustomNavBar else { return }
         let heartIconFrame = customNavBar.getRightButtonFrameIn(view: view)
         let scaleX = heartIconFrame.width / matchVC.view.bounds.width
         let scaleY = heartIconFrame.height / matchVC.view.bounds.height
@@ -250,7 +251,9 @@ private extension SelectionMoviesViewController {
 
 extension SelectionMoviesViewController: SelectionMoviesViewProtocol {
     func updateMatchCountLabel(withRandomCount count: Int) {
-        customNavBar.updateMatchCountLabel(withRandomCount: count)
+        if let customNavBar = customNavBar as? CustomNavBar {
+            customNavBar.updateMatchCountLabel(withRandomCount: count)
+        }
     }
 
     func showNextMovie(_ nextModel: SelectionMovieCellModel) {
@@ -284,9 +287,9 @@ extension SelectionMoviesViewController: SelectionMoviesViewProtocol {
         }
     }
 
-    func showCancelSessionDialog(alertType: AlertType) {
+    func showCancelSessionDialog() {
         guard let navigationController else { return }
-        let viewController = DismissSelectionMoviesViewController(alertType: alertType)
+        let viewController = DismissSelectionMoviesViewController()
         viewController.delegate = self
         viewController.modalPresentationStyle = .overCurrentContext
         viewController.modalTransitionStyle = .crossDissolve
@@ -325,13 +328,7 @@ extension SelectionMoviesViewController: CustomMovieSelectionDelegate {
 // MARK: - DismissJoinSessionDelegate
 
 extension SelectionMoviesViewController: DismissSelectionMoviesDelegate {
-    func closeAlertTypeTwoButtons() {
-        presenter.kickOutAll()
-        //TODO: - раскоментить presenter.cancelButtonAlertTapped(), когда правильно настроим метод presenter.kickOutAll()
-//        presenter.cancelButtonAlertTapped()
-    }
-
-    func closeAlertTypeOneButton() {
+    func finishSelectionMoviesFlow() {
         presenter.cancelButtonAlertTapped()
     }
 }

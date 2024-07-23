@@ -52,14 +52,19 @@ final class JoinSessionPresenter: JoinSessionPresenterProtocol {
                 ReusableCollectionCellModel(title: "Максим")
             ]
 
-            var index = 0
             let delayInSeconds: TimeInterval = 2
+            let dispatchGroup = DispatchGroup()
 
-            for name in downloadedNames {
+            downloadedNames.enumerated().forEach { index, name in
+                dispatchGroup.enter()
                 DispatchQueue.global().asyncAfter(deadline: .now() + delayInSeconds * Double(index)) {
                     self.namesArray.append(name)
+                    dispatchGroup.leave()
                 }
-                index += 1
+            }
+
+            dispatchGroup.notify(queue: .main) {
+                self.coordinator?.showStartSessionScreen()
             }
         }
     }

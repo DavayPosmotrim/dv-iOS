@@ -125,6 +125,8 @@ enum Resources {
     enum Coincidences {
         static let plugLabelText = "Пока ничего нет"
         static let navBarText = "Совпадения"
+
+        static let navBarTitle = "Понравившийся фильм"
     }
 
     enum Mistakes {
@@ -162,7 +164,7 @@ enum Resources {
 
     enum SelectionMovies {
         static let titleNavBarText = "Выберите фильм"
-
+        static let rightButtonLabelText = "0"
         static let customLabelUpperText = "Покинуть сеанс?"
         static let customLabelLowerText = """
     Сеанс будет завершён у всех участников.
@@ -178,6 +180,7 @@ enum Resources {
     """
 
         static let customOneButtonText = "Хорошо".uppercased()
+        static let continueButtonText = "Продолжить сеанс".uppercased()
     }
     
     
