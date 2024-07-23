@@ -9,7 +9,7 @@ import Foundation
 import Moya
 
 enum UserServiceAPI {
-    case getUser(uuid: String)
+    case getUser(deviceId: String)
     case createUser(deviceId: String, user: CustomUserRequestModel)
     case updateUser(deviceId: String, user: CustomUserRequestModel)
 }
@@ -18,7 +18,7 @@ extension UserServiceAPI: TargetType {
     var baseURL: URL {
         return URL(string: "http://80.87.108.90/")!
     }
-    
+
     var path: String {
         switch self {
         case .getUser:
@@ -27,7 +27,7 @@ extension UserServiceAPI: TargetType {
             return "api/users/"
         }
     }
-    
+
     var method: Moya.Method {
         switch self {
         case .getUser:
@@ -38,32 +38,39 @@ extension UserServiceAPI: TargetType {
             return .put
         }
     }
-    
+
     var task: Task {
         switch self {
         case .getUser:
             return .requestPlain
-        case .createUser(let deviceId, let user),
-                .updateUser(let deviceId, let user):
+        case .createUser(_, let user),
+             .updateUser(_, let user):
             do {
                 let userData = try JSONEncoder().encode(user)
-                return .requestCompositeData(bodyData: userData, urlParameters: ["device_id": deviceId])
+                return .requestData(userData)
             } catch {
                 return .requestPlain
             }
         }
     }
-    
+
     var headers: [String: String]? {
-        return ["Content-Type": "application/json"]
+        switch self {
+        case .getUser(let deviceId),
+             .createUser(let deviceId, _),
+             .updateUser(let deviceId, _):
+            return [
+                "Content-Type": "application/json",
+                "Device-Id": deviceId
+            ]
+        }
     }
-    
+
     var validationType: ValidationType {
         return .successAndRedirectCodes
     }
-    
+
     var sampleData: Data {
         return Data()
     }
 }
-
