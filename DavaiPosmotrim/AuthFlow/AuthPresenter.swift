@@ -24,7 +24,7 @@ final class AuthPresenter: AuthPresenterProtocol {
 
     init(coordinator: AuthCoordinator) {
         self.coordinator = coordinator
-        getUser(deviceID: "550e8400-e29b-41d4-a716-446655440001")
+        getUser(deviceID: "550e8400-e29b-41d4-a716-446655440000")
     }
 
     // MARK: - Public methods
@@ -143,6 +143,18 @@ extension AuthPresenter {
             case .success(let user):
                 UserDefaults.standard.setValue(user.name, forKey: Resources.Authentication.savedNameUserDefaultsKey)
                 UserDefaults.standard.setValue(user.deviceId, forKey: Resources.Authentication.savedDeviceID)
+            case .failure(let error):
+                print("Failed to get user: \(error)")
+            }
+        }
+    }
+
+    func updateUser(name: String) {
+        guard let deviceId = UserDefaults.standard.string(forKey: Resources.Authentication.savedDeviceID) else { return }
+        userService.updateUser(deviceId: deviceId, name: name) { result in
+            switch result {
+            case .success(let user):
+                UserDefaults.standard.setValue(user.name, forKey: Resources.Authentication.savedNameUserDefaultsKey)
             case .failure(let error):
                 print("Failed to get user: \(error)")
             }
