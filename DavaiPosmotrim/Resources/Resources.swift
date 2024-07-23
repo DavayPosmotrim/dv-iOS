@@ -57,6 +57,7 @@ enum Resources {
 
     enum Authentication {
         static let savedNameUserDefaultsKey = "userName"
+        static let savedDeviceID = "DeviceId"
         static let authDidFinishNotification = "AuthDidFinishNotification"
 
         static let upperLabelText = "Введите ваше имя"
