@@ -9,5 +9,10 @@ import Foundation
 
 struct CustomUserModel: Codable {
     let name: String
-    let device_id: String // FORMAT - UUID
+    let deviceId: String
+
+    private enum CodingKeys: String, CodingKey {
+        case name
+        case deviceId = "device_id"
+    }
 }

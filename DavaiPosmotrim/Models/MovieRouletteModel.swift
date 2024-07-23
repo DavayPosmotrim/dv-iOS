@@ -10,9 +10,21 @@ struct MovieRouletteModel {
     let name: String
     let year: Int?
     let countries: [String]?
-    let poster: String? // FORMAT - uri
-    let alternative_name: String?
-    let rating_kp: Double? // MAYBE FLOAT
-    let movie_length: Int?
+    let poster: String?
+    let alternativeName: String?
+    let ratingKp: Double?
+    let movieLength: Int?
     let genres: [GenreModel]
+
+    private enum CodingKeys: String, CodingKey {
+        case name
+        case year
+        case countries
+        case poster
+        case alternativeName = "alternative_name"
+        case ratingKp = "rating_kp"
+        case movieLength = "movie_length"
+        case genres
+
+    }
 }

@@ -9,4 +9,8 @@ import Foundation
 
 struct GenreModel: Codable {
     let name: String
+
+    private enum CodingKeys: CodingKey {
+        case name
+    }
 }

@@ -9,4 +9,8 @@ import Foundation
 
 struct CustomUserRequestModel: Codable {
     let name: String
+
+    private enum CodingKeys: CodingKey {
+        case name
+    }
 }

@@ -11,4 +11,5 @@ enum StatusEnumModel: String, Codable {
     case waiting = "waiting"
     case voting = "voting"
     case closed = "closed"
+    // TODO: Посмотреть как будет работать и убрать/оставить строки
 }

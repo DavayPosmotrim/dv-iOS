@@ -14,13 +14,31 @@ struct MovieDetailModel: Codable {
     let year: Int?
     let countries: [String]?
     let poster: String?
-    let alternative_name: String?
-    let rating_kp: Double? // MAYBE FLOAT?
-    let rating_imdb: Double? // MAYBE FLOAT?
-    let votes_kp: Int?
-    let votes_imdb: Int?
-    let movie_length: Int?
+    let alternativeName: String?
+    let ratingKp: Double?
+    let ratingImdb: Double?
+    let votesKp: Int?
+    let votesImdb: Int?
+    let movieLength: Int?
     let genres: [GenreModel]
     let directors: [String]?
     let actors: [String]?
+
+    private enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case description
+        case year
+        case countries
+        case poster
+        case alternativeName = "alternative_name"
+        case ratingKp = "rating_kp"
+        case ratingImdb = "rating_imdb"
+        case votesKp = "votes_kp"
+        case votesImdb = "votes_imdb"
+        case movieLength = "movie_length"
+        case genres
+        case directors
+        case actors
+    }
 }

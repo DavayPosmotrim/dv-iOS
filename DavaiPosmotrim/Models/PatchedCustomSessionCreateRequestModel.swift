@@ -7,8 +7,15 @@
 
 import Foundation
 struct PatchedCustomSessionCreateRequestModel: Codable {
-    let date: String? // FORMAT - date
+    let date: String?
     let genres: [String]
     let collections: [String]
     let status: StatusEnumModel
+
+    private enum CodingKeys: CodingKey {
+        case date
+        case genres
+        case collections
+        case status
+    }
 }
