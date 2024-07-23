@@ -18,11 +18,13 @@ final class AuthPresenter: AuthPresenterProtocol {
 
     private let charactersMinNumber = 2
     private let charactersBarrierNumber = 12
+    private let userService: UserServiceProtocol = UserService()
 
     // MARK: - Initializers
 
     init(coordinator: AuthCoordinator) {
         self.coordinator = coordinator
+        getUser(deviceID: "550e8400-e29b-41d4-a716-446655440000")
     }
 
     // MARK: - Public methods
@@ -117,5 +119,20 @@ final class AuthPresenter: AuthPresenterProtocol {
             object: nil,
             userInfo: [Resources.Authentication.savedNameUserDefaultsKey: userName]
         )
+    }
+}
+
+// MARK: - UserService
+
+extension AuthPresenter {
+    func getUser(deviceID: String) {
+        userService.getUser(deviceId: deviceID) { result in
+            switch result {
+            case .success(let user):
+                print("User retrieved: \(user)")
+            case .failure(let error):
+                print("Failed to get user: \(error)")
+            }
+        }
     }
 }
