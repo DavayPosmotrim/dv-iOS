@@ -15,7 +15,7 @@ final class AppCoordinator: BaseCoordinator {
     override func start() {
         if UserDefaults.standard.value(forKey: Resources.Onboarding.onboardingUserDefaultsKey) == nil {
             showOnboardingFlow()
-        } else if UserDefaults.standard.value(forKey: Resources.Authentication.savedNameUserDefaultsKey) == nil {
+        } else if isNeedAuthorization() {
             showAuthFlow()
         } else {
             showMainFlow()
@@ -66,6 +66,12 @@ private extension AppCoordinator {
         addChild(mainCoordinator)
         mainCoordinator.start()
     }
+
+    func isNeedAuthorization() -> Bool {
+        UserDefaults.standard.value(forKey: Resources.Authentication.savedNameUserDefaultsKey) == nil
+        ||
+        UserDefaults.standard.string(forKey: Resources.Authentication.savedDeviceID) == nil
+    }
 }
 
 extension AppCoordinator: CoordinatorFinishDelegate {
@@ -77,7 +83,7 @@ extension AppCoordinator: CoordinatorFinishDelegate {
         case .app:
             return
         case .onboarding:
-            showAuthFlow()
+            start()
         case .auth:
             showMainFlow()
         default:

@@ -120,7 +120,6 @@
 		E29170602C4FD6D400B55E25 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E291705F2C4FD6D400B55E25 /* UserService.swift */; };
 		E29170642C4FD8AF00B55E25 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = E29170632C4FD8AF00B55E25 /* Moya */; };
 		E29170672C4FD9A300B55E25 /* UserServiceApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29170662C4FD9A300B55E25 /* UserServiceApi.swift */; };
-		E29170692C4FDA8400B55E25 /* TempModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29170682C4FDA8400B55E25 /* TempModels.swift */; };
 		E2B9BF872BD7B8EF00592578 /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BF862BD7B8EF00592578 /* CoordinatorProtocol.swift */; };
 		E2B9BF892BD7BA2C00592578 /* AppCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BF882BD7BA2C00592578 /* AppCoordinatorProtocol.swift */; };
 		E2B9BF932BD7C45B00592578 /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BF922BD7C45B00592578 /* BaseCoordinator.swift */; };
@@ -539,11 +538,11 @@
 		C9C4D59C2BD3A3C70081CD23 /* DavaiPosmotrim */ = {
 			isa = PBXGroup;
 			children = (
+				E2B9BF8C2BD7BD0900592578 /* Application */,
 				E29170652C4FD8F600B55E25 /* NetworkLayer */,
 				E291705E2C4FD68900B55E25 /* Services */,
 				5A3FA98F2C454879002C61B4 /* Models */,
 				4AAEABBB2C1DD6E000A14C1D /* MatchFlow */,
-				E2B9BF8C2BD7BD0900592578 /* Application */,
 				E2B9BF912BD7BF2300592578 /* Protocols */,
 				5AEEACC52C0A1E3900F18BF9 /* SplashScreen */,
 				4A62804D2BF13D7400102304 /* InvitingUsersFlow */,
