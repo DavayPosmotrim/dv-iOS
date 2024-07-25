@@ -10,6 +10,7 @@ import Foundation
 protocol RoulettePresenterProtocol: AnyObject {
     var moviesCount: Int { get }
     var usersCount: Int { get }
+    var movieIDs: [UUID] { get }
 
     func getMoviesAtIndex(index: Int) -> SelectionMovieCellModel
     func getNamesAtIndex(index: Int) -> ReusableCollectionCellModel

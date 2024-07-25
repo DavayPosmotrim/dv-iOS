@@ -24,6 +24,10 @@ final class RoulettePresenter: RoulettePresenterProtocol {
         usersArray.count
     }
 
+    var movieIDs: [UUID] {
+        return moviesArray.map { $0.id }
+    }
+
     // MARK: - Private Properties
 
     private var moviesArray = [SelectionMovieCellModel]()

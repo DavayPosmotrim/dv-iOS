@@ -21,8 +21,8 @@ final class RouletteViewController: UIViewController {
     )
 
     private var isScrolling = false
-    private var targetVelocity: CGFloat = .random(in: 80...100)
-    private var velocityAdjustment: CGFloat = 1
+    private var targetVelocity: CGFloat = .random(in: 45...65)
+    private var velocityAdjustment: CGFloat = 0.05
     private var displayLink: CADisplayLink?
 
     // MARK: - Lazy Properties
@@ -296,23 +296,38 @@ extension RouletteViewController {
         let newOffset = movieCardCollectionView.contentOffset.x + targetVelocity
         movieCardCollectionView.setContentOffset(CGPoint(x: newOffset, y: 0), animated: false)
 
+        // Imitation of chosen movie id from server
+        let middleIndex = presenter.movieIDs.count / 2
+        let serverID = presenter.movieIDs[middleIndex]
+
         if targetVelocity > 0 {
             targetVelocity -= velocityAdjustment
         }
 
-        if targetVelocity < 0 {
-            stopRouletteScroll()
+        let indexPaths = movieCardCollectionView.indexPathsForVisibleItems
+        for indexPath in indexPaths {
+            guard let cell = movieCardCollectionView.cellForItem(at: indexPath) as? RouletteCollectionViewCell else {
+                return
+            }
+            let cellID = cell.getCellID()
+            if cellID == serverID && targetVelocity <= 5 {
+                stopRouletteScroll(with: indexPath)
+                return
+            }
         }
-        print(targetVelocity)
+
+        if targetVelocity < 0 {
+            guard let index = presenter.movieIDs.firstIndex(of: serverID) else { return }
+            let newIndexPath = IndexPath(item: index, section: 0)
+            stopRouletteScroll(with: newIndexPath)
+        }
     }
 
-    func stopRouletteScroll() {
+    func stopRouletteScroll(with indexPath: IndexPath) {
         stopScrolling()
 
         isScrolling = false
 
-        let visibleItems = movieCardCollectionView.indexPathsForVisibleItems
-        guard let indexPath = visibleItems.last else { return  }
         movieCardCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
     }
 }

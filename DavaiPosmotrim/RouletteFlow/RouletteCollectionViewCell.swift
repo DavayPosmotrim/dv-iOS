@@ -57,4 +57,9 @@ final class RouletteCollectionViewCell: UICollectionViewCell {
         guard let model else { return }
         viewModel = model
     }
+
+    func getCellID() -> UUID {
+        guard let cellID = viewModel?.id else { return UUID() }
+        return cellID
+    }
 }
