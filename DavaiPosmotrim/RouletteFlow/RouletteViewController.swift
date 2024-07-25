@@ -13,17 +13,16 @@ final class RouletteViewController: UIViewController {
 
     private var presenter: RoulettePresenterProtocol
     private var scrollTimer: Timer?
+    private var isScrolling = false
+    private var targetVelocity: CGFloat = .random(in: 45...65)
+    private var velocityAdjustment: CGFloat = 0.05
+    private var displayLink: CADisplayLink?
 
     private let usersCollectionModel = ReusableCollectionModel(
         image: nil,
         upperText: nil,
         lowerText: Resources.RouletteFlow.usersCollectionLowerText
     )
-
-    private var isScrolling = false
-    private var targetVelocity: CGFloat = .random(in: 45...65)
-    private var velocityAdjustment: CGFloat = 0.05
-    private var displayLink: CADisplayLink?
 
     // MARK: - Lazy Properties
 
@@ -239,7 +238,7 @@ extension RouletteViewController: UICollectionViewDelegateFlowLayout {
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
         let collectionInset: CGFloat = 64
-        let cellHeight: CGFloat = 420
+        let cellHeight: CGFloat = collectionView.frame.height * 0.5
         let cellWidth = collectionView.frame.width - collectionInset * 2
 
         return CGSize(width: cellWidth, height: cellHeight)
