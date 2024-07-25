@@ -69,8 +69,8 @@ final class RouletteViewController: UIViewController {
         let collectionView = ReusableUICollectionView()
         collectionView.setupCollectionView(
             with: self,
-            cell: ReusableUICollectionViewCell.self,
-            cellIdentifier: ReusableUICollectionViewCell.reuseIdentifier,
+            cell: RouletteUsersCollectionCell.self,
+            cellIdentifier: RouletteUsersCollectionCell.reuseIdentifier,
             and: usersCollectionModel
         )
         collectionView.deactivateUserInteraction()
@@ -162,7 +162,6 @@ private extension RouletteViewController {
             paddingView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             paddingView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             paddingView.heightAnchor.constraint(greaterThanOrEqualToConstant: 236),
-            paddingView.heightAnchor.constraint(lessThanOrEqualToConstant: 360),
 
             titleLabel.leadingAnchor.constraint(equalTo: paddingView.leadingAnchor, constant: 16),
             titleLabel.trailingAnchor.constraint(equalTo: paddingView.trailingAnchor, constant: -16),
@@ -219,11 +218,13 @@ extension RouletteViewController: UICollectionViewDataSource {
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: ReusableUICollectionViewCell.reuseIdentifier,
+                withReuseIdentifier: RouletteUsersCollectionCell.reuseIdentifier,
                 for: indexPath
-            ) as? ReusableUICollectionViewCell else { return UICollectionViewCell() }
+            ) as? RouletteUsersCollectionCell else { return UICollectionViewCell() }
 
+            cell.backgroundColor = .clear
             cell.configureCell(with: presenter.getNamesAtIndex(index: indexPath.item))
+            cell.configureConnection(with: presenter.getConnectedProperty(index: indexPath.row))
             return cell
         }
     }
@@ -271,6 +272,19 @@ extension RouletteViewController: RouletteViewProtocol {
         titleLabel.isHidden = true
         usersCollectionView.isHidden = true
     }
+
+    func updateUsersCollectionViewHeight() {
+        let itemHeight: CGFloat = 36
+        let itemSpacing: CGFloat = 8
+        let bottomSpacing: CGFloat = 110
+        let maxItemsPerRow: Int = 4
+        let numberOfItems = presenter.usersCount
+
+        let rows = (numberOfItems + maxItemsPerRow - 1) / maxItemsPerRow
+        let totalHeight = itemHeight * CGFloat(rows) + itemSpacing * CGFloat(rows - 1) + bottomSpacing
+
+        usersCollectionView.heightAnchor.constraint(equalToConstant: totalHeight).isActive = true
+    }
 }
 
     // MARK: - RouletteStartViewControllerDelegate
@@ -282,6 +296,7 @@ extension RouletteViewController: RouletteStartViewControllerDelegate {
 
     func didTapBeginButton() {
         presenter.downloadUsersArray()
+        presenter.connectUsers()
     }
 }
 

@@ -31,7 +31,12 @@ final class RoulettePresenter: RoulettePresenterProtocol {
     // MARK: - Private Properties
 
     private var moviesArray = [SelectionMovieCellModel]()
-    private var usersArray = [ReusableCollectionCellModel]() {
+    private var usersArray = [RouletteUsersCollectionCellModel]() {
+        didSet {
+            updateReusableCollection()
+        }
+    }
+    private var connectedUsersArray = [Bool]() {
         didSet {
             updateReusableCollection()
         }
@@ -70,28 +75,47 @@ final class RoulettePresenter: RoulettePresenterProtocol {
         }
     }
 
-    func getNamesAtIndex(index: Int) -> ReusableCollectionCellModel {
+    func getNamesAtIndex(index: Int) -> RouletteUsersCollectionCellModel {
         usersArray[index]
     }
 
-    // Метод для имитации присоединения пользователей
-    func downloadUsersArray() {
-        DispatchQueue.global().async {
-            let downloadedNames = [
-                ReusableCollectionCellModel(title: "Эльдар(вы)"),
-                ReusableCollectionCellModel(title: "Юрий"),
-                ReusableCollectionCellModel(title: "Сергей"),
-                ReusableCollectionCellModel(title: "Александр"),
-                ReusableCollectionCellModel(title: "Максим")
-            ]
+    func getConnectedProperty(index: Int) -> Bool {
+        guard index < connectedUsersArray.count else { return false }
+               return connectedUsersArray[index]
+    }
 
+    func downloadUsersArray() {
+        let downloadedNames = [
+            RouletteUsersCollectionCellModel(title: "Эльдар(вы)", isConnected: false),
+            RouletteUsersCollectionCellModel(title: "Юрий", isConnected: false),
+            RouletteUsersCollectionCellModel(title: "Сергей", isConnected: false),
+            RouletteUsersCollectionCellModel(title: "Александр", isConnected: false),
+            RouletteUsersCollectionCellModel(title: "Максим", isConnected: false),
+            RouletteUsersCollectionCellModel(title: "Витька", isConnected: false),
+            RouletteUsersCollectionCellModel(title: "Михалыч", isConnected: false),
+            RouletteUsersCollectionCellModel(title: "Петька", isConnected: false),
+            RouletteUsersCollectionCellModel(title: "Ослик", isConnected: false),
+            RouletteUsersCollectionCellModel(title: "Суслик", isConnected: false)
+        ]
+        for name in downloadedNames {
+            usersArray.append(name)
+        }
+        DispatchQueue.main.async {
+            self.view?.updateUsersCollectionViewHeight()
+        }
+    }
+
+    func connectUsers() {
+        DispatchQueue.global().async {
             let delayInSeconds: TimeInterval = 2
             let dispatchGroup = DispatchGroup()
 
-            downloadedNames.enumerated().forEach { index, name in
+            self.usersArray.enumerated().forEach { index, _ in
                 dispatchGroup.enter()
+
                 DispatchQueue.global().asyncAfter(deadline: .now() + delayInSeconds * Double(index)) {
-                    self.usersArray.append(name)
+                    self.connectedUsersArray.append(true)
+                    print(self.connectedUsersArray)
                     dispatchGroup.leave()
                 }
             }

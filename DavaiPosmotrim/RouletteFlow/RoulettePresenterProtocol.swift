@@ -13,9 +13,11 @@ protocol RoulettePresenterProtocol: AnyObject {
     var movieIDs: [UUID] { get }
 
     func getMoviesAtIndex(index: Int) -> SelectionMovieCellModel
-    func getNamesAtIndex(index: Int) -> ReusableCollectionCellModel
+    func getNamesAtIndex(index: Int) -> RouletteUsersCollectionCellModel
+    func getConnectedProperty(index: Int) -> Bool
     func downloadMoviesArray()
     func downloadUsersArray()
+    func connectUsers()
     func startRouletteController(with delegate: RouletteStartViewControllerDelegate?)
     func finishRoulette()
 }
