@@ -10,5 +10,5 @@ import Foundation
 protocol RouletteViewProtocol: AnyObject {
     func startRouletteScroll()
     func hideUsersView()
-    func updateUsersCollectionViewHeight()
+    func updateUsersCollectionViewHeight(with titles: [String])
 }

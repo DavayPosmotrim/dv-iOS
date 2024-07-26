@@ -97,11 +97,15 @@ final class RoulettePresenter: RoulettePresenterProtocol {
             RouletteUsersCollectionCellModel(title: "Ослик", isConnected: false),
             RouletteUsersCollectionCellModel(title: "Суслик", isConnected: false)
         ]
+
+        var titlesArray = [String]()
+
         for name in downloadedNames {
             usersArray.append(name)
+            titlesArray.append(name.title)
         }
         DispatchQueue.main.async {
-            self.view?.updateUsersCollectionViewHeight()
+            self.view?.updateUsersCollectionViewHeight(with: titlesArray)
         }
     }
 
@@ -115,8 +119,12 @@ final class RoulettePresenter: RoulettePresenterProtocol {
 
                 DispatchQueue.global().asyncAfter(deadline: .now() + delayInSeconds * Double(index)) {
                     self.connectedUsersArray.append(true)
-                    print(self.connectedUsersArray)
-                    dispatchGroup.leave()
+                    if index == self.connectedUsersArray.count - 1 {
+                        DispatchQueue.global().asyncAfter(deadline: .now() + 1.0) {
+                            dispatchGroup.leave()                        }
+                    } else {
+                        dispatchGroup.leave()
+                    }
                 }
             }
 

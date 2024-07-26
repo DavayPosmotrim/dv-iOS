@@ -273,16 +273,43 @@ extension RouletteViewController: RouletteViewProtocol {
         usersCollectionView.isHidden = true
     }
 
-    func updateUsersCollectionViewHeight() {
+    func updateUsersCollectionViewHeight(with titles: [String]) {
         let itemHeight: CGFloat = 36
         let itemSpacing: CGFloat = 8
-        let bottomSpacing: CGFloat = 110
-        let itemWidth: CGFloat = 100
-
+        let bottomSpacing: CGFloat = 142
         let availableWidth = usersCollectionView.bounds.width
-        let maxItemsPerRow = Int((availableWidth + itemSpacing) / (itemWidth + itemSpacing))
-        let numberOfItems = presenter.usersCount
-        let rows = (numberOfItems + maxItemsPerRow - 1) / maxItemsPerRow
+
+        var itemWidths = [CGFloat]()
+
+        for title in titles {
+            let size = (title as NSString).boundingRect(
+                with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: itemHeight),
+                options: .usesLineFragmentOrigin,
+                attributes: [NSAttributedString.Key.font: UIFont.textParagraphRegularFont as Any],
+                context: nil
+            ).size
+
+            itemWidths.append(size.width + 8)
+        }
+
+        var totalItemsInRow: CGFloat = 0
+        var rows: Int = 0
+        var currentRowWidth: CGFloat = 0
+
+        for width in itemWidths {
+            if currentRowWidth + width + itemSpacing <= availableWidth {
+                currentRowWidth += width + itemSpacing
+                totalItemsInRow += 1
+            } else {
+                rows += 1
+                currentRowWidth = width + itemSpacing
+                totalItemsInRow = 1
+            }
+        }
+
+        if totalItemsInRow > 0 {
+            rows += 1
+        }
 
         let totalHeight = itemHeight * CGFloat(rows) + itemSpacing * CGFloat(rows - 1) + bottomSpacing
 
