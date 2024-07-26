@@ -277,10 +277,13 @@ extension RouletteViewController: RouletteViewProtocol {
         let itemHeight: CGFloat = 36
         let itemSpacing: CGFloat = 8
         let bottomSpacing: CGFloat = 110
-        let maxItemsPerRow: Int = 4
-        let numberOfItems = presenter.usersCount
+        let itemWidth: CGFloat = 100
 
+        let availableWidth = usersCollectionView.bounds.width
+        let maxItemsPerRow = Int((availableWidth + itemSpacing) / (itemWidth + itemSpacing))
+        let numberOfItems = presenter.usersCount
         let rows = (numberOfItems + maxItemsPerRow - 1) / maxItemsPerRow
+
         let totalHeight = itemHeight * CGFloat(rows) + itemSpacing * CGFloat(rows - 1) + bottomSpacing
 
         usersCollectionView.heightAnchor.constraint(equalToConstant: totalHeight).isActive = true
