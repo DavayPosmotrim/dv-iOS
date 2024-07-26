@@ -17,6 +17,7 @@ final class RouletteViewController: UIViewController {
     private var targetVelocity: CGFloat = .random(in: 45...65)
     private var velocityAdjustment: CGFloat = 0.05
     private var displayLink: CADisplayLink?
+    private var matchedCellID: UUID?
 
     private let usersCollectionModel = ReusableCollectionModel(
         image: nil,
@@ -239,7 +240,7 @@ extension RouletteViewController: UICollectionViewDelegateFlowLayout {
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
         let collectionInset: CGFloat = 64
-        let cellHeight: CGFloat = collectionView.frame.height * 0.5
+        let cellHeight: CGFloat = collectionView.frame.height * 0.55
         let cellWidth = collectionView.frame.width - collectionInset * 2
 
         return CGSize(width: cellWidth, height: cellHeight)
@@ -276,7 +277,7 @@ extension RouletteViewController: RouletteViewProtocol {
     func updateUsersCollectionViewHeight(with titles: [String]) {
         let itemHeight: CGFloat = 36
         let itemSpacing: CGFloat = 8
-        let bottomSpacing: CGFloat = 142
+        let bottomSpacing: CGFloat = 110
         let availableWidth = usersCollectionView.bounds.width
 
         var itemWidths = [CGFloat]()
@@ -355,6 +356,7 @@ extension RouletteViewController {
             }
             let cellID = cell.getCellID()
             if cellID == serverID && targetVelocity <= 5 {
+                matchedCellID = cellID
                 stopRouletteScroll(with: indexPath)
                 return
             }
@@ -373,5 +375,16 @@ extension RouletteViewController {
         isScrolling = false
 
         movieCardCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+
+        guard let matchedCellID else { return }
+        if let matchModel = presenter.getMovieByID(id: matchedCellID) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                self.presenter.showMatchViewController(
+                    matchModel: matchModel) {
+                        self.dismiss(animated: true)
+                        self.presenter.showSessionsList()
+                    }
+            }
+        }
     }
 }

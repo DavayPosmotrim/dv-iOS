@@ -55,6 +55,16 @@ final class RoulettePresenter: RoulettePresenterProtocol {
         coordinator.showRouletteStartViewController(with: delegate)
     }
 
+    func showMatchViewController(matchModel: SelectionMovieCellModel, and completion: (() -> Void)?) {
+        guard let coordinator else { return }
+        coordinator.showMatchViewController(matchModel: matchModel, and: completion)
+    }
+
+    func showSessionsList() {
+        guard let coordinator else { return }
+        coordinator.showSessionsList()
+    }
+
     func finishRoulette() {
         guard let coordinator else { return }
         coordinator.finish()
@@ -66,13 +76,8 @@ final class RoulettePresenter: RoulettePresenterProtocol {
         return moviesArray[safeIndex]
     }
 
-    // Метод для имитации загрузки фильмов
-    func downloadMoviesArray() {
-        let downloadedMovies = selectionMovieMockData
-
-        for movie in downloadedMovies {
-            moviesArray.append(movie)
-        }
+    func getMovieByID(id: UUID) -> SelectionMovieCellModel? {
+        return moviesArray.first { $0.id == id }
     }
 
     func getNamesAtIndex(index: Int) -> RouletteUsersCollectionCellModel {
@@ -84,18 +89,23 @@ final class RoulettePresenter: RoulettePresenterProtocol {
                return connectedUsersArray[index]
     }
 
+    // Метод для имитации загрузки фильмов
+    func downloadMoviesArray() {
+        let downloadedMovies = selectionMovieMockData
+
+        for movie in downloadedMovies {
+            moviesArray.append(movie)
+        }
+    }
+
+    // Метод для имитации загрузки списка пользователей
     func downloadUsersArray() {
         let downloadedNames = [
             RouletteUsersCollectionCellModel(title: "Эльдар(вы)", isConnected: false),
             RouletteUsersCollectionCellModel(title: "Юрий", isConnected: false),
             RouletteUsersCollectionCellModel(title: "Сергей", isConnected: false),
             RouletteUsersCollectionCellModel(title: "Александр", isConnected: false),
-            RouletteUsersCollectionCellModel(title: "Максим", isConnected: false),
-            RouletteUsersCollectionCellModel(title: "Витька", isConnected: false),
-            RouletteUsersCollectionCellModel(title: "Михалыч", isConnected: false),
-            RouletteUsersCollectionCellModel(title: "Петька", isConnected: false),
-            RouletteUsersCollectionCellModel(title: "Ослик", isConnected: false),
-            RouletteUsersCollectionCellModel(title: "Суслик", isConnected: false)
+            RouletteUsersCollectionCellModel(title: "Максим", isConnected: false)
         ]
 
         var titlesArray = [String]()
@@ -109,6 +119,7 @@ final class RoulettePresenter: RoulettePresenterProtocol {
         }
     }
 
+    // Метод для имитации подключения пользователей
     func connectUsers() {
         DispatchQueue.global().async {
             let delayInSeconds: TimeInterval = 2
@@ -121,7 +132,8 @@ final class RoulettePresenter: RoulettePresenterProtocol {
                     self.connectedUsersArray.append(true)
                     if index == self.connectedUsersArray.count - 1 {
                         DispatchQueue.global().asyncAfter(deadline: .now() + 1.0) {
-                            dispatchGroup.leave()                        }
+                            dispatchGroup.leave()
+                        }
                     } else {
                         dispatchGroup.leave()
                     }

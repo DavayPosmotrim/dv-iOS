@@ -146,6 +146,8 @@ enum Resources {
 
         static let usersCollectionLowerText = "Начнём магию, когда подключатся все участники"
         static let usersCollectionTitleText = "Ждём участников..."
+
+        static let progressButtonText = "Перейти к списку фильмов".uppercased()
     }
 
     enum Mistakes {
