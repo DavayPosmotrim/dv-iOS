@@ -240,7 +240,7 @@ extension RouletteViewController: UICollectionViewDelegateFlowLayout {
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
         let collectionInset: CGFloat = 64
-        let cellHeight: CGFloat = collectionView.frame.height * 0.55
+        let cellHeight: CGFloat = collectionView.frame.height * 0.52
         let cellWidth = collectionView.frame.width - collectionInset * 2
 
         return CGSize(width: cellWidth, height: cellHeight)
@@ -277,7 +277,7 @@ extension RouletteViewController: RouletteViewProtocol {
     func updateUsersCollectionViewHeight(with titles: [String]) {
         let itemHeight: CGFloat = 36
         let itemSpacing: CGFloat = 8
-        let bottomSpacing: CGFloat = 110
+        let bottomSpacing: CGFloat = 124
         let availableWidth = usersCollectionView.bounds.width
 
         var itemWidths = [CGFloat]()
