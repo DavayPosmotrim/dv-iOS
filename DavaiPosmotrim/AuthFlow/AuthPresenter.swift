@@ -24,7 +24,10 @@ final class AuthPresenter: AuthPresenterProtocol {
 
     init(coordinator: AuthCoordinator) {
         self.coordinator = coordinator
+
+        // Do not forget to delete after a while
         getUser(deviceID: "550e8400-e29b-41d4-a716-446655440000")
+        UserDefaults.standard.setValue("550e8400-e29b-41d4-a716-446655440000", forKey: Resources.Authentication.savedDeviceID)
     }
 
     // MARK: - Public methods

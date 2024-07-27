@@ -47,7 +47,7 @@ private extension MainCoordinator {
     }
 
     func showAuthFlow() {
-        let editCoordinator = AuthCoordinator(
+        let editCoordinator = EditNameCoordinator(
             type: .edit,
             navigationController: navigationController
         )
@@ -66,7 +66,7 @@ private extension MainCoordinator {
     }
 
     func showJoinSessionAuth() {
-        let authSessionCoordinator = AuthCoordinator(
+        let authSessionCoordinator = JoinSessionAuthCoordinator(
             type: .authSession,
             finishDelegate: self,
             navigationController: navigationController

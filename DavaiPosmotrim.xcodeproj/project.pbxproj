@@ -103,6 +103,18 @@
 		C964F7B12C19166800A37295 /* CoincidencesSceneFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C964F7B02C19166800A37295 /* CoincidencesSceneFactory.swift */; };
 		C96895CF2BE835EA002A99E6 /* AuthPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96895CE2BE835EA002A99E6 /* AuthPresenterProtocol.swift */; };
 		C96895D12BE88E4B002A99E6 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96895D02BE88E4B002A99E6 /* Resources.swift */; };
+		C98ACAF42C559BEB00C946D6 /* EditNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98ACAF32C559BEB00C946D6 /* EditNameViewController.swift */; };
+		C98ACAF62C559D4900C946D6 /* EditNameCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98ACAF52C559D4900C946D6 /* EditNameCoordinator.swift */; };
+		C98ACAF82C55A0C500C946D6 /* EditNamePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98ACAF72C55A0C500C946D6 /* EditNamePresenter.swift */; };
+		C98ACAFA2C55A19C00C946D6 /* EditNamePresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98ACAF92C55A19C00C946D6 /* EditNamePresenterProtocol.swift */; };
+		C98ACAFC2C55A1BC00C946D6 /* EditNameViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98ACAFB2C55A1BC00C946D6 /* EditNameViewProtocol.swift */; };
+		C98ACAFE2C55A3D300C946D6 /* EditNameSceneFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98ACAFD2C55A3D300C946D6 /* EditNameSceneFactory.swift */; };
+		C98ACB012C55B3E600C946D6 /* JoinSessionAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98ACB002C55B3E600C946D6 /* JoinSessionAuthViewController.swift */; };
+		C98ACB032C55B4CF00C946D6 /* JoinSessionAuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98ACB022C55B4CF00C946D6 /* JoinSessionAuthCoordinator.swift */; };
+		C98ACB052C55B90700C946D6 /* JoinSessionAuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98ACB042C55B90700C946D6 /* JoinSessionAuthPresenter.swift */; };
+		C98ACB072C55B96500C946D6 /* JoinSessionAuthViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98ACB062C55B96500C946D6 /* JoinSessionAuthViewProtocol.swift */; };
+		C98ACB092C55B98E00C946D6 /* JoinSessionAuthPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98ACB082C55B98E00C946D6 /* JoinSessionAuthPresenterProtocol.swift */; };
+		C98ACB0B2C55BAAC00C946D6 /* JoinSessionAuthSceneFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98ACB0A2C55BAAC00C946D6 /* JoinSessionAuthSceneFactory.swift */; };
 		C991F0CD2C3812580090543B /* CoincidencesMovieInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C991F0CC2C3812580090543B /* CoincidencesMovieInfoViewController.swift */; };
 		C9AF1EB52C0A0FA90080FC4A /* OnboardingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AF1EB42C0A0FA90080FC4A /* OnboardingPresenter.swift */; };
 		C9B57C6C2C0607450026E85D /* DismissJoinSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B57C6B2C0607450026E85D /* DismissJoinSessionViewController.swift */; };
@@ -252,6 +264,18 @@
 		C964F7B02C19166800A37295 /* CoincidencesSceneFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoincidencesSceneFactory.swift; sourceTree = "<group>"; };
 		C96895CE2BE835EA002A99E6 /* AuthPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenterProtocol.swift; sourceTree = "<group>"; };
 		C96895D02BE88E4B002A99E6 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
+		C98ACAF32C559BEB00C946D6 /* EditNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNameViewController.swift; sourceTree = "<group>"; };
+		C98ACAF52C559D4900C946D6 /* EditNameCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNameCoordinator.swift; sourceTree = "<group>"; };
+		C98ACAF72C55A0C500C946D6 /* EditNamePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNamePresenter.swift; sourceTree = "<group>"; };
+		C98ACAF92C55A19C00C946D6 /* EditNamePresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNamePresenterProtocol.swift; sourceTree = "<group>"; };
+		C98ACAFB2C55A1BC00C946D6 /* EditNameViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNameViewProtocol.swift; sourceTree = "<group>"; };
+		C98ACAFD2C55A3D300C946D6 /* EditNameSceneFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNameSceneFactory.swift; sourceTree = "<group>"; };
+		C98ACB002C55B3E600C946D6 /* JoinSessionAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinSessionAuthViewController.swift; sourceTree = "<group>"; };
+		C98ACB022C55B4CF00C946D6 /* JoinSessionAuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinSessionAuthCoordinator.swift; sourceTree = "<group>"; };
+		C98ACB042C55B90700C946D6 /* JoinSessionAuthPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinSessionAuthPresenter.swift; sourceTree = "<group>"; };
+		C98ACB062C55B96500C946D6 /* JoinSessionAuthViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinSessionAuthViewProtocol.swift; sourceTree = "<group>"; };
+		C98ACB082C55B98E00C946D6 /* JoinSessionAuthPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinSessionAuthPresenterProtocol.swift; sourceTree = "<group>"; };
+		C98ACB0A2C55BAAC00C946D6 /* JoinSessionAuthSceneFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinSessionAuthSceneFactory.swift; sourceTree = "<group>"; };
 		C991F0CC2C3812580090543B /* CoincidencesMovieInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoincidencesMovieInfoViewController.swift; sourceTree = "<group>"; };
 		C9AF1EB42C0A0FA90080FC4A /* OnboardingPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPresenter.swift; sourceTree = "<group>"; };
 		C9B57C6B2C0607450026E85D /* DismissJoinSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissJoinSessionViewController.swift; sourceTree = "<group>"; };
@@ -426,6 +450,7 @@
 		C90CAB332BFAFA1100B42456 /* JoinSessionFlow */ = {
 			isa = PBXGroup;
 			children = (
+				C98ACAFF2C55B3B700C946D6 /* JoinSessionAuthFlow */,
 				C9B57C6A2C0607050026E85D /* DismissJoinSessionVIewController */,
 				C91DCC732BFEA1E8001BC065 /* JoinSessionCoordinator.swift */,
 				C91DCC752BFEA1FA001BC065 /* JoinSessionPresenter.swift */,
@@ -499,6 +524,32 @@
 				C964F7B02C19166800A37295 /* CoincidencesSceneFactory.swift */,
 			);
 			path = CoincidencesFlow;
+			sourceTree = "<group>";
+		};
+		C98ACAF22C559BB000C946D6 /* EditNameFlow */ = {
+			isa = PBXGroup;
+			children = (
+				C98ACAF32C559BEB00C946D6 /* EditNameViewController.swift */,
+				C98ACAF52C559D4900C946D6 /* EditNameCoordinator.swift */,
+				C98ACAF72C55A0C500C946D6 /* EditNamePresenter.swift */,
+				C98ACAF92C55A19C00C946D6 /* EditNamePresenterProtocol.swift */,
+				C98ACAFB2C55A1BC00C946D6 /* EditNameViewProtocol.swift */,
+				C98ACAFD2C55A3D300C946D6 /* EditNameSceneFactory.swift */,
+			);
+			path = EditNameFlow;
+			sourceTree = "<group>";
+		};
+		C98ACAFF2C55B3B700C946D6 /* JoinSessionAuthFlow */ = {
+			isa = PBXGroup;
+			children = (
+				C98ACB002C55B3E600C946D6 /* JoinSessionAuthViewController.swift */,
+				C98ACB022C55B4CF00C946D6 /* JoinSessionAuthCoordinator.swift */,
+				C98ACB042C55B90700C946D6 /* JoinSessionAuthPresenter.swift */,
+				C98ACB062C55B96500C946D6 /* JoinSessionAuthViewProtocol.swift */,
+				C98ACB082C55B98E00C946D6 /* JoinSessionAuthPresenterProtocol.swift */,
+				C98ACB0A2C55BAAC00C946D6 /* JoinSessionAuthSceneFactory.swift */,
+			);
+			path = JoinSessionAuthFlow;
 			sourceTree = "<group>";
 		};
 		C991F0CB2C3812220090543B /* CoincidencesMovieInfoViewController */ = {
@@ -680,6 +731,7 @@
 		E2B9BF9C2BD7CDB800592578 /* AuthFlow */ = {
 			isa = PBXGroup;
 			children = (
+				C98ACAF22C559BB000C946D6 /* EditNameFlow */,
 				E2B9BFA12BD7CEC300592578 /* AuthViewController.swift */,
 				C917E3F42BE6CED000B34639 /* AuthCoordinator.swift */,
 				C917E3F82BE6CFC700B34639 /* AuthPresenter.swift */,
@@ -860,11 +912,13 @@
 				E9A9E74E2C1345D100AEF879 /* SessionsListCell.swift in Sources */,
 				4A6280422BE9001200102304 /* CustomNavigationBar.swift in Sources */,
 				5AEEACD22C10B59A00F18BF9 /* SplashScreenSceneFactory.swift in Sources */,
+				C98ACB052C55B90700C946D6 /* JoinSessionAuthPresenter.swift in Sources */,
 				E2EFF0EE2C0613710022D54C /* InvitingUsersPresenter.swift in Sources */,
 				4A62804F2BF13DBE00102304 /* InvitingUsersViewController.swift in Sources */,
 				4A6280462BEAB02E00102304 /* CreateSessionCellModel.swift in Sources */,
 				E2B9BFA42BD7CF0300592578 /* MainViewController.swift in Sources */,
 				E29170672C4FD9A300B55E25 /* UserServiceApi.swift in Sources */,
+				C98ACAF62C559D4900C946D6 /* EditNameCoordinator.swift in Sources */,
 				4AE89A492C0B2275008DD0D4 /* CustomMovieSelection.swift in Sources */,
 				4AAEABB62C1DB54900A14C1D /* SelectionMoviesPresenterProtocol.swift in Sources */,
 				E2EFF0F02C0613D30022D54C /* InvitingUsersCoordinator.swift in Sources */,
@@ -874,10 +928,12 @@
 				E9B495062C28779400B653F8 /* SessionMovieSection.swift in Sources */,
 				C9C4D59E2BD3A3C70081CD23 /* AppDelegate.swift in Sources */,
 				E2B9BFA22BD7CEC300592578 /* AuthViewController.swift in Sources */,
+				C98ACAF42C559BEB00C946D6 /* EditNameViewController.swift in Sources */,
 				4AE89A442C08ACF9008DD0D4 /* SelectionMoviesViewController.swift in Sources */,
 				4A6280482BEAB1FA00102304 /* MovieMockData.swift in Sources */,
 				E95F00A22C2706A4001AAE7E /* SessionMoviesPresenter.swift in Sources */,
 				E9A2701F2BE4C2940088652B /* CGFloat+Extensions.swift in Sources */,
+				C98ACB012C55B3E600C946D6 /* JoinSessionAuthViewController.swift in Sources */,
 				E2EFF0EC2C06134B0022D54C /* InvitingUsersPresenterProtocol.swift in Sources */,
 				E95F009C2C2702A8001AAE7E /* SessionMoviesViewController.swift in Sources */,
 				5A3FA9A52C454E8F002C61B4 /* StatusEnum.swift in Sources */,
@@ -892,6 +948,7 @@
 				C91DCC7E2C006AE1001BC065 /* ReusableUICollectionView.swift in Sources */,
 				C91DCC762BFEA1FA001BC065 /* JoinSessionPresenter.swift in Sources */,
 				C964F7AF2C19153E00A37295 /* CoincidencesCoordinator.swift in Sources */,
+				C98ACAFE2C55A3D300C946D6 /* EditNameSceneFactory.swift in Sources */,
 				5A367C1C2C3FF0530071FC97 /* CustomRatingParentCollectionCell.swift in Sources */,
 				4AAEABC82C301D6A00A14C1D /* DismissSelectionMoviesDelegate.swift in Sources */,
 				E9FA32F02C1A309300036043 /* SessionsListPresenter.swift in Sources */,
@@ -917,9 +974,12 @@
 				E9208CAD2C2D1DA000A08EFB /* SessionBaseSection.swift in Sources */,
 				4A62804C2BF0EB7300102304 /* CustomWarningNotification.swift in Sources */,
 				E9A9E74C2C133CC600AEF879 /* SessionsListEmptyView.swift in Sources */,
+				C98ACAFA2C55A19C00C946D6 /* EditNamePresenterProtocol.swift in Sources */,
 				5A3FA99F2C454BFE002C61B4 /* MovieDetailModel.swift in Sources */,
 				C91DCC7C2BFEA33E001BC065 /* JoinSessionViewProtocol.swift in Sources */,
 				E2B9BF872BD7B8EF00592578 /* CoordinatorProtocol.swift in Sources */,
+				C98ACB072C55B96500C946D6 /* JoinSessionAuthViewProtocol.swift in Sources */,
+				C98ACAF82C55A0C500C946D6 /* EditNamePresenter.swift in Sources */,
 				C964F7B12C19166800A37295 /* CoincidencesSceneFactory.swift in Sources */,
 				C917E3F52BE6CED000B34639 /* AuthCoordinator.swift in Sources */,
 				C91332D52C10BE820036FC44 /* MovieSelectionOnboardingCoordinator.swift in Sources */,
@@ -930,8 +990,10 @@
 				E95F009E2C270308001AAE7E /* SessionMoviesPresenterProtocol.swift in Sources */,
 				4ADB4BCC2C3EAAB6002D5433 /* MatchSelectionMoviesViewController.swift in Sources */,
 				4A2FB3B02BF780150048F5B9 /* CustomSegmentedControl.swift in Sources */,
+				C98ACAFC2C55A1BC00C946D6 /* EditNameViewProtocol.swift in Sources */,
 				C91332DB2C10BFA30036FC44 /* MovieSelectionOnboardingSceneFactory.swift in Sources */,
 				E2B9BF952BD7C58F00592578 /* AppCoordinator.swift in Sources */,
+				C98ACB032C55B4CF00C946D6 /* JoinSessionAuthCoordinator.swift in Sources */,
 				5A3FA9952C45494D002C61B4 /* CustomSessionCreateModel.swift in Sources */,
 				E2EFF0F22C0615D60022D54C /* InvitingUsersFactory.swift in Sources */,
 				5A3FA99D2C454B8D002C61B4 /* GenreModel.swift in Sources */,
@@ -956,6 +1018,7 @@
 				4AAEABA22C0C66D400A14C1D /* SelectionMovieMockData.swift in Sources */,
 				4AAEABBD2C1DD6FA00A14C1D /* MatchViewController.swift in Sources */,
 				4AAEABBF2C261BCB00A14C1D /* SelectionMoviesViewProtocol.swift in Sources */,
+				C98ACB092C55B98E00C946D6 /* JoinSessionAuthPresenterProtocol.swift in Sources */,
 				4AE89A472C08AF53008DD0D4 /* CustomNavigationBarTwoButtons.swift in Sources */,
 				E2B9BFAC2BD8034C00592578 /* OnboardingPresenterProtocol.swift in Sources */,
 				C915644C2C29B24E00887BBA /* ReusableLikedMoviesCell.swift in Sources */,
@@ -969,6 +1032,7 @@
 				E9BEFD802BE7D53A002E940B /* RoundedButton.swift in Sources */,
 				4A6280402BE3F23100102304 /* MainCellModel.swift in Sources */,
 				C91DCC802C00B4F0001BC065 /* ReusableUICollectionViewCell.swift in Sources */,
+				C98ACB0B2C55BAAC00C946D6 /* JoinSessionAuthSceneFactory.swift in Sources */,
 				5AEEACD02C10770200F18BF9 /* SplashScreenPresenterProtocol.swift in Sources */,
 				5AA4F08B2C3E94F50088DDEE /* CustomMovieDetailsCollectionHeader.swift in Sources */,
 				5A3FA9932C454906002C61B4 /* CollectionModel.swift in Sources */,
