@@ -109,4 +109,17 @@ extension CreateSessionPresenter {
             }
         }
     }
+
+    func getCollections() {
+        contentService.getCollections { result in
+            switch result {
+            case .success(let collections):
+                // TODO: - передать коллекции в массив, отобразить на экране
+                print("Collections retrieved: \(collections)")
+            case .failure(let error):
+                // TODO: - обработать ошибки
+                print("Failed to get collections: \(error.localizedDescription)")
+            }
+        }
+    }
 }
