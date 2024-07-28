@@ -117,6 +117,10 @@
 		C9FCE9692BD3E4D600FE655D /* Inter-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9FCE9582BD3E25900FE655D /* Inter-Regular.otf */; };
 		C9FCE96A2BD3E4D800FE655D /* Inter-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9FCE9562BD3E25800FE655D /* Inter-SemiBold.otf */; };
 		C9FCE96D2BD3E53C00FE655D /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCE96C2BD3E53C00FE655D /* UIFont+Extension.swift */; };
+		E291706B2C55E2FF00B55E25 /* GenresAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E291706A2C55E2FF00B55E25 /* GenresAPI.swift */; };
+		E291706E2C55E3B300B55E25 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = E291706D2C55E3B300B55E25 /* Moya */; };
+		E29170702C55E3F500B55E25 /* GenresService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E291706F2C55E3F500B55E25 /* GenresService.swift */; };
+		E29170722C55E4E600B55E25 /* DependencyInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29170712C55E4E600B55E25 /* DependencyInjection.swift */; };
 		E2B9BF872BD7B8EF00592578 /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BF862BD7B8EF00592578 /* CoordinatorProtocol.swift */; };
 		E2B9BF892BD7BA2C00592578 /* AppCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BF882BD7BA2C00592578 /* AppCoordinatorProtocol.swift */; };
 		E2B9BF932BD7C45B00592578 /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9BF922BD7C45B00592578 /* BaseCoordinator.swift */; };
@@ -264,6 +268,9 @@
 		C9FCE95E2BD3E25C00FE655D /* Inter-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Bold.otf"; sourceTree = "<group>"; };
 		C9FCE9612BD3E25D00FE655D /* Inter-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Medium.otf"; sourceTree = "<group>"; };
 		C9FCE96C2BD3E53C00FE655D /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
+		E291706A2C55E2FF00B55E25 /* GenresAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresAPI.swift; sourceTree = "<group>"; };
+		E291706F2C55E3F500B55E25 /* GenresService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresService.swift; sourceTree = "<group>"; };
+		E29170712C55E4E600B55E25 /* DependencyInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjection.swift; sourceTree = "<group>"; };
 		E2B9BF862BD7B8EF00592578 /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
 		E2B9BF882BD7BA2C00592578 /* AppCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		E2B9BF922BD7C45B00592578 /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
@@ -307,6 +314,7 @@
 			files = (
 				C9C4D5B42BD3B3810081CD23 /* Kingfisher in Frameworks */,
 				C90CAB372BFAFA6B00B42456 /* Swinject in Frameworks */,
+				E291706E2C55E3B300B55E25 /* Moya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -516,6 +524,7 @@
 			children = (
 				C9C4D59C2BD3A3C70081CD23 /* DavaiPosmotrim */,
 				C9C4D59B2BD3A3C70081CD23 /* Products */,
+				E291706C2C55E3B300B55E25 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -552,6 +561,9 @@
 				E9A270202BE52B980088652B /* Mistakes */,
 				C9FCE9502BD3E05400FE655D /* Resources */,
 				C964B70E2BD8137800CF9AF0 /* UI */,
+				E291706A2C55E2FF00B55E25 /* GenresAPI.swift */,
+				E291706F2C55E3F500B55E25 /* GenresService.swift */,
+				E29170712C55E4E600B55E25 /* DependencyInjection.swift */,
 			);
 			path = DavaiPosmotrim;
 			sourceTree = "<group>";
@@ -597,6 +609,13 @@
 				4AAEABB12C1761F500A14C1D /* UIImage+Extension.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		E291706C2C55E3B300B55E25 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		E2B9BF8C2BD7BD0900592578 /* Application */ = {
@@ -731,6 +750,7 @@
 			packageProductDependencies = (
 				C9C4D5B32BD3B3810081CD23 /* Kingfisher */,
 				C90CAB362BFAFA6B00B42456 /* Swinject */,
+				E291706D2C55E3B300B55E25 /* Moya */,
 			);
 			productName = DavaiPosmotrim;
 			productReference = C9C4D59A2BD3A3C70081CD23 /* DavaiPosmotrim.app */;
@@ -833,10 +853,12 @@
 				4AAEABB62C1DB54900A14C1D /* SelectionMoviesPresenterProtocol.swift in Sources */,
 				E2EFF0F02C0613D30022D54C /* InvitingUsersCoordinator.swift in Sources */,
 				5AA4F08D2C3EA2CB0088DDEE /* LeftAllignedLayout.swift in Sources */,
+				E29170702C55E3F500B55E25 /* GenresService.swift in Sources */,
 				5AA4F08F2C3EA6A50088DDEE /* CustomMovieDetailsCollectionFooter.swift in Sources */,
 				C96895CF2BE835EA002A99E6 /* AuthPresenterProtocol.swift in Sources */,
 				E9B495062C28779400B653F8 /* SessionMovieSection.swift in Sources */,
 				C9C4D59E2BD3A3C70081CD23 /* AppDelegate.swift in Sources */,
+				E29170722C55E4E600B55E25 /* DependencyInjection.swift in Sources */,
 				E2B9BFA22BD7CEC300592578 /* AuthViewController.swift in Sources */,
 				4AE89A442C08ACF9008DD0D4 /* SelectionMoviesViewController.swift in Sources */,
 				4A6280482BEAB1FA00102304 /* MovieMockData.swift in Sources */,
@@ -850,6 +872,7 @@
 				E2B9BF892BD7BA2C00592578 /* AppCoordinatorProtocol.swift in Sources */,
 				E9C34A332C135F57002628F9 /* SessionsListViewController.swift in Sources */,
 				5AEEACCE2C10766F00F18BF9 /* SplashScreenPresenter.swift in Sources */,
+				E291706B2C55E2FF00B55E25 /* GenresAPI.swift in Sources */,
 				E2B9BFA62BD7CF3000592578 /* CreateSessionViewController.swift in Sources */,
 				5A3FA9912C45488A002C61B4 /* MovieModel.swift in Sources */,
 				C90CAB342BFAFA1100B42456 /* JoinSessionViewController.swift in Sources */,
@@ -1096,7 +1119,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5BRAJ87SV2;
+				DEVELOPMENT_TEAM = G2Z3KJVPLW;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DavaiPosmotrim/Info.plist;
@@ -1131,7 +1154,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5BRAJ87SV2;
+				DEVELOPMENT_TEAM = G2Z3KJVPLW;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DavaiPosmotrim/Info.plist;
@@ -1219,6 +1242,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C9C4D5B22BD3B3810081CD23 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		E291706D2C55E3B300B55E25 /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C9C4D5B12BD3B27D0081CD23 /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = Moya;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
