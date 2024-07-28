@@ -8,8 +8,9 @@
 import Foundation
 import Moya
 
-protocol GenresServiceProtocol {
+protocol ContentServiceProtocol {
     func getGenres(completion: @escaping (Result<[GenreModel], Error>) -> Void)
+    func getCollections(completion: @escaping (Result<[CollectionModel], Error>) -> Void)
 }
 
 struct ErrorResponse: Codable {
@@ -20,11 +21,10 @@ struct ErrorResponse: Codable {
     }
 }
 
+class GenresService: ContentServiceProtocol {
+    private let provider: MoyaProvider<ContentAPI>
 
-class GenresService: GenresServiceProtocol {
-    private let provider: MoyaProvider<GenresAPI>
-
-    init(provider: MoyaProvider<GenresAPI> = MoyaProvider<GenresAPI>()) {
+    init(provider: MoyaProvider<ContentAPI> = MoyaProvider<ContentAPI>()) {
         self.provider = provider
     }
 
@@ -52,5 +52,29 @@ class GenresService: GenresServiceProtocol {
             }
         }
     }
-}
 
+    func getCollections(completion: @escaping (Result<[CollectionModel], Error>) -> Void) {
+        provider.request(.getCollections) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    let collections = try JSONDecoder().decode([CollectionModel].self, from: response.data)
+                    completion(.success(collections))
+                } catch {
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                if let response = error.response {
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: response.data)
+                        completion(.failure(NSError(domain: "", code: response.statusCode, userInfo: [NSLocalizedDescriptionKey: errorResponse.detail])))
+                    } catch {
+                        completion(.failure(error))
+                    }
+                } else {
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
+}

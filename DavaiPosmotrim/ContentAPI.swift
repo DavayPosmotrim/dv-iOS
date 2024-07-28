@@ -8,11 +8,12 @@
 import Foundation
 import Moya
 
-enum GenresAPI {
+enum ContentAPI {
     case getGenres
+    case getCollections
 }
 
-extension GenresAPI: TargetType {
+extension ContentAPI: TargetType {
     var baseURL: URL {
         return URL(string: "http://80.87.108.90/")!
     }
@@ -21,12 +22,14 @@ extension GenresAPI: TargetType {
         switch self {
         case .getGenres:
             return "api/genres/"
+        case .getCollections:
+            return "api/collections/"
         }
     }
 
     var method: Moya.Method {
         switch self {
-        case .getGenres:
+        case .getGenres, .getCollections:
             return .get
         }
     }

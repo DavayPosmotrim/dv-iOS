@@ -12,7 +12,7 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
     // MARK: - Public Properties
 
     weak var coordinator: CreateSessionCoordinator?
-    private let genresService: GenresServiceProtocol
+    private let contentService: ContentServiceProtocol
 
     // MARK: - Private Properties
 
@@ -20,9 +20,9 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
     private var selectionsMovies = selectionsMockData
     private var genresMovies = genreMockData
 
-    init(coordinator: CreateSessionCoordinator, genresService: GenresServiceProtocol) {
+    init(coordinator: CreateSessionCoordinator, contentService: ContentServiceProtocol) {
         self.coordinator = coordinator
-        self.genresService = genresService
+        self.contentService = contentService
     }
 
     // MARK: - Public Methods
@@ -40,7 +40,8 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
     }
 
     func getGenresMoviesCount() -> Int {
-        getGenres()
+        //getGenres()
+        getCollections()
         return genreMockData.count
     }
 
@@ -97,7 +98,7 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
 
 extension CreateSessionPresenter {
     func getGenres() {
-        genresService.getGenres { result in
+        contentService.getGenres { result in
             switch result {
             case .success(let genres):
                 // TODO: - передать жанры в массив, отобразить на экране

@@ -15,15 +15,15 @@ class DependencyInjection {
     private init() {
         container = Container()
 
-        // Регистрация GenresService
-        container.register(GenresServiceProtocol.self) { _ in
+        // Регистрация ContentService
+        container.register(ContentServiceProtocol.self) { _ in
             GenresService()
         }
 
-        // Регистрация CreateSessionPresenter с инъекцией GenresService и координатора
+        // Регистрация CreateSessionPresenter с инъекцией ContentService и координатора
         container.register(CreateSessionPresenter.self) { (resolver, coordinator: CreateSessionCoordinator) in
-            let genresService = resolver.resolve(GenresServiceProtocol.self)!
-            return CreateSessionPresenter(coordinator: coordinator, genresService: genresService)
+            let contentService = resolver.resolve(ContentServiceProtocol.self)!
+            return CreateSessionPresenter(coordinator: coordinator, contentService: contentService)
         }
     }
 
@@ -31,4 +31,3 @@ class DependencyInjection {
         return container.resolve(serviceType)
     }
 }
-
