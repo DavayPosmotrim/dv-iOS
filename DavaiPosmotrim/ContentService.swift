@@ -21,7 +21,7 @@ struct ErrorResponse: Codable {
     }
 }
 
-class GenresService: ContentServiceProtocol {
+class ContentService: ContentServiceProtocol {
     private let provider: MoyaProvider<ContentAPI>
 
     init(provider: MoyaProvider<ContentAPI> = MoyaProvider<ContentAPI>()) {

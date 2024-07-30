@@ -17,7 +17,7 @@ class DependencyInjection {
 
         // Регистрация ContentService
         container.register(ContentServiceProtocol.self) { _ in
-            GenresService()
+            ContentService()
         }
 
         // Регистрация CreateSessionPresenter с инъекцией ContentService и координатора

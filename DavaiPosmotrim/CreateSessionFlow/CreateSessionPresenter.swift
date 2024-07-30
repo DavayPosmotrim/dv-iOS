@@ -94,7 +94,7 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
     }
 }
 
-// MARK: - GenresService Methods
+// MARK: - ContnetService Methods
 
 extension CreateSessionPresenter {
     func getGenres() {
