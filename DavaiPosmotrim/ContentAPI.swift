@@ -15,7 +15,7 @@ enum ContentAPI {
 
 extension ContentAPI: TargetType {
     var baseURL: URL {
-        return URL(string: "http://80.87.108.90/")!
+        URL(string: "http://80.87.108.90/")!
     }
 
     var path: String {
