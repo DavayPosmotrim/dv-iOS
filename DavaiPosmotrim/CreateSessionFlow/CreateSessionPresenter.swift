@@ -40,7 +40,6 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
     }
 
     func getGenresMoviesCount() -> Int {
-        //getGenres()
         getCollections()
         return genreMockData.count
     }

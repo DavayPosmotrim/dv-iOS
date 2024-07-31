@@ -22,7 +22,9 @@ class DependencyInjection {
 
         // Регистрация CreateSessionPresenter с инъекцией ContentService и координатора
         container.register(CreateSessionPresenter.self) { (resolver, coordinator: CreateSessionCoordinator) in
-            let contentService = resolver.resolve(ContentServiceProtocol.self)!
+            guard let contentService = resolver.resolve(ContentServiceProtocol.self) else {
+                fatalError("Failed to resolve ContentServiceProtocol")
+            }
             return CreateSessionPresenter(coordinator: coordinator, contentService: contentService)
         }
     }
