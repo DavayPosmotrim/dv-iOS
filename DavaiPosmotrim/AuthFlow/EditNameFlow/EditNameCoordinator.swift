@@ -15,7 +15,6 @@ final class EditNameCoordinator: BaseCoordinator {
 
     override func finish() {
         finishDelegate?.didFinish(self)
-        print("finish edit")
     }
 }
 

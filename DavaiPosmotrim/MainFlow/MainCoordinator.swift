@@ -92,7 +92,6 @@ private extension MainCoordinator {
 extension MainCoordinator: CoordinatorFinishDelegate {
     func didFinish(_ coordinator: CoordinatorProtocol) {
         childCoordinators.removeAll()
-        print("coordinators cleaned")
         switch coordinator.type {
         case .selectionMovies:
             showSessionsList()
