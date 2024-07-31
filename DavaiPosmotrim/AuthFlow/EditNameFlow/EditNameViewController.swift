@@ -9,14 +9,17 @@ import UIKit
 
 final class EditNameViewController: UIViewController {
 
-    // MARK: - Public properties
+    // MARK: - Stored properties
 
     var presenter: EditNamePresenterProtocol
+
+    private var reusableAuthModel: ReusableAuthViewModel?
 
     // MARK: - Lazy properties
 
     private lazy var editNameView: ReusableAuthView = {
         let view = ReusableAuthView(frame: .zero, authEvent: .edit)
+        view.setupView(with: reusableAuthModel)
         return view
     }()
 
@@ -36,6 +39,7 @@ final class EditNameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupModel()
         setupView()
     }
 
@@ -57,6 +61,19 @@ final class EditNameViewController: UIViewController {
             editNameView.topAnchor.constraint(equalTo: view.topAnchor),
             editNameView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+
+    private func setupModel() {
+        reusableAuthModel = ReusableAuthViewModel(
+            enterButtonAction: { [weak self] in
+                guard let self else { return }
+                self.dismiss(animated: true)
+                self.presenter.finishEdit()
+            },
+            textFieldAction: nil,
+            userNameAction: nil,
+            setupAction: nil,
+            finishFlowAction: nil)
     }
 }
 

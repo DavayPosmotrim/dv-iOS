@@ -45,6 +45,11 @@ final class ReusableAuthView: UIView {
 
     // MARK: - Stored properties
 
+    private let charactersMinNumber = 2
+    private let charactersBarrierNumber = 12
+    private let charactersMaxNumber = 17
+    private let authCodeMaxNumber = 7
+
     private var userName = String()
     private var sessionEnterCode = String()
     private let authEvent: AuthEvent
@@ -123,6 +128,7 @@ final class ReusableAuthView: UIView {
 
         backgroundColor = .whiteBackground
 
+        setupTextFieldProperties()
         setupSubviews()
         setupConstraints()
     }
@@ -145,12 +151,12 @@ final class ReusableAuthView: UIView {
     func updateUIElements(
         text: String?,
         font: UIFont?,
-        labelProperty: Bool,
-        buttonProperty: Bool
+        labelIsHidden: Bool,
+        buttonIsEnabled: Bool
     ) {
         lowerLabel.text = text ?? ""
-        lowerLabel.isHidden = labelProperty
-        enterButton.isEnabled = buttonProperty
+        lowerLabel.isHidden = labelIsHidden
+        enterButton.isEnabled = buttonIsEnabled
         if let font {
             nameTextField.font = font
         }
@@ -180,7 +186,7 @@ private extension ReusableAuthView {
     @objc func textFieldDidChange(sender: UITextField) {
         guard let text = sender.text else { return }
         if authEvent != .joinSession {
-            textFieldAction?()
+            calculateCharactersNumber(with: text)
         } else {
             sessionEnterCode = text
             textFieldAction?()
@@ -229,8 +235,42 @@ private extension ReusableAuthView {
         if authEvent != .joinSession {
             guard let userNameAction else { return }
             userName = userNameAction()
+            calculateCharactersNumber(with: userName)
         }
         setupAction?()
+    }
+
+    func calculateCharactersNumber(with text: String) {
+        switch (text.isEmpty, text.count) {
+        case (true, _):
+            updateUIElements(
+                text: Resources.Authentication.lowerLabelInputNameWarningText,
+                font: nil,
+                labelIsHidden: false,
+                buttonIsEnabled: false
+            )
+        case (false, 0..<charactersMinNumber):
+            updateUIElements(
+                text: Resources.Authentication.lowerLabelLengthWarningText,
+                font: nil,
+                labelIsHidden: false,
+                buttonIsEnabled: false
+            )
+        case (false, charactersBarrierNumber...):
+            updateUIElements(
+                text: nil,
+                font: .textLabelFont,
+                labelIsHidden: true,
+                buttonIsEnabled: true
+            )
+        default:
+            updateUIElements(
+                text: nil,
+                font: .textHeadingFont,
+                labelIsHidden: true,
+                buttonIsEnabled: true
+            )
+        }
     }
 }
 
@@ -242,29 +282,31 @@ extension ReusableAuthView: UITextFieldDelegate {
         shouldChangeCharactersIn range: NSRange,
         replacementString string: String
     ) -> Bool {
-        let maximumLength = authEvent == .joinSession ? 7 : 17
+        let maximumLength = authEvent == .joinSession ? authCodeMaxNumber : charactersMaxNumber
         let currentString = (textField.text ?? "") as NSString
         let updatedString = currentString.replacingCharacters(in: range, with: string)
-        if authEvent != .joinSession {
+        
+        switch authEvent {
+        case .joinSession:
+            if updatedString.rangeOfCharacter(from: CharacterSet.alphanumerics.inverted) != nil {
+                return false
+            }
+        default:
             if updatedString.rangeOfCharacter(from: CharacterSet.letters.inverted) != nil {
                 updateUIElements(
                     text: Resources.Authentication.lowerLabelNumbersWarningText,
                     font: nil,
-                    labelProperty: false,
-                    buttonProperty: false
+                    labelIsHidden: false,
+                    buttonIsEnabled: false
                 )
                 return false
             } else if updatedString.count == maximumLength {
                 updateUIElements(
                     text: Resources.Authentication.lowerLabelMaxCharactersText,
                     font: nil,
-                    labelProperty: false,
-                    buttonProperty: false
+                    labelIsHidden: false,
+                    buttonIsEnabled: false
                 )
-                return false
-            }
-        } else if authEvent == .joinSession {
-            if updatedString.rangeOfCharacter(from: CharacterSet.alphanumerics.inverted) != nil {
                 return false
             }
         }
