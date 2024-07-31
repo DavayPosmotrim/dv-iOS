@@ -15,7 +15,7 @@ final class EditNameCoordinator: BaseCoordinator {
 
     override func finish() {
         finishDelegate?.didFinish(self)
-        print("finish")
+        print("finish edit")
     }
 }
 
@@ -24,19 +24,5 @@ private extension EditNameCoordinator {
     func showEditNameFlow() {
         let viewController = EditNameSceneFactory.makeEditNameViewController(with: self)
         navigationController.present(viewController, animated: true)
-    }
-}
-
-    // MARK: - CoordinatorFinishDelegate
-
-extension EditNameCoordinator: CoordinatorFinishDelegate {
-
-    func didFinish(_ coordinator: any CoordinatorProtocol) {
-        switch coordinator.type {
-        case .edit:
-            removeChild(coordinator)
-        default:
-            return
-        }
     }
 }

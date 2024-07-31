@@ -9,9 +9,19 @@ import UIKit
 
 final class JoinSessionAuthViewController: UIViewController {
 
-    // MARK: - Public properties
+    // MARK: - Stored properties
 
     var presenter: JoinSessionAuthPresenterProtocol
+
+    private var reusableAuthModel: ReusableAuthViewModel?
+
+    // MARK: - Lazy properties
+
+    private lazy var editNameView: ReusableAuthView = {
+        let view = ReusableAuthView(frame: .zero, authEvent: .joinSession)
+        view.setupView(with: reusableAuthModel)
+        return view
+    }()
 
     // MARK: - Initializers
 
@@ -29,13 +39,42 @@ final class JoinSessionAuthViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .systemBlue
+        setupModel()
+        setupView()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
-        presenter.finishSessionAuth()
+//        presenter.finishSessionAuth()
+//        print("finish join auth")
+    }
+
+    // MARK: - Private methods
+
+    private func setupView() {
+        view.addSubview(editNameView)
+        editNameView.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            editNameView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            editNameView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            editNameView.topAnchor.constraint(equalTo: view.topAnchor),
+            editNameView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+
+    private func setupModel() {
+        reusableAuthModel = ReusableAuthViewModel(
+            enterButtonAction: { [weak self] in
+                guard let self else { return }
+                self.dismiss(animated: true)
+                self.presenter.showJoinSession()
+            },
+            textFieldAction: nil,
+            userNameAction: nil,
+            setupAction: nil,
+            finishFlowAction: nil)
     }
 }
 

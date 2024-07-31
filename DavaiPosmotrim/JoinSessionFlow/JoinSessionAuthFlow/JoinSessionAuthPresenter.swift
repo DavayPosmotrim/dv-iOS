@@ -26,4 +26,9 @@ final class JoinSessionAuthPresenter: JoinSessionAuthPresenterProtocol {
         guard let coordinator else { return }
         coordinator.finish()
     }
+
+    func showJoinSession() {
+        guard let coordinator else { return }
+        coordinator.showJoinSessionFlow()
+    }
 }

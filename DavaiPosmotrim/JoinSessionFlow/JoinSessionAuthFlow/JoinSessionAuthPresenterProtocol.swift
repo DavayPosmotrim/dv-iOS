@@ -9,4 +9,5 @@ import Foundation
 
 protocol JoinSessionAuthPresenterProtocol: AnyObject {
     func finishSessionAuth()
+    func showJoinSession()
 }

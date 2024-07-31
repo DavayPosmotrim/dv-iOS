@@ -7,32 +7,6 @@
 
 import UIKit
 
-enum AuthEvent {
-    case auth
-    case edit
-    case joinSession
-
-    var titleText: String {
-        switch self {
-        case .auth, .edit:
-            return Resources.Authentication.upperLabelText
-        case .joinSession:
-            return Resources.Authentication.joinSessionUpperText
-        }
-    }
-
-    var buttonLabelText: String {
-        switch self {
-        case .auth:
-            return Resources.Authentication.enterButtonLabelText
-        case .edit:
-            return Resources.Authentication.editButtonLabelText
-        case .joinSession:
-            return Resources.Authentication.joinSessionButtonLabelText
-        }
-    }
-}
-
 final class AuthViewController: UIViewController {
 
     // MARK: - Stored properties

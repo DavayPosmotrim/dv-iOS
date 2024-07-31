@@ -16,6 +16,16 @@ final class JoinSessionAuthCoordinator: BaseCoordinator {
     override func finish() {
         finishDelegate?.didFinish(self)
     }
+
+    func showJoinSessionFlow() {
+        let joinSessionCoordinator = JoinSessionCoordinator(
+            type: .joinSession,
+            finishDelegate: finishDelegate,
+            navigationController: navigationController
+        )
+        addChild(joinSessionCoordinator)
+        joinSessionCoordinator.start()
+    }
 }
 
 private extension JoinSessionAuthCoordinator {
@@ -23,19 +33,5 @@ private extension JoinSessionAuthCoordinator {
     func showJoinSessionAuthFlow() {
         let viewController = JoinSessionAuthSceneFactory.makeJoinSessionAuthViewController(with: self)
         navigationController.present(viewController, animated: true)
-    }
-}
-
-    // MARK: - CoordinatorFinishDelegate
-
-extension JoinSessionAuthCoordinator: CoordinatorFinishDelegate {
-
-    func didFinish(_ coordinator: any CoordinatorProtocol) {
-        switch coordinator.type {
-        case .authSession:
-            removeChild(coordinator)
-        default:
-            return
-        }
     }
 }

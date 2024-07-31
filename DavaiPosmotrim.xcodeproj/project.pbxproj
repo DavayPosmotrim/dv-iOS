@@ -123,6 +123,7 @@
 		C9C4D5A72BD3A3CB0081CD23 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9C4D5A62BD3A3CB0081CD23 /* Assets.xcassets */; };
 		C9C4D5AA2BD3A3CB0081CD23 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = C9C4D5A92BD3A3CB0081CD23 /* Base */; };
 		C9C4D5B42BD3B3810081CD23 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = C9C4D5B32BD3B3810081CD23 /* Kingfisher */; };
+		C9C53FD12C56B30C005302AC /* ReusableAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C53FD02C56B30C005302AC /* ReusableAuthView.swift */; };
 		C9FCE9662BD3E4CF00FE655D /* DaysOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9FCE9522BD3E22B00FE655D /* DaysOne-Regular.ttf */; };
 		C9FCE9672BD3E4D200FE655D /* Inter-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9FCE95E2BD3E25C00FE655D /* Inter-Bold.otf */; };
 		C9FCE9682BD3E4D300FE655D /* Inter-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9FCE9612BD3E25D00FE655D /* Inter-Medium.otf */; };
@@ -285,6 +286,7 @@
 		C9C4D5A62BD3A3CB0081CD23 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9C4D5A92BD3A3CB0081CD23 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C9C4D5AB2BD3A3CB0081CD23 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C9C53FD02C56B30C005302AC /* ReusableAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableAuthView.swift; sourceTree = "<group>"; };
 		C9FCE9522BD3E22B00FE655D /* DaysOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DaysOne-Regular.ttf"; sourceTree = "<group>"; };
 		C9FCE9562BD3E25800FE655D /* Inter-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-SemiBold.otf"; sourceTree = "<group>"; };
 		C9FCE9582BD3E25900FE655D /* Inter-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Regular.otf"; sourceTree = "<group>"; };
@@ -508,6 +510,7 @@
 				C9147CB02C0611F50086A663 /* CustomAlertView.swift */,
 				4AE89A462C08AF53008DD0D4 /* CustomNavigationBarTwoButtons.swift */,
 				C961C0602C25A1E8008C3621 /* CustomNavBar.swift */,
+				C9C53FD02C56B30C005302AC /* ReusableAuthView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -988,6 +991,7 @@
 				E2B9BF972BD7C67600592578 /* OnboardingCoordinator.swift in Sources */,
 				5A3FA99B2C454B60002C61B4 /* CustomUserRequestModel.swift in Sources */,
 				E95F009E2C270308001AAE7E /* SessionMoviesPresenterProtocol.swift in Sources */,
+				C9C53FD12C56B30C005302AC /* ReusableAuthView.swift in Sources */,
 				4ADB4BCC2C3EAAB6002D5433 /* MatchSelectionMoviesViewController.swift in Sources */,
 				4A2FB3B02BF780150048F5B9 /* CustomSegmentedControl.swift in Sources */,
 				C98ACAFC2C55A1BC00C946D6 /* EditNameViewProtocol.swift in Sources */,

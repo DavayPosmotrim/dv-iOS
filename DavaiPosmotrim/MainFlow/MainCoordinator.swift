@@ -49,6 +49,7 @@ private extension MainCoordinator {
     func showAuthFlow() {
         let editCoordinator = EditNameCoordinator(
             type: .edit,
+            finishDelegate: self,
             navigationController: navigationController
         )
         addChild(editCoordinator)
@@ -75,16 +76,6 @@ private extension MainCoordinator {
         authSessionCoordinator.start()
     }
 
-    func showJoinSessionFlow() {
-        let joinSessionCoordinator = JoinSessionCoordinator(
-            type: .joinSession,
-            finishDelegate: self,
-            navigationController: navigationController
-        )
-        addChild(joinSessionCoordinator)
-        joinSessionCoordinator.start()
-    }
-
     func showSessionsList() {
         let sessionsListCoordinator = SessionsListCoordinator(
             type: .sessionsList,
@@ -101,9 +92,8 @@ private extension MainCoordinator {
 extension MainCoordinator: CoordinatorFinishDelegate {
     func didFinish(_ coordinator: CoordinatorProtocol) {
         childCoordinators.removeAll()
+        print("coordinators cleaned")
         switch coordinator.type {
-        case .authSession:
-            showJoinSessionFlow()
         case .selectionMovies:
             showSessionsList()
         default:
