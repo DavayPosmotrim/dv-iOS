@@ -48,7 +48,7 @@ final class ReusableAuthView: UIView {
     private let charactersMaxNumber = 17
     private let authCodeMaxNumber = 7
 
-    private var userName = String()
+    private var userName = String() // придумать как избавиться от свойства
     private let authEvent: AuthEvent
 
     private var enterButtonAction: (() -> Void)?

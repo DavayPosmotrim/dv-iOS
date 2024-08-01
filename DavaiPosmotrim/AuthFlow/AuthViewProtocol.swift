@@ -11,7 +11,7 @@ protocol AuthViewProtocol: AnyObject {
     func updateUIElements(
         text: String?,
         font: UIFont?,
-        labelProperty: Bool,
-        buttonProperty: Bool
+        labelIsHidden: Bool,
+        buttonIsEnabled: Bool
     )
 }

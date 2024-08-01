@@ -27,6 +27,8 @@ final class EditNamePresenter: EditNamePresenterProtocol {
         coordinator.finish()
     }
 
+    // Переделать на делегат или кложер
+
     func authDidFinishNotification(userName: String) {
         NotificationCenter.default.post(
             name: Notification.Name(Resources.Authentication.authDidFinishNotification),
@@ -34,6 +36,8 @@ final class EditNamePresenter: EditNamePresenterProtocol {
             userInfo: [Resources.Authentication.savedNameUserDefaultsKey: userName]
         )
     }
+
+    // Переписать метод чтобы не принимал свойства
 
     func handleEnterButtonTap(with name: String) -> String {
         if name.isEmpty {
