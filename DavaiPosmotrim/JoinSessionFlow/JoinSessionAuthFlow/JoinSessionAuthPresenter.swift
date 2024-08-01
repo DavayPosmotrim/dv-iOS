@@ -20,7 +20,7 @@ final class JoinSessionAuthPresenter: JoinSessionAuthPresenterProtocol {
         self.coordinator = coordinator
     }
 
-    // MARK: - Public properties
+    // MARK: - Public methods
 
     func finishSessionAuth() {
         guard let coordinator else { return }
@@ -30,5 +30,28 @@ final class JoinSessionAuthPresenter: JoinSessionAuthPresenterProtocol {
     func showJoinSession() {
         guard let coordinator else { return }
         coordinator.showJoinSessionFlow()
+    }
+
+    func checkSessionCode(with code: String) {
+        let createdCode = "AAaa567"
+        UserDefaults.standard.setValue(createdCode, forKey: Resources.JoinSession.joinSessionCreatedCode)
+
+        // TODO: - add logic to fetch createdCode from server
+
+        if code == createdCode {
+            view?.updateUIElements(
+                text: nil,
+                font: nil,
+                labelIsHidden: true,
+                buttonIsEnabled: true
+            )
+        } else {
+            view?.updateUIElements(
+                text: Resources.Authentication.lowerLabelSessionNotFound,
+                font: nil,
+                labelIsHidden: false,
+                buttonIsEnabled: false
+            )
+        }
     }
 }

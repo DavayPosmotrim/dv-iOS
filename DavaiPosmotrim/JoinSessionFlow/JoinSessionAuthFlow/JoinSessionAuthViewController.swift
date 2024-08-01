@@ -18,7 +18,7 @@ final class JoinSessionAuthViewController: UIViewController {
 
     // MARK: - Lazy properties
 
-    private lazy var editNameView: ReusableAuthView = {
+    private lazy var joinSessionAuthView: ReusableAuthView = {
         let view = ReusableAuthView(frame: .zero, authEvent: .joinSession)
         view.setupView(with: reusableAuthModel)
         return view
@@ -55,14 +55,14 @@ final class JoinSessionAuthViewController: UIViewController {
     // MARK: - Private methods
 
     private func setupView() {
-        view.addSubview(editNameView)
-        editNameView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(joinSessionAuthView)
+        joinSessionAuthView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            editNameView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            editNameView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            editNameView.topAnchor.constraint(equalTo: view.topAnchor),
-            editNameView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            joinSessionAuthView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            joinSessionAuthView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            joinSessionAuthView.topAnchor.constraint(equalTo: view.topAnchor),
+            joinSessionAuthView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 
@@ -74,11 +74,28 @@ final class JoinSessionAuthViewController: UIViewController {
                 self.dismiss(animated: true)
                 self.presenter.showJoinSession()
             },
-            textFieldAction: nil,
-            userNameAction: nil,
-            setupAction: nil,
-            finishFlowAction: nil)
+            checkSessionCodeAction: { [weak self] code in
+                guard let self else { return }
+                self.presenter.checkSessionCode(with: code)
+            },
+            userNameAction: nil
+        )
     }
 }
 
-extension JoinSessionAuthViewController: JoinSessionAuthViewProtocol {}
+extension JoinSessionAuthViewController: JoinSessionAuthViewProtocol {
+    
+    func updateUIElements(
+        text: String?,
+        font: UIFont?,
+        labelIsHidden: Bool,
+        buttonIsEnabled: Bool
+    ) {
+        joinSessionAuthView.updateUIElements(
+            text: text,
+            font: font,
+            labelIsHidden: labelIsHidden,
+            buttonIsEnabled: buttonIsEnabled
+        )
+    }
+}

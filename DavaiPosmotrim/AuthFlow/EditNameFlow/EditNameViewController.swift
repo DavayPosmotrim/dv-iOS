@@ -19,7 +19,10 @@ final class EditNameViewController: UIViewController {
 
     private lazy var editNameView: ReusableAuthView = {
         let view = ReusableAuthView(frame: .zero, authEvent: .edit)
+        let name = presenter.checkUserNameProperty()
         view.setupView(with: reusableAuthModel)
+        view.updateTextField(with: name)
+        view.calculateCharactersNumber(with: name)
         return view
     }()
 
@@ -70,11 +73,29 @@ final class EditNameViewController: UIViewController {
                 self.dismiss(animated: true)
                 self.presenter.finishEdit()
             },
-            textFieldAction: nil,
-            userNameAction: nil,
-            setupAction: nil,
-            finishFlowAction: nil)
+            checkSessionCodeAction: nil,
+            userNameAction: { [weak self] text in
+                guard let self else { return "" }
+                self.presenter.authDidFinishNotification(userName: text)
+                return self.presenter.handleEnterButtonTap(with: text)
+            }
+        )
     }
 }
 
-extension EditNameViewController : EditNameViewProtocol {}
+extension EditNameViewController : EditNameViewProtocol {
+    
+    func updateUIElements(
+        text: String?,
+        font: UIFont?,
+        labelIsHidden: Bool,
+        buttonIsEnabled: Bool
+    ) {
+        editNameView.updateUIElements(
+            text: text,
+            font: font,
+            labelIsHidden: labelIsHidden,
+            buttonIsEnabled: buttonIsEnabled
+        )
+    }
+}

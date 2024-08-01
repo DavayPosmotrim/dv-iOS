@@ -9,10 +9,8 @@ import UIKit
 
 struct ReusableAuthViewModel {
     let enterButtonAction: (() -> Void)?
-    let textFieldAction: (() -> Void)?
-    let userNameAction: (() -> String)?
-    let setupAction: (() -> Void)?
-    let finishFlowAction: (() -> Void)?
+    let checkSessionCodeAction: ((String) -> Void)?
+    let userNameAction: ((String) -> String)?
 }
 
 enum AuthEvent {
@@ -51,14 +49,11 @@ final class ReusableAuthView: UIView {
     private let authCodeMaxNumber = 7
 
     private var userName = String()
-    private var sessionEnterCode = String()
     private let authEvent: AuthEvent
 
     private var enterButtonAction: (() -> Void)?
-    private var textFieldAction: (() -> Void)?
-    private var userNameAction: (() -> String)?
-    private var setupAction: (() -> Void)?
-    private var finishFlowAction: (() -> Void)?
+    private var checkSessionCodeAction: ((String) -> Void)?
+    private var userNameAction: ((String) -> String)?
 
     // MARK: - Lazy properties
 
@@ -70,9 +65,8 @@ final class ReusableAuthView: UIView {
         return label
     }()
 
-    private lazy var nameTextField: UITextField = {
+    private lazy var textField: UITextField = {
         let textField = UITextField()
-        textField.text = authEvent == .joinSession ? sessionEnterCode : userName
         textField.tintColor = .basePrimaryAccent
         textField.textColor = .headingText
         textField.backgroundColor = .clear
@@ -128,7 +122,6 @@ final class ReusableAuthView: UIView {
 
         backgroundColor = .whiteBackground
 
-        setupTextFieldProperties()
         setupSubviews()
         setupConstraints()
     }
@@ -142,10 +135,8 @@ final class ReusableAuthView: UIView {
     func setupView(with model: ReusableAuthViewModel?) {
         guard let model else { return }
         enterButtonAction = model.enterButtonAction
-        textFieldAction = model.textFieldAction
+        checkSessionCodeAction = model.checkSessionCodeAction
         userNameAction = model.userNameAction
-        setupAction = model.setupAction
-        finishFlowAction = model.finishFlowAction
     }
 
     func updateUIElements(
@@ -158,86 +149,8 @@ final class ReusableAuthView: UIView {
         lowerLabel.isHidden = labelIsHidden
         enterButton.isEnabled = buttonIsEnabled
         if let font {
-            nameTextField.font = font
+            textField.font = font
         }
-    }
-}
-
-private extension ReusableAuthView {
-
-    // MARK: - Handlers
-
-    @objc func enterButtonDidTap(sender: AnyObject) {
-        guard let text = nameTextField.text else { return }
-        if authEvent != .joinSession {
-            userName = text
-            enterButtonAction?()
-        }
-
-        nameTextField.resignFirstResponder()
-
-        enterButtonAction?()
-
-        DispatchQueue.main.async {
-            self.finishFlowAction?()
-        }
-    }
-
-    @objc func textFieldDidChange(sender: UITextField) {
-        guard let text = sender.text else { return }
-        if authEvent != .joinSession {
-            calculateCharactersNumber(with: text)
-        } else {
-            sessionEnterCode = text
-            textFieldAction?()
-        }
-    }
-
-    // MARK: - Private methods
-
-    func setupSubviews() {
-        [
-            upperLabel,
-            nameTextField,
-            lowerLabel
-        ].forEach {
-            addSubview($0)
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        }
-
-        toolbar.addSubview(enterButton)
-        enterButton.translatesAutoresizingMaskIntoConstraints = false
-    }
-
-    func setupConstraints() {
-        NSLayoutConstraint.activate([
-            upperLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 159),
-            upperLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            upperLabel.heightAnchor.constraint(equalToConstant: 16),
-
-            nameTextField.topAnchor.constraint(equalTo: upperLabel.bottomAnchor, constant: 12),
-            nameTextField.centerXAnchor.constraint(equalTo: centerXAnchor),
-            nameTextField.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            nameTextField.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16),
-
-            lowerLabel.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 12),
-            lowerLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            lowerLabel.heightAnchor.constraint(equalToConstant: 16),
-
-            enterButton.leadingAnchor.constraint(equalTo: toolbar.leadingAnchor),
-            enterButton.trailingAnchor.constraint(equalTo: toolbar.trailingAnchor),
-            enterButton.topAnchor.constraint(equalTo: toolbar.topAnchor),
-            enterButton.bottomAnchor.constraint(equalTo: toolbar.bottomAnchor)
-        ])
-    }
-
-    func setupTextFieldProperties() {
-        if authEvent != .joinSession {
-            guard let userNameAction else { return }
-            userName = userNameAction()
-            calculateCharactersNumber(with: userName)
-        }
-        setupAction?()
     }
 
     func calculateCharactersNumber(with text: String) {
@@ -272,11 +185,79 @@ private extension ReusableAuthView {
             )
         }
     }
+
+    func updateTextField(with text: String) {
+        textField.text = text
+    }
+}
+
+private extension ReusableAuthView {
+
+    // MARK: - Handlers
+
+    @objc func enterButtonDidTap(sender: AnyObject) {
+        guard let text = textField.text else { return }
+        if authEvent != .joinSession {
+            guard let userNameAction else { return }
+            userName = userNameAction(text)
+        }
+
+        textField.resignFirstResponder()
+        enterButtonAction?()
+    }
+
+    @objc func textFieldDidChange(sender: UITextField) {
+        guard let text = sender.text else { return }
+        if authEvent != .joinSession {
+            calculateCharactersNumber(with: text)
+        } else {
+            checkSessionCodeAction?(text)
+        }
+    }
+
+    // MARK: - Private methods
+
+    func setupSubviews() {
+        [
+            upperLabel,
+            textField,
+            lowerLabel
+        ].forEach {
+            addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+
+        toolbar.addSubview(enterButton)
+        enterButton.translatesAutoresizingMaskIntoConstraints = false
+    }
+
+    func setupConstraints() {
+        NSLayoutConstraint.activate([
+            upperLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 159),
+            upperLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            upperLabel.heightAnchor.constraint(equalToConstant: 16),
+
+            textField.topAnchor.constraint(equalTo: upperLabel.bottomAnchor, constant: 12),
+            textField.centerXAnchor.constraint(equalTo: centerXAnchor),
+            textField.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            textField.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16),
+
+            lowerLabel.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 12),
+            lowerLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            lowerLabel.heightAnchor.constraint(equalToConstant: 16),
+
+            enterButton.leadingAnchor.constraint(equalTo: toolbar.leadingAnchor),
+            enterButton.trailingAnchor.constraint(equalTo: toolbar.trailingAnchor),
+            enterButton.topAnchor.constraint(equalTo: toolbar.topAnchor),
+            enterButton.bottomAnchor.constraint(equalTo: toolbar.bottomAnchor)
+        ])
+    }
 }
 
     // MARK: - UITextFieldDelegate
 
 extension ReusableAuthView: UITextFieldDelegate {
+    
     func textField(
         _ textField: UITextField,
         shouldChangeCharactersIn range: NSRange,
