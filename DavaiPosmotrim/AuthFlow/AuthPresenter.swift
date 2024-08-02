@@ -35,9 +35,17 @@ final class AuthPresenter: AuthPresenterProtocol {
         coordinator.finish()
     }
 
-    // Переписать метод чтобы не принимал свойства
+    // Переделать на делегат или кложер
 
-    func handleEnterButtonTap(with name: String) -> String { // пере
+    func authDidFinishNotification(userName: String) {
+        NotificationCenter.default.post(
+            name: Notification.Name(Resources.Authentication.authDidFinishNotification),
+            object: nil,
+            userInfo: [Resources.Authentication.savedNameUserDefaultsKey: userName]
+        )
+    }
+
+    func handleEnterButtonTap(with name: String) {
         if name.isEmpty {
             view?.updateUIElements(
                 text: Resources.Authentication.lowerLabelInputNameWarningText,
@@ -45,10 +53,8 @@ final class AuthPresenter: AuthPresenterProtocol {
                 labelIsHidden: false,
                 buttonIsEnabled: false
             )
-            return ""
         } else {
             UserDefaults.standard.setValue(name, forKey: Resources.Authentication.savedNameUserDefaultsKey)
-            return checkUserNameProperty()
         }
     }
 
@@ -59,16 +65,6 @@ final class AuthPresenter: AuthPresenterProtocol {
             return ""
         }
         return savedName
-    }
-
-    // Переделать на делегат или кложер
-
-    func authDidFinishNotification(userName: String) {
-        NotificationCenter.default.post(
-            name: Notification.Name(Resources.Authentication.authDidFinishNotification),
-            object: nil,
-            userInfo: [Resources.Authentication.savedNameUserDefaultsKey: userName]
-        )
     }
 }
 

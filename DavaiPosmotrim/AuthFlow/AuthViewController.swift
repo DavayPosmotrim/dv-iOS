@@ -69,9 +69,9 @@ final class AuthViewController: UIViewController {
             },
             checkSessionCodeAction: nil,
             userNameAction: { [weak self] text in
-                guard let self else { return "" }
+                guard let self else { return }
                 self.presenter.authDidFinishNotification(userName: text)
-                return self.presenter.handleEnterButtonTap(with: text)
+                self.presenter.handleEnterButtonTap(with: text)
             }
         )
     }

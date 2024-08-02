@@ -37,9 +37,7 @@ final class EditNamePresenter: EditNamePresenterProtocol {
         )
     }
 
-    // Переписать метод чтобы не принимал свойства
-
-    func handleEnterButtonTap(with name: String) -> String {
+    func handleEnterButtonTap(with name: String) {
         if name.isEmpty {
             view?.updateUIElements(
                 text: Resources.Authentication.lowerLabelInputNameWarningText,
@@ -47,10 +45,8 @@ final class EditNamePresenter: EditNamePresenterProtocol {
                 labelIsHidden: false,
                 buttonIsEnabled: false
             )
-            return ""
         } else {
             UserDefaults.standard.setValue(name, forKey: Resources.Authentication.savedNameUserDefaultsKey)
-            return checkUserNameProperty()
         }
     }
 

@@ -10,6 +10,6 @@ import Foundation
 protocol EditNamePresenterProtocol: AnyObject {
     func finishEdit()
     func authDidFinishNotification(userName: String)
-    func handleEnterButtonTap(with name: String) -> String
+    func handleEnterButtonTap(with name: String)
     func checkUserNameProperty() -> String
 }

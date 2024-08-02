@@ -10,7 +10,7 @@ import UIKit
 struct ReusableAuthViewModel {
     let enterButtonAction: (() -> Void)?
     let checkSessionCodeAction: ((String) -> Void)?
-    let userNameAction: ((String) -> String)?
+    let userNameAction: ((String) -> Void)?
 }
 
 enum AuthEvent {
@@ -48,12 +48,11 @@ final class ReusableAuthView: UIView {
     private let charactersMaxNumber = 17
     private let authCodeMaxNumber = 7
 
-    private var userName = String() // придумать как избавиться от свойства
     private let authEvent: AuthEvent
 
     private var enterButtonAction: (() -> Void)?
     private var checkSessionCodeAction: ((String) -> Void)?
-    private var userNameAction: ((String) -> String)?
+    private var userNameAction: ((String) -> Void)?
 
     // MARK: - Lazy properties
 
@@ -198,8 +197,7 @@ private extension ReusableAuthView {
     @objc func enterButtonDidTap(sender: AnyObject) {
         guard let text = textField.text else { return }
         if authEvent != .joinSession {
-            guard let userNameAction else { return }
-            userName = userNameAction(text)
+            userNameAction?(text)
         }
 
         textField.resignFirstResponder()
