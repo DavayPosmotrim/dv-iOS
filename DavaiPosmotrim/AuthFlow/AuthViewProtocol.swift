@@ -7,11 +7,4 @@
 
 import UIKit
 
-protocol AuthViewProtocol: AnyObject {
-    func updateUIElements(
-        text: String?,
-        font: UIFont?,
-        labelIsHidden: Bool,
-        buttonIsEnabled: Bool
-    )
-}
+protocol AuthViewProtocol: AnyObject {}

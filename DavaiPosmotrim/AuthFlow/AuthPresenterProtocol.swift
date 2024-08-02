@@ -9,7 +9,6 @@ import Foundation
 
 protocol AuthPresenterProtocol: AnyObject {
     func authFinish()
-    func handleEnterButtonTap(with name: String)
     func checkUserNameProperty() -> String
-    func authDidFinishNotification(userName: String)
+    func createUser(name: String)
 }

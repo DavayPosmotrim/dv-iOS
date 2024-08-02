@@ -76,26 +76,11 @@ final class EditNameViewController: UIViewController {
             checkSessionCodeAction: nil,
             userNameAction: { [weak self] text in
                 guard let self else { return }
+                self.presenter.updateUser(name: text)
                 self.presenter.authDidFinishNotification(userName: text)
-                self.presenter.handleEnterButtonTap(with: text)
             }
         )
     }
 }
 
-extension EditNameViewController : EditNameViewProtocol {
-    
-    func updateUIElements(
-        text: String?,
-        font: UIFont?,
-        labelIsHidden: Bool,
-        buttonIsEnabled: Bool
-    ) {
-        editNameView.updateUIElements(
-            text: text,
-            font: font,
-            labelIsHidden: labelIsHidden,
-            buttonIsEnabled: buttonIsEnabled
-        )
-    }
-}
+extension EditNameViewController : EditNameViewProtocol {}

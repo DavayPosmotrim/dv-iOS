@@ -73,10 +73,6 @@ enum Resources {
         static let lowerLabelSessionNotFound = "Сеанс не найден"
     }
 
-    enum MainScreen {
-        static let startJoinSessionFlow = "startJoinSessionFlow"
-    }
-
     enum JoinSession {
         static let joinSessionCreatedCode = "joinSessionCreatedCode"
 

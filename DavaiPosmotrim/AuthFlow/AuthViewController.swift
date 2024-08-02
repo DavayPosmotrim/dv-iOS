@@ -70,8 +70,7 @@ final class AuthViewController: UIViewController {
             checkSessionCodeAction: nil,
             userNameAction: { [weak self] text in
                 guard let self else { return }
-                self.presenter.authDidFinishNotification(userName: text)
-                self.presenter.handleEnterButtonTap(with: text)
+                self.presenter.createUser(name: text)
             }
         )
     }
@@ -79,19 +78,4 @@ final class AuthViewController: UIViewController {
 
     // MARK: - AuthViewProtocol
 
-extension AuthViewController: AuthViewProtocol {
-
-    func updateUIElements(
-        text: String?,
-        font: UIFont?,
-        labelIsHidden: Bool,
-        buttonIsEnabled: Bool
-    ) {
-        createNameView.updateUIElements(
-            text: text,
-            font: font,
-            labelIsHidden: labelIsHidden,
-            buttonIsEnabled: buttonIsEnabled
-        )
-    }
-}
+extension AuthViewController: AuthViewProtocol {}

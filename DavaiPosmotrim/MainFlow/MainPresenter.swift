@@ -13,9 +13,17 @@ final class MainPresenter: MainPresenterProtocol {
 
     weak var coordinator: MainCoordinator?
 
+    // MARK: - Private properties
+
+    private let userService: UserServiceProtocol = UserService()
+
+    // MARK: - Initializers
+
     init(coordinator: MainCoordinator) {
         self.coordinator = coordinator
     }
+
+    // MARK: - Public methods
 
     func didTapButtons(screen: String) {
         guard let coordinator else { return }
@@ -37,5 +45,22 @@ final class MainPresenter: MainPresenterProtocol {
             return ""
         }
         return userName
+    }
+}
+
+    // MARK: - UserService
+
+extension MainPresenter {
+
+    func getUser() {
+        guard let deviceID = UserDefaults.standard.value(forKey: Resources.Authentication.savedDeviceID) as? String else { return }
+        userService.getUser(deviceId: deviceID) { result in
+            switch result {
+            case .success(let user):
+                print("User retrieved: \(user)")
+            case .failure(let error):
+                print("Failed to get user: \(error)")
+            }
+        }
     }
 }

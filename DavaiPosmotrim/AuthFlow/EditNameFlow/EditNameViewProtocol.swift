@@ -7,11 +7,4 @@
 
 import UIKit
 
-protocol EditNameViewProtocol: AnyObject {
-    func updateUIElements(
-        text: String?,
-        font: UIFont?,
-        labelIsHidden: Bool,
-        buttonIsEnabled: Bool
-    )
-}
+protocol EditNameViewProtocol: AnyObject {}

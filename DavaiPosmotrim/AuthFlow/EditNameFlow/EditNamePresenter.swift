@@ -13,7 +13,11 @@ final class EditNamePresenter: EditNamePresenterProtocol {
 
     weak var coordinator: EditNameCoordinator?
     weak var view: EditNameViewProtocol?
-    
+
+    // MARK: - Private properties
+
+    private let userService: UserServiceProtocol = UserService()
+
     // MARK: - Initializers
 
     init(coordinator: EditNameCoordinator) {
@@ -27,27 +31,12 @@ final class EditNamePresenter: EditNamePresenterProtocol {
         coordinator.finish()
     }
 
-    // Переделать на делегат или кложер
-
     func authDidFinishNotification(userName: String) {
         NotificationCenter.default.post(
             name: Notification.Name(Resources.Authentication.authDidFinishNotification),
             object: nil,
             userInfo: [Resources.Authentication.savedNameUserDefaultsKey: userName]
         )
-    }
-
-    func handleEnterButtonTap(with name: String) {
-        if name.isEmpty {
-            view?.updateUIElements(
-                text: Resources.Authentication.lowerLabelInputNameWarningText,
-                font: nil,
-                labelIsHidden: false,
-                buttonIsEnabled: false
-            )
-        } else {
-            UserDefaults.standard.setValue(name, forKey: Resources.Authentication.savedNameUserDefaultsKey)
-        }
     }
 
     func checkUserNameProperty() -> String {
@@ -57,5 +46,23 @@ final class EditNamePresenter: EditNamePresenterProtocol {
             return ""
         }
         return savedName
+    }
+}
+
+    // MARK: - UserService
+
+extension EditNamePresenter {
+
+    func updateUser(name: String) {
+        guard let deviceId = UserDefaults.standard.string(forKey: Resources.Authentication.savedDeviceID) else { return }
+        userService.updateUser(deviceId: deviceId, name: name) { result in
+            switch result {
+            case .success(let user):
+                UserDefaults.standard.setValue(user.name, forKey: Resources.Authentication.savedNameUserDefaultsKey)
+                print("User name updated: \(user.name), \(user.deviceId)")
+            case .failure(let error):
+                print("Failed to update user: \(error)")
+            }
+        }
     }
 }
