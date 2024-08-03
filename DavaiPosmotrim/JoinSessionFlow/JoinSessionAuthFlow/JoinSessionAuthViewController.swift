@@ -52,6 +52,12 @@ final class JoinSessionAuthViewController: UIViewController {
         }
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        presenter.downloadSessionCode()
+    }
+
     // MARK: - Private methods
 
     private func setupView() {

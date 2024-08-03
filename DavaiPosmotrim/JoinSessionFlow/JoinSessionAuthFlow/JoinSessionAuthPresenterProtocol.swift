@@ -11,4 +11,5 @@ protocol JoinSessionAuthPresenterProtocol: AnyObject {
     func finishSessionAuth()
     func showJoinSession()
     func checkSessionCode(with code: String)
+    func downloadSessionCode()
 }

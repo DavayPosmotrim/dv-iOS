@@ -14,6 +14,8 @@ final class JoinSessionAuthPresenter: JoinSessionAuthPresenterProtocol {
     weak var coordinator: JoinSessionAuthCoordinator?
     weak var view: JoinSessionAuthViewProtocol?
 
+    private var sessionCode: String?
+
     // MARK: - Initializers
 
     init(coordinator: JoinSessionAuthCoordinator) {
@@ -32,13 +34,21 @@ final class JoinSessionAuthPresenter: JoinSessionAuthPresenterProtocol {
         coordinator.showJoinSessionFlow()
     }
 
+    // TODO: - add logic to fetch sessionCode from server
+
+    func downloadSessionCode() {
+        let downloadedCode = "AAaa567"
+        UserDefaults.standard.setValue(downloadedCode, forKey: Resources.JoinSession.joinSessionCreatedCode)
+        sessionCode = downloadedCode
+    }
+
     func checkSessionCode(with code: String) {
-        let createdCode = "AAaa567"
-        UserDefaults.standard.setValue(createdCode, forKey: Resources.JoinSession.joinSessionCreatedCode)
+        let pattern = "^[A-Za-z]{4}\\d{3}$"
+        guard let regex = try? NSRegularExpression(pattern: pattern) else { return }
+        let range = NSRange(location: 0, length: code.utf16.count)
+        let matches = regex.matches(in: code, range: range)
 
-        // TODO: - add logic to fetch createdCode from server
-
-        if code == createdCode {
+        if !matches.isEmpty && code == sessionCode {
             view?.updateUIElements(
                 text: nil,
                 font: nil,
