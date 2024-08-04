@@ -374,7 +374,11 @@ extension RouletteViewController {
 
         isScrolling = false
 
-        movieCardCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        movieCardCollectionView.scrollToItem(
+            at: indexPath,
+            at: .centeredHorizontally,
+            animated: true
+        )
 
         guard let matchedCellID else { return }
         if let matchModel = presenter.getMovieByID(id: matchedCellID) {

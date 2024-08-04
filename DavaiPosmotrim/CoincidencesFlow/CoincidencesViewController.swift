@@ -186,8 +186,6 @@ private extension CoincidencesViewController {
 extension CoincidencesViewController: CoincidencesViewProtocol {
     func updateUIElements() {
         if !presenter.isArrayEmpty {
-            setupRightButtonModel()
-            navBarView.setupRightButton(with: customNavBarRightButtonModel)
             stackView.isHidden = true
             collectionView.isHidden = false
 

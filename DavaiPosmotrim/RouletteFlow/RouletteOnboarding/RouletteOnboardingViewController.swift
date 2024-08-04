@@ -169,7 +169,11 @@ private extension RouletteOnboardingViewController {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
 
-        [titleLabel, labelsStack, proceedButton].forEach {
+        [
+            titleLabel,
+            labelsStack,
+            proceedButton
+        ].forEach {
             paddingView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }

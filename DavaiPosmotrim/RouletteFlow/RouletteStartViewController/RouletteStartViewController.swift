@@ -152,7 +152,11 @@ private extension RouletteStartViewController {
         view.addSubview(paddingView)
         paddingView.translatesAutoresizingMaskIntoConstraints = false
 
-        [titleLabel, labelsStack, buttonsStack].forEach {
+        [
+            titleLabel,
+            labelsStack,
+            buttonsStack
+        ].forEach {
             paddingView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
