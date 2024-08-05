@@ -14,10 +14,11 @@ final class RouletteViewController: UIViewController {
     private var presenter: RoulettePresenterProtocol
     private var scrollTimer: Timer?
     private var isScrolling = false
-    private var targetVelocity: CGFloat = .random(in: 45...65)
-    private var velocityAdjustment: CGFloat = 0.05
+    private var targetVelocity: CGFloat = .random(in: 50...55)
+    private var velocityAdjustment: CGFloat = 0.08
     private var displayLink: CADisplayLink?
     private var matchedCellID: UUID?
+    private var serverID: UUID?
 
     private let usersCollectionModel = ReusableCollectionModel(
         image: nil,
@@ -101,6 +102,7 @@ final class RouletteViewController: UIViewController {
         setupConstraints()
 
         presenter.downloadMoviesArray()
+        serverID = presenter.getRouletteMovieID()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -341,12 +343,15 @@ extension RouletteViewController {
         let newOffset = movieCardCollectionView.contentOffset.x + targetVelocity
         movieCardCollectionView.setContentOffset(CGPoint(x: newOffset, y: 0), animated: false)
 
-        // Imitation of chosen movie id from server
-        let middleIndex = presenter.movieIDs.count / 2
-        let serverID = presenter.movieIDs[middleIndex]
-
         if targetVelocity > 0 {
             targetVelocity -= velocityAdjustment
+        }
+
+        if targetVelocity < 0 {
+            guard let serverID,
+                  let index = presenter.movieIDs.firstIndex(of: serverID) else { return }
+            let newIndexPath = IndexPath(item: index, section: 0)
+            stopRouletteScroll(with: newIndexPath)
         }
 
         let indexPaths = movieCardCollectionView.indexPathsForVisibleItems
@@ -360,12 +365,6 @@ extension RouletteViewController {
                 stopRouletteScroll(with: indexPath)
                 return
             }
-        }
-
-        if targetVelocity < 0 {
-            guard let index = presenter.movieIDs.firstIndex(of: serverID) else { return }
-            let newIndexPath = IndexPath(item: index, section: 0)
-            stopRouletteScroll(with: newIndexPath)
         }
     }
 

@@ -18,6 +18,7 @@ protocol RoulettePresenterProtocol: AnyObject {
     func getConnectedProperty(index: Int) -> Bool
     func downloadMoviesArray()
     func downloadUsersArray()
+    func getRouletteMovieID() -> UUID?
     func connectUsers()
     func startRouletteController(with delegate: RouletteStartViewControllerDelegate?)
     func showMatchViewController(matchModel: SelectionMovieCellModel, and completion: (() -> Void)?)
