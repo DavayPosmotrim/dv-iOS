@@ -122,6 +122,16 @@ enum Resources {
         static let joinSessionViewController = "JoinSessionViewController"
     }
 
+    enum CreateSession {
+        static let nextButtonText = "Продолжить".uppercased()
+        static let customNavBarTitle = "Создать сеанс"
+        static let customNavBarSubtitle = "Выберите понравившиеся подборки"
+        static let collectionTitle = "Подборки".uppercased()
+        static let genreTitle = "жанр".uppercased()
+        static let collectionNotificationTitle = "Выберите хотя бы одну подборку"
+        static let genreNotificationTitle = "Выберите хотя бы один жанр"
+    }
+
     enum Coincidences {
         static let plugLabelText = "Пока ничего нет"
         static let navBarText = "Совпадения"
@@ -217,5 +227,10 @@ enum Resources {
     enum AnimationKeys {
         static let strokeEnd = "strokeEnd"
         static let progressAnimation = "progressAnimation"
+    }
+
+    enum LoadingKeys {
+        static let keyPath = "transform.rotation"
+        static let forKey = "rotationAnimation"
     }
 }

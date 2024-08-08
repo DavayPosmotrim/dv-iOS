@@ -17,6 +17,7 @@ final class CustomMovieDescriptionCollectionCell: UICollectionViewCell {
 
     private lazy var descriptionLabel: UILabel = {
         var descriptionLabel = UILabel()
+        descriptionLabel.textColor = .baseText
         descriptionLabel.font = .textParagraphRegularFont
         descriptionLabel.numberOfLines = 0
         return descriptionLabel

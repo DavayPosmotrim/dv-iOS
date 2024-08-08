@@ -98,6 +98,12 @@ final class ReusableUICollectionView: UIView {
         lowerLabel.text = model.lowerText
     }
 
+    func updateCollectionView() {
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
+    }
+
     // MARK: - Handlers
 
     @objc private func updateCollection() {

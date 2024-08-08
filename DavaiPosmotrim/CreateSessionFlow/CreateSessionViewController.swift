@@ -13,18 +13,6 @@ final class CreateSessionViewController: UIViewController {
 
     var presenter: CreateSessionPresenterProtocol?
 
-    // MARK: - Private Properties
-
-    private enum Keys: String {
-        case nextButtonText = "ПРОДОЛЖИТЬ"
-        case customNavBarTitle = "Создать сеанс"
-        case customNavBarSubtitle = "Выберите понравившиеся подборки"
-        case collectionTitle = "ПОДБОРКИ"
-        case genreTitle = "ЖАНР"
-        case collectionNotificationTitle = "Выберите хотя бы одну подборку"
-        case genreNotificationTitle = "Выберите хотя бы один жанр"
-    }
-
     // MARK: - Layout variables
 
     private lazy var backgroundView: UIView = {
@@ -35,8 +23,8 @@ final class CreateSessionViewController: UIViewController {
 
     private lazy var customNavBar: UIView = {
         let customNavBar = CustomNavigationBar(
-            title: Keys.customNavBarTitle.rawValue,
-            subtitle: Keys.customNavBarSubtitle.rawValue
+            title: Resources.CreateSession.customNavBarTitle,
+            subtitle: Resources.CreateSession.customNavBarSubtitle
         )
         customNavBar.delegate = self
         return customNavBar
@@ -67,7 +55,7 @@ final class CreateSessionViewController: UIViewController {
     private lazy var nextButton: UIView = {
         let button = CustomButtons()
         button.setupView(with: button.blackButton)
-        button.blackButton.setTitle(Keys.nextButtonText.rawValue, for: .normal)
+        button.blackButton.setTitle(Resources.CreateSession.nextButtonText, for: .normal)
         button.blackButton.addTarget(
             self,
             action: #selector(didTapNextButton),
@@ -95,12 +83,14 @@ final class CreateSessionViewController: UIViewController {
             cellIdentifier: CreateSessionCollectionCell.reuseIdentifier
         )
         collectionView.isHidden = true
-
         return collectionView
     }()
 
     private lazy var segmentControl: CustomSegmentedControl = {
-        let segmentControl = CustomSegmentedControl(items: [Keys.collectionTitle.rawValue, Keys.genreTitle.rawValue])
+        let segmentControl = CustomSegmentedControl(items: [
+            Resources.CreateSession.collectionTitle,
+            Resources.CreateSession.genreTitle
+        ])
         segmentControl.selectedSegmentIndex = 0
         let normalTextAttributes: [NSAttributedString.Key: Any] = [
             .foregroundColor: UIColor.captionDarkText,
@@ -135,7 +125,8 @@ final class CreateSessionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .whiteBackground
+        loadData()
         setupUI()
         setupSubviews()
         setupConstraints()
@@ -144,17 +135,15 @@ final class CreateSessionViewController: UIViewController {
     // MARK: - Actions
 
     @objc private func didTapNextButton() {
+        guard let presenter = presenter else { return }
         let segmentIndex = segmentControl.selectedSegmentIndex
         let notificationTitle = segmentIndex == 0 ?
-        Keys.collectionNotificationTitle.rawValue : Keys.genreNotificationTitle.rawValue
-        guard let presenter = presenter else {
-            return
-        }
+        Resources.CreateSession.collectionNotificationTitle : Resources.CreateSession.genreNotificationTitle
         if presenter.isSessionEmpty(segmentIndex: segmentIndex) {
             showNotification(title: notificationTitle, duration: 2.0)
             return
         }
-        presenter.didTapNextButton()
+        presenter.didTapNextButton(segmentIndex: segmentIndex)
     }
 
     @objc private func segmentControlValueChanged(_ sender: UISegmentedControl) {
@@ -166,7 +155,36 @@ final class CreateSessionViewController: UIViewController {
     // MARK: - Private methods
 
 private extension CreateSessionViewController {
+    private func loadData() {
+        let loadingVC = CustomLoadingViewController.show(in: self)
+        let dispatchGroup = DispatchGroup()
+        dispatchGroup.enter()
+        presenter?.getCollections { [weak self] in
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+                dispatchGroup.leave()
+            }
+        }
+        dispatchGroup.enter()
+        presenter?.getGenres { [weak self] in
+            DispatchQueue.main.async {
+                if let collectionView = self?.collectionView as? ReusableUICollectionView {
+                    collectionView.updateCollectionView()
+                }
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(Resources.ReusableCollectionView.updateCollectionView),
+                    object: nil
+                )
+                dispatchGroup.leave()
+            }
+        }
+        dispatchGroup.notify(queue: .main) {
+            loadingVC.hide()
+        }
+    }
+
     func setupUI() {
+        tableView.register(EmptyTableViewCell.self, forCellReuseIdentifier: EmptyTableViewCell.reuseIdentifier)
         tableView.register(
             CreateSessionTableViewCell.self,
             forCellReuseIdentifier: CreateSessionTableViewCell.reuseIdentifier
@@ -186,14 +204,10 @@ private extension CreateSessionViewController {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
         }
-        [segmentControl].forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-            upperPaddingView.addSubview($0)
-        }
-        [nextButton].forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-            lowerPaddingView.addSubview($0)
-        }
+        segmentControl.translatesAutoresizingMaskIntoConstraints = false
+        upperPaddingView.addSubview(segmentControl)
+        nextButton.translatesAutoresizingMaskIntoConstraints = false
+        lowerPaddingView.addSubview(nextButton)
     }
 
     func setupConstraints() {
@@ -202,15 +216,12 @@ private extension CreateSessionViewController {
             backgroundView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             backgroundView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-
             customNavBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             customNavBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             customNavBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-
             customWarningNotification.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             customWarningNotification.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             customWarningNotification.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-
             upperPaddingView.heightAnchor.constraint(equalToConstant: 96),
             upperPaddingView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             upperPaddingView.topAnchor.constraint(equalTo: customNavBar.bottomAnchor),
@@ -219,17 +230,14 @@ private extension CreateSessionViewController {
             segmentControl.topAnchor.constraint(equalTo: upperPaddingView.topAnchor, constant: 24),
             segmentControl.trailingAnchor.constraint(equalTo: upperPaddingView.trailingAnchor, constant: -16),
             segmentControl.bottomAnchor.constraint(equalTo: upperPaddingView.bottomAnchor, constant: -16),
-
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.topAnchor.constraint(equalTo: upperPaddingView.bottomAnchor, constant: 16),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: lowerPaddingView.topAnchor, constant: -16),
-
             lowerPaddingView.heightAnchor.constraint(equalToConstant: 84),
             lowerPaddingView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             lowerPaddingView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -275,7 +283,6 @@ private extension CreateSessionViewController {
 // MARK: - CustomNavigationBarDelegate
 
 extension CreateSessionViewController: CustomNavigationBarDelegate {
-
     func backButtonTapped() {
         presenter?.backButtonTapped()
     }
@@ -284,7 +291,6 @@ extension CreateSessionViewController: CustomNavigationBarDelegate {
 // MARK: - CreateSessionTableViewCellDelegate
 
 extension CreateSessionViewController: CreateSessionTableViewCellDelegate {
-
     func tableViewCellTitleAdded(id: UUID?) {
         presenter?.didAddCollection(id: id)
     }
@@ -297,7 +303,6 @@ extension CreateSessionViewController: CreateSessionTableViewCellDelegate {
 // MARK: - CreateSessionCollectionCellDelegate
 
 extension CreateSessionViewController: CreateSessionCollectionCellDelegate {
-
     func collectionCellTitleAdded(id: UUID?) {
         presenter?.didAddGenres(id: id)
     }
@@ -310,46 +315,42 @@ extension CreateSessionViewController: CreateSessionCollectionCellDelegate {
 // MARK: - UITableViewDataSource
 
 extension CreateSessionViewController: UITableViewDataSource {
-
-    func tableView(
-        _ tableView: UITableView,
-        numberOfRowsInSection section: Int
-    ) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let presenter = presenter else { return 0 }
         return presenter.getSelectionsMoviesCount() + 2
     }
 
-    func tableView(
-        _ tableView: UITableView,
-        cellForRowAt indexPath: IndexPath
-    ) -> UITableViewCell {
-        guard let presenter = presenter,
-              let cell = tableView.dequeueReusableCell(
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let presenter = presenter else { return UITableViewCell() }
+        if indexPath.row == 0 || indexPath.row == presenter.getSelectionsMoviesCount() + 1 {
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: EmptyTableViewCell.reuseIdentifier,
+                for: indexPath
+            ) as? EmptyTableViewCell else {
+                return UITableViewCell()
+            }
+            cell.backgroundColor = .baseBackground
+            return cell
+        } else {
+            guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: CreateSessionTableViewCell.reuseIdentifier,
                 for: indexPath
-              ) as? CreateSessionTableViewCell else {
-            return UITableViewCell()
-        }
-        if indexPath.row == 0 || indexPath.row == presenter.getSelectionsMoviesCount() + 1 {
-            cell.backgroundColor = .baseBackground
-        } else {
+            ) as? CreateSessionTableViewCell else {
+                return UITableViewCell()
+            }
             let realIndex = indexPath.row - 1
             let model = presenter.getSelectionsMovie(index: realIndex)
             cell.configureCell(model: model)
             cell.delegate = self
+            return cell
         }
-        return cell
     }
 }
 
 // MARK: - UITableViewDelegate
 
 extension CreateSessionViewController: UITableViewDelegate {
-
-    func tableView(
-        _ tableView: UITableView,
-        heightForRowAt indexPath: IndexPath
-    ) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
         case 0:
             return 168
@@ -360,10 +361,7 @@ extension CreateSessionViewController: UITableViewDelegate {
         }
     }
 
-    func tableView(
-        _ tableView: UITableView,
-        didSelectRowAt indexPath: IndexPath
-    ) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? CreateSessionTableViewCell else {
             return
         }
@@ -375,11 +373,7 @@ extension CreateSessionViewController: UITableViewDelegate {
 // MARK: - UICollectionViewDataSource
 
 extension CreateSessionViewController: UICollectionViewDataSource {
-
-    func collectionView(
-        _ collectionView: UICollectionView,
-        numberOfItemsInSection section: Int
-    ) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return presenter?.getGenresMoviesCount() ?? 0
     }
 
@@ -403,10 +397,7 @@ extension CreateSessionViewController: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 
 extension CreateSessionViewController: UICollectionViewDelegate {
-    func collectionView(
-        _ collectionView: UICollectionView,
-        didSelectItemAt indexPath: IndexPath
-    ) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? CreateSessionCollectionCell else {
             return
         }

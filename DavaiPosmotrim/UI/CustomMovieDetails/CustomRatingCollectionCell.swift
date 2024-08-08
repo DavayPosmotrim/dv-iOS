@@ -17,6 +17,7 @@ final class CustomRatingCollectionCell: UICollectionViewCell {
 
     private lazy var rating: UILabel = {
         var rating = UILabel()
+        rating.textColor = .headingText
         rating.font = .textHeadingFont
         return rating
     }()
@@ -30,12 +31,14 @@ final class CustomRatingCollectionCell: UICollectionViewCell {
 
     private lazy var votesAmount: UILabel = {
         var votesAmount = UILabel()
+        votesAmount.textColor = .baseText
         votesAmount.font = .textCaptionRegularFont
         return votesAmount
     }()
 
     private lazy var name: UILabel = {
         var name = UILabel()
+        name.textColor = .headingText
         name.font = .textCaptionRegularFont
         return name
     }()

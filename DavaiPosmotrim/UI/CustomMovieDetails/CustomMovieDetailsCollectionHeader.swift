@@ -13,6 +13,7 @@ final class CustomMovieDetailsCollectionHeader: UICollectionReusableView {
 
     private let label: UILabel = {
         var label = UILabel()
+        label.textColor = .headingText
         label.font = .textLabelFont
         label.textAlignment = .left
         return label

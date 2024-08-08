@@ -203,7 +203,6 @@ final class MainViewController: UIViewController {
             tableView.leadingAnchor.constraint(equalTo: paddingView.leadingAnchor, constant: 16),
             tableView.topAnchor.constraint(equalTo: editButton.bottomAnchor, constant: 36),
             tableView.trailingAnchor.constraint(equalTo: paddingView.trailingAnchor, constant: -16),
-            tableView.bottomAnchor.constraint(equalTo: paddingView.bottomAnchor, constant: -100),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -80),
 
             nameLabel.leadingAnchor.constraint(equalTo: paddingView.leadingAnchor, constant: 32),

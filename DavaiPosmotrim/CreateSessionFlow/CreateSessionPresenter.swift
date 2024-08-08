@@ -17,8 +17,8 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
     // MARK: - Private Properties
 
     private var createSession = CreateSessionModel(collectionsMovie: [], genresMovie: [])
-    private var selectionsMovies = selectionsMockData
-    private var genresMovies = genreMockData
+    private var selectionsMovies: [TableViewCellModel] = []
+    private var genresMovies: [CollectionsCellModel] = []
 
     init(coordinator: CreateSessionCoordinator, contentService: ContentServiceProtocol) {
         self.coordinator = coordinator
@@ -40,8 +40,7 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
     }
 
     func getGenresMoviesCount() -> Int {
-        getCollections()
-        return genreMockData.count
+        return genresMovies.count
     }
 
     func getSelectionsMovie(index: Int) -> TableViewCellModel {
@@ -49,7 +48,7 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
     }
 
     func getGenreAtIndex(index: Int) -> CollectionsCellModel {
-        return genreMockData[index]
+        return genresMovies[index]
     }
 
     func didAddCollection(id: UUID?) {
@@ -88,7 +87,8 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
         coordinator?.finish()
     }
 
-    func didTapNextButton() {
+    func didTapNextButton(segmentIndex: Int) {
+        postCreatingSession(segmentIndex: segmentIndex)
         coordinator?.showInvitingUsersFlow()
     }
 }
@@ -96,29 +96,66 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
 // MARK: - ContnetService Methods
 
 extension CreateSessionPresenter {
-    func getGenres() {
-        contentService.getGenres { result in
+    func getGenres(completion: @escaping () -> Void) {
+            contentService.getGenres { result in
+                switch result {
+                case .success(let genres):
+                    self.genresMovies = genres.map { CollectionsCellModel(title: $0.name) }
+                    print("Genres retrieved: \(self.genresMovies)")
+                    completion()
+                case .failure(let error):
+                    // TODO: - обработать ошибки
+                    print("Failed to get genres: \(error.localizedDescription)")
+                    completion()
+                }
+            }
+        }
+
+    func getCollections(completion: @escaping () -> Void) {
+        contentService.getCollections { result in
             switch result {
-            case .success(let genres):
-                // TODO: - передать жанры в массив, отобразить на экране
-                print("Genres retrieved: \(genres)")
+            case .success(let collections):
+                self.selectionsMovies = collections.map { TableViewCellModel(
+                    title: $0.name,
+                    movieImage: $0.cover ?? ""
+                ) }
+                print("Collections retrieved: \(collections)")
+                completion()
             case .failure(let error):
                 // TODO: - обработать ошибки
-                print("Failed to get genres: \(error.localizedDescription)")
+                print("Failed to get collections: \(error.localizedDescription)")
+                completion()
             }
         }
     }
 
-    func getCollections() {
-        contentService.getCollections { result in
-            switch result {
-            case .success(let collections):
-                // TODO: - передать коллекции в массив, отобразить на экране
-                print("Collections retrieved: \(collections)")
-            case .failure(let error):
-                // TODO: - обработать ошибки
-                print("Failed to get collections: \(error.localizedDescription)")
-            }
+    private func postCreatingSession(segmentIndex: Int) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let currentDate = dateFormatter.string(from: Date())
+        let status: StatusEnumModel = .waiting
+        let genres: [String]
+        let collections: [String]
+        if segmentIndex == 0 {
+            genres = []
+            collections = createSession.collectionsMovie.map { $0.title }
+        } else {
+            genres = createSession.genresMovie.map { $0.title }
+            collections = []
+        }
+
+        let requestModel = CustomSessionCreateRequestModel(
+            date: currentDate,
+            genres: genres,
+            collections: collections,
+            status: status
+        )
+        // TODO: - проверка на формирование POST запроса
+        if let jsonData = try? JSONEncoder().encode(requestModel),
+           let jsonString = String(data: jsonData, encoding: .utf8) {
+            print("Создание сессии: \(jsonString)")
+        } else {
+            print("Не удалось преобразовать модель в JSON.")
         }
     }
 }

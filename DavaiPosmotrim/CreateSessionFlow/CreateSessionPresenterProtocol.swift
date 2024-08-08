@@ -14,9 +14,11 @@ protocol CreateSessionPresenterProtocol: AnyObject {
     func getSelectionsMovie(index: Int) -> TableViewCellModel
     func getGenreAtIndex(index: Int) -> CollectionsCellModel
     func backButtonTapped()
-    func didTapNextButton()
+    func didTapNextButton(segmentIndex: Int)
     func didAddCollection(id: UUID?)
     func didRemoveCollection(id: UUID?)
     func didAddGenres(id: UUID?)
     func didRemoveGenres(id: UUID?)
+    func getGenres(completion: @escaping () -> Void)
+    func getCollections(completion: @escaping () -> Void)
 }
