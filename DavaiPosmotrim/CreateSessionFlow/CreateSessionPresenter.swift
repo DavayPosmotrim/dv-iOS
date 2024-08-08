@@ -12,6 +12,7 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
     // MARK: - Public Properties
 
     weak var coordinator: CreateSessionCoordinator?
+    private let contentService: ContentServiceProtocol
 
     // MARK: - Private Properties
 
@@ -19,8 +20,9 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
     private var selectionsMovies = selectionsMockData
     private var genresMovies = genreMockData
 
-    init(coordinator: CreateSessionCoordinator) {
+    init(coordinator: CreateSessionCoordinator, contentService: ContentServiceProtocol) {
         self.coordinator = coordinator
+        self.contentService = contentService
     }
 
     // MARK: - Public Methods
@@ -38,6 +40,7 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
     }
 
     func getGenresMoviesCount() -> Int {
+        getCollections()
         return genreMockData.count
     }
 
@@ -51,7 +54,7 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
 
     func didAddCollection(id: UUID?) {
         guard let id,
-        let collection = selectionsMovies.first(where: { $0.id == id }) else {
+              let collection = selectionsMovies.first(where: { $0.id == id }) else {
             return
         }
         let newCollection = CollectionsMovie(id: collection.id, title: collection.title)
@@ -67,7 +70,7 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
 
     func didAddGenres(id: UUID?) {
         guard let id,
-        let genres = genresMovies.first(where: { $0.id == id }) else {
+              let genres = genresMovies.first(where: { $0.id == id }) else {
             return
         }
         let newGenres = GenresMovie(id: genres.id, title: genres.title)
@@ -87,5 +90,35 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
 
     func didTapNextButton() {
         coordinator?.showInvitingUsersFlow()
+    }
+}
+
+// MARK: - ContnetService Methods
+
+extension CreateSessionPresenter {
+    func getGenres() {
+        contentService.getGenres { result in
+            switch result {
+            case .success(let genres):
+                // TODO: - передать жанры в массив, отобразить на экране
+                print("Genres retrieved: \(genres)")
+            case .failure(let error):
+                // TODO: - обработать ошибки
+                print("Failed to get genres: \(error.localizedDescription)")
+            }
+        }
+    }
+
+    func getCollections() {
+        contentService.getCollections { result in
+            switch result {
+            case .success(let collections):
+                // TODO: - передать коллекции в массив, отобразить на экране
+                print("Collections retrieved: \(collections)")
+            case .failure(let error):
+                // TODO: - обработать ошибки
+                print("Failed to get collections: \(error.localizedDescription)")
+            }
+        }
     }
 }

@@ -28,11 +28,28 @@ class CustomMovieSelection: UIView {
         }
     }
 
+    var showCollection: Bool = false {
+        didSet {
+            collectionView.isHidden = !showCollection
+
+            let collectionOffset: CGFloat = -24
+            informationLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: collectionOffset).isActive = true
+        }
+    }
+
+    var showMovieCountries: Bool = true {
+        didSet {
+            guard let additionalModel else { return }
+            configureUpdatedModel(model: additionalModel)
+        }
+    }
+
     // MARK: - Private Properties
 
     private var genresMovie: [CollectionsCellModel] = []
     private var currentMovieId: UUID
     private var collectionViewHeightConstraint: NSLayoutConstraint?
+    private var additionalModel: SelectionMovieCellModel?
 
     // MARK: - Layout variables
 
@@ -50,6 +67,7 @@ class CustomMovieSelection: UIView {
         label.font = .textHeadingFont
         label.textColor = .headingText
         label.numberOfLines = 0
+        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         return label
     }()
 
@@ -124,10 +142,7 @@ class CustomMovieSelection: UIView {
         return button
     }()
 
-    private lazy var linearGradientView: UIView = {
-        let view = UIView()
-        return view
-    }()
+    private lazy var linearGradientView = UIView()
 
     private lazy var overlayYesView: UIView = {
         let view = UIView()
@@ -214,6 +229,7 @@ class CustomMovieSelection: UIView {
 
 private extension CustomMovieSelection {
     func configureWithModel(model: SelectionMovieCellModel) {
+        additionalModel = model
         currentMovieId = model.id
         let image = UIImage(named: model.movieImage)
         imageView.image = image
@@ -224,6 +240,10 @@ private extension CustomMovieSelection {
         informationLabel.text = "\(model.yearMovie) · \(model.countryMovie.joined(separator: " · ")) · \(model.timeMovie)"
         self.genresMovie = model.genre
         updateButtonImage(for: 0)
+    }
+
+    func configureUpdatedModel(model: SelectionMovieCellModel) {
+        informationLabel.text = "\(model.yearMovie) · \(model.timeMovie)"
     }
 
     func setupSubviews() {

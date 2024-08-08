@@ -103,6 +103,8 @@
 		C964F7B12C19166800A37295 /* CoincidencesSceneFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C964F7B02C19166800A37295 /* CoincidencesSceneFactory.swift */; };
 		C96895CF2BE835EA002A99E6 /* AuthPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96895CE2BE835EA002A99E6 /* AuthPresenterProtocol.swift */; };
 		C96895D12BE88E4B002A99E6 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96895D02BE88E4B002A99E6 /* Resources.swift */; };
+		C9851EEA2C491348008281CD /* RouletteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9851EE92C491348008281CD /* RouletteCollectionViewCell.swift */; };
+		C9851EEC2C4931FE008281CD /* CustomHorizontalCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9851EEB2C4931FE008281CD /* CustomHorizontalCollectionLayout.swift */; };
 		C98ACAF42C559BEB00C946D6 /* EditNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98ACAF32C559BEB00C946D6 /* EditNameViewController.swift */; };
 		C98ACAF62C559D4900C946D6 /* EditNameCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98ACAF52C559D4900C946D6 /* EditNameCoordinator.swift */; };
 		C98ACAF82C55A0C500C946D6 /* EditNamePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98ACAF72C55A0C500C946D6 /* EditNamePresenter.swift */; };
@@ -116,6 +118,15 @@
 		C98ACB092C55B98E00C946D6 /* JoinSessionAuthPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98ACB082C55B98E00C946D6 /* JoinSessionAuthPresenterProtocol.swift */; };
 		C98ACB0B2C55BAAC00C946D6 /* JoinSessionAuthSceneFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98ACB0A2C55BAAC00C946D6 /* JoinSessionAuthSceneFactory.swift */; };
 		C991F0CD2C3812580090543B /* CoincidencesMovieInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C991F0CC2C3812580090543B /* CoincidencesMovieInfoViewController.swift */; };
+		C9A7C54D2C4A031E005328E9 /* RouletteStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A7C54C2C4A031E005328E9 /* RouletteStartViewController.swift */; };
+		C9A7C54F2C4A16A7005328E9 /* RouletteStartViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A7C54E2C4A16A7005328E9 /* RouletteStartViewControllerDelegate.swift */; };
+		C9AE34F92C3BE1F50005A87B /* RouletteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE34F82C3BE1F50005A87B /* RouletteViewController.swift */; };
+		C9AE34FB2C3C160E0005A87B /* RouletteCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE34FA2C3C160D0005A87B /* RouletteCoordinator.swift */; };
+		C9AE34FD2C3C16AB0005A87B /* RouletteSceneFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE34FC2C3C16AB0005A87B /* RouletteSceneFactory.swift */; };
+		C9AE34FF2C3C17A10005A87B /* RoulettePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE34FE2C3C17A10005A87B /* RoulettePresenter.swift */; };
+		C9AE35012C3C17F20005A87B /* RouletteViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE35002C3C17F20005A87B /* RouletteViewProtocol.swift */; };
+		C9AE35032C3C180F0005A87B /* RoulettePresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE35022C3C180F0005A87B /* RoulettePresenterProtocol.swift */; };
+		C9AE35062C3C32910005A87B /* RouletteOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE35052C3C32910005A87B /* RouletteOnboardingViewController.swift */; };
 		C9AF1EB52C0A0FA90080FC4A /* OnboardingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AF1EB42C0A0FA90080FC4A /* OnboardingPresenter.swift */; };
 		C9B57C6C2C0607450026E85D /* DismissJoinSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B57C6B2C0607450026E85D /* DismissJoinSessionViewController.swift */; };
 		C9C4D59E2BD3A3C70081CD23 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4D59D2BD3A3C70081CD23 /* AppDelegate.swift */; };
@@ -123,6 +134,7 @@
 		C9C4D5A72BD3A3CB0081CD23 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9C4D5A62BD3A3CB0081CD23 /* Assets.xcassets */; };
 		C9C4D5AA2BD3A3CB0081CD23 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = C9C4D5A92BD3A3CB0081CD23 /* Base */; };
 		C9C4D5B42BD3B3810081CD23 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = C9C4D5B32BD3B3810081CD23 /* Kingfisher */; };
+		C9F4B5272C52972400F1E78D /* RouletteUsersCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F4B5262C52972400F1E78D /* RouletteUsersCollectionCell.swift */; };
 		C9C53FD12C56B30C005302AC /* ReusableAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C53FD02C56B30C005302AC /* ReusableAuthView.swift */; };
 		C9FCE9662BD3E4CF00FE655D /* DaysOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9FCE9522BD3E22B00FE655D /* DaysOne-Regular.ttf */; };
 		C9FCE9672BD3E4D200FE655D /* Inter-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9FCE95E2BD3E25C00FE655D /* Inter-Bold.otf */; };
@@ -130,6 +142,10 @@
 		C9FCE9692BD3E4D600FE655D /* Inter-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9FCE9582BD3E25900FE655D /* Inter-Regular.otf */; };
 		C9FCE96A2BD3E4D800FE655D /* Inter-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9FCE9562BD3E25800FE655D /* Inter-SemiBold.otf */; };
 		C9FCE96D2BD3E53C00FE655D /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCE96C2BD3E53C00FE655D /* UIFont+Extension.swift */; };
+		E291706B2C55E2FF00B55E25 /* ContentAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E291706A2C55E2FF00B55E25 /* ContentAPI.swift */; };
+		E291706E2C55E3B300B55E25 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = E291706D2C55E3B300B55E25 /* Moya */; };
+		E29170702C55E3F500B55E25 /* ContentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E291706F2C55E3F500B55E25 /* ContentService.swift */; };
+		E29170722C55E4E600B55E25 /* DependencyInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29170712C55E4E600B55E25 /* DependencyInjection.swift */; };
 		E29170602C4FD6D400B55E25 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E291705F2C4FD6D400B55E25 /* UserService.swift */; };
 		E29170642C4FD8AF00B55E25 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = E29170632C4FD8AF00B55E25 /* Moya */; };
 		E29170672C4FD9A300B55E25 /* UserServiceApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29170662C4FD9A300B55E25 /* UserServiceApi.swift */; };
@@ -265,6 +281,8 @@
 		C964F7B02C19166800A37295 /* CoincidencesSceneFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoincidencesSceneFactory.swift; sourceTree = "<group>"; };
 		C96895CE2BE835EA002A99E6 /* AuthPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenterProtocol.swift; sourceTree = "<group>"; };
 		C96895D02BE88E4B002A99E6 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
+		C9851EE92C491348008281CD /* RouletteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouletteCollectionViewCell.swift; sourceTree = "<group>"; };
+		C9851EEB2C4931FE008281CD /* CustomHorizontalCollectionLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHorizontalCollectionLayout.swift; sourceTree = "<group>"; };
 		C98ACAF32C559BEB00C946D6 /* EditNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNameViewController.swift; sourceTree = "<group>"; };
 		C98ACAF52C559D4900C946D6 /* EditNameCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNameCoordinator.swift; sourceTree = "<group>"; };
 		C98ACAF72C55A0C500C946D6 /* EditNamePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNamePresenter.swift; sourceTree = "<group>"; };
@@ -278,6 +296,15 @@
 		C98ACB082C55B98E00C946D6 /* JoinSessionAuthPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinSessionAuthPresenterProtocol.swift; sourceTree = "<group>"; };
 		C98ACB0A2C55BAAC00C946D6 /* JoinSessionAuthSceneFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinSessionAuthSceneFactory.swift; sourceTree = "<group>"; };
 		C991F0CC2C3812580090543B /* CoincidencesMovieInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoincidencesMovieInfoViewController.swift; sourceTree = "<group>"; };
+		C9A7C54C2C4A031E005328E9 /* RouletteStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouletteStartViewController.swift; sourceTree = "<group>"; };
+		C9A7C54E2C4A16A7005328E9 /* RouletteStartViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouletteStartViewControllerDelegate.swift; sourceTree = "<group>"; };
+		C9AE34F82C3BE1F50005A87B /* RouletteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouletteViewController.swift; sourceTree = "<group>"; };
+		C9AE34FA2C3C160D0005A87B /* RouletteCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouletteCoordinator.swift; sourceTree = "<group>"; };
+		C9AE34FC2C3C16AB0005A87B /* RouletteSceneFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouletteSceneFactory.swift; sourceTree = "<group>"; };
+		C9AE34FE2C3C17A10005A87B /* RoulettePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoulettePresenter.swift; sourceTree = "<group>"; };
+		C9AE35002C3C17F20005A87B /* RouletteViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouletteViewProtocol.swift; sourceTree = "<group>"; };
+		C9AE35022C3C180F0005A87B /* RoulettePresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoulettePresenterProtocol.swift; sourceTree = "<group>"; };
+		C9AE35052C3C32910005A87B /* RouletteOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouletteOnboardingViewController.swift; sourceTree = "<group>"; };
 		C9AF1EB42C0A0FA90080FC4A /* OnboardingPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPresenter.swift; sourceTree = "<group>"; };
 		C9B57C6B2C0607450026E85D /* DismissJoinSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissJoinSessionViewController.swift; sourceTree = "<group>"; };
 		C9C4D59A2BD3A3C70081CD23 /* DavaiPosmotrim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DavaiPosmotrim.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -286,6 +313,7 @@
 		C9C4D5A62BD3A3CB0081CD23 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9C4D5A92BD3A3CB0081CD23 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C9C4D5AB2BD3A3CB0081CD23 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C9F4B5262C52972400F1E78D /* RouletteUsersCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouletteUsersCollectionCell.swift; sourceTree = "<group>"; };
 		C9C53FD02C56B30C005302AC /* ReusableAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableAuthView.swift; sourceTree = "<group>"; };
 		C9FCE9522BD3E22B00FE655D /* DaysOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DaysOne-Regular.ttf"; sourceTree = "<group>"; };
 		C9FCE9562BD3E25800FE655D /* Inter-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-SemiBold.otf"; sourceTree = "<group>"; };
@@ -293,6 +321,9 @@
 		C9FCE95E2BD3E25C00FE655D /* Inter-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Bold.otf"; sourceTree = "<group>"; };
 		C9FCE9612BD3E25D00FE655D /* Inter-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Medium.otf"; sourceTree = "<group>"; };
 		C9FCE96C2BD3E53C00FE655D /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
+		E291706A2C55E2FF00B55E25 /* ContentAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentAPI.swift; sourceTree = "<group>"; };
+		E291706F2C55E3F500B55E25 /* ContentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentService.swift; sourceTree = "<group>"; };
+		E29170712C55E4E600B55E25 /* DependencyInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjection.swift; sourceTree = "<group>"; };
 		E291705F2C4FD6D400B55E25 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		E29170662C4FD9A300B55E25 /* UserServiceApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServiceApi.swift; sourceTree = "<group>"; };
 		E29170682C4FDA8400B55E25 /* TempModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempModels.swift; sourceTree = "<group>"; };
@@ -339,7 +370,7 @@
 			files = (
 				C9C4D5B42BD3B3810081CD23 /* Kingfisher in Frameworks */,
 				C90CAB372BFAFA6B00B42456 /* Swinject in Frameworks */,
-				E29170642C4FD8AF00B55E25 /* Moya in Frameworks */,
+				E291706E2C55E3B300B55E25 /* Moya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -563,6 +594,41 @@
 			path = CoincidencesMovieInfoViewController;
 			sourceTree = "<group>";
 		};
+		C9A7C54B2C4A028D005328E9 /* RouletteStartViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C9A7C54C2C4A031E005328E9 /* RouletteStartViewController.swift */,
+				C9A7C54E2C4A16A7005328E9 /* RouletteStartViewControllerDelegate.swift */,
+			);
+			path = RouletteStartViewController;
+			sourceTree = "<group>";
+		};
+		C9AE34F72C3BE1CE0005A87B /* RouletteFlow */ = {
+			isa = PBXGroup;
+			children = (
+				C9A7C54B2C4A028D005328E9 /* RouletteStartViewController */,
+				C9AE35042C3C326E0005A87B /* RouletteOnboarding */,
+				C9AE34FA2C3C160D0005A87B /* RouletteCoordinator.swift */,
+				C9AE34FC2C3C16AB0005A87B /* RouletteSceneFactory.swift */,
+				C9AE34F82C3BE1F50005A87B /* RouletteViewController.swift */,
+				C9AE35022C3C180F0005A87B /* RoulettePresenterProtocol.swift */,
+				C9AE34FE2C3C17A10005A87B /* RoulettePresenter.swift */,
+				C9AE35002C3C17F20005A87B /* RouletteViewProtocol.swift */,
+				C9851EE92C491348008281CD /* RouletteCollectionViewCell.swift */,
+				C9851EEB2C4931FE008281CD /* CustomHorizontalCollectionLayout.swift */,
+				C9F4B5262C52972400F1E78D /* RouletteUsersCollectionCell.swift */,
+			);
+			path = RouletteFlow;
+			sourceTree = "<group>";
+		};
+		C9AE35042C3C326E0005A87B /* RouletteOnboarding */ = {
+			isa = PBXGroup;
+			children = (
+				C9AE35052C3C32910005A87B /* RouletteOnboardingViewController.swift */,
+			);
+			path = RouletteOnboarding;
+			sourceTree = "<group>";
+		};
 		C9B57C6A2C0607050026E85D /* DismissJoinSessionVIewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -577,7 +643,7 @@
 			children = (
 				C9C4D59C2BD3A3C70081CD23 /* DavaiPosmotrim */,
 				C9C4D59B2BD3A3C70081CD23 /* Products */,
-				E29170622C4FD8AF00B55E25 /* Frameworks */,
+				E291706C2C55E3B300B55E25 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -609,6 +675,7 @@
 				C91332D12C10B30E0036FC44 /* MovieSelectionOnboardingFlow */,
 				E2B9BF9A2BD7CDA600592578 /* MainFlow */,
 				C964F7A52C19126500A37295 /* CoincidencesFlow */,
+				C9AE34F72C3BE1CE0005A87B /* RouletteFlow */,
 				C9C4D5AB2BD3A3CB0081CD23 /* Info.plist */,
 				C9C4D59D2BD3A3C70081CD23 /* AppDelegate.swift */,
 				C9C4D59F2BD3A3C70081CD23 /* SceneDelegate.swift */,
@@ -616,6 +683,9 @@
 				E9A270202BE52B980088652B /* Mistakes */,
 				C9FCE9502BD3E05400FE655D /* Resources */,
 				C964B70E2BD8137800CF9AF0 /* UI */,
+				E291706A2C55E2FF00B55E25 /* ContentAPI.swift */,
+				E291706F2C55E3F500B55E25 /* ContentService.swift */,
+				E29170712C55E4E600B55E25 /* DependencyInjection.swift */,
 			);
 			path = DavaiPosmotrim;
 			sourceTree = "<group>";
@@ -661,6 +731,13 @@
 				4AAEABB12C1761F500A14C1D /* UIImage+Extension.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		E291706C2C55E3B300B55E25 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		E291705E2C4FD68900B55E25 /* Services */ = {
@@ -820,7 +897,7 @@
 			packageProductDependencies = (
 				C9C4D5B32BD3B3810081CD23 /* Kingfisher */,
 				C90CAB362BFAFA6B00B42456 /* Swinject */,
-				E29170632C4FD8AF00B55E25 /* Moya */,
+				E291706D2C55E3B300B55E25 /* Moya */,
 			);
 			productName = DavaiPosmotrim;
 			productReference = C9C4D59A2BD3A3C70081CD23 /* DavaiPosmotrim.app */;
@@ -909,8 +986,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C991F0CD2C3812580090543B /* CoincidencesMovieInfoViewController.swift in Sources */,
+				C9AE34F92C3BE1F50005A87B /* RouletteViewController.swift in Sources */,
 				C9B57C6C2C0607450026E85D /* DismissJoinSessionViewController.swift in Sources */,
 				4A6280362BDED59F00102304 /* MainSceneFactory.swift in Sources */,
+				C9AE35062C3C32910005A87B /* RouletteOnboardingViewController.swift in Sources */,
+				C9AE34FB2C3C160E0005A87B /* RouletteCoordinator.swift in Sources */,
+				C9851EEC2C4931FE008281CD /* CustomHorizontalCollectionLayout.swift in Sources */,
 				4A6280382BDED62600102304 /* MainPresenter.swift in Sources */,
 				E9A9E74E2C1345D100AEF879 /* SessionsListCell.swift in Sources */,
 				4A6280422BE9001200102304 /* CustomNavigationBar.swift in Sources */,
@@ -926,10 +1007,12 @@
 				4AAEABB62C1DB54900A14C1D /* SelectionMoviesPresenterProtocol.swift in Sources */,
 				E2EFF0F02C0613D30022D54C /* InvitingUsersCoordinator.swift in Sources */,
 				5AA4F08D2C3EA2CB0088DDEE /* LeftAllignedLayout.swift in Sources */,
+				E29170702C55E3F500B55E25 /* ContentService.swift in Sources */,
 				5AA4F08F2C3EA6A50088DDEE /* CustomMovieDetailsCollectionFooter.swift in Sources */,
 				C96895CF2BE835EA002A99E6 /* AuthPresenterProtocol.swift in Sources */,
 				E9B495062C28779400B653F8 /* SessionMovieSection.swift in Sources */,
 				C9C4D59E2BD3A3C70081CD23 /* AppDelegate.swift in Sources */,
+				E29170722C55E4E600B55E25 /* DependencyInjection.swift in Sources */,
 				E2B9BFA22BD7CEC300592578 /* AuthViewController.swift in Sources */,
 				C98ACAF42C559BEB00C946D6 /* EditNameViewController.swift in Sources */,
 				4AE89A442C08ACF9008DD0D4 /* SelectionMoviesViewController.swift in Sources */,
@@ -945,6 +1028,7 @@
 				E2B9BF892BD7BA2C00592578 /* AppCoordinatorProtocol.swift in Sources */,
 				E9C34A332C135F57002628F9 /* SessionsListViewController.swift in Sources */,
 				5AEEACCE2C10766F00F18BF9 /* SplashScreenPresenter.swift in Sources */,
+				E291706B2C55E2FF00B55E25 /* ContentAPI.swift in Sources */,
 				E2B9BFA62BD7CF3000592578 /* CreateSessionViewController.swift in Sources */,
 				5A3FA9912C45488A002C61B4 /* MovieModel.swift in Sources */,
 				C90CAB342BFAFA1100B42456 /* JoinSessionViewController.swift in Sources */,
@@ -955,8 +1039,11 @@
 				5A367C1C2C3FF0530071FC97 /* CustomRatingParentCollectionCell.swift in Sources */,
 				4AAEABC82C301D6A00A14C1D /* DismissSelectionMoviesDelegate.swift in Sources */,
 				E9FA32F02C1A309300036043 /* SessionsListPresenter.swift in Sources */,
+				C9A7C54D2C4A031E005328E9 /* RouletteStartViewController.swift in Sources */,
 				E9512FB82C29FA4F006CA977 /* SessionUserHeader.swift in Sources */,
 				C91332D72C10BEEB0036FC44 /* MovieSelectionOnboardingPresenter.swift in Sources */,
+				C9AE35012C3C17F20005A87B /* RouletteViewProtocol.swift in Sources */,
+				C9AE34FF2C3C17A10005A87B /* RoulettePresenter.swift in Sources */,
 				C9147CB32C067FCC0086A663 /* DismissJoinSessionDelegate.swift in Sources */,
 				5A3FA9A32C454DF3002C61B4 /* PatchedCustomSessionCreateRequestModel.swift in Sources */,
 				5AEEACD62C10B94200F18BF9 /* SplashScreenViewControllerProtocol.swift in Sources */,
@@ -974,12 +1061,14 @@
 				5A69B6302C33F8F000E9E3F7 /* CustomRatingCollectionCell.swift in Sources */,
 				4A6280322BDE846900102304 /* MainTableViewCell.swift in Sources */,
 				4AAEABBA2C1DD24500A14C1D /* SelectionMoviesCoordinator.swift in Sources */,
+				C9AE35032C3C180F0005A87B /* RoulettePresenterProtocol.swift in Sources */,
 				E9208CAD2C2D1DA000A08EFB /* SessionBaseSection.swift in Sources */,
 				4A62804C2BF0EB7300102304 /* CustomWarningNotification.swift in Sources */,
 				E9A9E74C2C133CC600AEF879 /* SessionsListEmptyView.swift in Sources */,
 				C98ACAFA2C55A19C00C946D6 /* EditNamePresenterProtocol.swift in Sources */,
 				5A3FA99F2C454BFE002C61B4 /* MovieDetailModel.swift in Sources */,
 				C91DCC7C2BFEA33E001BC065 /* JoinSessionViewProtocol.swift in Sources */,
+				C9A7C54F2C4A16A7005328E9 /* RouletteStartViewControllerDelegate.swift in Sources */,
 				E2B9BF872BD7B8EF00592578 /* CoordinatorProtocol.swift in Sources */,
 				C98ACB072C55B96500C946D6 /* JoinSessionAuthViewProtocol.swift in Sources */,
 				C98ACAF82C55A0C500C946D6 /* EditNamePresenter.swift in Sources */,
@@ -1018,6 +1107,7 @@
 				C9AF1EB52C0A0FA90080FC4A /* OnboardingPresenter.swift in Sources */,
 				C964F7AB2C1914B900A37295 /* CoincidencesViewProtocol.swift in Sources */,
 				4AAEABC62C301D4000A14C1D /* DismissSelectionMoviesViewController.swift in Sources */,
+				C9AE34FD2C3C16AB0005A87B /* RouletteSceneFactory.swift in Sources */,
 				C917E3FB2BE6D12000B34639 /* AuthSceneFactory.swift in Sources */,
 				4AAEABA22C0C66D400A14C1D /* SelectionMovieMockData.swift in Sources */,
 				4AAEABBD2C1DD6FA00A14C1D /* MatchViewController.swift in Sources */,
@@ -1048,9 +1138,11 @@
 				E916A4AB2C26EA6D00B2C5D7 /* SessionsListViewControllerProtocol.swift in Sources */,
 				C91332D92C10BF2B0036FC44 /* MovieSelectionOnboardingProtocol.swift in Sources */,
 				C964F7AD2C1914F400A37295 /* CoincidencesPresenter.swift in Sources */,
+				C9851EEA2C491348008281CD /* RouletteCollectionViewCell.swift in Sources */,
 				C96895D12BE88E4B002A99E6 /* Resources.swift in Sources */,
 				4AAEABAE2C15EEFC00A14C1D /* CreateSessionCoordinator.swift in Sources */,
 				E9512FBA2C29FC87006CA977 /* SessionUserSection.swift in Sources */,
+				C9F4B5272C52972400F1E78D /* RouletteUsersCollectionCell.swift in Sources */,
 				4A2FB3AE2BF374F60048F5B9 /* CreateSessionPresenterProtocol.swift in Sources */,
 				C91332E02C11F2470036FC44 /* ReusableOnboardingCollectionViewCell.swift in Sources */,
 				4AAEABB42C1DB51E00A14C1D /* SelectionMoviesPresenter.swift in Sources */,
@@ -1325,9 +1417,9 @@
 			package = C9C4D5B22BD3B3810081CD23 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
 		};
-		E29170632C4FD8AF00B55E25 /* Moya */ = {
+		E291706D2C55E3B300B55E25 /* Moya */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E29170612C4FD73100B55E25 /* XCRemoteSwiftPackageReference "Moya" */;
+			package = C9C4D5B12BD3B27D0081CD23 /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = Moya;
 		};
 /* End XCSwiftPackageProductDependency section */

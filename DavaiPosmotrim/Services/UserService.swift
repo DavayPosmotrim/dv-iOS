@@ -7,7 +7,7 @@
 import Foundation
 import Moya
 
-struct ErrorResponse: Codable {
+struct UserErrorResponse: Codable {
     let detail: String
 }
 
@@ -51,7 +51,7 @@ class UserService: UserServiceProtocol {
             case .failure(let error):
                 if let response = error.response {
                     do {
-                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: response.data)
+                        let errorResponse = try JSONDecoder().decode(UserErrorResponse.self, from: response.data)
                         completion(.failure(NSError(domain: "", code: response.statusCode, userInfo: [NSLocalizedDescriptionKey: errorResponse.detail])))
                     } catch {
                         completion(.failure(error))
@@ -78,7 +78,7 @@ class UserService: UserServiceProtocol {
             case .failure(let error):
                 if let response = error.response {
                     do {
-                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: response.data)
+                        let errorResponse = try JSONDecoder().decode(UserErrorResponse.self, from: response.data)
                         completion(.failure(NSError(domain: "", code: response.statusCode, userInfo: [NSLocalizedDescriptionKey: errorResponse.detail])))
                     } catch {
                         completion(.failure(error))
@@ -105,7 +105,7 @@ class UserService: UserServiceProtocol {
             case .failure(let error):
                 if let response = error.response {
                     do {
-                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: response.data)
+                        let errorResponse = try JSONDecoder().decode(UserErrorResponse.self, from: response.data)
                         completion(.failure(NSError(domain: "", code: response.statusCode, userInfo: [NSLocalizedDescriptionKey: errorResponse.detail])))
                     } catch {
                         completion(.failure(error))
