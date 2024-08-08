@@ -13,6 +13,7 @@ final class MatchSelectionMoviesViewController: UIViewController {
 
     var matchSelection: SelectionMovieCellModel?
     var dismissCompletion: (() -> Void)?
+    var buttonTitle: String
 
     // MARK: - Lazy properties
 
@@ -48,7 +49,7 @@ final class MatchSelectionMoviesViewController: UIViewController {
     private lazy var progressButton: CustomButtons = {
         let button = CustomButtons()
         button.setupView(with: button.progressButton)
-        button.progressButton.setTitle(Resources.SelectionMovies.continueButtonText, for: .normal)
+        button.progressButton.setTitle(buttonTitle, for: .normal)
         button.progressButton.addTarget(
             self,
             action: #selector(didTapProgressButton),
@@ -63,8 +64,9 @@ final class MatchSelectionMoviesViewController: UIViewController {
 
     // MARK: - Lifecycle
 
-    init(matchSelection: SelectionMovieCellModel?) {
+    init(matchSelection: SelectionMovieCellModel?, buttonTitle: String) {
         self.matchSelection = matchSelection
+        self.buttonTitle = buttonTitle
         super.init(nibName: nil, bundle: nil)
     }
 

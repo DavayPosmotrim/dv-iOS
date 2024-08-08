@@ -51,6 +51,14 @@ final class CustomButtons: UIView {
         return button
     }()
 
+    lazy var clearButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .whiteBackground
+        button.setTitleColor(.baseText, for: .normal)
+        button.titleLabel?.font = .textButtonMediumFont
+        return button
+    }()
+
     lazy var progressButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .baseTertiaryAccent

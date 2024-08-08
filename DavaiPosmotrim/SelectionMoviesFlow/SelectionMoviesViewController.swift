@@ -295,7 +295,10 @@ extension SelectionMoviesViewController: SelectionMoviesViewProtocol {
 
     func showMatch(matchModel: SelectionMovieCellModel) {
         guard let navigationController else { return }
-        let viewController = MatchSelectionMoviesViewController(matchSelection: matchModel)
+        let viewController = MatchSelectionMoviesViewController(
+            matchSelection: matchModel,
+            buttonTitle: Resources.SelectionMovies.continueButtonText
+        )
         viewController.modalPresentationStyle = .overFullScreen
         viewController.modalTransitionStyle = .crossDissolve
         navigationController.present(viewController, animated: true)
