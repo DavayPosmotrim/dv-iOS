@@ -101,13 +101,11 @@ extension CreateSessionPresenter {
                 switch result {
                 case .success(let genres):
                     self.genresMovies = genres.map { CollectionsCellModel(title: $0.name) }
-                    print("Genres retrieved: \(self.genresMovies)")
-                    completion()
                 case .failure(let error):
                     // TODO: - обработать ошибки
                     print("Failed to get genres: \(error.localizedDescription)")
-                    completion()
                 }
+                completion()
             }
         }
 
@@ -119,13 +117,11 @@ extension CreateSessionPresenter {
                     title: $0.name,
                     movieImage: $0.cover ?? ""
                 ) }
-                print("Collections retrieved: \(collections)")
-                completion()
             case .failure(let error):
                 // TODO: - обработать ошибки
                 print("Failed to get collections: \(error.localizedDescription)")
-                completion()
             }
+            completion()
         }
     }
 
@@ -153,7 +149,7 @@ extension CreateSessionPresenter {
         // TODO: - проверка на формирование POST запроса
         if let jsonData = try? JSONEncoder().encode(requestModel),
            let jsonString = String(data: jsonData, encoding: .utf8) {
-            print("Создание сессии: \(jsonString)")
+//            print("Создание сессии: \(jsonString)")
         } else {
             print("Не удалось преобразовать модель в JSON.")
         }

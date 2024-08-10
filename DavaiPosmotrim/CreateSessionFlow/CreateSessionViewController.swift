@@ -11,7 +11,7 @@ final class CreateSessionViewController: UIViewController {
 
     // MARK: - Public Properties
 
-    var presenter: CreateSessionPresenterProtocol?
+    var presenter: CreateSessionPresenterProtocol
 
     // MARK: - Layout variables
 
@@ -135,7 +135,6 @@ final class CreateSessionViewController: UIViewController {
     // MARK: - Actions
 
     @objc private func didTapNextButton() {
-        guard let presenter = presenter else { return }
         let segmentIndex = segmentControl.selectedSegmentIndex
         let notificationTitle = segmentIndex == 0 ?
         Resources.CreateSession.collectionNotificationTitle : Resources.CreateSession.genreNotificationTitle
@@ -159,14 +158,14 @@ private extension CreateSessionViewController {
         let loadingVC = CustomLoadingViewController.show(in: self)
         let dispatchGroup = DispatchGroup()
         dispatchGroup.enter()
-        presenter?.getCollections { [weak self] in
+        presenter.getCollections { [weak self] in
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
                 dispatchGroup.leave()
             }
         }
         dispatchGroup.enter()
-        presenter?.getGenres { [weak self] in
+        presenter.getGenres { [weak self] in
             DispatchQueue.main.async {
                 if let collectionView = self?.collectionView as? ReusableUICollectionView {
                     collectionView.updateCollectionView()
@@ -284,7 +283,7 @@ private extension CreateSessionViewController {
 
 extension CreateSessionViewController: CustomNavigationBarDelegate {
     func backButtonTapped() {
-        presenter?.backButtonTapped()
+        presenter.backButtonTapped()
     }
 }
 
@@ -292,11 +291,11 @@ extension CreateSessionViewController: CustomNavigationBarDelegate {
 
 extension CreateSessionViewController: CreateSessionTableViewCellDelegate {
     func tableViewCellTitleAdded(id: UUID?) {
-        presenter?.didAddCollection(id: id)
+        presenter.didAddCollection(id: id)
     }
 
     func tableViewCellTitleRemoved(id: UUID?) {
-        presenter?.didRemoveCollection(id: id)
+        presenter.didRemoveCollection(id: id)
     }
 }
 
@@ -304,11 +303,11 @@ extension CreateSessionViewController: CreateSessionTableViewCellDelegate {
 
 extension CreateSessionViewController: CreateSessionCollectionCellDelegate {
     func collectionCellTitleAdded(id: UUID?) {
-        presenter?.didAddGenres(id: id)
+        presenter.didAddGenres(id: id)
     }
 
     func collectionCellTitleRemoved(id: UUID?) {
-        presenter?.didRemoveGenres(id: id)
+        presenter.didRemoveGenres(id: id)
     }
 }
 
@@ -316,12 +315,10 @@ extension CreateSessionViewController: CreateSessionCollectionCellDelegate {
 
 extension CreateSessionViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let presenter = presenter else { return 0 }
         return presenter.getSelectionsMoviesCount() + 2
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let presenter = presenter else { return UITableViewCell() }
         if indexPath.row == 0 || indexPath.row == presenter.getSelectionsMoviesCount() + 1 {
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: EmptyTableViewCell.reuseIdentifier,
@@ -354,7 +351,7 @@ extension CreateSessionViewController: UITableViewDelegate {
         switch indexPath.row {
         case 0:
             return 168
-        case (presenter?.getSelectionsMoviesCount() ?? 0) + 1:
+        case presenter.getSelectionsMoviesCount() + 1:
             return 92
         default:
             return 176
@@ -374,18 +371,17 @@ extension CreateSessionViewController: UITableViewDelegate {
 
 extension CreateSessionViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return presenter?.getGenresMoviesCount() ?? 0
+        return presenter.getGenresMoviesCount()
     }
 
     func collectionView(
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
-        guard let presenter = presenter,
-              let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: CreateSessionCollectionCell.reuseIdentifier,
-                for: indexPath
-              ) as? CreateSessionCollectionCell else {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: CreateSessionCollectionCell.reuseIdentifier,
+            for: indexPath
+        ) as? CreateSessionCollectionCell else {
             return UICollectionViewCell()
         }
         cell.configure(model: presenter.getGenreAtIndex(index: indexPath.item))

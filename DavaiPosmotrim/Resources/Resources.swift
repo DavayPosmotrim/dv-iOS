@@ -127,7 +127,7 @@ enum Resources {
         static let customNavBarTitle = "Создать сеанс"
         static let customNavBarSubtitle = "Выберите понравившиеся подборки"
         static let collectionTitle = "Подборки".uppercased()
-        static let genreTitle = "жанр".uppercased()
+        static let genreTitle = "Жанр".uppercased()
         static let collectionNotificationTitle = "Выберите хотя бы одну подборку"
         static let genreNotificationTitle = "Выберите хотя бы один жанр"
     }
