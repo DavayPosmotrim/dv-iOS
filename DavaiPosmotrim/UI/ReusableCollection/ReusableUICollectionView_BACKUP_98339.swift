@@ -98,14 +98,15 @@ final class ReusableUICollectionView: UIView {
         lowerLabel.text = model.lowerText
     }
 
+<<<<<<< HEAD
     func updateCollectionView() {
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }
-    }
-
+=======
     func deactivateUserInteraction() {
         collectionView.isUserInteractionEnabled = false
+>>>>>>> develop
     }
 
     // MARK: - Handlers

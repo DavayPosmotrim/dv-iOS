@@ -104,10 +104,6 @@ final class ReusableUICollectionView: UIView {
         }
     }
 
-    func deactivateUserInteraction() {
-        collectionView.isUserInteractionEnabled = false
-    }
-
     // MARK: - Handlers
 
     @objc private func updateCollection() {
