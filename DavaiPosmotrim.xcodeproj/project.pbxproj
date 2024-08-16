@@ -11,6 +11,8 @@
 		4A2FB3AC2BF373A10048F5B9 /* UICollectionViewLayout+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2FB3AB2BF373A10048F5B9 /* UICollectionViewLayout+Extension.swift */; };
 		4A2FB3AE2BF374F60048F5B9 /* CreateSessionPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2FB3AD2BF374F60048F5B9 /* CreateSessionPresenterProtocol.swift */; };
 		4A2FB3B02BF780150048F5B9 /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2FB3AF2BF780150048F5B9 /* CustomSegmentedControl.swift */; };
+		4A62046C2C64EE8A00BBB4E9 /* EmptyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A62046B2C64EE8A00BBB4E9 /* EmptyTableViewCell.swift */; };
+		4A62046E2C65458500BBB4E9 /* CustomLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A62046D2C65458500BBB4E9 /* CustomLoadingViewController.swift */; };
 		4A6280322BDE846900102304 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6280312BDE846900102304 /* MainTableViewCell.swift */; };
 		4A6280342BDED4E500102304 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6280332BDED4E500102304 /* MainCoordinator.swift */; };
 		4A6280362BDED59F00102304 /* MainSceneFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6280352BDED59F00102304 /* MainSceneFactory.swift */; };
@@ -190,6 +192,8 @@
 		4A2FB3AB2BF373A10048F5B9 /* UICollectionViewLayout+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewLayout+Extension.swift"; sourceTree = "<group>"; };
 		4A2FB3AD2BF374F60048F5B9 /* CreateSessionPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionPresenterProtocol.swift; sourceTree = "<group>"; };
 		4A2FB3AF2BF780150048F5B9 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
+		4A62046B2C64EE8A00BBB4E9 /* EmptyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTableViewCell.swift; sourceTree = "<group>"; };
+		4A62046D2C65458500BBB4E9 /* CustomLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLoadingViewController.swift; sourceTree = "<group>"; };
 		4A6280312BDE846900102304 /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
 		4A6280332BDED4E500102304 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		4A6280352BDED59F00102304 /* MainSceneFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSceneFactory.swift; sourceTree = "<group>"; };
@@ -543,6 +547,7 @@
 				4AE89A462C08AF53008DD0D4 /* CustomNavigationBarTwoButtons.swift */,
 				C961C0602C25A1E8008C3621 /* CustomNavBar.swift */,
 				C9C53FD02C56B30C005302AC /* ReusableAuthView.swift */,
+				4A62046D2C65458500BBB4E9 /* CustomLoadingViewController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -825,6 +830,7 @@
 				E2B9BFA52BD7CF3000592578 /* CreateSessionViewController.swift */,
 				4A2FB3A72BF362EA0048F5B9 /* CreateSessionPresenter.swift */,
 				4A6280432BEAAC3800102304 /* CreateSessionTableViewCell.swift */,
+				4A62046B2C64EE8A00BBB4E9 /* EmptyTableViewCell.swift */,
 				4A6280492BECEB2300102304 /* CreateSessionCollectionCell.swift */,
 				4AAEABAD2C15EEFC00A14C1D /* CreateSessionCoordinator.swift */,
 				4AAEABAF2C15EF9600A14C1D /* CreateSessionFactory.swift */,
@@ -1062,6 +1068,7 @@
 				4A62804C2BF0EB7300102304 /* CustomWarningNotification.swift in Sources */,
 				E9A9E74C2C133CC600AEF879 /* SessionsListEmptyView.swift in Sources */,
 				C98ACAFA2C55A19C00C946D6 /* EditNamePresenterProtocol.swift in Sources */,
+				4A62046E2C65458500BBB4E9 /* CustomLoadingViewController.swift in Sources */,
 				5A3FA99F2C454BFE002C61B4 /* MovieDetailModel.swift in Sources */,
 				C91DCC7C2BFEA33E001BC065 /* JoinSessionViewProtocol.swift in Sources */,
 				C9A7C54F2C4A16A7005328E9 /* RouletteStartViewControllerDelegate.swift in Sources */,
@@ -1096,6 +1103,7 @@
 				5A69B62C2C33F5F000E9E3F7 /* CustomMovieDetails.swift in Sources */,
 				E2B9BF932BD7C45B00592578 /* BaseCoordinator.swift in Sources */,
 				5A3FA9992C454A50002C61B4 /* CustomUserModel.swift in Sources */,
+				4A62046C2C64EE8A00BBB4E9 /* EmptyTableViewCell.swift in Sources */,
 				5A367C1A2C3FE9B50071FC97 /* CustomMovieDescriptionCell.swift in Sources */,
 				E9C34A352C136085002628F9 /* SessionsListModel.swift in Sources */,
 				C91332DE2C11F0C20036FC44 /* ReusableOnboardingView.swift in Sources */,

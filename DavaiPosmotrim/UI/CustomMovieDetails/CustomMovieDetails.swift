@@ -42,6 +42,7 @@ final class CustomMovieDetails: UIView {
             frame: .zero,
             collectionViewLayout: layout
         )
+        actorsAndDirectorsCollectionView.backgroundColor = .whiteBackground
         actorsAndDirectorsCollectionView.register(
             CustomRolesCollectionCell.self,
             forCellWithReuseIdentifier: CustomRolesCollectionCell.reuseIdentifier
