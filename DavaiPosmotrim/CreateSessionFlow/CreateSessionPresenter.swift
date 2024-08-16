@@ -149,7 +149,6 @@ extension CreateSessionPresenter {
         // TODO: - проверка на формирование POST запроса
         if let jsonData = try? JSONEncoder().encode(requestModel),
            let jsonString = String(data: jsonData, encoding: .utf8) {
-//            print("Создание сессии: \(jsonString)")
         } else {
             print("Не удалось преобразовать модель в JSON.")
         }
