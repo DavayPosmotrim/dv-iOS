@@ -7,4 +7,8 @@
 
 import UIKit
 
-protocol EditNameViewProtocol: AnyObject {}
+protocol EditNameViewProtocol: AnyObject {
+    func showLoader()
+    func hideLoader()
+    func showError()
+}

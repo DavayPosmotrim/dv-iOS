@@ -45,17 +45,23 @@ final class AuthPresenter: AuthPresenterProtocol {
 
 extension AuthPresenter {
 
-    func createUser(name: String) {
+    func createUser(name: String, completion: @escaping (Bool) -> Void) {
         let deviceId = UUID().uuidString
-        userService.createUser(deviceId: deviceId, name: name) { result in
+        view?.showLoader()
+        userService.createUser(deviceId: deviceId, name: name) { [weak self] result in
+            guard let self else { return }
             switch result {
             case .success(let user):
                 UserDefaults.standard.setValue(user.name, forKey: Resources.Authentication.savedNameUserDefaultsKey)
                 UserDefaults.standard.setValue(user.deviceId, forKey: Resources.Authentication.savedDeviceID)
+                completion(true)
                 print(user)
             case .failure(let error):
+                completion(false)
+                self.view?.showError()
                 print("Failed to create user: \(error)")
             }
         }
+        view?.hideLoader()
     }
 }

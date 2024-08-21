@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Alamofire
 
 final class EditNameViewController: UIViewController {
 
@@ -14,6 +15,9 @@ final class EditNameViewController: UIViewController {
     var presenter: EditNamePresenterProtocol
 
     private var reusableAuthModel: ReusableAuthViewModel?
+    private var loadingVC: CustomLoadingViewController?
+    private var checkProperty: Bool?
+    private var networkReachabilityManager: NetworkReachabilityManager?
 
     // MARK: - Lazy properties
 
@@ -44,12 +48,14 @@ final class EditNameViewController: UIViewController {
 
         setupModel()
         setupView()
+        setupNetworkReachability()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
         presenter.finishEdit()
+        stopNetworkReachability()
     }
 
     // MARK: - Private methods
@@ -66,21 +72,66 @@ final class EditNameViewController: UIViewController {
         ])
     }
 
+    private func setupNetworkReachability() {
+        networkReachabilityManager = NetworkReachabilityManager()
+        networkReachabilityManager?.startListening(onUpdatePerforming: { [weak self] status in
+            guard let self else { return }
+            print("Network status changed: \(status)")
+            switch status {
+            case .notReachable:
+                self.checkProperty = false
+            case .reachable(.ethernetOrWiFi), .reachable(.cellular):
+                self.checkProperty = true
+            case .unknown:
+                self.checkProperty = nil
+            }
+        })
+    }
+
+    private func stopNetworkReachability() {
+        networkReachabilityManager?.stopListening()
+    }
+
     private func setupModel() {
         reusableAuthModel = ReusableAuthViewModel(
             enterButtonAction: { [weak self] in
                 guard let self else { return }
-                self.dismiss(animated: true)
-                self.presenter.finishEdit()
+                if self.checkProperty == true {
+                    self.presentingViewController?.dismiss(animated: true) {
+                        self.presenter.finishEdit()
+                    }
+                }
             },
             checkSessionCodeAction: nil,
             userNameAction: { [weak self] text in
                 guard let self else { return }
-                self.presenter.updateUser(name: text)
-                self.presenter.authDidFinishNotification(userName: text)
+                self.presenter.updateUser(name: text) { isSuccess in
+                    if isSuccess {
+                        self.checkProperty = isSuccess
+                        self.presenter.authDidFinishNotification(userName: text)
+                    }
+                }
             }
         )
     }
 }
 
-extension EditNameViewController : EditNameViewProtocol {}
+extension EditNameViewController : EditNameViewProtocol {
+
+    func showLoader() {
+        loadingVC = CustomLoadingViewController.show(in: self)
+    }
+
+    func hideLoader() {
+        loadingVC?.hide()
+    }
+
+    func showError() {
+        editNameView.updateUIElements(
+            text: Resources.Authentication.lowerLabelNetworkError,
+            font: nil,
+            labelIsHidden: false,
+            buttonIsEnabled: false
+        )
+    }
+}

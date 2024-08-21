@@ -53,16 +53,22 @@ final class EditNamePresenter: EditNamePresenterProtocol {
 
 extension EditNamePresenter {
 
-    func updateUser(name: String) {
+    func updateUser(name: String, completion: @escaping (Bool) -> Void) {
         guard let deviceId = UserDefaults.standard.string(forKey: Resources.Authentication.savedDeviceID) else { return }
-        userService.updateUser(deviceId: deviceId, name: name) { result in
+        view?.showLoader()
+        userService.updateUser(deviceId: deviceId, name: name) { [weak self] result in
+            guard let self else { return }
             switch result {
             case .success(let user):
                 UserDefaults.standard.setValue(user.name, forKey: Resources.Authentication.savedNameUserDefaultsKey)
+                completion(true)
                 print("User name updated: \(user.name), \(user.deviceId)")
             case .failure(let error):
+                self.view?.showError()
+                completion(false)
                 print("Failed to update user: \(error)")
             }
         }
+        view?.hideLoader()
     }
 }

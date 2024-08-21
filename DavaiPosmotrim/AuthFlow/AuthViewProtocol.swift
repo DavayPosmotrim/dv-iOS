@@ -7,4 +7,8 @@
 
 import UIKit
 
-protocol AuthViewProtocol: AnyObject {}
+protocol AuthViewProtocol: AnyObject {
+    func showLoader()
+    func hideLoader()
+    func showError()
+}

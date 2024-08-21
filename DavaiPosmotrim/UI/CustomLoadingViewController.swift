@@ -21,14 +21,15 @@ final class CustomLoadingViewController: UIViewController {
         view.backgroundColor = .baseTertiaryAccent.withAlphaComponent(0.3)
         view.addSubview(loaderView)
         setupConstraints()
-        startLoadingAnimation()
     }
 
     static func show(in parent: UIViewController) -> CustomLoadingViewController {
         let loadingVC = CustomLoadingViewController()
         loadingVC.modalPresentationStyle = .overCurrentContext
         loadingVC.modalTransitionStyle = .crossDissolve
-        parent.present(loadingVC, animated: true, completion: nil)
+        parent.present(loadingVC, animated: true) {
+            loadingVC.startLoadingAnimation()
+        }
         return loadingVC
     }
 

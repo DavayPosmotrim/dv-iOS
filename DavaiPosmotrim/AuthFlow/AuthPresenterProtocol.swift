@@ -10,5 +10,5 @@ import Foundation
 protocol AuthPresenterProtocol: AnyObject {
     func authFinish()
     func checkUserNameProperty() -> String
-    func createUser(name: String)
+    func createUser(name: String, completion: @escaping (Bool) -> Void)
 }

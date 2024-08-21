@@ -11,5 +11,5 @@ protocol EditNamePresenterProtocol: AnyObject {
     func finishEdit()
     func authDidFinishNotification(userName: String)
     func checkUserNameProperty() -> String
-    func updateUser(name: String)
+    func updateUser(name: String, completion: @escaping (Bool) -> Void)
 }
