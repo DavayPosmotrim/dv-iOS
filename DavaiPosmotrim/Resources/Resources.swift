@@ -171,6 +171,10 @@ enum Resources {
         static let oldVersionHeader = "Версия приложения устарела"
         static let oldVersionText = "Сначала сломали, потом починили.\n Скачайте, обновлённую версию."
         static let oldVersionButtonTitle = "Перейти в магазин".uppercased()
+
+        static let noCollectionsHeader = "Ошибка при создании сессии"
+        static let noCollectionsText = "Сделайте другой выбор коллекций."
+        static let noCollectionsButtonTitle = "Показать список коллекций".uppercased()
     }
 
     enum SplashScreen {

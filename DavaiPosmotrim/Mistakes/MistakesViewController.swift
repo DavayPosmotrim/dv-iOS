@@ -17,6 +17,7 @@ final class MistakesViewController: UIViewController {
         case noInternet
         case serviceUnavailable
         case oldVersion
+        case noCollections
     }
 
     enum Constants {
@@ -96,6 +97,11 @@ private extension MistakesViewController {
         // TODO: - add code later
     }
 
+    @objc func didTapNoCollectionsButton(sender: AnyObject) {
+        print("Button NoCollections tapped")
+        // TODO: - add code later
+    }
+
     // MARK: - Setup UI
 
     func setupUI() {
@@ -146,6 +152,10 @@ private extension MistakesViewController {
             image.image = UIImage(resource: .oldAppVersionPlug)
             header.text = Resources.Mistakes.oldVersionHeader
             text.text = Resources.Mistakes.oldVersionText
+        case .noCollections:
+            image.image = UIImage(resource: .unavailableServicePlug)
+            header.text = Resources.Mistakes.noCollectionsHeader
+            text.text = Resources.Mistakes.noCollectionsText
         }
     }
 
@@ -161,6 +171,10 @@ private extension MistakesViewController {
             button.isHidden = false
             button.configure(title: Resources.Mistakes.oldVersionButtonTitle, type: .accentPrimary)
             button.addTarget(self, action: #selector(didTapOldVersionButton(sender:)), for: .touchUpInside)
+        case .noCollections:
+            button.isHidden = false
+            button.configure(title: Resources.Mistakes.noCollectionsButtonTitle, type: .accentPrimary)
+            button.addTarget(self, action: #selector(didTapNoCollectionsButton(sender:)), for: .touchUpInside)
         }
     }
 }
