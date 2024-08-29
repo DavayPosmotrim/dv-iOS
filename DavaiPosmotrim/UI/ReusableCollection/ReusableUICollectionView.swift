@@ -111,9 +111,7 @@ final class ReusableUICollectionView: UIView {
     // MARK: - Handlers
 
     @objc private func updateCollection() {
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
-        }
+        collectionView.reloadData()
     }
 
     // MARK: - Private methods

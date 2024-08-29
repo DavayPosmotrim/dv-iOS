@@ -16,12 +16,16 @@ final class AuthPresenter: AuthPresenterProtocol {
 
     // MARK: - Private Properties
 
-    private let userService: UserServiceProtocol = UserService()
+    private let userService: UserServiceProtocol
 
     // MARK: - Initializers
 
-    init(coordinator: AuthCoordinator) {
+    init(
+        coordinator: AuthCoordinator,
+        userService: UserServiceProtocol = UserService()
+    ) {
         self.coordinator = coordinator
+        self.userService = userService
     }
 
     // MARK: - Public methods

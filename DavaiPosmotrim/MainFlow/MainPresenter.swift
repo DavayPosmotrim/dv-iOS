@@ -15,12 +15,13 @@ final class MainPresenter: MainPresenterProtocol {
 
     // MARK: - Private properties
 
-    private let userService: UserServiceProtocol = UserService()
+    private let userService: UserServiceProtocol
 
     // MARK: - Initializers
 
-    init(coordinator: MainCoordinator) {
+    init(coordinator: MainCoordinator, userService: UserServiceProtocol = UserService()) {
         self.coordinator = coordinator
+        self.userService = userService
     }
 
     // MARK: - Public methods

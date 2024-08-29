@@ -138,6 +138,8 @@
 		C9C4D5AA2BD3A3CB0081CD23 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = C9C4D5A92BD3A3CB0081CD23 /* Base */; };
 		C9C4D5B42BD3B3810081CD23 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = C9C4D5B32BD3B3810081CD23 /* Kingfisher */; };
 		C9C53FD12C56B30C005302AC /* ReusableAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C53FD02C56B30C005302AC /* ReusableAuthView.swift */; };
+		C9D9BFB82C80C56A00299772 /* NetworkReachabilityHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D9BFB72C80C56A00299772 /* NetworkReachabilityHandler.swift */; };
+		C9D9BFBB2C81183A00299772 /* NetworkReachabilityHandlerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D9BFBA2C81183A00299772 /* NetworkReachabilityHandlerDelegate.swift */; };
 		C9F4B5272C52972400F1E78D /* RouletteUsersCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F4B5262C52972400F1E78D /* RouletteUsersCollectionCell.swift */; };
 		C9FCE9662BD3E4CF00FE655D /* DaysOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9FCE9522BD3E22B00FE655D /* DaysOne-Regular.ttf */; };
 		C9FCE9672BD3E4D200FE655D /* Inter-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C9FCE95E2BD3E25C00FE655D /* Inter-Bold.otf */; };
@@ -318,6 +320,8 @@
 		C9C4D5A92BD3A3CB0081CD23 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C9C4D5AB2BD3A3CB0081CD23 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9C53FD02C56B30C005302AC /* ReusableAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableAuthView.swift; sourceTree = "<group>"; };
+		C9D9BFB72C80C56A00299772 /* NetworkReachabilityHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkReachabilityHandler.swift; sourceTree = "<group>"; };
+		C9D9BFBA2C81183A00299772 /* NetworkReachabilityHandlerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkReachabilityHandlerDelegate.swift; sourceTree = "<group>"; };
 		C9F4B5262C52972400F1E78D /* RouletteUsersCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouletteUsersCollectionCell.swift; sourceTree = "<group>"; };
 		C9FCE9522BD3E22B00FE655D /* DaysOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DaysOne-Regular.ttf"; sourceTree = "<group>"; };
 		C9FCE9562BD3E25800FE655D /* Inter-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-SemiBold.otf"; sourceTree = "<group>"; };
@@ -705,6 +709,15 @@
 			path = ReusableCollection;
 			sourceTree = "<group>";
 		};
+		C9D9BFB92C81180B00299772 /* NetworkReachability */ = {
+			isa = PBXGroup;
+			children = (
+				C9D9BFB72C80C56A00299772 /* NetworkReachabilityHandler.swift */,
+				C9D9BFBA2C81183A00299772 /* NetworkReachabilityHandlerDelegate.swift */,
+			);
+			path = NetworkReachability;
+			sourceTree = "<group>";
+		};
 		C9FCE9502BD3E05400FE655D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -750,6 +763,7 @@
 		E29170652C4FD8F600B55E25 /* NetworkLayer */ = {
 			isa = PBXGroup;
 			children = (
+				C9D9BFB92C81180B00299772 /* NetworkReachability */,
 				E29170662C4FD9A300B55E25 /* UserServiceApi.swift */,
 				E29170682C4FDA8400B55E25 /* TempModels.swift */,
 			);
@@ -1067,6 +1081,7 @@
 				E9208CAD2C2D1DA000A08EFB /* SessionBaseSection.swift in Sources */,
 				4A62804C2BF0EB7300102304 /* CustomWarningNotification.swift in Sources */,
 				E9A9E74C2C133CC600AEF879 /* SessionsListEmptyView.swift in Sources */,
+				C9D9BFB82C80C56A00299772 /* NetworkReachabilityHandler.swift in Sources */,
 				C98ACAFA2C55A19C00C946D6 /* EditNamePresenterProtocol.swift in Sources */,
 				4A62046E2C65458500BBB4E9 /* CustomLoadingViewController.swift in Sources */,
 				5A3FA99F2C454BFE002C61B4 /* MovieDetailModel.swift in Sources */,
@@ -1106,6 +1121,7 @@
 				4A62046C2C64EE8A00BBB4E9 /* EmptyTableViewCell.swift in Sources */,
 				5A367C1A2C3FE9B50071FC97 /* CustomMovieDescriptionCell.swift in Sources */,
 				E9C34A352C136085002628F9 /* SessionsListModel.swift in Sources */,
+				C9D9BFBB2C81183A00299772 /* NetworkReachabilityHandlerDelegate.swift in Sources */,
 				C91332DE2C11F0C20036FC44 /* ReusableOnboardingView.swift in Sources */,
 				E9FA32EE2C1A2FF300036043 /* SessionsListPresenterProtocol.swift in Sources */,
 				C9AF1EB52C0A0FA90080FC4A /* OnboardingPresenter.swift in Sources */,

@@ -14,7 +14,7 @@ final class JoinSessionAuthViewController: UIViewController {
     var presenter: JoinSessionAuthPresenterProtocol
 
     private var reusableAuthModel: ReusableAuthViewModel?
-    private var wasDismissedManually = true
+    private var isDismissedManually = true
 
     // MARK: - Lazy properties
 
@@ -47,7 +47,7 @@ final class JoinSessionAuthViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
-        if wasDismissedManually {
+        if isDismissedManually {
             presenter.finishSessionAuth()
         }
     }
@@ -74,23 +74,23 @@ final class JoinSessionAuthViewController: UIViewController {
 
     private func setupModel() {
         reusableAuthModel = ReusableAuthViewModel(
+            userNameAction: nil,
             enterButtonAction: { [weak self] in
                 guard let self else { return }
-                self.wasDismissedManually = false
+                self.isDismissedManually = false
                 self.dismiss(animated: true)
                 self.presenter.showJoinSession()
             },
             checkSessionCodeAction: { [weak self] code in
                 guard let self else { return }
                 self.presenter.checkSessionCode(with: code)
-            },
-            userNameAction: nil
+            }
         )
     }
 }
 
 extension JoinSessionAuthViewController: JoinSessionAuthViewProtocol {
-    
+
     func updateUIElements(
         text: String?,
         font: UIFont?,

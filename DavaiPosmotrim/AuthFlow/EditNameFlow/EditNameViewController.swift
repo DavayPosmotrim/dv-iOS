@@ -16,8 +16,8 @@ final class EditNameViewController: UIViewController {
 
     private var reusableAuthModel: ReusableAuthViewModel?
     private var loadingVC: CustomLoadingViewController?
-    private var checkProperty: Bool?
-    private var networkReachabilityManager: NetworkReachabilityManager?
+    private var isServerReachable: Bool?
+    private var networkReachabilityHandler: NetworkReachabilityHandler
 
     // MARK: - Lazy properties
 
@@ -32,11 +32,16 @@ final class EditNameViewController: UIViewController {
 
     // MARK: - Initializers
 
-    init(presenter: EditNamePresenterProtocol) {
+    init(
+        presenter: EditNamePresenterProtocol,
+        networkReachabilityHandler: NetworkReachabilityHandler = NetworkReachabilityHandler()
+    ) {
         self.presenter = presenter
+        self.networkReachabilityHandler = networkReachabilityHandler
         super.init(nibName: nil, bundle: nil)
+        self.networkReachabilityHandler.delegate = self
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -48,14 +53,14 @@ final class EditNameViewController: UIViewController {
 
         setupModel()
         setupView()
-        setupNetworkReachability()
+        networkReachabilityHandler.setupNetworkReachability()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
         presenter.finishEdit()
-        stopNetworkReachability()
+        networkReachabilityHandler.stopListening()
     }
 
     // MARK: - Private methods
@@ -72,51 +77,34 @@ final class EditNameViewController: UIViewController {
         ])
     }
 
-    private func setupNetworkReachability() {
-        networkReachabilityManager = NetworkReachabilityManager()
-        networkReachabilityManager?.startListening(onUpdatePerforming: { [weak self] status in
-            guard let self else { return }
-            print("Network status changed: \(status)")
-            switch status {
-            case .notReachable:
-                self.checkProperty = false
-            case .reachable(.ethernetOrWiFi), .reachable(.cellular):
-                self.checkProperty = true
-            case .unknown:
-                self.checkProperty = nil
-            }
-        })
-    }
-
-    private func stopNetworkReachability() {
-        networkReachabilityManager?.stopListening()
-    }
-
     private func setupModel() {
         reusableAuthModel = ReusableAuthViewModel(
+            userNameAction: { [weak self] text, completion in
+                guard let self else { return }
+                self.presenter.updateUser(name: text) { isSuccess in
+                    self.isServerReachable = isSuccess
+                    completion(isSuccess)
+                    if isSuccess {
+                        self.presenter.authDidFinishNotification(userName: text)
+                    }
+                }
+            },
             enterButtonAction: { [weak self] in
                 guard let self else { return }
-                if self.checkProperty == true {
+                if self.isServerReachable == true {
                     self.presentingViewController?.dismiss(animated: true) {
                         self.presenter.finishEdit()
                     }
                 }
             },
-            checkSessionCodeAction: nil,
-            userNameAction: { [weak self] text in
-                guard let self else { return }
-                self.presenter.updateUser(name: text) { isSuccess in
-                    if isSuccess {
-                        self.checkProperty = isSuccess
-                        self.presenter.authDidFinishNotification(userName: text)
-                    }
-                }
-            }
+            checkSessionCodeAction: nil
         )
     }
 }
 
-extension EditNameViewController : EditNameViewProtocol {
+    // MARK: - EditNameViewProtocol
+
+extension EditNameViewController: EditNameViewProtocol {
 
     func showLoader() {
         loadingVC = CustomLoadingViewController.show(in: self)
@@ -133,5 +121,14 @@ extension EditNameViewController : EditNameViewProtocol {
             labelIsHidden: false,
             buttonIsEnabled: false
         )
+    }
+}
+
+    // MARK: - NetworkReachabilityHandlerDelegate
+
+extension EditNameViewController: NetworkReachabilityHandlerDelegate {
+
+    func didChangeNetworkStatus(isReachable: Bool?) {
+        isServerReachable = isReachable
     }
 }

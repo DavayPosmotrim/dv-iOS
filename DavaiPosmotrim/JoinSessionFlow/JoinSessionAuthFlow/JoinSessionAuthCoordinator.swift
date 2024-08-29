@@ -8,7 +8,7 @@
 import Foundation
 
 final class JoinSessionAuthCoordinator: BaseCoordinator {
-    
+
     override func start() {
         showJoinSessionAuthFlow()
     }

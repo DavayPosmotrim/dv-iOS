@@ -8,9 +8,9 @@
 import UIKit
 
 struct ReusableAuthViewModel {
+    let userNameAction: ((String, @escaping (Bool) -> Void) -> Void)?
     let enterButtonAction: (() -> Void)?
     let checkSessionCodeAction: ((String) -> Void)?
-    let userNameAction: ((String) -> Void)?
 }
 
 enum AuthEvent {
@@ -52,7 +52,7 @@ final class ReusableAuthView: UIView {
 
     private var enterButtonAction: (() -> Void)?
     private var checkSessionCodeAction: ((String) -> Void)?
-    private var userNameAction: ((String) -> Void)?
+    private var userNameAction: ((String, @escaping (Bool) -> Void) -> Void)?
 
     // MARK: - Lazy properties
 
@@ -197,11 +197,17 @@ private extension ReusableAuthView {
     @objc func enterButtonDidTap(sender: AnyObject) {
         guard let text = textField.text else { return }
         if authEvent != .joinSession {
-            userNameAction?(text)
+            userNameAction?(text) { [weak self] isSuccess in
+                guard let self = self else { return }
+                if isSuccess {
+                    self.textField.resignFirstResponder()
+                    self.enterButtonAction?()
+                }
+            }
+        } else {
+            textField.resignFirstResponder()
+            enterButtonAction?()
         }
-
-        textField.resignFirstResponder()
-        enterButtonAction?()
     }
 
     @objc func textFieldDidChange(sender: UITextField) {
@@ -255,7 +261,7 @@ private extension ReusableAuthView {
     // MARK: - UITextFieldDelegate
 
 extension ReusableAuthView: UITextFieldDelegate {
-    
+
     func textField(
         _ textField: UITextField,
         shouldChangeCharactersIn range: NSRange,
@@ -264,7 +270,7 @@ extension ReusableAuthView: UITextFieldDelegate {
         let maximumLength = authEvent == .joinSession ? authCodeMaxNumber : charactersMaxNumber
         let currentString = (textField.text ?? "") as NSString
         let updatedString = currentString.replacingCharacters(in: range, with: string)
-        
+
         switch authEvent {
         case .joinSession:
             if updatedString.rangeOfCharacter(from: CharacterSet.alphanumerics.inverted) != nil {

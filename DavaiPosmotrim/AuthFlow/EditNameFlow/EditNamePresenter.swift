@@ -16,12 +16,16 @@ final class EditNamePresenter: EditNamePresenterProtocol {
 
     // MARK: - Private properties
 
-    private let userService: UserServiceProtocol = UserService()
+    private let userService: UserServiceProtocol
 
     // MARK: - Initializers
 
-    init(coordinator: EditNameCoordinator) {
+    init(
+        coordinator: EditNameCoordinator,
+        userService: UserServiceProtocol = UserService()
+    ) {
         self.coordinator = coordinator
+        self.userService = userService
     }
 
     // MARK: - Public methods
