@@ -88,17 +88,14 @@ private extension MistakesViewController {
     // MARK: - Actions
 
     @objc func didTapNoInternetButton(sender: AnyObject) {
-        print("Button NoInternet tapped")
         // TODO: - add code later
     }
 
     @objc func didTapOldVersionButton(sender: AnyObject) {
-        print("Button OldVersion tapped")
         // TODO: - add code later
     }
 
     @objc func didTapNoCollectionsButton(sender: AnyObject) {
-        print("Button NoCollections tapped")
         // TODO: - add code later
     }
 
