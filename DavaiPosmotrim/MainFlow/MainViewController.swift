@@ -124,12 +124,6 @@ final class MainViewController: UIViewController {
             name: Notification.Name(Resources.Authentication.authDidFinishNotification),
             object: nil
         )
-
-        NotificationCenter.default.removeObserver(
-            self,
-            name: NSNotification.Name(Resources.MainScreen.startJoinSessionFlow),
-            object: nil
-        )
     }
 
     // MARK: - Lifecycle
@@ -142,6 +136,8 @@ final class MainViewController: UIViewController {
         setupConstraints()
         setupAuthNotificationObserver()
         setupTableViewHeightConstraint()
+
+        presenter?.getUser()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -203,7 +199,6 @@ final class MainViewController: UIViewController {
             tableView.leadingAnchor.constraint(equalTo: paddingView.leadingAnchor, constant: 16),
             tableView.topAnchor.constraint(equalTo: editButton.bottomAnchor, constant: 36),
             tableView.trailingAnchor.constraint(equalTo: paddingView.trailingAnchor, constant: -16),
-            tableView.bottomAnchor.constraint(equalTo: paddingView.bottomAnchor, constant: -100),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -80),
 
             nameLabel.leadingAnchor.constraint(equalTo: paddingView.leadingAnchor, constant: 32),

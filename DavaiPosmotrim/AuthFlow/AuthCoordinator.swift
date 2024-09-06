@@ -22,10 +22,6 @@ private extension AuthCoordinator {
 
     func showAuthentication() {
         let viewController = AuthSceneFactory.makeAuthViewController(with: self)
-        if self.type == .auth {
-            navigationController.setViewControllers([viewController], animated: true)
-        } else {
-            navigationController.present(viewController, animated: true)
-        }
+        navigationController.pushViewController(viewController, animated: true)
     }
 }

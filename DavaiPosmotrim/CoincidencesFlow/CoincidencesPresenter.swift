@@ -24,9 +24,14 @@ final class CoincidencesPresenter: CoincidencesPresenterProtocol {
 
     // MARK: - Private Properties
 
+    private let delayInSeconds: TimeInterval = 1
+
     private var moviesArray = [ReusableLikedMoviesCellModel]() {
         didSet {
             view?.updateUIElements()
+            DispatchQueue.main.asyncAfter(deadline: .now() + delayInSeconds) {
+                self.showRouletteOnboarding()
+            }
         }
     }
 
@@ -45,7 +50,7 @@ final class CoincidencesPresenter: CoincidencesPresenterProtocol {
 
     func diceButtonTapped() {
         guard let coordinator else { return }
-        // TODO: add code to jump to RouletteFlow
+        coordinator.showRouletteFlow()
     }
 
     func coincidencesCellTapped() {
@@ -84,5 +89,13 @@ final class CoincidencesPresenter: CoincidencesPresenterProtocol {
 
     func getMovieInfo(from array: [SelectionMovieCellModel]) -> SelectionMovieCellModel? {
         return array.randomElement()
+    }
+
+    func showRouletteOnboarding() {
+        guard let coordinator else { return }
+        if UserDefaults.standard.value(forKey: Resources.RouletteFlow.isRouletteOnboardingShown) == nil &&
+     moviesCount >= 3 {
+            coordinator.showRouletteOnboarding()
+        }
     }
 }

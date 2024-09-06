@@ -8,10 +8,7 @@
 import UIKit
 
 protocol AuthViewProtocol: AnyObject {
-    func updateUIElements(
-        text: String?,
-        font: UIFont?,
-        labelProperty: Bool,
-        buttonProperty: Bool
-    )
+    func showLoader()
+    func hideLoader()
+    func showError()
 }

@@ -71,10 +71,7 @@ enum Resources {
         static let lowerLabelNumbersWarningText = "Только буквы"
         static let lowerLabelMaxCharactersText = "Не более 16 символов"
         static let lowerLabelSessionNotFound = "Сеанс не найден"
-    }
-
-    enum MainScreen {
-        static let startJoinSessionFlow = "startJoinSessionFlow"
+        static let lowerLabelNetworkError = "Проблемы с сетью. Попробуйте позже"
     }
 
     enum JoinSession {
@@ -123,11 +120,42 @@ enum Resources {
         static let joinSessionViewController = "JoinSessionViewController"
     }
 
+    enum CreateSession {
+        static let nextButtonText = "Продолжить".uppercased()
+        static let customNavBarTitle = "Создать сеанс"
+        static let customNavBarSubtitle = "Выберите понравившиеся подборки"
+        static let collectionTitle = "Подборки".uppercased()
+        static let genreTitle = "Жанр".uppercased()
+        static let collectionNotificationTitle = "Выберите хотя бы одну подборку"
+        static let genreNotificationTitle = "Выберите хотя бы один жанр"
+    }
+
     enum Coincidences {
         static let plugLabelText = "Пока ничего нет"
         static let navBarText = "Совпадения"
 
         static let navBarTitle = "Понравившийся фильм"
+    }
+
+    enum RouletteFlow {
+        static let isRouletteOnboardingShown = "RouletteOnboardingIsShown"
+
+        static let titleLabelText = "Доверьтесь случаю"
+        static let upperLabelText = "Если понравилось много фильмов и тяжело определиться, что же посмотреть."
+        static let lowerLabelText = "Рандомно выберем фильм из всех понравившихся в этом сеансе."
+        static let proceedButtonText = "Понял, принял".uppercased()
+
+        static let startTitleLabelText = "Случайный выбор"
+        static let startUpperLabelText = "Из всех совпадений выберем один фильм. После выбора, сеанс завершится."
+        static let startUpperBoldLabelText = "Из всех совпадений выберем один фильм."
+        static let startLowerLabelText = "Остальные участники подключатся автоматически."
+        static let beginButtonText = "Начать".uppercased()
+        static let cancelButtonText = "Отменить".uppercased()
+
+        static let usersCollectionLowerText = "Начнём магию, когда подключатся все участники"
+        static let usersCollectionTitleText = "Ждём участников..."
+
+        static let progressButtonText = "Перейти к списку фильмов".uppercased()
     }
 
     enum Mistakes {
@@ -183,12 +211,11 @@ enum Resources {
         static let customOneButtonText = "Хорошо".uppercased()
         static let continueButtonText = "Продолжить сеанс".uppercased()
     }
-    
-    
+
     enum MovieDetails {
         static let kinoPoiskRatingText = "Рейтинг Кинопоиска"
         static let iMDBRatingText = "Рейтинг IMDb"
-        
+
         static let movieDetailsText = "Подробнее о фильме"
         static let mainRolesText = "В главных ролях"
         static let directorText = "Режиссёр"
@@ -218,5 +245,10 @@ enum Resources {
     enum AnimationKeys {
         static let strokeEnd = "strokeEnd"
         static let progressAnimation = "progressAnimation"
+    }
+
+    enum LoadingKeys {
+        static let keyPath = "transform.rotation"
+        static let forKey = "rotationAnimation"
     }
 }

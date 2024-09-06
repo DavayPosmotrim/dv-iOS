@@ -23,7 +23,7 @@ final class MainTableViewCell: UITableViewCell {
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .white
+        label.textColor = .whiteText
         label.font = .textLabelFont
         return label
     }()
@@ -43,6 +43,7 @@ final class MainTableViewCell: UITableViewCell {
         paddingView.backgroundColor = model.paddingBackgroundColor
         setupSubviews()
         setupConstraints()
+        backgroundColor = .whiteBackground
         selectionStyle = .none
     }
 

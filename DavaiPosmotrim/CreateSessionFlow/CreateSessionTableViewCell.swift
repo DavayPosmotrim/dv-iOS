@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 protocol CreateSessionTableViewCellDelegate: AnyObject {
     func tableViewCellTitleAdded(id: UUID?)
@@ -36,6 +37,7 @@ final class CreateSessionTableViewCell: UITableViewCell {
         imageView.layer.cornerRadius = 16
         imageView.layer.borderWidth = 8
         imageView.layer.borderColor = UIColor.whiteBackground.cgColor
+        imageView.contentMode = .scaleToFill
         imageView.layer.masksToBounds = true
         return imageView
     }()
@@ -44,6 +46,8 @@ final class CreateSessionTableViewCell: UITableViewCell {
         let label = UILabel()
         label.textColor = .whiteText
         label.font = .textParagraphRegularFont
+        label.numberOfLines = 3
+        label.lineBreakMode = .byTruncatingTail
         return label
     }()
 
@@ -61,6 +65,12 @@ final class CreateSessionTableViewCell: UITableViewCell {
         view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         view.layer.cornerRadius = 10
         view.clipsToBounds = true
+        let gradientLayer = CAGradientLayer()
+        let startColor: UIColor = .black.withAlphaComponent(.zero)
+        let endColor: UIColor = .black
+        gradientLayer.colors = [startColor.cgColor, endColor.cgColor]
+        gradientLayer.frame = view.bounds
+        view.layer.addSublayer(gradientLayer)
         return view
     }()
 
@@ -68,14 +78,25 @@ final class CreateSessionTableViewCell: UITableViewCell {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        linearGradientView.layer.sublayers?.first?.frame = linearGradientView.bounds
+        guard let gradientLayer = linearGradientView.layer.sublayers?.first as? CAGradientLayer else { return }
+        gradientLayer.frame = linearGradientView.bounds
     }
 
     func configureCell(model: TableViewCellModel) {
-        let image = UIImage(named: model.movieImage)
         modelId = model.id
-        movieImageView.image = image
         titleLabel.text = model.title
+        let imageURL = URL(string: model.movieImage)
+        let memoryOnlyOptions: KingfisherOptionsInfoItem = .cacheMemoryOnly
+        movieImageView.kf.indicatorType = .activity
+        movieImageView.kf.setImage(with: imageURL, options: [memoryOnlyOptions]) { [weak self] result in
+            switch result {
+            case .success(let value):
+                self?.movieImageView.image = value.image
+            case .failure(let error):
+                print("Error loading image: \(error)")
+            }
+            self?.movieImageView.kf.indicatorType = .none
+        }
         contentView.backgroundColor = .baseBackground
         setupSubviews()
         setupConstraints()
@@ -93,7 +114,6 @@ final class CreateSessionTableViewCell: UITableViewCell {
             $0.translatesAutoresizingMaskIntoConstraints = false
             contentView.addSubview($0)
         }
-        gradientLayer(linearGradientView)
     }
 
     private func setupConstraints() {
@@ -109,6 +129,7 @@ final class CreateSessionTableViewCell: UITableViewCell {
             linearGradientView.bottomAnchor.constraint(equalTo: movieImageView.bottomAnchor, constant: -8),
 
             titleLabel.leadingAnchor.constraint(equalTo: movieImageView.leadingAnchor, constant: 20),
+            titleLabel.trailingAnchor.constraint(equalTo: movieImageView.trailingAnchor, constant: -20),
             titleLabel.bottomAnchor.constraint(equalTo: movieImageView.bottomAnchor, constant: -16),
 
             indicatorImageView.heightAnchor.constraint(equalToConstant: 24),
@@ -128,20 +149,5 @@ final class CreateSessionTableViewCell: UITableViewCell {
             indicatorImageView.isHidden = true
             movieImageView.layer.borderColor = UIColor.whiteBackground.cgColor
         }
-    }
-
-    private func gradientLayer(_ view: UIView) {
-        let gradientLayer = CAGradientLayer()
-        let startColor: UIColor = .black.withAlphaComponent(.zero)
-        let endColor: UIColor = .black
-        let gradientColors: [CGColor] = [startColor.cgColor, endColor.cgColor]
-        gradientLayer.colors = gradientColors
-        gradientLayer.frame = CGRect(
-            x: 0,
-            y: 0,
-            width: view.bounds.width,
-            height: view.bounds.height
-        )
-        view.layer.insertSublayer(gradientLayer, at: 0)
     }
 }

@@ -19,6 +19,7 @@ enum CoordinatorType {
     case createSession
     case joinSession
     case coincidencesSession
+    case roulette
     case favoriteMovies
     case sessionsList
     case selectionMovies
