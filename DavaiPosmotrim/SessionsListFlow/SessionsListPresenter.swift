@@ -20,7 +20,7 @@ final class SessionsListPresenter: SessionsListPresenterProtocol {
     }
 
     // MARK: - Private properties
-    private (set) var sessions: [SessionModel]
+    private(set) var sessions: [SessionModel]
 
     // MARK: - Inits
     init(
