@@ -15,7 +15,7 @@ enum ContentAPI {
 
 extension ContentAPI: TargetType {
     var baseURL: URL {
-        URL(string: "http://80.87.108.90/")!
+        URL(string: AppMetaInfo.baseURL)!
     }
 
     var path: String {

@@ -13,30 +13,25 @@ enum Endpoint {
     case moviesMatchesUpdate
     case rouletteUpdate
     case sessionResultUpdate
+
+    var urlPath: String {
+        switch self {
+        case .usersUpdate: "/users/"
+        case .sessionStatusUpdate: "/session_status/"
+        case .moviesMatchesUpdate: "/matches/"
+        case .rouletteUpdate: "/roulette/"
+        case .sessionResultUpdate: "/session_result/"
+        }
+    }
 }
 
 struct WebSocketsAPI {
-    private static let baseURL = "ws://80.87.108.90/ws/session/"
-
     static func createWebSocketManager(
         for endpoint: Endpoint,
         sessionID: String
     ) -> WebSocketsManager {
         let webSocketsManager = WebSocketsManager()
-        let webSocketURL: String = {
-            switch endpoint {
-            case .usersUpdate:
-                return "\(baseURL)\(sessionID)/users/"
-            case .sessionStatusUpdate:
-                return "\(baseURL)\(sessionID)/session_status/"
-            case .moviesMatchesUpdate:
-                return "\(baseURL)\(sessionID)/matches/"
-            case .rouletteUpdate:
-                return "\(baseURL)\(sessionID)/roulette/"
-            case .sessionResultUpdate:
-                return "\(baseURL)\(sessionID)/session_result/"
-            }
-        }()
+        let webSocketURL: String = "\(AppMetaInfo.webSocketsBaseURL)\(sessionID)\(endpoint.urlPath)"
         webSocketsManager.connect(to: webSocketURL)
 
         return webSocketsManager
