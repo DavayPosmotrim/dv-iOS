@@ -116,6 +116,7 @@
 		C98E0AA42C9B911A006A4590 /* SessionResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98E0AA32C9B911A006A4590 /* SessionResultModel.swift */; };
 		C98E0AA72C9B925E006A4590 /* AppMetaInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98E0AA62C9B925E006A4590 /* AppMetaInfo.swift */; };
 		C991F0CD2C3812580090543B /* CoincidencesMovieInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C991F0CC2C3812580090543B /* CoincidencesMovieInfoViewController.swift */; };
+		C9A235642C9C7D4E000F2559 /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A235632C9C7D4E000F2559 /* UINavigationController+Extension.swift */; };
 		C9A7C54D2C4A031E005328E9 /* RouletteStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A7C54C2C4A031E005328E9 /* RouletteStartViewController.swift */; };
 		C9A7C54F2C4A16A7005328E9 /* RouletteStartViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A7C54E2C4A16A7005328E9 /* RouletteStartViewControllerDelegate.swift */; };
 		C9AE34F92C3BE1F50005A87B /* RouletteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE34F82C3BE1F50005A87B /* RouletteViewController.swift */; };
@@ -288,6 +289,7 @@
 		C98E0AA32C9B911A006A4590 /* SessionResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionResultModel.swift; sourceTree = "<group>"; };
 		C98E0AA62C9B925E006A4590 /* AppMetaInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMetaInfo.swift; sourceTree = "<group>"; };
 		C991F0CC2C3812580090543B /* CoincidencesMovieInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoincidencesMovieInfoViewController.swift; sourceTree = "<group>"; };
+		C9A235632C9C7D4E000F2559 /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
 		C9A7C54C2C4A031E005328E9 /* RouletteStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouletteStartViewController.swift; sourceTree = "<group>"; };
 		C9A7C54E2C4A16A7005328E9 /* RouletteStartViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouletteStartViewControllerDelegate.swift; sourceTree = "<group>"; };
 		C9AE34F82C3BE1F50005A87B /* RouletteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouletteViewController.swift; sourceTree = "<group>"; };
@@ -744,6 +746,7 @@
 				E9A2701E2BE4C2940088652B /* CGFloat+Extensions.swift */,
 				4A2FB3AB2BF373A10048F5B9 /* UICollectionViewLayout+Extension.swift */,
 				4AAEABB12C1761F500A14C1D /* UIImage+Extension.swift */,
+				C9A235632C9C7D4E000F2559 /* UINavigationController+Extension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1085,6 +1088,7 @@
 				C91DCC742BFEA1E8001BC065 /* JoinSessionCoordinator.swift in Sources */,
 				5A69B62C2C33F5F000E9E3F7 /* CustomMovieDetails.swift in Sources */,
 				E2B9BF932BD7C45B00592578 /* BaseCoordinator.swift in Sources */,
+				C9A235642C9C7D4E000F2559 /* UINavigationController+Extension.swift in Sources */,
 				5A3FA9992C454A50002C61B4 /* CustomUserModel.swift in Sources */,
 				4A62046C2C64EE8A00BBB4E9 /* EmptyTableViewCell.swift in Sources */,
 				5A367C1A2C3FE9B50071FC97 /* CustomMovieDescriptionCell.swift in Sources */,
