@@ -109,7 +109,14 @@
 		C96961202C964EA5009EABF8 /* WebSocketsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C969611F2C964EA5009EABF8 /* WebSocketsAPI.swift */; };
 		C9851EEA2C491348008281CD /* RouletteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9851EE92C491348008281CD /* RouletteCollectionViewCell.swift */; };
 		C9851EEC2C4931FE008281CD /* CustomHorizontalCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9851EEB2C4931FE008281CD /* CustomHorizontalCollectionLayout.swift */; };
+		C98E0A9A2C99C505006A4590 /* WebSocketsUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98E0A992C99C505006A4590 /* WebSocketsUserModel.swift */; };
+		C98E0A9C2C99CF28006A4590 /* WebSocketsSessionStatusModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98E0A9B2C99CF28006A4590 /* WebSocketsSessionStatusModel.swift */; };
+		C98E0A9E2C99D120006A4590 /* WebSocketsMatchedMoviesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98E0A9D2C99D120006A4590 /* WebSocketsMatchedMoviesModel.swift */; };
+		C98E0AA22C99D41C006A4590 /* WebSocketsSessionResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98E0AA12C99D41C006A4590 /* WebSocketsSessionResultModel.swift */; };
+		C98E0AA42C9B911A006A4590 /* SessionResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98E0AA32C9B911A006A4590 /* SessionResultModel.swift */; };
+		C98E0AA72C9B925E006A4590 /* AppMetaInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98E0AA62C9B925E006A4590 /* AppMetaInfo.swift */; };
 		C991F0CD2C3812580090543B /* CoincidencesMovieInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C991F0CC2C3812580090543B /* CoincidencesMovieInfoViewController.swift */; };
+		C9A235642C9C7D4E000F2559 /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A235632C9C7D4E000F2559 /* UINavigationController+Extension.swift */; };
 		C9A7C54D2C4A031E005328E9 /* RouletteStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A7C54C2C4A031E005328E9 /* RouletteStartViewController.swift */; };
 		C9A7C54F2C4A16A7005328E9 /* RouletteStartViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A7C54E2C4A16A7005328E9 /* RouletteStartViewControllerDelegate.swift */; };
 		C9AE34F92C3BE1F50005A87B /* RouletteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE34F82C3BE1F50005A87B /* RouletteViewController.swift */; };
@@ -275,7 +282,14 @@
 		C969611F2C964EA5009EABF8 /* WebSocketsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketsAPI.swift; sourceTree = "<group>"; };
 		C9851EE92C491348008281CD /* RouletteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouletteCollectionViewCell.swift; sourceTree = "<group>"; };
 		C9851EEB2C4931FE008281CD /* CustomHorizontalCollectionLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHorizontalCollectionLayout.swift; sourceTree = "<group>"; };
+		C98E0A992C99C505006A4590 /* WebSocketsUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketsUserModel.swift; sourceTree = "<group>"; };
+		C98E0A9B2C99CF28006A4590 /* WebSocketsSessionStatusModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketsSessionStatusModel.swift; sourceTree = "<group>"; };
+		C98E0A9D2C99D120006A4590 /* WebSocketsMatchedMoviesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketsMatchedMoviesModel.swift; sourceTree = "<group>"; };
+		C98E0AA12C99D41C006A4590 /* WebSocketsSessionResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketsSessionResultModel.swift; sourceTree = "<group>"; };
+		C98E0AA32C9B911A006A4590 /* SessionResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionResultModel.swift; sourceTree = "<group>"; };
+		C98E0AA62C9B925E006A4590 /* AppMetaInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMetaInfo.swift; sourceTree = "<group>"; };
 		C991F0CC2C3812580090543B /* CoincidencesMovieInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoincidencesMovieInfoViewController.swift; sourceTree = "<group>"; };
+		C9A235632C9C7D4E000F2559 /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
 		C9A7C54C2C4A031E005328E9 /* RouletteStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouletteStartViewController.swift; sourceTree = "<group>"; };
 		C9A7C54E2C4A16A7005328E9 /* RouletteStartViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouletteStartViewControllerDelegate.swift; sourceTree = "<group>"; };
 		C9AE34F82C3BE1F50005A87B /* RouletteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouletteViewController.swift; sourceTree = "<group>"; };
@@ -413,6 +427,7 @@
 		5A3FA98F2C454879002C61B4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C98E0A982C99C4D2006A4590 /* WebSocketsModels */,
 				5A3FA9922C454906002C61B4 /* CollectionModel.swift */,
 				5A3FA9942C45494D002C61B4 /* CustomSessionCreateModel.swift */,
 				5A3FA9962C4549F9002C61B4 /* CustomSessionCreateRequestModel.swift */,
@@ -424,6 +439,7 @@
 				5A3FA9A02C454D5D002C61B4 /* MovieRouletteModel.swift */,
 				5A3FA9A22C454DF3002C61B4 /* PatchedCustomSessionCreateRequestModel.swift */,
 				5A3FA9A42C454E8F002C61B4 /* StatusEnum.swift */,
+				C98E0AA32C9B911A006A4590 /* SessionResultModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -544,6 +560,74 @@
 			path = WebSockets;
 			sourceTree = "<group>";
 		};
+		C98E0A982C99C4D2006A4590 /* WebSocketsModels */ = {
+			isa = PBXGroup;
+			children = (
+				C98E0A992C99C505006A4590 /* WebSocketsUserModel.swift */,
+				C98E0A9B2C99CF28006A4590 /* WebSocketsSessionStatusModel.swift */,
+				C98E0A9D2C99D120006A4590 /* WebSocketsMatchedMoviesModel.swift */,
+				C98E0AA12C99D41C006A4590 /* WebSocketsSessionResultModel.swift */,
+			);
+			path = WebSocketsModels;
+			sourceTree = "<group>";
+		};
+		C98E0AA52C9B9250006A4590 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				C98E0AA62C9B925E006A4590 /* AppMetaInfo.swift */,
+				E2B9BF8C2BD7BD0900592578 /* Application */,
+				C98E0AA82C9B93F0006A4590 /* ContentService */,
+				5A3FA98F2C454879002C61B4 /* Models */,
+				E2B9BF912BD7BF2300592578 /* Protocols */,
+				C969611C2C932754009EABF8 /* WebSockets */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		C98E0AA82C9B93F0006A4590 /* ContentService */ = {
+			isa = PBXGroup;
+			children = (
+				E291706A2C55E2FF00B55E25 /* ContentAPI.swift */,
+				E291706F2C55E3F500B55E25 /* ContentService.swift */,
+				E29170712C55E4E600B55E25 /* DependencyInjection.swift */,
+			);
+			path = ContentService;
+			sourceTree = "<group>";
+		};
+		C98E0AA92C9B9689006A4590 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				C9C4D5AB2BD3A3CB0081CD23 /* Info.plist */,
+				C9C4D59D2BD3A3C70081CD23 /* AppDelegate.swift */,
+				C9C4D59F2BD3A3C70081CD23 /* SceneDelegate.swift */,
+				C9FCE96B2BD3E52700FE655D /* Helpers */,
+				E9A270202BE52B980088652B /* Mistakes */,
+				C9FCE9502BD3E05400FE655D /* Resources */,
+				C964B70E2BD8137800CF9AF0 /* UI */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		C98E0AAA2C9B9727006A4590 /* Flows */ = {
+			isa = PBXGroup;
+			children = (
+				E2B9BF9C2BD7CDB800592578 /* AuthFlow */,
+				C964F7A52C19126500A37295 /* CoincidencesFlow */,
+				E2B9BF9E2BD7CDCB00592578 /* CreateSessionFlow */,
+				4A62804D2BF13D7400102304 /* InvitingUsersFlow */,
+				C90CAB332BFAFA1100B42456 /* JoinSessionFlow */,
+				E2B9BF9A2BD7CDA600592578 /* MainFlow */,
+				4AAEABBB2C1DD6E000A14C1D /* MatchFlow */,
+				C91332D12C10B30E0036FC44 /* MovieSelectionOnboardingFlow */,
+				E2B9BF9B2BD7CDAD00592578 /* OnboardingFlow */,
+				C9AE34F72C3BE1CE0005A87B /* RouletteFlow */,
+				4AE89A452C08AD0C008DD0D4 /* SelectionMoviesFlow */,
+				E9C34A312C135EAC002628F9 /* SessionsListFlow */,
+				5AEEACC52C0A1E3900F18BF9 /* SplashScreen */,
+			);
+			path = Flows;
+			sourceTree = "<group>";
+		};
 		C991F0CB2C3812220090543B /* CoincidencesMovieInfoViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -616,33 +700,9 @@
 		C9C4D59C2BD3A3C70081CD23 /* DavaiPosmotrim */ = {
 			isa = PBXGroup;
 			children = (
-				C969611C2C932754009EABF8 /* WebSockets */,
-				5A3FA98F2C454879002C61B4 /* Models */,
-				4AAEABBB2C1DD6E000A14C1D /* MatchFlow */,
-				E2B9BF8C2BD7BD0900592578 /* Application */,
-				E2B9BF912BD7BF2300592578 /* Protocols */,
-				5AEEACC52C0A1E3900F18BF9 /* SplashScreen */,
-				4A62804D2BF13D7400102304 /* InvitingUsersFlow */,
-				E9C34A312C135EAC002628F9 /* SessionsListFlow */,
-				E2B9BF9E2BD7CDCB00592578 /* CreateSessionFlow */,
-				4AE89A452C08AD0C008DD0D4 /* SelectionMoviesFlow */,
-				E2B9BF9C2BD7CDB800592578 /* AuthFlow */,
-				C90CAB332BFAFA1100B42456 /* JoinSessionFlow */,
-				E2B9BF9B2BD7CDAD00592578 /* OnboardingFlow */,
-				C91332D12C10B30E0036FC44 /* MovieSelectionOnboardingFlow */,
-				E2B9BF9A2BD7CDA600592578 /* MainFlow */,
-				C964F7A52C19126500A37295 /* CoincidencesFlow */,
-				C9AE34F72C3BE1CE0005A87B /* RouletteFlow */,
-				C9C4D5AB2BD3A3CB0081CD23 /* Info.plist */,
-				C9C4D59D2BD3A3C70081CD23 /* AppDelegate.swift */,
-				C9C4D59F2BD3A3C70081CD23 /* SceneDelegate.swift */,
-				C9FCE96B2BD3E52700FE655D /* Helpers */,
-				E9A270202BE52B980088652B /* Mistakes */,
-				C9FCE9502BD3E05400FE655D /* Resources */,
-				C964B70E2BD8137800CF9AF0 /* UI */,
-				E291706A2C55E2FF00B55E25 /* ContentAPI.swift */,
-				E291706F2C55E3F500B55E25 /* ContentService.swift */,
-				E29170712C55E4E600B55E25 /* DependencyInjection.swift */,
+				C98E0AA52C9B9250006A4590 /* Core */,
+				C98E0AAA2C9B9727006A4590 /* Flows */,
+				C98E0AA92C9B9689006A4590 /* Common */,
 			);
 			path = DavaiPosmotrim;
 			sourceTree = "<group>";
@@ -686,6 +746,7 @@
 				E9A2701E2BE4C2940088652B /* CGFloat+Extensions.swift */,
 				4A2FB3AB2BF373A10048F5B9 /* UICollectionViewLayout+Extension.swift */,
 				4AAEABB12C1761F500A14C1D /* UIImage+Extension.swift */,
+				C9A235632C9C7D4E000F2559 /* UINavigationController+Extension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -922,6 +983,7 @@
 				C9AE34F92C3BE1F50005A87B /* RouletteViewController.swift in Sources */,
 				C9B57C6C2C0607450026E85D /* DismissJoinSessionViewController.swift in Sources */,
 				4A6280362BDED59F00102304 /* MainSceneFactory.swift in Sources */,
+				C98E0AA22C99D41C006A4590 /* WebSocketsSessionResultModel.swift in Sources */,
 				C9AE35062C3C32910005A87B /* RouletteOnboardingViewController.swift in Sources */,
 				C9AE34FB2C3C160E0005A87B /* RouletteCoordinator.swift in Sources */,
 				C9851EEC2C4931FE008281CD /* CustomHorizontalCollectionLayout.swift in Sources */,
@@ -930,6 +992,7 @@
 				4A6280422BE9001200102304 /* CustomNavigationBar.swift in Sources */,
 				5AEEACD22C10B59A00F18BF9 /* SplashScreenSceneFactory.swift in Sources */,
 				E2EFF0EE2C0613710022D54C /* InvitingUsersPresenter.swift in Sources */,
+				C98E0A9C2C99CF28006A4590 /* WebSocketsSessionStatusModel.swift in Sources */,
 				4A62804F2BF13DBE00102304 /* InvitingUsersViewController.swift in Sources */,
 				4A6280462BEAB02E00102304 /* CreateSessionCellModel.swift in Sources */,
 				E2B9BFA42BD7CF0300592578 /* MainViewController.swift in Sources */,
@@ -942,6 +1005,7 @@
 				C96895CF2BE835EA002A99E6 /* AuthPresenterProtocol.swift in Sources */,
 				E9B495062C28779400B653F8 /* SessionMovieSection.swift in Sources */,
 				C9C4D59E2BD3A3C70081CD23 /* AppDelegate.swift in Sources */,
+				C98E0A9E2C99D120006A4590 /* WebSocketsMatchedMoviesModel.swift in Sources */,
 				E29170722C55E4E600B55E25 /* DependencyInjection.swift in Sources */,
 				E2B9BFA22BD7CEC300592578 /* AuthViewController.swift in Sources */,
 				4AE89A442C08ACF9008DD0D4 /* SelectionMoviesViewController.swift in Sources */,
@@ -958,6 +1022,7 @@
 				5AEEACCE2C10766F00F18BF9 /* SplashScreenPresenter.swift in Sources */,
 				E291706B2C55E2FF00B55E25 /* ContentAPI.swift in Sources */,
 				E2B9BFA62BD7CF3000592578 /* CreateSessionViewController.swift in Sources */,
+				C98E0A9A2C99C505006A4590 /* WebSocketsUserModel.swift in Sources */,
 				5A3FA9912C45488A002C61B4 /* MovieModel.swift in Sources */,
 				C90CAB342BFAFA1100B42456 /* JoinSessionViewController.swift in Sources */,
 				C91DCC7E2C006AE1001BC065 /* ReusableUICollectionView.swift in Sources */,
@@ -985,6 +1050,7 @@
 				4A6280442BEAAC3800102304 /* CreateSessionTableViewCell.swift in Sources */,
 				C969611E2C932778009EABF8 /* WebSocketsManager.swift in Sources */,
 				C964F7A92C1913AF00A37295 /* CoincidencesPresenterProtocol.swift in Sources */,
+				C98E0AA42C9B911A006A4590 /* SessionResultModel.swift in Sources */,
 				E95F00A02C270379001AAE7E /* SessionMoviesViewControllerProtocol.swift in Sources */,
 				5A69B6302C33F8F000E9E3F7 /* CustomRatingCollectionCell.swift in Sources */,
 				4A6280322BDE846900102304 /* MainTableViewCell.swift in Sources */,
@@ -1022,6 +1088,7 @@
 				C91DCC742BFEA1E8001BC065 /* JoinSessionCoordinator.swift in Sources */,
 				5A69B62C2C33F5F000E9E3F7 /* CustomMovieDetails.swift in Sources */,
 				E2B9BF932BD7C45B00592578 /* BaseCoordinator.swift in Sources */,
+				C9A235642C9C7D4E000F2559 /* UINavigationController+Extension.swift in Sources */,
 				5A3FA9992C454A50002C61B4 /* CustomUserModel.swift in Sources */,
 				4A62046C2C64EE8A00BBB4E9 /* EmptyTableViewCell.swift in Sources */,
 				5A367C1A2C3FE9B50071FC97 /* CustomMovieDescriptionCell.swift in Sources */,
@@ -1041,6 +1108,7 @@
 				C915644C2C29B24E00887BBA /* ReusableLikedMoviesCell.swift in Sources */,
 				4AAEABA42C0C673800A14C1D /* SelectionMovieCellModel.swift in Sources */,
 				5A69B62E2C33F6BA00E9E3F7 /* SelectionMovieDetailsCellModel.swift in Sources */,
+				C98E0AA72C9B925E006A4590 /* AppMetaInfo.swift in Sources */,
 				5A3FA9A12C454D5D002C61B4 /* MovieRouletteModel.swift in Sources */,
 				C917E3F92BE6CFC700B34639 /* AuthPresenter.swift in Sources */,
 				5AEEACD42C10B62500F18BF9 /* SplashScreenCoordinator.swift in Sources */,
@@ -1218,7 +1286,7 @@
 				DEVELOPMENT_TEAM = G2Z3KJVPLW;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = DavaiPosmotrim/Info.plist;
+				INFOPLIST_FILE = DavaiPosmotrim/Common/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -1253,7 +1321,7 @@
 				DEVELOPMENT_TEAM = G2Z3KJVPLW;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = DavaiPosmotrim/Info.plist;
+				INFOPLIST_FILE = DavaiPosmotrim/Common/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
