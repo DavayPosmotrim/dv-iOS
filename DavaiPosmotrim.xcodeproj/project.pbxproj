@@ -51,7 +51,6 @@
 		C9D1AD912C9DA8E50031B2C3 /* ReusableAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1ACB02C9DA8E40031B2C3 /* ReusableAuthView.swift */; };
 		C9D1AD922C9DA8E50031B2C3 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1ACB12C9DA8E40031B2C3 /* RoundedButton.swift */; };
 		C9D1AD932C9DA8E50031B2C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1ACB32C9DA8E40031B2C3 /* AppDelegate.swift */; };
-		C9D1AD942C9DA8E50031B2C3 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9D1ACB42C9DA8E40031B2C3 /* Info.plist */; };
 		C9D1AD952C9DA8E50031B2C3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1ACB52C9DA8E40031B2C3 /* SceneDelegate.swift */; };
 		C9D1AD962C9DA8E50031B2C3 /* EditNameCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1ACB72C9DA8E40031B2C3 /* EditNameCoordinator.swift */; };
 		C9D1AD972C9DA8E50031B2C3 /* EditNamePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1ACB82C9DA8E40031B2C3 /* EditNamePresenter.swift */; };
@@ -1034,7 +1033,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9D1AD942C9DA8E50031B2C3 /* Info.plist in Resources */,
 				C9D1AD6C2C9DA8E40031B2C3 /* DaysOne-Regular.ttf in Resources */,
 				C9D1AD6F2C9DA8E40031B2C3 /* Inter-Regular.otf in Resources */,
 				C9D1ADEB2C9DA8E50031B2C3 /* SelectionMovieMockData.swift.orig in Resources */,

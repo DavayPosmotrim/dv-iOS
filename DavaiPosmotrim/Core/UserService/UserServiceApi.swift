@@ -16,7 +16,7 @@ enum UserServiceAPI {
 
 extension UserServiceAPI: TargetType {
     var baseURL: URL {
-        return URL(string: "http://80.87.108.90/")!
+        return URL(string: AppMetaInfo.baseURL)!
     }
 
     var path: String {
