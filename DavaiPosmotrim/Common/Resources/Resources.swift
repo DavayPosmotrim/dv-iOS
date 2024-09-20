@@ -57,6 +57,7 @@ enum Resources {
 
     enum Authentication {
         static let savedNameUserDefaultsKey = "userName"
+        static let savedDeviceID = "DeviceId"
         static let authDidFinishNotification = "AuthDidFinishNotification"
 
         static let upperLabelText = "Введите ваше имя"
@@ -70,10 +71,7 @@ enum Resources {
         static let lowerLabelNumbersWarningText = "Только буквы"
         static let lowerLabelMaxCharactersText = "Не более 16 символов"
         static let lowerLabelSessionNotFound = "Сеанс не найден"
-    }
-
-    enum MainScreen {
-        static let startJoinSessionFlow = "startJoinSessionFlow"
+        static let lowerLabelNetworkError = "Проблемы с сетью. Попробуйте позже"
     }
 
     enum JoinSession {

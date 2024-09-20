@@ -13,9 +13,18 @@ final class MainPresenter: MainPresenterProtocol {
 
     weak var coordinator: MainCoordinator?
 
-    init(coordinator: MainCoordinator) {
+    // MARK: - Private properties
+
+    private let userService: UserServiceProtocol
+
+    // MARK: - Initializers
+
+    init(coordinator: MainCoordinator, userService: UserServiceProtocol = UserService()) {
         self.coordinator = coordinator
+        self.userService = userService
     }
+
+    // MARK: - Public methods
 
     func didTapButtons(screen: String) {
         guard let coordinator else { return }

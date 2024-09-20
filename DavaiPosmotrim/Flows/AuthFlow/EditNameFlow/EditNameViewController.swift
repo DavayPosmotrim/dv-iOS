@@ -1,18 +1,18 @@
 //
-//  AuthViewController.swift
+//  EditNameViewController.swift
 //  DavaiPosmotrim
 //
-//  Created by Aleksandr Garipov on 23.04.2024.
+//  Created by Эльдар Айдумов on 28.07.2024.
 //
 
 import UIKit
 import Alamofire
 
-final class AuthViewController: UIViewController {
+final class EditNameViewController: UIViewController {
 
     // MARK: - Stored properties
 
-    var presenter: AuthPresenterProtocol
+    var presenter: EditNamePresenterProtocol
 
     private var reusableAuthModel: ReusableAuthViewModel?
     private var loadingVC: CustomLoadingViewController?
@@ -21,7 +21,7 @@ final class AuthViewController: UIViewController {
 
     // MARK: - Lazy properties
 
-    private lazy var createNameView: ReusableAuthView = {
+    private lazy var editNameView: ReusableAuthView = {
         let view = ReusableAuthView(frame: .zero, authEvent: .edit)
         let name = presenter.checkUserNameProperty()
         view.setupView(with: reusableAuthModel)
@@ -33,7 +33,7 @@ final class AuthViewController: UIViewController {
     // MARK: - Initializers
 
     init(
-        presenter: AuthPresenterProtocol,
+        presenter: EditNamePresenterProtocol,
         networkReachabilityHandler: NetworkReachabilityHandler = NetworkReachabilityHandler()
     ) {
         self.presenter = presenter
@@ -58,20 +58,22 @@ final class AuthViewController: UIViewController {
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+
+        presenter.finishEdit()
         networkReachabilityHandler.stopListening()
     }
 
     // MARK: - Private methods
 
     private func setupView() {
-        view.addSubview(createNameView)
-        createNameView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(editNameView)
+        editNameView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            createNameView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            createNameView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            createNameView.topAnchor.constraint(equalTo: view.topAnchor),
-            createNameView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            editNameView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            editNameView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            editNameView.topAnchor.constraint(equalTo: view.topAnchor),
+            editNameView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 
@@ -79,16 +81,19 @@ final class AuthViewController: UIViewController {
         reusableAuthModel = ReusableAuthViewModel(
             userNameAction: { [weak self] text, completion in
                 guard let self else { return }
-                self.presenter.createUser(name: text) { isSuccess in
+                self.presenter.updateUser(name: text) { isSuccess in
                     self.isServerReachable = isSuccess
                     completion(isSuccess)
+                    if isSuccess {
+                        self.presenter.authDidFinishNotification(userName: text)
+                    }
                 }
             },
             enterButtonAction: { [weak self] in
                 guard let self else { return }
                 if self.isServerReachable == true {
-                    self.dismiss(animated: true) {
-                        self.presenter.authFinish()
+                    self.presentingViewController?.dismiss(animated: true) {
+                        self.presenter.finishEdit()
                     }
                 }
             },
@@ -97,9 +102,9 @@ final class AuthViewController: UIViewController {
     }
 }
 
-    // MARK: - AuthViewProtocol
+    // MARK: - EditNameViewProtocol
 
-extension AuthViewController: AuthViewProtocol {
+extension EditNameViewController: EditNameViewProtocol {
 
     func showLoader() {
         loadingVC = CustomLoadingViewController.show(in: self)
@@ -110,7 +115,7 @@ extension AuthViewController: AuthViewProtocol {
     }
 
     func showError() {
-        createNameView.updateUIElements(
+        editNameView.updateUIElements(
             text: Resources.Authentication.lowerLabelNetworkError,
             font: nil,
             labelIsHidden: false,
@@ -121,7 +126,7 @@ extension AuthViewController: AuthViewProtocol {
 
     // MARK: - NetworkReachabilityHandlerDelegate
 
-extension AuthViewController: NetworkReachabilityHandlerDelegate {
+extension EditNameViewController: NetworkReachabilityHandlerDelegate {
 
     func didChangeNetworkStatus(isReachable: Bool?) {
         isServerReachable = isReachable

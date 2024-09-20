@@ -124,12 +124,6 @@ final class MainViewController: UIViewController {
             name: Notification.Name(Resources.Authentication.authDidFinishNotification),
             object: nil
         )
-
-        NotificationCenter.default.removeObserver(
-            self,
-            name: NSNotification.Name(Resources.MainScreen.startJoinSessionFlow),
-            object: nil
-        )
     }
 
     // MARK: - Lifecycle
