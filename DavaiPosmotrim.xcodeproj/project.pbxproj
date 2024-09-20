@@ -137,13 +137,11 @@
 		C9D1ADE82C9DA8E50031B2C3 /* SelectionMovieCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AD1A2C9DA8E40031B2C3 /* SelectionMovieCellModel.swift */; };
 		C9D1ADE92C9DA8E50031B2C3 /* SelectionMovieDetailsCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AD1B2C9DA8E40031B2C3 /* SelectionMovieDetailsCellModel.swift */; };
 		C9D1ADEA2C9DA8E50031B2C3 /* SelectionMovieMockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AD1C2C9DA8E40031B2C3 /* SelectionMovieMockData.swift */; };
-		C9D1ADEB2C9DA8E50031B2C3 /* SelectionMovieMockData.swift.orig in Resources */ = {isa = PBXBuildFile; fileRef = C9D1AD1D2C9DA8E40031B2C3 /* SelectionMovieMockData.swift.orig */; };
 		C9D1ADEC2C9DA8E50031B2C3 /* SelectionMoviesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AD1E2C9DA8E40031B2C3 /* SelectionMoviesCoordinator.swift */; };
 		C9D1ADED2C9DA8E50031B2C3 /* SelectionMoviesFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AD1F2C9DA8E40031B2C3 /* SelectionMoviesFactory.swift */; };
 		C9D1ADEE2C9DA8E50031B2C3 /* SelectionMoviesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AD202C9DA8E40031B2C3 /* SelectionMoviesPresenter.swift */; };
 		C9D1ADEF2C9DA8E50031B2C3 /* SelectionMoviesPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AD212C9DA8E40031B2C3 /* SelectionMoviesPresenterProtocol.swift */; };
 		C9D1ADF02C9DA8E50031B2C3 /* SelectionMoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AD222C9DA8E40031B2C3 /* SelectionMoviesViewController.swift */; };
-		C9D1ADF12C9DA8E50031B2C3 /* SelectionMoviesViewController.swift.orig in Resources */ = {isa = PBXBuildFile; fileRef = C9D1AD232C9DA8E40031B2C3 /* SelectionMoviesViewController.swift.orig */; };
 		C9D1ADF22C9DA8E50031B2C3 /* SelectionMoviesViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AD242C9DA8E40031B2C3 /* SelectionMoviesViewProtocol.swift */; };
 		C9D1ADF32C9DA8E50031B2C3 /* SessionBaseSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AD262C9DA8E40031B2C3 /* SessionBaseSection.swift */; };
 		C9D1ADF42C9DA8E50031B2C3 /* SessionMovieSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AD272C9DA8E40031B2C3 /* SessionMovieSection.swift */; };
@@ -330,13 +328,11 @@
 		C9D1AD1A2C9DA8E40031B2C3 /* SelectionMovieCellModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionMovieCellModel.swift; sourceTree = "<group>"; };
 		C9D1AD1B2C9DA8E40031B2C3 /* SelectionMovieDetailsCellModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionMovieDetailsCellModel.swift; sourceTree = "<group>"; };
 		C9D1AD1C2C9DA8E40031B2C3 /* SelectionMovieMockData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionMovieMockData.swift; sourceTree = "<group>"; };
-		C9D1AD1D2C9DA8E40031B2C3 /* SelectionMovieMockData.swift.orig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SelectionMovieMockData.swift.orig; sourceTree = "<group>"; };
 		C9D1AD1E2C9DA8E40031B2C3 /* SelectionMoviesCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionMoviesCoordinator.swift; sourceTree = "<group>"; };
 		C9D1AD1F2C9DA8E40031B2C3 /* SelectionMoviesFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionMoviesFactory.swift; sourceTree = "<group>"; };
 		C9D1AD202C9DA8E40031B2C3 /* SelectionMoviesPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionMoviesPresenter.swift; sourceTree = "<group>"; };
 		C9D1AD212C9DA8E40031B2C3 /* SelectionMoviesPresenterProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionMoviesPresenterProtocol.swift; sourceTree = "<group>"; };
 		C9D1AD222C9DA8E40031B2C3 /* SelectionMoviesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionMoviesViewController.swift; sourceTree = "<group>"; };
-		C9D1AD232C9DA8E40031B2C3 /* SelectionMoviesViewController.swift.orig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SelectionMoviesViewController.swift.orig; sourceTree = "<group>"; };
 		C9D1AD242C9DA8E40031B2C3 /* SelectionMoviesViewProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionMoviesViewProtocol.swift; sourceTree = "<group>"; };
 		C9D1AD262C9DA8E40031B2C3 /* SessionBaseSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionBaseSection.swift; sourceTree = "<group>"; };
 		C9D1AD272C9DA8E40031B2C3 /* SessionMovieSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionMovieSection.swift; sourceTree = "<group>"; };
@@ -778,13 +774,11 @@
 				C9D1AD1A2C9DA8E40031B2C3 /* SelectionMovieCellModel.swift */,
 				C9D1AD1B2C9DA8E40031B2C3 /* SelectionMovieDetailsCellModel.swift */,
 				C9D1AD1C2C9DA8E40031B2C3 /* SelectionMovieMockData.swift */,
-				C9D1AD1D2C9DA8E40031B2C3 /* SelectionMovieMockData.swift.orig */,
 				C9D1AD1E2C9DA8E40031B2C3 /* SelectionMoviesCoordinator.swift */,
 				C9D1AD1F2C9DA8E40031B2C3 /* SelectionMoviesFactory.swift */,
 				C9D1AD202C9DA8E40031B2C3 /* SelectionMoviesPresenter.swift */,
 				C9D1AD212C9DA8E40031B2C3 /* SelectionMoviesPresenterProtocol.swift */,
 				C9D1AD222C9DA8E40031B2C3 /* SelectionMoviesViewController.swift */,
-				C9D1AD232C9DA8E40031B2C3 /* SelectionMoviesViewController.swift.orig */,
 				C9D1AD242C9DA8E40031B2C3 /* SelectionMoviesViewProtocol.swift */,
 			);
 			path = SelectionMoviesFlow;
@@ -1035,10 +1029,8 @@
 			files = (
 				C9D1AD6C2C9DA8E40031B2C3 /* DaysOne-Regular.ttf in Resources */,
 				C9D1AD6F2C9DA8E40031B2C3 /* Inter-Regular.otf in Resources */,
-				C9D1ADEB2C9DA8E50031B2C3 /* SelectionMovieMockData.swift.orig in Resources */,
 				C9D1AD6E2C9DA8E40031B2C3 /* Inter-Medium.otf in Resources */,
 				C9D1AD702C9DA8E40031B2C3 /* Inter-SemiBold.otf in Resources */,
-				C9D1ADF12C9DA8E50031B2C3 /* SelectionMoviesViewController.swift.orig in Resources */,
 				C9D1AD722C9DA8E40031B2C3 /* LaunchScreen.storyboard in Resources */,
 				C9D1AD712C9DA8E40031B2C3 /* Assets.xcassets in Resources */,
 				C9D1AD6D2C9DA8E40031B2C3 /* Inter-Bold.otf in Resources */,
