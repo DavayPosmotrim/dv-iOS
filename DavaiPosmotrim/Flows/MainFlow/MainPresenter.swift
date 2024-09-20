@@ -48,20 +48,3 @@ final class MainPresenter: MainPresenterProtocol {
         return userName
     }
 }
-
-    // MARK: - UserService
-
-extension MainPresenter {
-
-    func getUser() {
-        guard let deviceID = UserDefaults.standard.value(forKey: Resources.Authentication.savedDeviceID) as? String else { return }
-        userService.getUser(deviceId: deviceID) { result in
-            switch result {
-            case .success(let user):
-                print("User retrieved: \(user)")
-            case .failure(let error):
-                print("Failed to get user: \(error)")
-            }
-        }
-    }
-}

@@ -11,5 +11,4 @@ protocol MainPresenterProtocol: AnyObject {
     func didTapButtons(screen: String)
     func checkUserNameProperty() -> String
     func getUserName(_ notification: Notification) -> String
-    func getUser()
 }
