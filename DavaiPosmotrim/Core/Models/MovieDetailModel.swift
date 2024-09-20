@@ -21,8 +21,8 @@ struct MovieDetailModel: Codable {
     let votesImdb: Int?
     let movieLength: Int?
     let genres: [GenreModel]
-    let directors: [String]?
-    let actors: [String]?
+    let directors: [String?]
+    let actors: [String?]
 
     private enum CodingKeys: String, CodingKey {
         case id

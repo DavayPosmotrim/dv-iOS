@@ -16,7 +16,6 @@ final class WebSocketsManager {
 
     private var webSocket: URLSessionWebSocketTask?
     private let urlSession: URLSession
-    private let baseURL = "http://80.87.108.90/"
     private var isConnected = false
     private var connectionAttempts = 0
     private let maxConnectionAttempts = 5
@@ -31,14 +30,13 @@ final class WebSocketsManager {
     // MARK: - Public methods
 
     func connect(to urlString: String) {
-        guard let url = URL(string: urlString) else { return }
-
-        if isConnected {
-            return
-        }
+        guard
+            !isConnected,
+            let url = URL(string: urlString)
+        else { return }
 
         var request = URLRequest(url: url)
-        request.setValue(baseURL, forHTTPHeaderField: "Origin")
+        request.setValue(AppMetaInfo.baseURL, forHTTPHeaderField: "Origin")
         webSocket = urlSession.webSocketTask(with: request)
         webSocket?.resume()
 
