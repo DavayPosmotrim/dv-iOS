@@ -78,19 +78,18 @@ final class JoinSessionAuthViewController: UIViewController {
 
     private func setupModel() {
         reusableAuthModel = ReusableAuthViewModel(
-            userNameAction: nil,
-            enterButtonAction: { [weak self] in
-                guard let self else { return }
-                self.isDismissedManually = false
-                self.presentingViewController?.dismiss(animated: true) {
-                    self.presenter.showJoinSession()
-                }
-            },
-            checkSessionCodeAction: { [weak self] code, completion in
+            enterButtonAction: { [weak self] code, completion in
                 guard let self else { return }
                 self.presenter.connectUserToSession(with: code) { isSuccess in
                     self.isServerReachable = isSuccess
                     completion(isSuccess)
+                }
+            },
+            proceedAction: { [weak self] in
+                guard let self else { return }
+                self.isDismissedManually = false
+                self.presentingViewController?.dismiss(animated: true) {
+                    self.presenter.showJoinSession()
                 }
             }
         )

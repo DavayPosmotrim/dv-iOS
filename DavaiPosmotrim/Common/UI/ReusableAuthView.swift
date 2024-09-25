@@ -8,9 +8,8 @@
 import UIKit
 
 struct ReusableAuthViewModel {
-    let userNameAction: ((String, @escaping (Bool) -> Void) -> Void)?
-    let enterButtonAction: (() -> Void)?
-    let checkSessionCodeAction: ((String, @escaping (Bool) -> Void) -> Void)?
+    let enterButtonAction: ((String, @escaping (Bool) -> Void) -> Void)?
+    let proceedAction: (() -> Void)?
 }
 
 enum AuthEvent {
@@ -50,9 +49,8 @@ final class ReusableAuthView: UIView {
 
     private let authEvent: AuthEvent
 
-    private var enterButtonAction: (() -> Void)?
-    private var checkSessionCodeAction: ((String, @escaping (Bool) -> Void) -> Void)?
-    private var userNameAction: ((String, @escaping (Bool) -> Void) -> Void)?
+    private var proceedAction: (() -> Void)?
+    private var enterButtonAction: ((String, @escaping (Bool) -> Void) -> Void)?
 
     // MARK: - Lazy properties
 
@@ -134,8 +132,7 @@ final class ReusableAuthView: UIView {
     func setupView(with model: ReusableAuthViewModel?) {
         guard let model else { return }
         enterButtonAction = model.enterButtonAction
-        checkSessionCodeAction = model.checkSessionCodeAction
-        userNameAction = model.userNameAction
+        proceedAction = model.proceedAction
     }
 
     func updateUIElements(
@@ -196,21 +193,11 @@ private extension ReusableAuthView {
 
     @objc func enterButtonDidTap(sender: AnyObject) {
         guard let text = textField.text else { return }
-        if authEvent != .joinSession {
-            userNameAction?(text) { [weak self] isSuccess in
-                guard let self else { return }
-                if isSuccess {
-                    self.textField.resignFirstResponder()
-                    self.enterButtonAction?()
-                }
-            }
-        } else {
-            checkSessionCodeAction?(text) { [weak self] isSuccess in
-                guard let self else { return }
-                if isSuccess {
-                    self.textField.resignFirstResponder()
-                    self.enterButtonAction?()
-                }
+        enterButtonAction?(text) { [weak self] isSuccess in
+            guard let self else { return }
+            if isSuccess {
+                self.textField.resignFirstResponder()
+                self.proceedAction?()
             }
         }
     }
