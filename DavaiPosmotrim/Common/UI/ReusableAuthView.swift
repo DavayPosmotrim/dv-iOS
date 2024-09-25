@@ -10,7 +10,7 @@ import UIKit
 struct ReusableAuthViewModel {
     let userNameAction: ((String, @escaping (Bool) -> Void) -> Void)?
     let enterButtonAction: (() -> Void)?
-    let checkSessionCodeAction: ((String) -> Void)?
+    let checkSessionCodeAction: ((String, @escaping (Bool) -> Void) -> Void)?
 }
 
 enum AuthEvent {
@@ -51,7 +51,7 @@ final class ReusableAuthView: UIView {
     private let authEvent: AuthEvent
 
     private var enterButtonAction: (() -> Void)?
-    private var checkSessionCodeAction: ((String) -> Void)?
+    private var checkSessionCodeAction: ((String, @escaping (Bool) -> Void) -> Void)?
     private var userNameAction: ((String, @escaping (Bool) -> Void) -> Void)?
 
     // MARK: - Lazy properties
@@ -198,15 +198,20 @@ private extension ReusableAuthView {
         guard let text = textField.text else { return }
         if authEvent != .joinSession {
             userNameAction?(text) { [weak self] isSuccess in
-                guard let self = self else { return }
+                guard let self else { return }
                 if isSuccess {
                     self.textField.resignFirstResponder()
                     self.enterButtonAction?()
                 }
             }
         } else {
-            textField.resignFirstResponder()
-            enterButtonAction?()
+            checkSessionCodeAction?(text) { [weak self] isSuccess in
+                guard let self else { return }
+                if isSuccess {
+                    self.textField.resignFirstResponder()
+                    self.enterButtonAction?()
+                }
+            }
         }
     }
 
@@ -214,8 +219,6 @@ private extension ReusableAuthView {
         guard let text = sender.text else { return }
         if authEvent != .joinSession {
             calculateCharactersNumber(with: text)
-        } else {
-            checkSessionCodeAction?(text)
         }
     }
 

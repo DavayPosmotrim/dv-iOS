@@ -8,10 +8,8 @@
 import UIKit
 
 protocol JoinSessionAuthViewProtocol: AnyObject {
-    func updateUIElements(
-        text: String?,
-        font: UIFont?,
-        labelIsHidden: Bool,
-        buttonIsEnabled: Bool
-    )
+    func showLoader()
+    func hideLoader()
+    func showNetworkError()
+    func showSessionCodeError()
 }

@@ -10,6 +10,5 @@ import Foundation
 protocol JoinSessionAuthPresenterProtocol: AnyObject {
     func finishSessionAuth()
     func showJoinSession()
-    func checkSessionCode(with code: String)
-    func downloadSessionCode()
+    func connectUserToSession(with sessionCode: String, completion: @escaping (Bool) -> Void)
 }

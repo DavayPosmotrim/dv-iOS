@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		C90CAB372BFAFA6B00B42456 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = C90CAB362BFAFA6B00B42456 /* Swinject */; };
 		C91406642C6518ED005579CA /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = C91406632C6518ED005579CA /* ProgressHUD */; };
+		C9156A892CA31AA000840603 /* SessionServiceAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9156A882CA31AA000840603 /* SessionServiceAPI.swift */; };
+		C9156A8B2CA36B5F00840603 /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9156A8A2CA36B5F00840603 /* SessionService.swift */; };
 		C9C4D5B42BD3B3810081CD23 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = C9C4D5B32BD3B3810081CD23 /* Kingfisher */; };
 		C9D1AD662C9DA8E40031B2C3 /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AC7B2C9DA8E40031B2C3 /* CGFloat+Extensions.swift */; };
 		C9D1AD672C9DA8E40031B2C3 /* UICollectionViewLayout+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AC7C2C9DA8E40031B2C3 /* UICollectionViewLayout+Extension.swift */; };
@@ -199,6 +201,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C9156A882CA31AA000840603 /* SessionServiceAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionServiceAPI.swift; sourceTree = "<group>"; };
+		C9156A8A2CA36B5F00840603 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
 		C9C4D59A2BD3A3C70081CD23 /* DavaiPosmotrim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DavaiPosmotrim.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9D1AC7B2C9DA8E40031B2C3 /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
 		C9D1AC7C2C9DA8E40031B2C3 /* UICollectionViewLayout+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionViewLayout+Extension.swift"; sourceTree = "<group>"; };
@@ -403,6 +407,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C9156A872CA319F900840603 /* SessionService */ = {
+			isa = PBXGroup;
+			children = (
+				C9156A882CA31AA000840603 /* SessionServiceAPI.swift */,
+				C9156A8A2CA36B5F00840603 /* SessionService.swift */,
+			);
+			path = SessionService;
+			sourceTree = "<group>";
+		};
 		C9C4D5912BD3A3C70081CD23 = {
 			isa = PBXGroup;
 			children = (
@@ -943,6 +956,7 @@
 				C9D1AD582C9DA8E40031B2C3 /* Models */,
 				C9D1AD5B2C9DA8E40031B2C3 /* NetworkReachability */,
 				C9D1AD5E2C9DA8E40031B2C3 /* Protocols */,
+				C9156A872CA319F900840603 /* SessionService */,
 				C9D1AD612C9DA8E40031B2C3 /* UserService */,
 				C9D1AD642C9DA8E40031B2C3 /* WebSockets */,
 			);
@@ -1057,7 +1071,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo \"PATH is $PATH\"\nif [ -x /opt/homebrew/bin/swiftlint ]; then\n   /opt/homebrew/bin/swiftlint\nelse\n   echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1162,6 +1176,7 @@
 				C9D1AE0A2C9DA8E50031B2C3 /* BaseCoordinator.swift in Sources */,
 				C9D1ADE82C9DA8E50031B2C3 /* SelectionMovieCellModel.swift in Sources */,
 				C9D1ADFE2C9DA8E50031B2C3 /* SessionsListModel.swift in Sources */,
+				C9156A8B2CA36B5F00840603 /* SessionService.swift in Sources */,
 				C9D1ADFA2C9DA8E50031B2C3 /* SessionMoviesPresenterProtocol.swift in Sources */,
 				C9D1AE0C2C9DA8E50031B2C3 /* ContentService.swift in Sources */,
 				C9D1AE1E2C9DA8E50031B2C3 /* NetworkReachabilityHandler.swift in Sources */,
@@ -1216,6 +1231,7 @@
 				C9D1ADDE2C9DA8E50031B2C3 /* RouletteCoordinator.swift in Sources */,
 				C9D1AD7E2C9DA8E40031B2C3 /* LeftAllignedLayout.swift in Sources */,
 				C9D1AE162C9DA8E50031B2C3 /* CustomUserRequestModel.swift in Sources */,
+				C9156A892CA31AA000840603 /* SessionServiceAPI.swift in Sources */,
 				C9D1AE062C9DA8E50031B2C3 /* SplashScreenSceneFactory.swift in Sources */,
 				C9D1AE192C9DA8E50031B2C3 /* MovieModel.swift in Sources */,
 				C9D1AE172C9DA8E50031B2C3 /* GenreModel.swift in Sources */,
