@@ -10,11 +10,11 @@ import Moya
 
 enum SessionServiceError: Error {
     case networkError(Error)
-    case sessionCodeError(Error)
+    case serverError(Error)
 
     var localizedDescription: String {
         switch self {
-        case .networkError(let error), .sessionCodeError(let error):
+        case .networkError(let error), .serverError(let error):
             return error.localizedDescription
         }
     }
@@ -77,7 +77,7 @@ final class SessionService: SessionServiceProtocol {
                             case (let errorMessage?, _):
                                 completion(
                                     .failure(
-                                        .sessionCodeError(
+                                        .serverError(
                                             NSError(
                                                 domain: "",
                                                 code: 0,
@@ -89,7 +89,7 @@ final class SessionService: SessionServiceProtocol {
                             case (_, let detailMessage?):
                                 completion(
                                     .failure(
-                                        .sessionCodeError(
+                                        .serverError(
                                             NSError(
                                                 domain: "",
                                                 code: 0,
