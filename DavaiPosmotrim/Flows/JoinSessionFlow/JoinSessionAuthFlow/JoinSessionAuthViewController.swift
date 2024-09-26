@@ -14,7 +14,10 @@ final class JoinSessionAuthViewController: UIViewController {
     var presenter: JoinSessionAuthPresenterProtocol
 
     private var reusableAuthModel: ReusableAuthViewModel?
+    private var loadingVC: CustomLoadingViewController?
     private var isDismissedManually = true
+    private var isServerReachable: Bool?
+    private var networkReachabilityHandler: NetworkReachabilityHandler
 
     // MARK: - Lazy properties
 
@@ -26,9 +29,14 @@ final class JoinSessionAuthViewController: UIViewController {
 
     // MARK: - Initializers
 
-    init(presenter: JoinSessionAuthPresenterProtocol) {
+    init(
+        presenter: JoinSessionAuthPresenterProtocol,
+        networkReachabilityHandler: NetworkReachabilityHandler = NetworkReachabilityHandler()
+    ) {
         self.presenter = presenter
+        self.networkReachabilityHandler = networkReachabilityHandler
         super.init(nibName: nil, bundle: nil)
+        self.networkReachabilityHandler.delegate = self
     }
 
     required init?(coder: NSCoder) {
@@ -42,6 +50,7 @@ final class JoinSessionAuthViewController: UIViewController {
 
         setupModel()
         setupView()
+        networkReachabilityHandler.setupNetworkReachability()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -50,12 +59,7 @@ final class JoinSessionAuthViewController: UIViewController {
         if isDismissedManually {
             presenter.finishSessionAuth()
         }
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        presenter.downloadSessionCode()
+        networkReachabilityHandler.stopListening()
     }
 
     // MARK: - Private methods
@@ -74,34 +78,60 @@ final class JoinSessionAuthViewController: UIViewController {
 
     private func setupModel() {
         reusableAuthModel = ReusableAuthViewModel(
-            userNameAction: nil,
-            enterButtonAction: { [weak self] in
+            enterButtonAction: { [weak self] code, completion in
+                guard let self else { return }
+                self.presenter.connectUserToSession(with: code) { isSuccess in
+                    self.isServerReachable = isSuccess
+                    completion(isSuccess)
+                }
+            },
+            proceedAction: { [weak self] in
                 guard let self else { return }
                 self.isDismissedManually = false
-                self.dismiss(animated: true)
-                self.presenter.showJoinSession()
-            },
-            checkSessionCodeAction: { [weak self] code in
-                guard let self else { return }
-                self.presenter.checkSessionCode(with: code)
+                self.presentingViewController?.dismiss(animated: true) {
+                    self.presenter.showJoinSession()
+                }
             }
         )
     }
 }
 
+    // MARK: - JoinSessionAuthViewProtocol
+
 extension JoinSessionAuthViewController: JoinSessionAuthViewProtocol {
 
-    func updateUIElements(
-        text: String?,
-        font: UIFont?,
-        labelIsHidden: Bool,
-        buttonIsEnabled: Bool
-    ) {
+    func showLoader() {
+        loadingVC = CustomLoadingViewController.show(in: self)
+    }
+
+    func hideLoader() {
+        loadingVC?.hide()
+    }
+
+    func showNetworkError() {
         joinSessionAuthView.updateUIElements(
-            text: text,
-            font: font,
-            labelIsHidden: labelIsHidden,
-            buttonIsEnabled: buttonIsEnabled
+            text: Resources.Authentication.lowerLabelNetworkError,
+            font: nil,
+            labelIsHidden: false,
+            buttonIsEnabled: true
         )
+    }
+
+    func showSessionCodeError() {
+        joinSessionAuthView.updateUIElements(
+            text: Resources.Authentication.lowerLabelSessionNotFound,
+            font: nil,
+            labelIsHidden: false,
+            buttonIsEnabled: true
+        )
+    }
+}
+
+    // MARK: - NetworkReachabilityHandlerDelegate
+
+extension JoinSessionAuthViewController: NetworkReachabilityHandlerDelegate {
+
+    func didChangeNetworkStatus(isReachable: Bool?) {
+        isServerReachable = isReachable
     }
 }

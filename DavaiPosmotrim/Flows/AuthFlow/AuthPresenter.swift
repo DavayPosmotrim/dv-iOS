@@ -54,6 +54,7 @@ extension AuthPresenter {
         view?.showLoader()
         userService.createUser(deviceId: deviceId, name: name) { [weak self] result in
             guard let self else { return }
+            self.view?.hideLoader()
             switch result {
             case .success(let user):
                 UserDefaults.standard.setValue(user.name, forKey: Resources.Authentication.savedNameUserDefaultsKey)
@@ -62,10 +63,9 @@ extension AuthPresenter {
                 print(user)
             case .failure(let error):
                 completion(false)
-                self.view?.showError()
+                view?.showError()
                 print("Failed to create user: \(error)")
             }
         }
-        view?.hideLoader()
     }
 }

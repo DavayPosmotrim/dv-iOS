@@ -21,7 +21,7 @@ struct ErrorResponse: Codable {
     }
 }
 
-class ContentService: ContentServiceProtocol {
+final class ContentService: ContentServiceProtocol {
     private let provider: MoyaProvider<ContentAPI>
 
     init(provider: MoyaProvider<ContentAPI> = MoyaProvider<ContentAPI>()) {
@@ -42,7 +42,15 @@ class ContentService: ContentServiceProtocol {
                 if let response = error.response {
                     do {
                         let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: response.data)
-                        completion(.failure(NSError(domain: "", code: response.statusCode, userInfo: [NSLocalizedDescriptionKey: errorResponse.detail])))
+                        completion(
+                            .failure(
+                                NSError(
+                                    domain: "",
+                                    code: response.statusCode,
+                                    userInfo: [NSLocalizedDescriptionKey: errorResponse.detail]
+                                )
+                            )
+                        )
                     } catch {
                         completion(.failure(error))
                     }
@@ -67,7 +75,15 @@ class ContentService: ContentServiceProtocol {
                 if let response = error.response {
                     do {
                         let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: response.data)
-                        completion(.failure(NSError(domain: "", code: response.statusCode, userInfo: [NSLocalizedDescriptionKey: errorResponse.detail])))
+                        completion(
+                            .failure(
+                                NSError(
+                                    domain: "",
+                                    code: response.statusCode,
+                                    userInfo: [NSLocalizedDescriptionKey: errorResponse.detail]
+                                )
+                            )
+                        )
                     } catch {
                         completion(.failure(error))
                     }

@@ -79,7 +79,7 @@ final class EditNameViewController: UIViewController {
 
     private func setupModel() {
         reusableAuthModel = ReusableAuthViewModel(
-            userNameAction: { [weak self] text, completion in
+            enterButtonAction: { [weak self] text, completion in
                 guard let self else { return }
                 self.presenter.updateUser(name: text) { isSuccess in
                     self.isServerReachable = isSuccess
@@ -89,15 +89,14 @@ final class EditNameViewController: UIViewController {
                     }
                 }
             },
-            enterButtonAction: { [weak self] in
+            proceedAction: { [weak self] in
                 guard let self else { return }
                 if self.isServerReachable == true {
                     self.presentingViewController?.dismiss(animated: true) {
                         self.presenter.finishEdit()
                     }
                 }
-            },
-            checkSessionCodeAction: nil
+            }
         )
     }
 }

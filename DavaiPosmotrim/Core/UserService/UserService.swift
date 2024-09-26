@@ -31,7 +31,7 @@ protocol UserServiceProtocol {
 
 // MARK: - UserService Implementation
 
-class UserService: UserServiceProtocol {
+final class UserService: UserServiceProtocol {
     private let provider: MoyaProvider<UserServiceAPI>
 
     init(provider: MoyaProvider<UserServiceAPI> = MoyaProvider<UserServiceAPI>()) {

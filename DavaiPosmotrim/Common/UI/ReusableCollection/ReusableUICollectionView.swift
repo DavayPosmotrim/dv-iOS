@@ -111,7 +111,7 @@ final class ReusableUICollectionView: UIView {
     // MARK: - Handlers
 
     @objc private func updateCollection() {
-        collectionView.reloadData()
+        updateCollectionView()
     }
 
     // MARK: - Private methods

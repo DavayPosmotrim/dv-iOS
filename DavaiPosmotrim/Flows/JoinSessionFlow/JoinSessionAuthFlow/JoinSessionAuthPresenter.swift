@@ -14,12 +14,19 @@ final class JoinSessionAuthPresenter: JoinSessionAuthPresenterProtocol {
     weak var coordinator: JoinSessionAuthCoordinator?
     weak var view: JoinSessionAuthViewProtocol?
 
+    // MARK: - Private Properties
+
+    private var sessionService: SessionServiceProtocol
     private var sessionCode: String?
 
     // MARK: - Initializers
 
-    init(coordinator: JoinSessionAuthCoordinator) {
+    init(
+        coordinator: JoinSessionAuthCoordinator,
+        sessionService: SessionServiceProtocol = SessionService()
+    ) {
         self.coordinator = coordinator
+        self.sessionService = sessionService
     }
 
     // MARK: - Public methods
@@ -33,35 +40,36 @@ final class JoinSessionAuthPresenter: JoinSessionAuthPresenterProtocol {
         guard let coordinator else { return }
         coordinator.showJoinSessionFlow()
     }
+}
 
-    // TODO: - add logic to fetch sessionCode from server
+    // MARK: - SessionService
 
-    func downloadSessionCode() {
-        let downloadedCode = "AAaa567"
-        UserDefaults.standard.setValue(downloadedCode, forKey: Resources.JoinSession.joinSessionCreatedCode)
-        sessionCode = downloadedCode
-    }
+extension JoinSessionAuthPresenter {
 
-    func checkSessionCode(with code: String) {
-        let pattern = "^[A-Za-z]{4}\\d{3}$"
-        guard let regex = try? NSRegularExpression(pattern: pattern) else { return }
-        let range = NSRange(location: 0, length: code.utf16.count)
-        let matches = regex.matches(in: code, range: range)
+    func connectUserToSession(with sessionCode: String, completion: @escaping (Bool) -> Void) {
+        guard let deviceId = UserDefaults.standard.string(
+            forKey: Resources.Authentication.savedDeviceID
+        ) else { return }
 
-        if !matches.isEmpty && code == sessionCode {
-            view?.updateUIElements(
-                text: nil,
-                font: nil,
-                labelIsHidden: true,
-                buttonIsEnabled: true
-            )
-        } else {
-            view?.updateUIElements(
-                text: Resources.Authentication.lowerLabelSessionNotFound,
-                font: nil,
-                labelIsHidden: false,
-                buttonIsEnabled: false
-            )
+        view?.showLoader()
+        sessionService.connectUserToSession(sessionCode: sessionCode, deviceId: deviceId) { [weak self] result in
+            guard let self else { return }
+            self.view?.hideLoader()
+
+            switch result {
+            case .success(let response):
+                completion(true)
+                print(response.message)
+            case .failure(let error):
+                completion(false)
+                switch error {
+                case .networkError:
+                    view?.showNetworkError()
+                case .sessionCodeError:
+                    view?.showSessionCodeError()
+                }
+                print("Failed to connect user: \(error)")
+            }
         }
     }
 }

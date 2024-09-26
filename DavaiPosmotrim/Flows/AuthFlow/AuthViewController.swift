@@ -77,22 +77,21 @@ final class AuthViewController: UIViewController {
 
     private func setupModel() {
         reusableAuthModel = ReusableAuthViewModel(
-            userNameAction: { [weak self] text, completion in
+            enterButtonAction: { [weak self] text, completion in
                 guard let self else { return }
                 self.presenter.createUser(name: text) { isSuccess in
                     self.isServerReachable = isSuccess
                     completion(isSuccess)
                 }
             },
-            enterButtonAction: { [weak self] in
+            proceedAction: { [weak self] in
                 guard let self else { return }
                 if self.isServerReachable == true {
                     self.dismiss(animated: true) {
                         self.presenter.authFinish()
                     }
                 }
-            },
-            checkSessionCodeAction: nil
+            }
         )
     }
 }
