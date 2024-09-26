@@ -44,6 +44,11 @@ protocol SessionServiceProtocol {
         deviceId: String,
         completion: @escaping (Result<ConnectionResultModel, SessionServiceError>) -> Void
     )
+    func disconnectUserFromSession(
+        sessionCode: String,
+        deviceId: String,
+        completion: @escaping (Result<ConnectionResultModel, SessionServiceError>) -> Void
+    )
 }
 
 final class SessionService: SessionServiceProtocol {
@@ -80,7 +85,7 @@ final class SessionService: SessionServiceProtocol {
                                         .serverError(
                                             NSError(
                                                 domain: "",
-                                                code: 0,
+                                                code: response.statusCode,
                                                 userInfo: [NSLocalizedDescriptionKey: errorMessage]
                                             )
                                         )
@@ -92,7 +97,7 @@ final class SessionService: SessionServiceProtocol {
                                         .serverError(
                                             NSError(
                                                 domain: "",
-                                                code: 0,
+                                                code: response.statusCode,
                                                 userInfo: [NSLocalizedDescriptionKey: detailMessage]
                                             )
                                         )
@@ -105,6 +110,45 @@ final class SessionService: SessionServiceProtocol {
                             completion(.failure(.networkError(error)))
                         }
                     case nil:
+                        completion(.failure(.networkError(error)))
+                    }
+                }
+            }
+        }
+
+    func disconnectUserFromSession(
+        sessionCode: String,
+        deviceId: String,
+        completion: @escaping (Result<ConnectionResultModel, SessionServiceError>) -> Void) {
+            provider.request(.disconnectUserFromSession(sessionCode: sessionCode, deviceId: deviceId)) { result in
+
+                switch result {
+                case .success(let response):
+                    do {
+                        let message = try JSONDecoder().decode(ConnectionResultModel.self, from: response.data)
+                        completion(.success(message))
+                    } catch {
+                        completion(.failure(.networkError(error)))
+                    }
+                case .failure(let error):
+                    if let response = error.response {
+                        do {
+                            let errorResponse = try JSONDecoder().decode(SessionErrorResponse.self, from: response.data)
+                            completion(
+                                .failure(
+                                    .serverError(
+                                        NSError(
+                                            domain: "",
+                                            code: response.statusCode,
+                                            userInfo: [NSLocalizedDescriptionKey: errorResponse.errorMessage as Any]
+                                        )
+                                    )
+                                )
+                            )
+                        } catch {
+                            completion(.failure(.networkError(error)))
+                        }
+                    } else {
                         completion(.failure(.networkError(error)))
                     }
                 }
