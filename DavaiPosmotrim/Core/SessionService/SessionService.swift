@@ -49,6 +49,11 @@ protocol SessionServiceProtocol {
         deviceId: String,
         completion: @escaping (Result<ConnectionResultModel, SessionServiceError>) -> Void
     )
+    func getSessionMatchedMovies(
+        sessionCode: String,
+        deviceId: String,
+        completion: @escaping (Result<[MatchedMovieResponseModel], SessionServiceError>) -> Void
+    )
 }
 
 final class SessionService: SessionServiceProtocol {
@@ -141,6 +146,50 @@ final class SessionService: SessionServiceProtocol {
                                             domain: "",
                                             code: response.statusCode,
                                             userInfo: [NSLocalizedDescriptionKey: errorResponse.errorMessage as Any]
+                                        )
+                                    )
+                                )
+                            )
+                        } catch {
+                            completion(.failure(.networkError(error)))
+                        }
+                    } else {
+                        completion(.failure(.networkError(error)))
+                    }
+                }
+            }
+        }
+
+    func getSessionMatchedMovies(
+        sessionCode: String,
+        deviceId: String,
+        completion: @escaping (Result<[MatchedMovieResponseModel], SessionServiceError>) -> Void) {
+            provider.request(.getSessionMatchedMovies(sessionCode: sessionCode, deviceId: deviceId)) { result in
+                switch result {
+                case .success(let response):
+                    do {
+                        let matchedMovies = try JSONDecoder().decode(
+                            [MatchedMovieResponseModel].self,
+                            from: response.data
+                        )
+                        completion(.success(matchedMovies))
+                    } catch {
+                        completion(.failure(.networkError(error)))
+                    }
+                case .failure(let error):
+                    if let response = error.response {
+                        do {
+                            let errorResponse = try JSONDecoder().decode(
+                                SessionErrorResponse.self,
+                                from: response.data
+                            )
+                            completion(
+                                .failure(
+                                    .serverError(
+                                        NSError(
+                                            domain: "",
+                                            code: response.statusCode,
+                                            userInfo: [NSLocalizedDescriptionKey: errorResponse.detail as Any]
                                         )
                                     )
                                 )
