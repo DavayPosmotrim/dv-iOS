@@ -12,6 +12,7 @@
 		C9156A892CA31AA000840603 /* SessionServiceAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9156A882CA31AA000840603 /* SessionServiceAPI.swift */; };
 		C9156A8B2CA36B5F00840603 /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9156A8A2CA36B5F00840603 /* SessionService.swift */; };
 		C952F4062CA6068A0002001D /* MatchedMovieResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C952F4052CA6068A0002001D /* MatchedMovieResponseModel.swift */; };
+		C98BD4462CA6F3C600A9BD84 /* RouletteRandomMovieResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BD4452CA6F3C500A9BD84 /* RouletteRandomMovieResponseModel.swift */; };
 		C9C4D5B42BD3B3810081CD23 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = C9C4D5B32BD3B3810081CD23 /* Kingfisher */; };
 		C9D1AD662C9DA8E40031B2C3 /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AC7B2C9DA8E40031B2C3 /* CGFloat+Extensions.swift */; };
 		C9D1AD672C9DA8E40031B2C3 /* UICollectionViewLayout+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AC7C2C9DA8E40031B2C3 /* UICollectionViewLayout+Extension.swift */; };
@@ -205,6 +206,7 @@
 		C9156A882CA31AA000840603 /* SessionServiceAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionServiceAPI.swift; sourceTree = "<group>"; };
 		C9156A8A2CA36B5F00840603 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
 		C952F4052CA6068A0002001D /* MatchedMovieResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchedMovieResponseModel.swift; sourceTree = "<group>"; };
+		C98BD4452CA6F3C500A9BD84 /* RouletteRandomMovieResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouletteRandomMovieResponseModel.swift; sourceTree = "<group>"; };
 		C9C4D59A2BD3A3C70081CD23 /* DavaiPosmotrim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DavaiPosmotrim.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9D1AC7B2C9DA8E40031B2C3 /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
 		C9D1AC7C2C9DA8E40031B2C3 /* UICollectionViewLayout+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionViewLayout+Extension.swift"; sourceTree = "<group>"; };
@@ -910,6 +912,7 @@
 				C9D1AD562C9DA8E40031B2C3 /* SessionResultModel.swift */,
 				C9D1AD572C9DA8E40031B2C3 /* StatusEnum.swift */,
 				C952F4052CA6068A0002001D /* MatchedMovieResponseModel.swift */,
+				C98BD4452CA6F3C500A9BD84 /* RouletteRandomMovieResponseModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1189,6 +1192,7 @@
 				C9D1ADFF2C9DA8E50031B2C3 /* SessionsListPresenter.swift in Sources */,
 				C9D1ADEE2C9DA8E50031B2C3 /* SelectionMoviesPresenter.swift in Sources */,
 				C9D1ADAA2C9DA8E50031B2C3 /* CreateSessionCollectionCell.swift in Sources */,
+				C98BD4462CA6F3C600A9BD84 /* RouletteRandomMovieResponseModel.swift in Sources */,
 				C9D1ADC52C9DA8E50031B2C3 /* JoinSessionViewController.swift in Sources */,
 				C9D1ADB92C9DA8E50031B2C3 /* DismissJoinSessionDelegate.swift in Sources */,
 				C9D1AD822C9DA8E40031B2C3 /* ReusableUICollectionView.swift in Sources */,

@@ -54,6 +54,11 @@ protocol SessionServiceProtocol {
         deviceId: String,
         completion: @escaping (Result<[MatchedMovieResponseModel], SessionServiceError>) -> Void
     )
+    func getRouletteRandomMovie(
+        sessionCode: String,
+        deviceId: String,
+        completion: @escaping (Result<RouletteRandomMovieResponseModel, SessionServiceError>) -> Void
+    )
 }
 
 final class SessionService: SessionServiceProtocol {
@@ -67,7 +72,8 @@ final class SessionService: SessionServiceProtocol {
     func connectUserToSession(
         sessionCode: String,
         deviceId: String,
-        completion: @escaping (Result<ConnectionResultModel, SessionServiceError>) -> Void) {
+        completion: @escaping (Result<ConnectionResultModel, SessionServiceError>) -> Void
+    ) {
             provider.request(.connectUserToSession(sessionCode: sessionCode, deviceId: deviceId)) { result in
 
                 switch result {
@@ -124,7 +130,8 @@ final class SessionService: SessionServiceProtocol {
     func disconnectUserFromSession(
         sessionCode: String,
         deviceId: String,
-        completion: @escaping (Result<ConnectionResultModel, SessionServiceError>) -> Void) {
+        completion: @escaping (Result<ConnectionResultModel, SessionServiceError>) -> Void
+    ) {
             provider.request(.disconnectUserFromSession(sessionCode: sessionCode, deviceId: deviceId)) { result in
 
                 switch result {
@@ -163,7 +170,8 @@ final class SessionService: SessionServiceProtocol {
     func getSessionMatchedMovies(
         sessionCode: String,
         deviceId: String,
-        completion: @escaping (Result<[MatchedMovieResponseModel], SessionServiceError>) -> Void) {
+        completion: @escaping (Result<[MatchedMovieResponseModel], SessionServiceError>) -> Void
+    ) {
             provider.request(.getSessionMatchedMovies(sessionCode: sessionCode, deviceId: deviceId)) { result in
                 switch result {
                 case .success(let response):
@@ -203,4 +211,49 @@ final class SessionService: SessionServiceProtocol {
                 }
             }
         }
+
+    func getRouletteRandomMovie(
+        sessionCode: String,
+        deviceId: String,
+        completion: @escaping (Result<RouletteRandomMovieResponseModel, SessionServiceError>) -> Void
+    ) {
+        provider.request(.getRouletteRandomMovie(sessionCode: sessionCode, deviceId: deviceId)) { result in
+            switch result {
+            case.success(let response):
+                do {
+                    let randomMovie = try JSONDecoder().decode(
+                        RouletteRandomMovieResponseModel.self,
+                        from: response.data
+                    )
+                    completion(.success(randomMovie))
+                } catch {
+                    completion(.failure(.networkError(error)))
+                }
+            case .failure(let error):
+                if let response = error.response {
+                    do {
+                        let errorResponse = try JSONDecoder().decode(
+                            SessionErrorResponse.self,
+                            from: response.data
+                        )
+                        completion(
+                            .failure(
+                                .serverError(
+                                    NSError(
+                                        domain: "",
+                                        code: response.statusCode,
+                                        userInfo: [NSLocalizedDescriptionKey: errorResponse.detail as Any]
+                                    )
+                                )
+                            )
+                        )
+                    } catch {
+                        completion(.failure(.networkError(error)))
+                    }
+                } else {
+                    completion(.failure(.networkError(error)))
+                }
+            }
+        }
+    }
 }
