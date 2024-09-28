@@ -17,6 +17,7 @@ enum SessionServiceAPI {
     case putLikeToMovieInSession(sessionCode: String, deviceId: String, movieId: String)
     case deleteLikeForMovieInSession(sessionCode: String, deviceId: String, movieId: String)
     case getSessionInfo(sessionCode: String, deviceId: String)
+    case getSessionMoviesList(sessionCode: String)
 }
 
 extension SessionServiceAPI: TargetType {
@@ -39,6 +40,8 @@ extension SessionServiceAPI: TargetType {
             return "api/sessions/\(sessionCode)/movies/\(movieId)/like/"
         case .getSessionInfo(let sessionCode, _):
             return "api/sessions/\(sessionCode)/"
+        case .getSessionMoviesList(let sessionCode):
+            return "api/sessions/\(sessionCode)/movies/"
         }
     }
 
@@ -51,7 +54,8 @@ extension SessionServiceAPI: TargetType {
         case    .getSessionMatchedMovies,
                 .getRouletteRandomMovie,
                 .startVotingSessionStatus,
-                .getSessionInfo:
+                .getSessionInfo,
+                .getSessionMoviesList:
             return .get
         }
     }
@@ -65,7 +69,8 @@ extension SessionServiceAPI: TargetType {
                 .startVotingSessionStatus,
                 .putLikeToMovieInSession,
                 .deleteLikeForMovieInSession,
-                .getSessionInfo:
+                .getSessionInfo,
+                .getSessionMoviesList:
             return .requestPlain
         }
     }
@@ -83,6 +88,10 @@ extension SessionServiceAPI: TargetType {
             return [
                 "Accept": "application/json",
                 "Device-Id": deviceId
+            ]
+        case .getSessionMoviesList:
+            return [
+                "Accept": "application/json"
             ]
         }
     }

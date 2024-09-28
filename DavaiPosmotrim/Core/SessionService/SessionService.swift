@@ -77,6 +77,10 @@ protocol SessionServiceProtocol {
         deviceId: String,
         completion: @escaping (Result<SessionInfoResponseModel, SessionServiceError>) -> Void
     )
+    func getSessionMoviesList(
+        sessionCode: String,
+        completion: @escaping (Result<[MovieResponseModel], SessionServiceError>) -> Void
+    )
 }
 
 // swiftlint:disable type_body_length
@@ -468,7 +472,50 @@ final class SessionService: SessionServiceProtocol {
             }
         }
     }
+
+    func getSessionMoviesList(
+        sessionCode: String,
+        completion: @escaping (Result<[MovieResponseModel], SessionServiceError>) -> Void
+    ) {
+            provider.request(.getSessionMoviesList(sessionCode: sessionCode)) { result in
+                switch result {
+                case .success(let response):
+                    do {
+                        let matchedMovies = try JSONDecoder().decode(
+                            [MovieResponseModel].self,
+                            from: response.data
+                        )
+                        completion(.success(matchedMovies))
+                    } catch {
+                        completion(.failure(.networkError(error)))
+                    }
+                case .failure(let error):
+                    if let response = error.response {
+                        do {
+                            let errorResponse = try JSONDecoder().decode(
+                                SessionErrorResponse.self,
+                                from: response.data
+                            )
+                            completion(
+                                .failure(
+                                    .serverError(
+                                        NSError(
+                                            domain: "",
+                                            code: response.statusCode,
+                                            userInfo: [NSLocalizedDescriptionKey: errorResponse.detail as Any]
+                                        )
+                                    )
+                                )
+                            )
+                        } catch {
+                            completion(.failure(.networkError(error)))
+                        }
+                    } else {
+                        completion(.failure(.networkError(error)))
+                    }
+                }
+            }
+        }
 }
 
 // swiftlint:enable type_body_length
-
