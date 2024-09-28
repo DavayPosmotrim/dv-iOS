@@ -85,6 +85,11 @@ protocol SessionServiceProtocol {
         deviceId: String,
         completion: @escaping (Result<[SessionsListResponseModel], SessionServiceError>) -> Void
     )
+    func createSession(
+        deviceId: String,
+        genresOrCollections: CreateSessionRequestModel,
+        completion: @escaping (Result<CreateSessionResponseModel, SessionServiceError>) -> Void
+    )
 }
 
 // swiftlint:disable type_body_length
@@ -564,6 +569,53 @@ final class SessionService: SessionServiceProtocol {
                 }
             }
         }
+
+    func createSession(
+        deviceId: String,
+        genresOrCollections: CreateSessionRequestModel,
+        completion: @escaping (Result<CreateSessionResponseModel, SessionServiceError>) -> Void
+    ) {
+        let createSessionRequest = CreateSessionRequestModel(genres: genresOrCollections.genres, collections: genresOrCollections.collections)
+
+        provider.request(.createSession(deviceId: deviceId, genresOrCollections: createSessionRequest)) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    let session = try JSONDecoder().decode(
+                        CreateSessionResponseModel.self,
+                        from: response.data
+                    )
+                    completion(.success(session))
+                } catch {
+                    completion(.failure(.networkError(error)))
+                }
+            case .failure(let error):
+                if let response = error.response {
+                    do {
+                        let errorResponse = try JSONDecoder().decode(
+                            SessionErrorResponse.self,
+                            from: response.data
+                        )
+                        completion(
+                            .failure(
+                                .serverError(
+                                    NSError(
+                                        domain: "",
+                                        code: response.statusCode,
+                                        userInfo: [NSLocalizedDescriptionKey: errorResponse.detail as Any]
+                                    )
+                                )
+                            )
+                        )
+                    } catch {
+                        completion(.failure(.networkError(error)))
+                    }
+                } else {
+                    completion(.failure(.networkError(error)))
+                }
+            }
+        }
+    }
 }
 
 // swiftlint:enable type_body_length

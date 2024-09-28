@@ -19,6 +19,7 @@ enum SessionServiceAPI {
     case getSessionInfo(sessionCode: String, deviceId: String)
     case getSessionMoviesList(sessionCode: String)
     case getSessionsList(deviceId: String)
+    case createSession(deviceId: String, genresOrCollections: CreateSessionRequestModel)
 }
 
 extension SessionServiceAPI: TargetType {
@@ -45,15 +46,17 @@ extension SessionServiceAPI: TargetType {
             return "api/sessions/\(sessionCode)/movies/"
         case .getSessionsList(_):
             return "api/sessions/"
+        case .createSession(_, _):
+            return "api/sessions/create"
         }
     }
 
     var method: Moya.Method {
         switch self {
-        case .connectUserToSession, .putLikeToMovieInSession:
+        case    .connectUserToSession,
+                .putLikeToMovieInSession,
+                .createSession:
             return .post
-        case .disconnectUserFromSession, .deleteLikeForMovieInSession:
-            return .delete
         case    .getSessionMatchedMovies,
                 .getRouletteRandomMovie,
                 .startVotingSessionStatus,
@@ -61,6 +64,8 @@ extension SessionServiceAPI: TargetType {
                 .getSessionMoviesList,
                 .getSessionsList:
             return .get
+        case .disconnectUserFromSession, .deleteLikeForMovieInSession:
+            return .delete
         }
     }
 
@@ -77,6 +82,13 @@ extension SessionServiceAPI: TargetType {
                 .getSessionMoviesList,
                 .getSessionsList:
             return .requestPlain
+        case .createSession(_, let body):
+            do {
+                let bodyData = try JSONEncoder().encode(body)
+                return .requestData(bodyData)
+            } catch {
+                return .requestPlain
+            }
         }
     }
 
@@ -98,6 +110,12 @@ extension SessionServiceAPI: TargetType {
         case .getSessionMoviesList:
             return [
                 "Accept": "application/json"
+            ]
+        case .createSession(let deviceId, _):
+            return [
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Device-Id": deviceId
             ]
         }
     }
