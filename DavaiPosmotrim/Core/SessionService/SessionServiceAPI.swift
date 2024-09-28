@@ -16,6 +16,7 @@ enum SessionServiceAPI {
     case startVotingSessionStatus(sessionCode: String, deviceId: String)
     case putLikeToMovieInSession(sessionCode: String, deviceId: String, movieId: String)
     case deleteLikeForMovieInSession(sessionCode: String, deviceId: String, movieId: String)
+    case getSessionInfo(sessionCode: String, deviceId: String)
 }
 
 extension SessionServiceAPI: TargetType {
@@ -36,6 +37,8 @@ extension SessionServiceAPI: TargetType {
         case    .putLikeToMovieInSession(let sessionCode, _, let movieId),
                 .deleteLikeForMovieInSession(let sessionCode, _, let movieId):
             return "api/sessions/\(sessionCode)/movies/\(movieId)/like/"
+        case .getSessionInfo(let sessionCode, _):
+            return "api/sessions/\(sessionCode)/"
         }
     }
 
@@ -45,7 +48,10 @@ extension SessionServiceAPI: TargetType {
             return .post
         case .disconnectUserFromSession, .deleteLikeForMovieInSession:
             return .delete
-        case .getSessionMatchedMovies, .getRouletteRandomMovie, .startVotingSessionStatus:
+        case    .getSessionMatchedMovies,
+                .getRouletteRandomMovie,
+                .startVotingSessionStatus,
+                .getSessionInfo:
             return .get
         }
     }
@@ -58,7 +64,8 @@ extension SessionServiceAPI: TargetType {
                 .getRouletteRandomMovie,
                 .startVotingSessionStatus,
                 .putLikeToMovieInSession,
-                .deleteLikeForMovieInSession:
+                .deleteLikeForMovieInSession,
+                .getSessionInfo:
             return .requestPlain
         }
     }
@@ -71,7 +78,8 @@ extension SessionServiceAPI: TargetType {
                 .getRouletteRandomMovie(_, let deviceId),
                 .startVotingSessionStatus(_, let deviceId),
                 .putLikeToMovieInSession(_, let deviceId, _),
-                .deleteLikeForMovieInSession(_, let deviceId, _):
+                .deleteLikeForMovieInSession(_, let deviceId, _),
+                .getSessionInfo(_, let deviceId):
             return [
                 "Accept": "application/json",
                 "Device-Id": deviceId
