@@ -16,6 +16,7 @@
 		C98BD4482CA772EE00A9BD84 /* MessageResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BD4472CA772EE00A9BD84 /* MessageResponseModel.swift */; };
 		C98BD44A2CA7EF5D00A9BD84 /* SessionLikeResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BD4492CA7EF5D00A9BD84 /* SessionLikeResponseModel.swift */; };
 		C98BD44C2CA80D0500A9BD84 /* SessionInfoResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BD44B2CA80D0500A9BD84 /* SessionInfoResponseModel.swift */; };
+		C98BD44E2CA822FF00A9BD84 /* SessionsListResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BD44D2CA822FF00A9BD84 /* SessionsListResponseModel.swift */; };
 		C9C4D5B42BD3B3810081CD23 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = C9C4D5B32BD3B3810081CD23 /* Kingfisher */; };
 		C9D1AD662C9DA8E40031B2C3 /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AC7B2C9DA8E40031B2C3 /* CGFloat+Extensions.swift */; };
 		C9D1AD672C9DA8E40031B2C3 /* UICollectionViewLayout+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AC7C2C9DA8E40031B2C3 /* UICollectionViewLayout+Extension.swift */; };
@@ -213,6 +214,7 @@
 		C98BD4472CA772EE00A9BD84 /* MessageResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageResponseModel.swift; sourceTree = "<group>"; };
 		C98BD4492CA7EF5D00A9BD84 /* SessionLikeResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionLikeResponseModel.swift; sourceTree = "<group>"; };
 		C98BD44B2CA80D0500A9BD84 /* SessionInfoResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionInfoResponseModel.swift; sourceTree = "<group>"; };
+		C98BD44D2CA822FF00A9BD84 /* SessionsListResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsListResponseModel.swift; sourceTree = "<group>"; };
 		C9C4D59A2BD3A3C70081CD23 /* DavaiPosmotrim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DavaiPosmotrim.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9D1AC7B2C9DA8E40031B2C3 /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
 		C9D1AC7C2C9DA8E40031B2C3 /* UICollectionViewLayout+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionViewLayout+Extension.swift"; sourceTree = "<group>"; };
@@ -922,6 +924,7 @@
 				C98BD4472CA772EE00A9BD84 /* MessageResponseModel.swift */,
 				C98BD4492CA7EF5D00A9BD84 /* SessionLikeResponseModel.swift */,
 				C98BD44B2CA80D0500A9BD84 /* SessionInfoResponseModel.swift */,
+				C98BD44D2CA822FF00A9BD84 /* SessionsListResponseModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1154,6 +1157,7 @@
 				C9D1AE252C9DA8E50031B2C3 /* WebSocketsManager.swift in Sources */,
 				C9D1ADBB2C9DA8E50031B2C3 /* JoinSessionAuthCoordinator.swift in Sources */,
 				C9D1AD672C9DA8E40031B2C3 /* UICollectionViewLayout+Extension.swift in Sources */,
+				C98BD44E2CA822FF00A9BD84 /* SessionsListResponseModel.swift in Sources */,
 				C9D1AE122C9DA8E50031B2C3 /* CollectionModel.swift in Sources */,
 				C9D1AD9C2C9DA8E50031B2C3 /* AuthCoordinator.swift in Sources */,
 				C9D1AE1F2C9DA8E50031B2C3 /* NetworkReachabilityHandlerDelegate.swift in Sources */,

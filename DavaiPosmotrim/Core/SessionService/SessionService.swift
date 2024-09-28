@@ -81,6 +81,10 @@ protocol SessionServiceProtocol {
         sessionCode: String,
         completion: @escaping (Result<[MovieResponseModel], SessionServiceError>) -> Void
     )
+    func getSessionsList(
+        deviceId: String,
+        completion: @escaping (Result<[SessionsListResponseModel], SessionServiceError>) -> Void
+    )
 }
 
 // swiftlint:disable type_body_length
@@ -437,11 +441,11 @@ final class SessionService: SessionServiceProtocol {
             switch result {
             case.success(let response):
                 do {
-                    let message = try JSONDecoder().decode(
+                    let info = try JSONDecoder().decode(
                         SessionInfoResponseModel.self,
                         from: response.data
                     )
-                    completion(.success(message))
+                    completion(.success(info))
                 } catch {
                     completion(.failure(.networkError(error)))
                 }
@@ -481,11 +485,55 @@ final class SessionService: SessionServiceProtocol {
                 switch result {
                 case .success(let response):
                     do {
-                        let matchedMovies = try JSONDecoder().decode(
+                        let list = try JSONDecoder().decode(
                             [MovieResponseModel].self,
                             from: response.data
                         )
-                        completion(.success(matchedMovies))
+                        completion(.success(list))
+                    } catch {
+                        completion(.failure(.networkError(error)))
+                    }
+                case .failure(let error):
+                    if let response = error.response {
+                        do {
+                            let errorResponse = try JSONDecoder().decode(
+                                SessionErrorResponse.self,
+                                from: response.data
+                            )
+                            completion(
+                                .failure(
+                                    .serverError(
+                                        NSError(
+                                            domain: "",
+                                            code: response.statusCode,
+                                            userInfo: [NSLocalizedDescriptionKey: errorResponse.detail as Any]
+                                        )
+                                    )
+                                )
+                            )
+                        } catch {
+                            completion(.failure(.networkError(error)))
+                        }
+                    } else {
+                        completion(.failure(.networkError(error)))
+                    }
+                }
+            }
+        }
+
+    func getSessionsList(
+        deviceId: String,
+        completion: @escaping (Result<[SessionsListResponseModel], SessionServiceError>) -> Void
+    ) {
+            provider.request(.getSessionsList(deviceId: deviceId)) { result in
+                switch result {
+                case .success(let response):
+                    do {
+                        let list = try JSONDecoder().decode(
+                            [SessionsListResponseModel].self,
+                            from: response.data
+                        )
+                        completion(.success(list))
                     } catch {
                         completion(.failure(.networkError(error)))
                     }
