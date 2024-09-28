@@ -14,6 +14,8 @@ enum SessionServiceAPI {
     case getSessionMatchedMovies(sessionCode: String, deviceId: String)
     case getRouletteRandomMovie(sessionCode: String, deviceId: String)
     case startVotingSessionStatus(sessionCode: String, deviceId: String)
+    case putLikeToMovieInSession(sessionCode: String, deviceId: String, movieId: String)
+    case deleteLikeForMovieInSession(sessionCode: String, deviceId: String, movieId: String)
 }
 
 extension SessionServiceAPI: TargetType {
@@ -31,14 +33,17 @@ extension SessionServiceAPI: TargetType {
             return "api/sessions/\(sessionCode)/get_roulette/"
         case .startVotingSessionStatus(let sessionCode, _):
             return "api/sessions/\(sessionCode)/start_voting/"
+        case    .putLikeToMovieInSession(let sessionCode, _, let movieId),
+                .deleteLikeForMovieInSession(let sessionCode, _, let movieId):
+            return "api/sessions/\(sessionCode)/movies/\(movieId)/like/"
         }
     }
 
     var method: Moya.Method {
         switch self {
-        case .connectUserToSession:
+        case .connectUserToSession, .putLikeToMovieInSession:
             return .post
-        case .disconnectUserFromSession:
+        case .disconnectUserFromSession, .deleteLikeForMovieInSession:
             return .delete
         case .getSessionMatchedMovies, .getRouletteRandomMovie, .startVotingSessionStatus:
             return .get
@@ -51,7 +56,9 @@ extension SessionServiceAPI: TargetType {
                 .disconnectUserFromSession,
                 .getSessionMatchedMovies,
                 .getRouletteRandomMovie,
-                .startVotingSessionStatus:
+                .startVotingSessionStatus,
+                .putLikeToMovieInSession,
+                .deleteLikeForMovieInSession:
             return .requestPlain
         }
     }
@@ -62,7 +69,9 @@ extension SessionServiceAPI: TargetType {
                 .disconnectUserFromSession(_, let deviceId),
                 .getSessionMatchedMovies(_, let deviceId),
                 .getRouletteRandomMovie(_, let deviceId),
-                .startVotingSessionStatus(_, let deviceId):
+                .startVotingSessionStatus(_, let deviceId),
+                .putLikeToMovieInSession(_, let deviceId, _),
+                .deleteLikeForMovieInSession(_, let deviceId, _):
             return [
                 "Accept": "application/json",
                 "Device-Id": deviceId

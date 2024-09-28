@@ -21,10 +21,14 @@ enum SessionServiceError: Error {
 }
 
 struct SessionErrorResponse: Codable {
-    let detail: String
+    let detail: String?
+    let nonFieldErrors: [String]?
+    let message: String?
 
     private enum CodingKeys: String, CodingKey {
         case detail
+        case nonFieldErrors = "non_field_errors"
+        case message
     }
 }
 
@@ -52,6 +56,18 @@ protocol SessionServiceProtocol {
     func startVotingSessionStatus(
         sessionCode: String,
         deviceId: String,
+        completion: @escaping (Result<MessageResponseModel, SessionServiceError>) -> Void
+    )
+    func putLikeToMovieInSession(
+        sessionCode: String,
+        deviceId: String,
+        movieId: String,
+        completion: @escaping (Result<SessionLikeResponseModel, SessionServiceError>) -> Void
+    )
+    func deleteLikeForMovieInSession(
+        sessionCode: String,
+        deviceId: String,
+        movieId: String,
         completion: @escaping (Result<MessageResponseModel, SessionServiceError>) -> Void
     )
 }
@@ -89,7 +105,7 @@ final class SessionService: SessionServiceProtocol {
                                         NSError(
                                             domain: "",
                                             code: response.statusCode,
-                                            userInfo: [NSLocalizedDescriptionKey: errorResponse.detail]
+                                            userInfo: [NSLocalizedDescriptionKey: errorResponse.detail as Any]
                                         )
                                     )
                                 )
@@ -129,7 +145,7 @@ final class SessionService: SessionServiceProtocol {
                                         NSError(
                                             domain: "",
                                             code: response.statusCode,
-                                            userInfo: [NSLocalizedDescriptionKey: errorResponse.detail]
+                                            userInfo: [NSLocalizedDescriptionKey: errorResponse.detail as Any]
                                         )
                                     )
                                 )
@@ -174,7 +190,7 @@ final class SessionService: SessionServiceProtocol {
                                         NSError(
                                             domain: "",
                                             code: response.statusCode,
-                                            userInfo: [NSLocalizedDescriptionKey: errorResponse.detail]
+                                            userInfo: [NSLocalizedDescriptionKey: errorResponse.detail as Any]
                                         )
                                     )
                                 )
@@ -219,7 +235,7 @@ final class SessionService: SessionServiceProtocol {
                                     NSError(
                                         domain: "",
                                         code: response.statusCode,
-                                        userInfo: [NSLocalizedDescriptionKey: errorResponse.detail]
+                                        userInfo: [NSLocalizedDescriptionKey: errorResponse.detail as Any]
                                     )
                                 )
                             )
@@ -264,7 +280,127 @@ final class SessionService: SessionServiceProtocol {
                                     NSError(
                                         domain: "",
                                         code: response.statusCode,
-                                        userInfo: [NSLocalizedDescriptionKey: errorResponse.detail]
+                                        userInfo: [NSLocalizedDescriptionKey: errorResponse.detail as Any]
+                                    )
+                                )
+                            )
+                        )
+                    } catch {
+                        completion(.failure(.networkError(error)))
+                    }
+                } else {
+                    completion(.failure(.networkError(error)))
+                }
+            }
+        }
+    }
+
+    func putLikeToMovieInSession(
+        sessionCode: String,
+        deviceId: String,
+        movieId: String,
+        completion: @escaping (Result<SessionLikeResponseModel, SessionServiceError>) -> Void
+    ) {
+        provider.request(
+            .putLikeToMovieInSession(
+                sessionCode: sessionCode,
+                deviceId: deviceId,
+                movieId: movieId
+            )
+        ) { result in
+            switch result {
+            case.success(let response):
+                do {
+                    let likeResponse = try JSONDecoder().decode(
+                        SessionLikeResponseModel.self,
+                        from: response.data
+                    )
+                    completion(.success(likeResponse))
+                } catch {
+                    completion(.failure(.networkError(error)))
+                }
+            case .failure(let error):
+                if let response = error.response {
+                    do {
+                        let errorResponse = try JSONDecoder().decode(
+                            SessionErrorResponse.self,
+                            from: response.data
+                        )
+
+                        let errorMessage: String
+                        if let nonFieldErrors = errorResponse.nonFieldErrors, !nonFieldErrors.isEmpty {
+                            errorMessage = nonFieldErrors.joined(separator: ", ")
+                        } else {
+                            errorMessage = errorResponse.detail ?? "An unknown error occurred."
+                        }
+
+                        completion(
+                            .failure(
+                                .serverError(
+                                    NSError(
+                                        domain: "",
+                                        code: response.statusCode,
+                                        userInfo: [NSLocalizedDescriptionKey: errorMessage]
+                                    )
+                                )
+                            )
+                        )
+                    } catch {
+                        completion(.failure(.networkError(error)))
+                    }
+                } else {
+                    completion(.failure(.networkError(error)))
+                }
+            }
+        }
+    }
+
+    func deleteLikeForMovieInSession(
+        sessionCode: String,
+        deviceId: String,
+        movieId: String,
+        completion: @escaping (Result<MessageResponseModel, SessionServiceError>) -> Void
+    ) {
+        provider.request(
+            .deleteLikeForMovieInSession(
+                sessionCode: sessionCode,
+                deviceId: deviceId,
+                movieId: movieId
+            )
+        ) { result in
+            switch result {
+            case.success(let response):
+                do {
+                    let deleteLikeResponse = try JSONDecoder().decode(
+                        MessageResponseModel.self,
+                        from: response.data
+                    )
+                    completion(.success(deleteLikeResponse))
+                } catch {
+                    completion(.failure(.networkError(error)))
+                }
+            case .failure(let error):
+                if let response = error.response {
+                    do {
+                        let errorResponse = try JSONDecoder().decode(
+                            SessionErrorResponse.self,
+                            from: response.data
+                        )
+
+                        let errorMessage: String
+                        if let message = errorResponse.message, !message.isEmpty {
+                            errorMessage = message
+                        } else {
+                            errorMessage = errorResponse.detail ?? "An unknown error occurred."
+                        }
+
+                        completion(
+                            .failure(
+                                .serverError(
+                                    NSError(
+                                        domain: "",
+                                        code: response.statusCode,
+                                        userInfo: [NSLocalizedDescriptionKey: errorMessage]
                                     )
                                 )
                             )

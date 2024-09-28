@@ -14,6 +14,7 @@
 		C952F4062CA6068A0002001D /* MatchedMovieResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C952F4052CA6068A0002001D /* MatchedMovieResponseModel.swift */; };
 		C98BD4462CA6F3C600A9BD84 /* RouletteRandomMovieResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BD4452CA6F3C500A9BD84 /* RouletteRandomMovieResponseModel.swift */; };
 		C98BD4482CA772EE00A9BD84 /* MessageResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BD4472CA772EE00A9BD84 /* MessageResponseModel.swift */; };
+		C98BD44A2CA7EF5D00A9BD84 /* SessionLikeResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BD4492CA7EF5D00A9BD84 /* SessionLikeResponseModel.swift */; };
 		C9C4D5B42BD3B3810081CD23 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = C9C4D5B32BD3B3810081CD23 /* Kingfisher */; };
 		C9D1AD662C9DA8E40031B2C3 /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AC7B2C9DA8E40031B2C3 /* CGFloat+Extensions.swift */; };
 		C9D1AD672C9DA8E40031B2C3 /* UICollectionViewLayout+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AC7C2C9DA8E40031B2C3 /* UICollectionViewLayout+Extension.swift */; };
@@ -209,6 +210,7 @@
 		C952F4052CA6068A0002001D /* MatchedMovieResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchedMovieResponseModel.swift; sourceTree = "<group>"; };
 		C98BD4452CA6F3C500A9BD84 /* RouletteRandomMovieResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouletteRandomMovieResponseModel.swift; sourceTree = "<group>"; };
 		C98BD4472CA772EE00A9BD84 /* MessageResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageResponseModel.swift; sourceTree = "<group>"; };
+		C98BD4492CA7EF5D00A9BD84 /* SessionLikeResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionLikeResponseModel.swift; sourceTree = "<group>"; };
 		C9C4D59A2BD3A3C70081CD23 /* DavaiPosmotrim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DavaiPosmotrim.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9D1AC7B2C9DA8E40031B2C3 /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
 		C9D1AC7C2C9DA8E40031B2C3 /* UICollectionViewLayout+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionViewLayout+Extension.swift"; sourceTree = "<group>"; };
@@ -916,6 +918,7 @@
 				C952F4052CA6068A0002001D /* MatchedMovieResponseModel.swift */,
 				C98BD4452CA6F3C500A9BD84 /* RouletteRandomMovieResponseModel.swift */,
 				C98BD4472CA772EE00A9BD84 /* MessageResponseModel.swift */,
+				C98BD4492CA7EF5D00A9BD84 /* SessionLikeResponseModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1203,6 +1206,7 @@
 				C9D1ADFD2C9DA8E50031B2C3 /* SessionsListCoordinator.swift in Sources */,
 				C9D1ADBD2C9DA8E50031B2C3 /* JoinSessionAuthPresenterProtocol.swift in Sources */,
 				C9D1ADA92C9DA8E50031B2C3 /* CreateSessionCellModel.swift in Sources */,
+				C98BD44A2CA7EF5D00A9BD84 /* SessionLikeResponseModel.swift in Sources */,
 				C9D1ADE02C9DA8E50031B2C3 /* RoulettePresenterProtocol.swift in Sources */,
 				C9D1ADB72C9DA8E50031B2C3 /* InvitingUsersViewController.swift in Sources */,
 				C9D1ADF82C9DA8E50031B2C3 /* SessionUserSection.swift in Sources */,
