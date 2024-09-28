@@ -13,6 +13,7 @@ enum SessionServiceAPI {
     case disconnectUserFromSession(sessionCode: String, deviceId: String)
     case getSessionMatchedMovies(sessionCode: String, deviceId: String)
     case getRouletteRandomMovie(sessionCode: String, deviceId: String)
+    case startVotingSessionStatus(sessionCode: String, deviceId: String)
 }
 
 extension SessionServiceAPI: TargetType {
@@ -28,6 +29,8 @@ extension SessionServiceAPI: TargetType {
             return "api/sessions/\(sessionCode)/get_matched_movies/"
         case.getRouletteRandomMovie(let sessionCode, _):
             return "api/sessions/\(sessionCode)/get_roulette/"
+        case .startVotingSessionStatus(let sessionCode, _):
+            return "api/sessions/\(sessionCode)/start_voting/"
         }
     }
 
@@ -37,7 +40,7 @@ extension SessionServiceAPI: TargetType {
             return .post
         case .disconnectUserFromSession:
             return .delete
-        case .getSessionMatchedMovies, .getRouletteRandomMovie:
+        case .getSessionMatchedMovies, .getRouletteRandomMovie, .startVotingSessionStatus:
             return .get
         }
     }
@@ -47,7 +50,8 @@ extension SessionServiceAPI: TargetType {
         case    .connectUserToSession,
                 .disconnectUserFromSession,
                 .getSessionMatchedMovies,
-                .getRouletteRandomMovie:
+                .getRouletteRandomMovie,
+                .startVotingSessionStatus:
             return .requestPlain
         }
     }
@@ -57,7 +61,8 @@ extension SessionServiceAPI: TargetType {
         case    .connectUserToSession(_, let deviceId),
                 .disconnectUserFromSession(_, let deviceId),
                 .getSessionMatchedMovies(_, let deviceId),
-                .getRouletteRandomMovie(_, let deviceId):
+                .getRouletteRandomMovie(_, let deviceId),
+                .startVotingSessionStatus(_, let deviceId):
             return [
                 "Accept": "application/json",
                 "Device-Id": deviceId

@@ -21,20 +21,10 @@ enum SessionServiceError: Error {
 }
 
 struct SessionErrorResponse: Codable {
-    let errorMessage: String?
-    let detail: String?
+    let detail: String
 
     private enum CodingKeys: String, CodingKey {
-        case errorMessage = "error_message"
         case detail
-    }
-}
-
-struct ConnectionResultModel: Codable {
-    let message: String
-
-    private enum CodingKeys: CodingKey {
-        case message
     }
 }
 
@@ -42,12 +32,12 @@ protocol SessionServiceProtocol {
     func connectUserToSession(
         sessionCode: String,
         deviceId: String,
-        completion: @escaping (Result<ConnectionResultModel, SessionServiceError>) -> Void
+        completion: @escaping (Result<MessageResponseModel, SessionServiceError>) -> Void
     )
     func disconnectUserFromSession(
         sessionCode: String,
         deviceId: String,
-        completion: @escaping (Result<ConnectionResultModel, SessionServiceError>) -> Void
+        completion: @escaping (Result<MessageResponseModel, SessionServiceError>) -> Void
     )
     func getSessionMatchedMovies(
         sessionCode: String,
@@ -58,6 +48,11 @@ protocol SessionServiceProtocol {
         sessionCode: String,
         deviceId: String,
         completion: @escaping (Result<RouletteRandomMovieResponseModel, SessionServiceError>) -> Void
+    )
+    func startVotingSessionStatus(
+        sessionCode: String,
+        deviceId: String,
+        completion: @escaping (Result<MessageResponseModel, SessionServiceError>) -> Void
     )
 }
 
@@ -72,72 +67,14 @@ final class SessionService: SessionServiceProtocol {
     func connectUserToSession(
         sessionCode: String,
         deviceId: String,
-        completion: @escaping (Result<ConnectionResultModel, SessionServiceError>) -> Void
+        completion: @escaping (Result<MessageResponseModel, SessionServiceError>) -> Void
     ) {
             provider.request(.connectUserToSession(sessionCode: sessionCode, deviceId: deviceId)) { result in
 
                 switch result {
                 case .success(let response):
                     do {
-                        let message = try JSONDecoder().decode(ConnectionResultModel.self, from: response.data)
-                        completion(.success(message))
-                    } catch {
-                        completion(.failure(.networkError(error)))
-                    }
-                case .failure(let error):
-                    switch error.response {
-                    case let response?:
-                        do {
-                            let errorResponse = try JSONDecoder().decode(SessionErrorResponse.self, from: response.data)
-                            switch (errorResponse.errorMessage, errorResponse.detail) {
-                            case (let errorMessage?, _):
-                                completion(
-                                    .failure(
-                                        .serverError(
-                                            NSError(
-                                                domain: "",
-                                                code: response.statusCode,
-                                                userInfo: [NSLocalizedDescriptionKey: errorMessage]
-                                            )
-                                        )
-                                    )
-                                )
-                            case (_, let detailMessage?):
-                                completion(
-                                    .failure(
-                                        .serverError(
-                                            NSError(
-                                                domain: "",
-                                                code: response.statusCode,
-                                                userInfo: [NSLocalizedDescriptionKey: detailMessage]
-                                            )
-                                        )
-                                    )
-                                )
-                            default:
-                                completion(.failure(.networkError(error)))
-                            }
-                        } catch {
-                            completion(.failure(.networkError(error)))
-                        }
-                    case nil:
-                        completion(.failure(.networkError(error)))
-                    }
-                }
-            }
-        }
-
-    func disconnectUserFromSession(
-        sessionCode: String,
-        deviceId: String,
-        completion: @escaping (Result<ConnectionResultModel, SessionServiceError>) -> Void
-    ) {
-            provider.request(.disconnectUserFromSession(sessionCode: sessionCode, deviceId: deviceId)) { result in
-
-                switch result {
-                case .success(let response):
-                    do {
-                        let message = try JSONDecoder().decode(ConnectionResultModel.self, from: response.data)
+                        let message = try JSONDecoder().decode(MessageResponseModel.self, from: response.data)
                         completion(.success(message))
                     } catch {
                         completion(.failure(.networkError(error)))
@@ -152,7 +89,47 @@ final class SessionService: SessionServiceProtocol {
                                         NSError(
                                             domain: "",
                                             code: response.statusCode,
-                                            userInfo: [NSLocalizedDescriptionKey: errorResponse.errorMessage as Any]
+                                            userInfo: [NSLocalizedDescriptionKey: errorResponse.detail]
+                                        )
+                                    )
+                                )
+                            )
+                        } catch {
+                            completion(.failure(.networkError(error)))
+                        }
+                    } else {
+                        completion(.failure(.networkError(error)))
+                    }
+                }
+            }
+        }
+
+    func disconnectUserFromSession(
+        sessionCode: String,
+        deviceId: String,
+        completion: @escaping (Result<MessageResponseModel, SessionServiceError>) -> Void
+    ) {
+            provider.request(.disconnectUserFromSession(sessionCode: sessionCode, deviceId: deviceId)) { result in
+
+                switch result {
+                case .success(let response):
+                    do {
+                        let message = try JSONDecoder().decode(MessageResponseModel.self, from: response.data)
+                        completion(.success(message))
+                    } catch {
+                        completion(.failure(.networkError(error)))
+                    }
+                case .failure(let error):
+                    if let response = error.response {
+                        do {
+                            let errorResponse = try JSONDecoder().decode(SessionErrorResponse.self, from: response.data)
+                            completion(
+                                .failure(
+                                    .serverError(
+                                        NSError(
+                                            domain: "",
+                                            code: response.statusCode,
+                                            userInfo: [NSLocalizedDescriptionKey: errorResponse.detail]
                                         )
                                     )
                                 )
@@ -197,7 +174,7 @@ final class SessionService: SessionServiceProtocol {
                                         NSError(
                                             domain: "",
                                             code: response.statusCode,
-                                            userInfo: [NSLocalizedDescriptionKey: errorResponse.detail as Any]
+                                            userInfo: [NSLocalizedDescriptionKey: errorResponse.detail]
                                         )
                                     )
                                 )
@@ -242,7 +219,52 @@ final class SessionService: SessionServiceProtocol {
                                     NSError(
                                         domain: "",
                                         code: response.statusCode,
-                                        userInfo: [NSLocalizedDescriptionKey: errorResponse.detail as Any]
+                                        userInfo: [NSLocalizedDescriptionKey: errorResponse.detail]
+                                    )
+                                )
+                            )
+                        )
+                    } catch {
+                        completion(.failure(.networkError(error)))
+                    }
+                } else {
+                    completion(.failure(.networkError(error)))
+                }
+            }
+        }
+    }
+
+    func startVotingSessionStatus(
+        sessionCode: String,
+        deviceId: String,
+        completion: @escaping (Result<MessageResponseModel, SessionServiceError>) -> Void
+    ) {
+        provider.request(.startVotingSessionStatus(sessionCode: sessionCode, deviceId: deviceId)) { result in
+            switch result {
+            case.success(let response):
+                do {
+                    let message = try JSONDecoder().decode(
+                        MessageResponseModel.self,
+                        from: response.data
+                    )
+                    completion(.success(message))
+                } catch {
+                    completion(.failure(.networkError(error)))
+                }
+            case .failure(let error):
+                if let response = error.response {
+                    do {
+                        let errorResponse = try JSONDecoder().decode(
+                            SessionErrorResponse.self,
+                            from: response.data
+                        )
+                        completion(
+                            .failure(
+                                .serverError(
+                                    NSError(
+                                        domain: "",
+                                        code: response.statusCode,
+                                        userInfo: [NSLocalizedDescriptionKey: errorResponse.detail]
                                     )
                                 )
                             )
