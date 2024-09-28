@@ -8,6 +8,8 @@
 import Foundation
 import Moya
 
+// swiftlint:disable file_length
+
 enum SessionServiceError: Error {
     case networkError(Error)
     case serverError(Error)
@@ -46,7 +48,7 @@ protocol SessionServiceProtocol {
     func getSessionMatchedMovies(
         sessionCode: String,
         deviceId: String,
-        completion: @escaping (Result<[MatchedMovieResponseModel], SessionServiceError>) -> Void
+        completion: @escaping (Result<[MovieResponseModel], SessionServiceError>) -> Void
     )
     func getRouletteRandomMovie(
         sessionCode: String,
@@ -170,14 +172,14 @@ final class SessionService: SessionServiceProtocol {
     func getSessionMatchedMovies(
         sessionCode: String,
         deviceId: String,
-        completion: @escaping (Result<[MatchedMovieResponseModel], SessionServiceError>) -> Void
+        completion: @escaping (Result<[MovieResponseModel], SessionServiceError>) -> Void
     ) {
             provider.request(.getSessionMatchedMovies(sessionCode: sessionCode, deviceId: deviceId)) { result in
                 switch result {
                 case .success(let response):
                     do {
                         let matchedMovies = try JSONDecoder().decode(
-                            [MatchedMovieResponseModel].self,
+                            [MovieResponseModel].self,
                             from: response.data
                         )
                         completion(.success(matchedMovies))

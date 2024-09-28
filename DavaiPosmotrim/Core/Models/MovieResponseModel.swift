@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct MatchedMovieResponseModel: Codable {
+struct MovieResponseModel: Codable {
     let id: Int
     let name: String
-    let poster: String
+    let poster: String?
 
     private enum CodingKeys: CodingKey {
         case id
