@@ -44,9 +44,9 @@ extension SessionServiceAPI: TargetType {
             return "api/sessions/\(sessionCode)/"
         case .getSessionMoviesList(let sessionCode):
             return "api/sessions/\(sessionCode)/movies/"
-        case .getSessionsList(_):
+        case .getSessionsList:
             return "api/sessions/"
-        case .createSession(_, _):
+        case .createSession:
             return "api/sessions/create"
         }
     }

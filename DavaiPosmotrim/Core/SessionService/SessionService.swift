@@ -575,7 +575,10 @@ final class SessionService: SessionServiceProtocol {
         genresOrCollections: CreateSessionRequestModel,
         completion: @escaping (Result<CreateSessionResponseModel, SessionServiceError>) -> Void
     ) {
-        let createSessionRequest = CreateSessionRequestModel(genres: genresOrCollections.genres, collections: genresOrCollections.collections)
+        let createSessionRequest = CreateSessionRequestModel(
+            genres: genresOrCollections.genres,
+            collections: genresOrCollections.collections
+        )
 
         provider.request(.createSession(deviceId: deviceId, genresOrCollections: createSessionRequest)) { result in
             switch result {
