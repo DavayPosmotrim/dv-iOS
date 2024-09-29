@@ -65,7 +65,7 @@ extension JoinSessionAuthPresenter {
                 switch error {
                 case .networkError:
                     view?.showNetworkError()
-                case .sessionCodeError:
+                case .serverError:
                     view?.showSessionCodeError()
                 }
                 print("Failed to connect user: \(error)")
