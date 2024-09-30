@@ -11,6 +11,7 @@ import Moya
 enum ContentAPI {
     case getGenres(deviceId: String)
     case getCollections(deviceId: String)
+    case getMovieInfo(movieId: Int, deviceId: String)
 }
 
 extension ContentAPI: TargetType {
@@ -24,12 +25,16 @@ extension ContentAPI: TargetType {
             return "api/genres/"
         case .getCollections:
             return "api/collections/"
+        case .getMovieInfo(let movieId, _):
+            return "api/movies/\(movieId)/"
         }
     }
 
     var method: Moya.Method {
         switch self {
-        case .getGenres, .getCollections:
+        case    .getGenres,
+                .getCollections,
+                .getMovieInfo:
             return .get
         }
     }
@@ -40,7 +45,9 @@ extension ContentAPI: TargetType {
 
     var headers: [String: String]? {
         switch self {
-        case .getGenres(let deviceId), .getCollections(let deviceId):
+        case    .getGenres(let deviceId),
+                .getCollections(let deviceId),
+                .getMovieInfo(_, let deviceId):
             return [
                 "Content-Type": "application/json",
                 "Device-Id": deviceId
