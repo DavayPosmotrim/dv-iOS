@@ -9,8 +9,8 @@ import Foundation
 import Moya
 
 protocol ContentServiceProtocol {
-    func getGenres(completion: @escaping (Result<[GenreModel], Error>) -> Void)
-    func getCollections(completion: @escaping (Result<[CollectionModel], Error>) -> Void)
+    func getGenres(with deviceId: String, completion: @escaping (Result<[GenreModel], Error>) -> Void)
+    func getCollections(with deviceId: String, completion: @escaping (Result<[CollectionModel], Error>) -> Void)
 }
 
 struct ErrorResponse: Codable {
@@ -28,8 +28,8 @@ final class ContentService: ContentServiceProtocol {
         self.provider = provider
     }
 
-    func getGenres(completion: @escaping (Result<[GenreModel], Error>) -> Void) {
-        provider.request(.getGenres) { result in
+    func getGenres(with deviceId: String, completion: @escaping (Result<[GenreModel], Error>) -> Void) {
+        provider.request(.getGenres(deviceId: deviceId)) { result in
             switch result {
             case .success(let response):
                 do {
@@ -61,8 +61,8 @@ final class ContentService: ContentServiceProtocol {
         }
     }
 
-    func getCollections(completion: @escaping (Result<[CollectionModel], Error>) -> Void) {
-        provider.request(.getCollections) { result in
+    func getCollections(with deviceId: String, completion: @escaping (Result<[CollectionModel], Error>) -> Void) {
+        provider.request(.getCollections(deviceId: deviceId)) { result in
             switch result {
             case .success(let response):
                 do {

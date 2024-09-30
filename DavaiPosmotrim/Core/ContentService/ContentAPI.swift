@@ -9,8 +9,8 @@ import Foundation
 import Moya
 
 enum ContentAPI {
-    case getGenres
-    case getCollections
+    case getGenres(deviceId: String)
+    case getCollections(deviceId: String)
 }
 
 extension ContentAPI: TargetType {
@@ -39,7 +39,13 @@ extension ContentAPI: TargetType {
     }
 
     var headers: [String: String]? {
-        return ["Content-Type": "application/json"]
+        switch self {
+        case .getGenres(let deviceId), .getCollections(let deviceId):
+            return [
+                "Content-Type": "application/json",
+                "Device-Id": deviceId
+            ]
+        }
     }
 
     var validationType: ValidationType {
