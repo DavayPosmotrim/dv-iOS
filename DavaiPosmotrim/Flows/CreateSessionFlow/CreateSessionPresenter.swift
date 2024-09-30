@@ -97,7 +97,11 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
 
 extension CreateSessionPresenter {
     func getGenres(completion: @escaping () -> Void) {
-            contentService.getGenres { result in
+        guard let deviceId = UserDefaults.standard.string(
+            forKey: Resources.Authentication.savedDeviceID
+        ) else { return }
+
+        contentService.getGenres(with: deviceId) { result in
                 switch result {
                 case .success(let genres):
                     self.genresMovies = genres.map { CollectionsCellModel(title: $0.name) }
@@ -110,7 +114,11 @@ extension CreateSessionPresenter {
         }
 
     func getCollections(completion: @escaping () -> Void) {
-        contentService.getCollections { result in
+        guard let deviceId = UserDefaults.standard.string(
+            forKey: Resources.Authentication.savedDeviceID
+        ) else { return }
+
+        contentService.getCollections(with: deviceId) { result in
             switch result {
             case .success(let collections):
                 self.selectionsMovies = collections.map { TableViewCellModel(

@@ -9,8 +9,19 @@ import Foundation
 import Moya
 
 protocol ContentServiceProtocol {
-    func getGenres(completion: @escaping (Result<[GenreModel], Error>) -> Void)
-    func getCollections(completion: @escaping (Result<[CollectionModel], Error>) -> Void)
+    func getGenres(
+        with deviceId: String,
+        completion: @escaping (Result<[GenreModel], Error>) -> Void
+    )
+    func getCollections(
+        with deviceId: String,
+        completion: @escaping (Result<[CollectionModel], Error>) -> Void
+    )
+    func getMovieInfo(
+        with movieId: Int,
+        deviceId: String,
+        completion: @escaping (Result<MovieDetailModel, Error>) -> Void
+    )
 }
 
 struct ErrorResponse: Codable {
@@ -28,8 +39,8 @@ final class ContentService: ContentServiceProtocol {
         self.provider = provider
     }
 
-    func getGenres(completion: @escaping (Result<[GenreModel], Error>) -> Void) {
-        provider.request(.getGenres) { result in
+    func getGenres(with deviceId: String, completion: @escaping (Result<[GenreModel], Error>) -> Void) {
+        provider.request(.getGenres(deviceId: deviceId)) { result in
             switch result {
             case .success(let response):
                 do {
@@ -61,13 +72,50 @@ final class ContentService: ContentServiceProtocol {
         }
     }
 
-    func getCollections(completion: @escaping (Result<[CollectionModel], Error>) -> Void) {
-        provider.request(.getCollections) { result in
+    func getCollections(with deviceId: String, completion: @escaping (Result<[CollectionModel], Error>) -> Void) {
+        provider.request(.getCollections(deviceId: deviceId)) { result in
             switch result {
             case .success(let response):
                 do {
                     let collections = try JSONDecoder().decode([CollectionModel].self, from: response.data)
                     completion(.success(collections))
+                } catch {
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                if let response = error.response {
+                    do {
+                        let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: response.data)
+                        completion(
+                            .failure(
+                                NSError(
+                                    domain: "",
+                                    code: response.statusCode,
+                                    userInfo: [NSLocalizedDescriptionKey: errorResponse.detail]
+                                )
+                            )
+                        )
+                    } catch {
+                        completion(.failure(error))
+                    }
+                } else {
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
+
+    func getMovieInfo(
+        with movieId: Int,
+        deviceId: String,
+        completion: @escaping (Result<MovieDetailModel, Error>) -> Void
+    ) {
+        provider.request(.getMovieInfo(movieId: movieId, deviceId: deviceId)) { result in
+            switch result {
+            case.success(let response):
+                do {
+                    let movieInfo = try JSONDecoder().decode(MovieDetailModel.self, from: response.data)
+                    completion(.success(movieInfo))
                 } catch {
                     completion(.failure(error))
                 }

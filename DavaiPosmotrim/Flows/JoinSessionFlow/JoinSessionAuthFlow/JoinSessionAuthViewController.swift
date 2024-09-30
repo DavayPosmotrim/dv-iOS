@@ -83,6 +83,10 @@ final class JoinSessionAuthViewController: UIViewController {
                 self.presenter.connectUserToSession(with: code) { isSuccess in
                     self.isServerReachable = isSuccess
                     completion(isSuccess)
+                    if isSuccess {
+                        self.presenter.saveSessionCode(code: code)
+                        print(code)
+                    }
                 }
             },
             proceedAction: { [weak self] in

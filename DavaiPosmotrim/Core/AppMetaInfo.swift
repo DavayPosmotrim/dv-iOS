@@ -9,5 +9,5 @@ import Foundation
 
 enum AppMetaInfo {
     static let baseURL = "http://80.87.108.90/"
-    static let webSocketsBaseURL = "ws://80.87.108.90/ws/session/"
+    static let webSocketsBaseURL = "ws://80.87.108.90:8000/ws/session/"
 }

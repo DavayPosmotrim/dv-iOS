@@ -40,6 +40,10 @@ final class JoinSessionAuthPresenter: JoinSessionAuthPresenterProtocol {
         guard let coordinator else { return }
         coordinator.showJoinSessionFlow()
     }
+
+    func saveSessionCode(code: String) {
+        UserDefaults.standard.setValue(code, forKey: Resources.Authentication.sessionCode)
+    }
 }
 
     // MARK: - SessionService

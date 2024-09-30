@@ -10,5 +10,6 @@ import Foundation
 protocol JoinSessionAuthPresenterProtocol: AnyObject {
     func finishSessionAuth()
     func showJoinSession()
+    func saveSessionCode(code: String)
     func connectUserToSession(with sessionCode: String, completion: @escaping (Bool) -> Void)
 }
