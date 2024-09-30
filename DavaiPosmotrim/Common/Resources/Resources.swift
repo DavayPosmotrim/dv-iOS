@@ -59,6 +59,7 @@ enum Resources {
         static let savedNameUserDefaultsKey = "userName"
         static let savedDeviceID = "DeviceId"
         static let authDidFinishNotification = "AuthDidFinishNotification"
+        static let sessionCode = "SessionCode"
 
         static let upperLabelText = "Введите ваше имя"
         static let joinSessionUpperText = "Код сеанса"
