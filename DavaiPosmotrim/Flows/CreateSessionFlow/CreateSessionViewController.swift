@@ -155,18 +155,16 @@ final class CreateSessionViewController: UIViewController {
 
 private extension CreateSessionViewController {
     private func loadData() {
-        let loadingVC = CustomLoadingViewController.show(in: self)
-        let dispatchGroup = DispatchGroup()
-        dispatchGroup.enter()
-        presenter.getCollections { [weak self] in
-            DispatchQueue.main.async {
+        DispatchQueue.main.async {
+            let loadingVC = CustomLoadingViewController.show(in: self)
+            let dispatchGroup = DispatchGroup()
+            dispatchGroup.enter()
+            self.presenter.getCollections { [weak self] in
                 self?.tableView.reloadData()
                 dispatchGroup.leave()
             }
-        }
-        dispatchGroup.enter()
-        presenter.getGenres { [weak self] in
-            DispatchQueue.main.async {
+            dispatchGroup.enter()
+            self.presenter.getGenres { [weak self] in
                 if let collectionView = self?.collectionView as? ReusableUICollectionView {
                     collectionView.updateCollectionView()
                 }
@@ -176,9 +174,9 @@ private extension CreateSessionViewController {
                 )
                 dispatchGroup.leave()
             }
-        }
-        dispatchGroup.notify(queue: .main) {
-            loadingVC.hide()
+            dispatchGroup.notify(queue: .main) {
+                loadingVC.hide()
+            }
         }
     }
 
