@@ -82,6 +82,11 @@ final class CreateSessionTableViewCell: UITableViewCell {
         gradientLayer.frame = linearGradientView.bounds
     }
 
+    override func prepareForReuse() {
+        movieImageView.image = nil
+        movieImageView.kf.indicatorType = .none
+    }
+
     func configureCell(model: TableViewCellModel) {
         modelId = model.id
         titleLabel.text = model.title

@@ -9,9 +9,13 @@ import UIKit
 
 final class CreateSessionViewController: UIViewController {
 
-    // MARK: - Public Properties
+    // MARK: - Public properties
 
     var presenter: CreateSessionPresenterProtocol
+
+    // MARK: - Private properties
+
+    private var loadingVC: CustomLoadingViewController?
 
     // MARK: - Layout variables
 
@@ -123,10 +127,14 @@ final class CreateSessionViewController: UIViewController {
 
     // MARK: - Lifecycle
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        loadData()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .whiteBackground
-        loadData()
         setupUI()
         setupSubviews()
         setupConstraints()
@@ -155,8 +163,8 @@ final class CreateSessionViewController: UIViewController {
 
 private extension CreateSessionViewController {
     private func loadData() {
+        loadingVC = CustomLoadingViewController.show(in: self)
         DispatchQueue.main.async {
-            let loadingVC = CustomLoadingViewController.show(in: self)
             let dispatchGroup = DispatchGroup()
             dispatchGroup.enter()
             self.presenter.getCollections { [weak self] in
@@ -175,7 +183,8 @@ private extension CreateSessionViewController {
                 dispatchGroup.leave()
             }
             dispatchGroup.notify(queue: .main) {
-                loadingVC.hide()
+                self.loadingVC?.hide()
+                self.loadingVC = nil
             }
         }
     }
