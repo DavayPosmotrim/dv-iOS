@@ -12,17 +12,24 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
     // MARK: - Public Properties
 
     weak var coordinator: CreateSessionCoordinator?
-    private let contentService: ContentServiceProtocol
 
     // MARK: - Private Properties
 
+    private let contentService: ContentServiceProtocol
+    private var sessionService: SessionServiceProtocol
     private var createSession = CreateSessionModel(collectionsMovie: [], genresMovie: [])
     private var selectionsMovies: [TableViewCellModel] = []
     private var genresMovies: [CollectionsCellModel] = []
 
-    init(coordinator: CreateSessionCoordinator, contentService: ContentServiceProtocol) {
+    init(
+        coordinator: CreateSessionCoordinator,
+        contentService: ContentServiceProtocol,
+        sessionService: SessionServiceProtocol = SessionService()
+    ) {
         self.coordinator = coordinator
         self.contentService = contentService
+        self.sessionService = sessionService
+
     }
 
     // MARK: - Public Methods
@@ -56,7 +63,11 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
               let collection = selectionsMovies.first(where: { $0.id == id }) else {
             return
         }
-        let newCollection = CollectionsMovie(id: collection.id, title: collection.title)
+        let newCollection = CollectionsMovie(
+            id: collection.id,
+            slug: collection.slug,
+            title: collection.title
+        )
         createSession.collectionsMovie.append(newCollection)
     }
 
@@ -88,12 +99,15 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
     }
 
     func didTapNextButton(segmentIndex: Int) {
-        postCreatingSession(segmentIndex: segmentIndex)
-        coordinator?.showInvitingUsersFlow()
+        createSession(segmentIndex: segmentIndex) { isSuccess in
+            if isSuccess {
+                self.coordinator?.showInvitingUsersFlow()
+            }
+        }
     }
 }
 
-// MARK: - ContnetService Methods
+    // MARK: - ContentService
 
 extension CreateSessionPresenter {
     func getGenres(completion: @escaping () -> Void) {
@@ -123,6 +137,7 @@ extension CreateSessionPresenter {
             case .success(let collections):
                 self.selectionsMovies = collections.map { TableViewCellModel(
                     title: $0.name,
+                    slug: $0.slug ?? "",
                     movieImage: $0.cover ?? ""
                 ) }
             case .failure(let error):
@@ -132,33 +147,44 @@ extension CreateSessionPresenter {
             completion()
         }
     }
+}
 
-    private func postCreatingSession(segmentIndex: Int) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let currentDate = dateFormatter.string(from: Date())
-        let status: StatusEnumModel = .waiting
+    // MARK: - SessionService
+
+extension CreateSessionPresenter {
+
+    private func createSession(segmentIndex: Int, completion: @escaping (Bool) -> Void) {
+        guard let deviceId = UserDefaults.standard.string(
+            forKey: Resources.Authentication.savedDeviceID
+        ) else { return }
+
         let genres: [String]
         let collections: [String]
         if segmentIndex == 0 {
             genres = []
-            collections = createSession.collectionsMovie.map { $0.title }
+            collections = createSession.collectionsMovie.map { $0.slug }
         } else {
             genres = createSession.genresMovie.map { $0.title }
             collections = []
         }
 
-        let requestModel = CustomSessionCreateRequestModel(
-            date: currentDate,
-            genres: genres,
-            collections: collections,
-            status: status
-        )
-        // TODO: - проверка на формирование POST запроса
-        if let jsonData = try? JSONEncoder().encode(requestModel),
-           let jsonString = String(data: jsonData, encoding: .utf8) {
-        } else {
-            print("Не удалось преобразовать модель в JSON.")
+        let requestModel = CreateSessionRequestModel(genres: genres, collections: collections)
+
+        sessionService.createSession(deviceId: deviceId, genresOrCollections: requestModel) { result in
+            switch result {
+            case .success(let response):
+                completion(true)
+                print(response)
+            case .failure(let error):
+                completion(false)
+                switch error {
+                    // TODO: - обработать ошибки
+                case .networkError(let networkError):
+                    print(networkError)
+                case .serverError(let serverError):
+                    print(serverError)
+                }
+            }
         }
     }
 }
