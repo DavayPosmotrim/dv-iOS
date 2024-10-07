@@ -11,6 +11,7 @@
 		C9156A892CA31AA000840603 /* SessionServiceAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9156A882CA31AA000840603 /* SessionServiceAPI.swift */; };
 		C9156A8B2CA36B5F00840603 /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9156A8A2CA36B5F00840603 /* SessionService.swift */; };
 		C952F4062CA6068A0002001D /* MovieResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C952F4052CA6068A0002001D /* MovieResponseModel.swift */; };
+		C97BE9792CB038A400784880 /* CreateSessionViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97BE9782CB038A400784880 /* CreateSessionViewProtocol.swift */; };
 		C98BD4462CA6F3C600A9BD84 /* RouletteRandomMovieResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BD4452CA6F3C500A9BD84 /* RouletteRandomMovieResponseModel.swift */; };
 		C98BD4482CA772EE00A9BD84 /* MessageResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BD4472CA772EE00A9BD84 /* MessageResponseModel.swift */; };
 		C98BD44A2CA7EF5D00A9BD84 /* SessionLikeResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BD4492CA7EF5D00A9BD84 /* SessionLikeResponseModel.swift */; };
@@ -206,6 +207,7 @@
 		C9156A882CA31AA000840603 /* SessionServiceAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionServiceAPI.swift; sourceTree = "<group>"; };
 		C9156A8A2CA36B5F00840603 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
 		C952F4052CA6068A0002001D /* MovieResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieResponseModel.swift; sourceTree = "<group>"; };
+		C97BE9782CB038A400784880 /* CreateSessionViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionViewProtocol.swift; sourceTree = "<group>"; };
 		C98BD4452CA6F3C500A9BD84 /* RouletteRandomMovieResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouletteRandomMovieResponseModel.swift; sourceTree = "<group>"; };
 		C98BD4472CA772EE00A9BD84 /* MessageResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageResponseModel.swift; sourceTree = "<group>"; };
 		C98BD4492CA7EF5D00A9BD84 /* SessionLikeResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionLikeResponseModel.swift; sourceTree = "<group>"; };
@@ -638,6 +640,7 @@
 				C9D1ACD42C9DA8E40031B2C3 /* CreateSessionTableViewCell.swift */,
 				C9D1ACD52C9DA8E40031B2C3 /* CreateSessionViewController.swift */,
 				C9D1ACD62C9DA8E40031B2C3 /* EmptyTableViewCell.swift */,
+				C97BE9782CB038A400784880 /* CreateSessionViewProtocol.swift */,
 			);
 			path = CreateSessionFlow;
 			sourceTree = "<group>";
@@ -1114,6 +1117,7 @@
 				C9D1AD7D2C9DA8E40031B2C3 /* CustomRolesCollectionCell.swift in Sources */,
 				C9D1ADC42C9DA8E50031B2C3 /* JoinSessionSceneFactory.swift in Sources */,
 				C9D1AD7A2C9DA8E40031B2C3 /* CustomRatingCollectionCell.swift in Sources */,
+				C97BE9792CB038A400784880 /* CreateSessionViewProtocol.swift in Sources */,
 				C9D1AE232C9DA8E50031B2C3 /* UserServiceApi.swift in Sources */,
 				C9D1ADEC2C9DA8E50031B2C3 /* SelectionMoviesCoordinator.swift in Sources */,
 				C9D1ADC12C9DA8E50031B2C3 /* JoinSessionCoordinator.swift in Sources */,

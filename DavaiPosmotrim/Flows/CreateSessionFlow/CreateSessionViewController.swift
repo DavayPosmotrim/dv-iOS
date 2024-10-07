@@ -12,10 +12,12 @@ final class CreateSessionViewController: UIViewController {
     // MARK: - Public properties
 
     var presenter: CreateSessionPresenterProtocol
+    var isServerReachable: Bool?
 
     // MARK: - Private properties
 
     private var loadingVC: CustomLoadingViewController?
+    private var networkReachabilityHandler: NetworkReachabilityHandler
 
     // MARK: - Layout variables
 
@@ -116,9 +118,14 @@ final class CreateSessionViewController: UIViewController {
 
     // MARK: - Initializers
 
-    init(presenter: CreateSessionPresenter) {
+    init(
+        presenter: CreateSessionPresenter,
+        networkReachabilityHandler: NetworkReachabilityHandler = NetworkReachabilityHandler()
+    ) {
         self.presenter = presenter
+        self.networkReachabilityHandler = networkReachabilityHandler
         super.init(nibName: nil, bundle: nil)
+        self.networkReachabilityHandler.delegate = self
     }
 
     required init?(coder: NSCoder) {
@@ -138,6 +145,12 @@ final class CreateSessionViewController: UIViewController {
         setupUI()
         setupSubviews()
         setupConstraints()
+        networkReachabilityHandler.setupNetworkReachability()
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        networkReachabilityHandler.stopListening()
     }
 
     // MARK: - Actions
@@ -162,17 +175,25 @@ final class CreateSessionViewController: UIViewController {
     // MARK: - Private methods
 
 private extension CreateSessionViewController {
-    private func loadData() {
-        loadingVC = CustomLoadingViewController.show(in: self)
-        DispatchQueue.main.async {
-            let dispatchGroup = DispatchGroup()
-            dispatchGroup.enter()
-            self.presenter.getCollections { [weak self] in
+
+    func loadData() {
+        showLoader()
+
+        let dispatchGroup = DispatchGroup()
+
+        dispatchGroup.enter()
+        self.presenter.getCollections { [weak self] isSuccess in
+            self?.isServerReachable = isSuccess
+            if isSuccess {
                 self?.tableView.reloadData()
-                dispatchGroup.leave()
             }
-            dispatchGroup.enter()
-            self.presenter.getGenres { [weak self] in
+            dispatchGroup.leave()
+        }
+
+        dispatchGroup.enter()
+        self.presenter.getGenres { [weak self] isSuccess in
+            self?.isServerReachable = isSuccess
+            if isSuccess {
                 if let collectionView = self?.collectionView as? ReusableUICollectionView {
                     collectionView.updateCollectionView()
                 }
@@ -180,12 +201,12 @@ private extension CreateSessionViewController {
                     name: NSNotification.Name(Resources.ReusableCollectionView.updateCollectionView),
                     object: nil
                 )
-                dispatchGroup.leave()
             }
-            dispatchGroup.notify(queue: .main) {
-                self.loadingVC?.hide()
-                self.loadingVC = nil
-            }
+            dispatchGroup.leave()
+        }
+
+        dispatchGroup.notify(queue: .main) {
+            self.hideLoader()
         }
     }
 
@@ -255,7 +276,7 @@ private extension CreateSessionViewController {
         ])
     }
 
-    private func showNotification(title: String, duration: TimeInterval) {
+    func showNotification(title: String, duration: TimeInterval) {
         UIView.transition(
             with: customWarningNotification,
             duration: 0.2,
@@ -286,17 +307,19 @@ private extension CreateSessionViewController {
     }
 }
 
-// MARK: - CustomNavigationBarDelegate
+    // MARK: - CustomNavigationBarDelegate
 
 extension CreateSessionViewController: CustomNavigationBarDelegate {
+
     func backButtonTapped() {
         presenter.backButtonTapped()
     }
 }
 
-// MARK: - CreateSessionTableViewCellDelegate
+    // MARK: - CreateSessionTableViewCellDelegate
 
 extension CreateSessionViewController: CreateSessionTableViewCellDelegate {
+
     func tableViewCellTitleAdded(id: UUID?) {
         presenter.didAddCollection(id: id)
     }
@@ -306,9 +329,10 @@ extension CreateSessionViewController: CreateSessionTableViewCellDelegate {
     }
 }
 
-// MARK: - CreateSessionCollectionCellDelegate
+    // MARK: - CreateSessionCollectionCellDelegate
 
 extension CreateSessionViewController: CreateSessionCollectionCellDelegate {
+
     func collectionCellTitleAdded(id: UUID?) {
         presenter.didAddGenres(id: id)
     }
@@ -318,9 +342,10 @@ extension CreateSessionViewController: CreateSessionCollectionCellDelegate {
     }
 }
 
-// MARK: - UITableViewDataSource
+    // MARK: - UITableViewDataSource
 
 extension CreateSessionViewController: UITableViewDataSource {
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.getSelectionsMoviesCount() + 2
     }
@@ -351,9 +376,10 @@ extension CreateSessionViewController: UITableViewDataSource {
     }
 }
 
-// MARK: - UITableViewDelegate
+    // MARK: - UITableViewDelegate
 
 extension CreateSessionViewController: UITableViewDelegate {
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
         case 0:
@@ -374,9 +400,10 @@ extension CreateSessionViewController: UITableViewDelegate {
     }
 }
 
-// MARK: - UICollectionViewDataSource
+    // MARK: - UICollectionViewDataSource
 
 extension CreateSessionViewController: UICollectionViewDataSource {
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return presenter.getGenresMoviesCount()
     }
@@ -397,13 +424,37 @@ extension CreateSessionViewController: UICollectionViewDataSource {
     }
 }
 
-// MARK: - UICollectionViewDelegate
+    // MARK: - UICollectionViewDelegate
 
 extension CreateSessionViewController: UICollectionViewDelegate {
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? CreateSessionCollectionCell else {
             return
         }
         cell.isSelectedCollectionCell.toggle()
+    }
+}
+
+    // MARK: - NetworkReachabilityHandlerDelegate
+
+extension CreateSessionViewController: NetworkReachabilityHandlerDelegate {
+
+    func didChangeNetworkStatus(isReachable: Bool?) {
+        isServerReachable = isReachable
+    }
+}
+
+    // MARK: - CreateSessionViewProtocol
+
+extension CreateSessionViewController: CreateSessionViewProtocol {
+
+    func showLoader() {
+        loadingVC = CustomLoadingViewController.show(in: self)
+    }
+
+    func hideLoader() {
+        loadingVC?.hide()
+        loadingVC = nil
     }
 }

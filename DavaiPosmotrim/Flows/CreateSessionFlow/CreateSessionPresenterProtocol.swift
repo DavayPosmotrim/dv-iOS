@@ -19,6 +19,6 @@ protocol CreateSessionPresenterProtocol: AnyObject {
     func didRemoveCollection(id: UUID?)
     func didAddGenres(id: UUID?)
     func didRemoveGenres(id: UUID?)
-    func getGenres(completion: @escaping () -> Void)
-    func getCollections(completion: @escaping () -> Void)
+    func getGenres(completion: @escaping (Bool) -> Void)
+    func getCollections(completion: @escaping (Bool) -> Void)
 }

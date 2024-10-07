@@ -12,6 +12,7 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
     // MARK: - Public Properties
 
     weak var coordinator: CreateSessionCoordinator?
+    weak var view: CreateSessionViewProtocol?
 
     // MARK: - Private Properties
 
@@ -100,8 +101,11 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
 
     func didTapNextButton(segmentIndex: Int) {
         createSession(segmentIndex: segmentIndex) { isSuccess in
+            self.view?.isServerReachable = isSuccess
             if isSuccess {
                 self.coordinator?.showInvitingUsersFlow()
+            } else {
+                print("Failed to create session")
             }
         }
     }
@@ -110,7 +114,7 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
     // MARK: - ContentService
 
 extension CreateSessionPresenter {
-    func getGenres(completion: @escaping () -> Void) {
+    func getGenres(completion: @escaping (Bool) -> Void) {
         guard let deviceId = UserDefaults.standard.string(
             forKey: Resources.Authentication.savedDeviceID
         ) else { return }
@@ -118,16 +122,22 @@ extension CreateSessionPresenter {
         contentService.getGenres(with: deviceId) { result in
                 switch result {
                 case .success(let genres):
+                    completion(true)
                     self.genresMovies = genres.map { CollectionsCellModel(title: $0.name) }
                 case .failure(let error):
-                    // TODO: - обработать ошибки
-                    print("Failed to get genres: \(error.localizedDescription)")
+                    completion(false)
+                    switch error {
+                        // TODO: - обработать ошибки
+                    case .networkError(let networkError):
+                        print(networkError)
+                    case .serverError(let serverError):
+                        print(serverError)
+                    }
                 }
-                completion()
             }
         }
 
-    func getCollections(completion: @escaping () -> Void) {
+    func getCollections(completion: @escaping (Bool) -> Void) {
         guard let deviceId = UserDefaults.standard.string(
             forKey: Resources.Authentication.savedDeviceID
         ) else { return }
@@ -135,16 +145,24 @@ extension CreateSessionPresenter {
         contentService.getCollections(with: deviceId) { result in
             switch result {
             case .success(let collections):
-                self.selectionsMovies = collections.map { TableViewCellModel(
-                    title: $0.name,
-                    slug: $0.slug ?? "",
-                    movieImage: $0.cover ?? ""
-                ) }
+                self.selectionsMovies = collections.map {
+                    TableViewCellModel(
+                        title: $0.name,
+                        slug: $0.slug ?? "",
+                        movieImage: $0.cover ?? ""
+                    )
+                }
+                completion(true)
             case .failure(let error):
-                // TODO: - обработать ошибки
-                print("Failed to get collections: \(error.localizedDescription)")
+                completion(false)
+                switch error {
+                    // TODO: - обработать ошибки
+                case .networkError(let networkError):
+                    print(networkError)
+                case .serverError(let serverError):
+                    print(serverError)
+                }
             }
-            completion()
         }
     }
 }
@@ -170,7 +188,9 @@ extension CreateSessionPresenter {
 
         let requestModel = CreateSessionRequestModel(genres: genres, collections: collections)
 
+        view?.showLoader()
         sessionService.createSession(deviceId: deviceId, genresOrCollections: requestModel) { result in
+            self.view?.hideLoader()
             switch result {
             case .success(let response):
                 completion(true)

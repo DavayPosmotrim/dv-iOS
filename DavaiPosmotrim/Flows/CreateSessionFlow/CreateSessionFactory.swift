@@ -12,6 +12,7 @@ struct CreateSessionFactory {
         let container = DependencyInjection.shared.container
         let presenter = container.resolve(CreateSessionPresenter.self, argument: coordinator)!
         let viewController = CreateSessionViewController(presenter: presenter)
+        presenter.view = viewController
         return viewController
     }
 }

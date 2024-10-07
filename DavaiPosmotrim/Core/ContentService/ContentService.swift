@@ -11,16 +11,16 @@ import Moya
 protocol ContentServiceProtocol {
     func getGenres(
         with deviceId: String,
-        completion: @escaping (Result<[GenreModel], Error>) -> Void
+        completion: @escaping (Result<[GenreModel], SessionServiceError>) -> Void
     )
     func getCollections(
         with deviceId: String,
-        completion: @escaping (Result<[CollectionModel], Error>) -> Void
+        completion: @escaping (Result<[CollectionModel], SessionServiceError>) -> Void
     )
     func getMovieInfo(
         with movieId: Int,
         deviceId: String,
-        completion: @escaping (Result<MovieDetailModel, Error>) -> Void
+        completion: @escaping (Result<MovieDetailModel, SessionServiceError>) -> Void
     )
 }
 
@@ -39,7 +39,10 @@ final class ContentService: ContentServiceProtocol {
         self.provider = provider
     }
 
-    func getGenres(with deviceId: String, completion: @escaping (Result<[GenreModel], Error>) -> Void) {
+    func getGenres(
+        with deviceId: String,
+        completion: @escaping (Result<[GenreModel], SessionServiceError>) -> Void
+    ) {
         provider.request(.getGenres(deviceId: deviceId)) { result in
             switch result {
             case .success(let response):
@@ -47,7 +50,7 @@ final class ContentService: ContentServiceProtocol {
                     let genres = try JSONDecoder().decode([GenreModel].self, from: response.data)
                     completion(.success(genres))
                 } catch {
-                    completion(.failure(error))
+                    completion(.failure(.networkError(error)))
                 }
             case .failure(let error):
                 if let response = error.response {
@@ -55,24 +58,29 @@ final class ContentService: ContentServiceProtocol {
                         let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: response.data)
                         completion(
                             .failure(
-                                NSError(
-                                    domain: "",
-                                    code: response.statusCode,
-                                    userInfo: [NSLocalizedDescriptionKey: errorResponse.detail]
+                                .serverError(
+                                    NSError(
+                                        domain: "",
+                                        code: response.statusCode,
+                                        userInfo: [NSLocalizedDescriptionKey: errorResponse.detail]
+                                    )
                                 )
                             )
                         )
                     } catch {
-                        completion(.failure(error))
+                        completion(.failure(.networkError(error)))
                     }
                 } else {
-                    completion(.failure(error))
+                    completion(.failure(.networkError(error)))
                 }
             }
         }
     }
 
-    func getCollections(with deviceId: String, completion: @escaping (Result<[CollectionModel], Error>) -> Void) {
+    func getCollections(
+        with deviceId: String,
+        completion: @escaping (Result<[CollectionModel], SessionServiceError>) -> Void
+    ) {
         provider.request(.getCollections(deviceId: deviceId)) { result in
             switch result {
             case .success(let response):
@@ -80,7 +88,7 @@ final class ContentService: ContentServiceProtocol {
                     let collections = try JSONDecoder().decode([CollectionModel].self, from: response.data)
                     completion(.success(collections))
                 } catch {
-                    completion(.failure(error))
+                    completion(.failure(.networkError(error)))
                 }
             case .failure(let error):
                 if let response = error.response {
@@ -88,18 +96,20 @@ final class ContentService: ContentServiceProtocol {
                         let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: response.data)
                         completion(
                             .failure(
-                                NSError(
-                                    domain: "",
-                                    code: response.statusCode,
-                                    userInfo: [NSLocalizedDescriptionKey: errorResponse.detail]
+                                .serverError(
+                                    NSError(
+                                        domain: "",
+                                        code: response.statusCode,
+                                        userInfo: [NSLocalizedDescriptionKey: errorResponse.detail]
+                                    )
                                 )
                             )
                         )
                     } catch {
-                        completion(.failure(error))
+                        completion(.failure(.networkError(error)))
                     }
                 } else {
-                    completion(.failure(error))
+                    completion(.failure(.networkError(error)))
                 }
             }
         }
@@ -108,7 +118,7 @@ final class ContentService: ContentServiceProtocol {
     func getMovieInfo(
         with movieId: Int,
         deviceId: String,
-        completion: @escaping (Result<MovieDetailModel, Error>) -> Void
+        completion: @escaping (Result<MovieDetailModel, SessionServiceError>) -> Void
     ) {
         provider.request(.getMovieInfo(movieId: movieId, deviceId: deviceId)) { result in
             switch result {
@@ -117,7 +127,7 @@ final class ContentService: ContentServiceProtocol {
                     let movieInfo = try JSONDecoder().decode(MovieDetailModel.self, from: response.data)
                     completion(.success(movieInfo))
                 } catch {
-                    completion(.failure(error))
+                    completion(.failure(.networkError(error)))
                 }
             case .failure(let error):
                 if let response = error.response {
@@ -125,18 +135,20 @@ final class ContentService: ContentServiceProtocol {
                         let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: response.data)
                         completion(
                             .failure(
-                                NSError(
-                                    domain: "",
-                                    code: response.statusCode,
-                                    userInfo: [NSLocalizedDescriptionKey: errorResponse.detail]
+                                .serverError(
+                                    NSError(
+                                        domain: "",
+                                        code: response.statusCode,
+                                        userInfo: [NSLocalizedDescriptionKey: errorResponse.detail]
+                                    )
                                 )
                             )
                         )
                     } catch {
-                        completion(.failure(error))
+                        completion(.failure(.networkError(error)))
                     }
                 } else {
-                    completion(.failure(error))
+                    completion(.failure(.networkError(error)))
                 }
             }
         }
