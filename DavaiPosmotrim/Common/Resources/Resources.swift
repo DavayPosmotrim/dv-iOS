@@ -90,7 +90,10 @@ enum Resources {
     }
 
     enum InvitingSession {
-        static let lowerLabelText = "Если вы пригласили друзей – дождитесь, когда\n они подключаться, прежде чем начать сеанс."
+        static let lowerLabelText = """
+        Если вы пригласили друзей – дождитесь, когда
+        они подключатся, прежде чем начать сеанс.
+        """
         static let codeCopyWarningText = "Код сеанса успешно скопирован"
         static let fewUsersWarningText = "Должно быть хотя бы два участника"
 
@@ -174,6 +177,10 @@ enum Resources {
         static let noCollectionsHeader = "Ошибка при создании сессии"
         static let noCollectionsText = "Сделайте другой выбор коллекций."
         static let noCollectionsButtonTitle = "Показать список коллекций".uppercased()
+
+        static let serverErrorHeader = "Нет связи с сервером"
+        static let serverErrorText = "Ошибка на стороне сервера.\n Попробуйте отправить запрос снова."
+        static let serverErrorButtonTitle = "Попробовать снова".uppercased()
     }
 
     enum SplashScreen {

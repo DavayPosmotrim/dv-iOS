@@ -7,12 +7,16 @@
 
 import UIKit
 
+// swiftlint:disable file_length
+
 final class CreateSessionViewController: UIViewController {
 
     // MARK: - Public properties
 
     var presenter: CreateSessionPresenterProtocol
     var isServerReachable: Bool?
+    var didLoadCollections = false
+    var didLoadGenres = false
 
     // MARK: - Private properties
 
@@ -136,7 +140,7 @@ final class CreateSessionViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        loadData()
+        loadData(with: segmentControl.selectedSegmentIndex)
     }
 
     override func viewDidLoad() {
@@ -169,6 +173,8 @@ final class CreateSessionViewController: UIViewController {
     @objc private func segmentControlValueChanged(_ sender: UISegmentedControl) {
         tableView.isHidden = sender.selectedSegmentIndex != 0
         collectionView.isHidden = sender.selectedSegmentIndex == 0
+
+        loadData(with: sender.selectedSegmentIndex)
     }
 }
 
@@ -176,24 +182,34 @@ final class CreateSessionViewController: UIViewController {
 
 private extension CreateSessionViewController {
 
-    func loadData() {
-        showLoader()
+    func loadData(with index: Int) {
+        switch index {
+        case .zero:
+            if !didLoadCollections {
+                loadCollections()
+            }
+        default:
+            if !didLoadGenres {
+                loadGenres()
+            }
+        }
+    }
 
-        let dispatchGroup = DispatchGroup()
-
-        dispatchGroup.enter()
+    func loadCollections() {
         self.presenter.getCollections { [weak self] isSuccess in
             self?.isServerReachable = isSuccess
             if isSuccess {
+                self?.didLoadCollections = isSuccess
                 self?.tableView.reloadData()
             }
-            dispatchGroup.leave()
         }
+    }
 
-        dispatchGroup.enter()
+    func loadGenres() {
         self.presenter.getGenres { [weak self] isSuccess in
             self?.isServerReachable = isSuccess
             if isSuccess {
+                self?.didLoadGenres = isSuccess
                 if let collectionView = self?.collectionView as? ReusableUICollectionView {
                     collectionView.updateCollectionView()
                 }
@@ -202,11 +218,6 @@ private extension CreateSessionViewController {
                     object: nil
                 )
             }
-            dispatchGroup.leave()
-        }
-
-        dispatchGroup.notify(queue: .main) {
-            self.hideLoader()
         }
     }
 
@@ -456,5 +467,23 @@ extension CreateSessionViewController: CreateSessionViewProtocol {
     func hideLoader() {
         loadingVC?.hide()
         loadingVC = nil
+    }
+
+    func showNetworkError() {
+        let viewController = MistakesViewController(type: .noInternet) { [weak self] in
+            guard let self else { return }
+            self.dismiss(animated: true)
+        }
+        viewController.modalPresentationStyle = .fullScreen
+        present(viewController, animated: true)
+    }
+
+    func showServerError() {
+        let viewController = MistakesViewController(type: .serverError) { [weak self] in
+            guard let self else { return }
+            self.dismiss(animated: true)
+        }
+        viewController.modalPresentationStyle = .fullScreen
+        present(viewController, animated: true)
     }
 }

@@ -18,6 +18,7 @@ final class MistakesViewController: UIViewController {
         case serviceUnavailable
         case oldVersion
         case noCollections
+        case serverError
     }
 
     enum Constants {
@@ -27,6 +28,10 @@ final class MistakesViewController: UIViewController {
     // MARK: - Public property
 
     var type: MistakeType
+
+    // MARK: - Stored property
+
+    private var buttonAction: (() -> Void)?
 
     // MARK: - Private properties
 
@@ -62,8 +67,9 @@ final class MistakesViewController: UIViewController {
 
     // MARK: - Inits
 
-    init(type: MistakeType) {
+    init(type: MistakeType, buttonAction: @escaping () -> Void) {
         self.type = type
+        self.buttonAction = buttonAction
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -87,16 +93,8 @@ private extension MistakesViewController {
 
     // MARK: - Actions
 
-    @objc func didTapNoInternetButton(sender: AnyObject) {
-        // TODO: - add code later
-    }
-
-    @objc func didTapOldVersionButton(sender: AnyObject) {
-        // TODO: - add code later
-    }
-
-    @objc func didTapNoCollectionsButton(sender: AnyObject) {
-        // TODO: - add code later
+    @objc func didTapButton(sender: AnyObject) {
+        buttonAction?()
     }
 
     // MARK: - Setup UI
@@ -153,6 +151,10 @@ private extension MistakesViewController {
             image.image = UIImage(resource: .unavailableServicePlug)
             header.text = Resources.Mistakes.noCollectionsHeader
             text.text = Resources.Mistakes.noCollectionsText
+        case .serverError:
+            image.image = UIImage(resource: .noInternetPlug)
+            header.text = Resources.Mistakes.serverErrorHeader
+            text.text = Resources.Mistakes.serverErrorText
         }
     }
 
@@ -161,17 +163,18 @@ private extension MistakesViewController {
         case .noInternet:
             button.isHidden = false
             button.configure(title: Resources.Mistakes.noInternetButtonTitle, type: .accentPrimary)
-            button.addTarget(self, action: #selector(didTapNoInternetButton(sender:)), for: .touchUpInside)
         case .serviceUnavailable:
             button.isHidden = true
         case .oldVersion:
             button.isHidden = false
             button.configure(title: Resources.Mistakes.oldVersionButtonTitle, type: .accentPrimary)
-            button.addTarget(self, action: #selector(didTapOldVersionButton(sender:)), for: .touchUpInside)
         case .noCollections:
             button.isHidden = false
             button.configure(title: Resources.Mistakes.noCollectionsButtonTitle, type: .accentPrimary)
-            button.addTarget(self, action: #selector(didTapNoCollectionsButton(sender:)), for: .touchUpInside)
+        case .serverError:
+            button.isHidden = false
+            button.configure(title: Resources.Mistakes.serverErrorButtonTitle, type: .accentPrimary)
         }
+        button.addTarget(self, action: #selector(didTapButton(sender:)), for: .touchUpInside)
     }
 }

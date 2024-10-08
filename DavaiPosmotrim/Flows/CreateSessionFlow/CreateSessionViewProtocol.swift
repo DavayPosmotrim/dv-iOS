@@ -12,4 +12,6 @@ protocol CreateSessionViewProtocol: AnyObject {
 
     func showLoader()
     func hideLoader()
+    func showNetworkError()
+    func showServerError()
 }

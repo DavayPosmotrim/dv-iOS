@@ -109,58 +109,79 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
             }
         }
     }
+
+    private func presentErrorAfterDelay(error: @escaping () -> Void) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            error()
+        }
+    }
 }
 
     // MARK: - ContentService
 
 extension CreateSessionPresenter {
+
     func getGenres(completion: @escaping (Bool) -> Void) {
         guard let deviceId = UserDefaults.standard.string(
             forKey: Resources.Authentication.savedDeviceID
         ) else { return }
 
+        view?.showLoader()
         contentService.getGenres(with: deviceId) { result in
+            DispatchQueue.main.async {
+                self.view?.hideLoader()
                 switch result {
                 case .success(let genres):
                     completion(true)
                     self.genresMovies = genres.map { CollectionsCellModel(title: $0.name) }
                 case .failure(let error):
-                    completion(false)
                     switch error {
-                        // TODO: - обработать ошибки
-                    case .networkError(let networkError):
-                        print(networkError)
-                    case .serverError(let serverError):
-                        print(serverError)
+                    case .networkError:
+                        self.presentErrorAfterDelay {
+                            self.view?.showNetworkError()
+                        }
+                    case .serverError:
+                        self.presentErrorAfterDelay {
+                            self.view?.showServerError()
+                        }
                     }
+                    completion(false)
                 }
             }
         }
+    }
 
     func getCollections(completion: @escaping (Bool) -> Void) {
         guard let deviceId = UserDefaults.standard.string(
             forKey: Resources.Authentication.savedDeviceID
         ) else { return }
 
+        view?.showLoader()
         contentService.getCollections(with: deviceId) { result in
-            switch result {
-            case .success(let collections):
-                self.selectionsMovies = collections.map {
-                    TableViewCellModel(
-                        title: $0.name,
-                        slug: $0.slug ?? "",
-                        movieImage: $0.cover ?? ""
-                    )
-                }
-                completion(true)
-            case .failure(let error):
-                completion(false)
-                switch error {
-                    // TODO: - обработать ошибки
-                case .networkError(let networkError):
-                    print(networkError)
-                case .serverError(let serverError):
-                    print(serverError)
+            DispatchQueue.main.async {
+                self.view?.hideLoader()
+                switch result {
+                case .success(let collections):
+                    self.selectionsMovies = collections.map {
+                        TableViewCellModel(
+                            title: $0.name,
+                            slug: $0.slug ?? "",
+                            movieImage: $0.cover ?? ""
+                        )
+                    }
+                    completion(true)
+                case .failure(let error):
+                    switch error {
+                    case .networkError:
+                        self.presentErrorAfterDelay {
+                            self.view?.showNetworkError()
+                        }
+                    case .serverError:
+                        self.presentErrorAfterDelay {
+                            self.view?.showServerError()
+                        }
+                    }
+                    completion(false)
                 }
             }
         }
@@ -190,19 +211,23 @@ extension CreateSessionPresenter {
 
         view?.showLoader()
         sessionService.createSession(deviceId: deviceId, genresOrCollections: requestModel) { result in
-            self.view?.hideLoader()
-            switch result {
-            case .success(let response):
-                completion(true)
-                print(response)
-            case .failure(let error):
-                completion(false)
-                switch error {
-                    // TODO: - обработать ошибки
-                case .networkError(let networkError):
-                    print(networkError)
-                case .serverError(let serverError):
-                    print(serverError)
+            DispatchQueue.main.async {
+                self.view?.hideLoader()
+                switch result {
+                case .success:
+                    completion(true)
+                case .failure(let error):
+                    completion(false)
+                    switch error {
+                    case .networkError:
+                        self.presentErrorAfterDelay {
+                            self.view?.showNetworkError()
+                        }
+                    case .serverError:
+                        self.presentErrorAfterDelay {
+                            self.view?.showServerError()
+                        }
+                    }
                 }
             }
         }
