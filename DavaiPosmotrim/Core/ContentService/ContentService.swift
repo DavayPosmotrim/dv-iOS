@@ -11,16 +11,16 @@ import Moya
 protocol ContentServiceProtocol {
     func getGenres(
         with deviceId: String,
-        completion: @escaping (Result<[GenreModel], SessionServiceError>) -> Void
+        completion: @escaping (Result<[GenreModel], ServiceError>) -> Void
     )
     func getCollections(
         with deviceId: String,
-        completion: @escaping (Result<[CollectionModel], SessionServiceError>) -> Void
+        completion: @escaping (Result<[CollectionModel], ServiceError>) -> Void
     )
     func getMovieInfo(
         with movieId: Int,
         deviceId: String,
-        completion: @escaping (Result<MovieDetailModel, SessionServiceError>) -> Void
+        completion: @escaping (Result<MovieDetailModel, ServiceError>) -> Void
     )
 }
 
@@ -41,7 +41,7 @@ final class ContentService: ContentServiceProtocol {
 
     func getGenres(
         with deviceId: String,
-        completion: @escaping (Result<[GenreModel], SessionServiceError>) -> Void
+        completion: @escaping (Result<[GenreModel], ServiceError>) -> Void
     ) {
         provider.request(.getGenres(deviceId: deviceId)) { result in
             switch result {
@@ -79,7 +79,7 @@ final class ContentService: ContentServiceProtocol {
 
     func getCollections(
         with deviceId: String,
-        completion: @escaping (Result<[CollectionModel], SessionServiceError>) -> Void
+        completion: @escaping (Result<[CollectionModel], ServiceError>) -> Void
     ) {
         provider.request(.getCollections(deviceId: deviceId)) { result in
             switch result {
@@ -118,7 +118,7 @@ final class ContentService: ContentServiceProtocol {
     func getMovieInfo(
         with movieId: Int,
         deviceId: String,
-        completion: @escaping (Result<MovieDetailModel, SessionServiceError>) -> Void
+        completion: @escaping (Result<MovieDetailModel, ServiceError>) -> Void
     ) {
         provider.request(.getMovieInfo(movieId: movieId, deviceId: deviceId)) { result in
             switch result {

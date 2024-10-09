@@ -10,18 +10,6 @@ import Moya
 
 // swiftlint:disable file_length
 
-enum SessionServiceError: Error {
-    case networkError(Error)
-    case serverError(Error)
-
-    var localizedDescription: String {
-        switch self {
-        case .networkError(let error), .serverError(let error):
-            return error.localizedDescription
-        }
-    }
-}
-
 struct SessionErrorResponse: Codable {
     let detail: String?
     let nonFieldErrors: [String]?
@@ -38,57 +26,57 @@ protocol SessionServiceProtocol {
     func connectUserToSession(
         sessionCode: String,
         deviceId: String,
-        completion: @escaping (Result<MessageResponseModel, SessionServiceError>) -> Void
+        completion: @escaping (Result<MessageResponseModel, ServiceError>) -> Void
     )
     func disconnectUserFromSession(
         sessionCode: String,
         deviceId: String,
-        completion: @escaping (Result<MessageResponseModel, SessionServiceError>) -> Void
+        completion: @escaping (Result<MessageResponseModel, ServiceError>) -> Void
     )
     func getSessionMatchedMovies(
         sessionCode: String,
         deviceId: String,
-        completion: @escaping (Result<[MovieResponseModel], SessionServiceError>) -> Void
+        completion: @escaping (Result<[MovieResponseModel], ServiceError>) -> Void
     )
     func getRouletteRandomMovie(
         sessionCode: String,
         deviceId: String,
-        completion: @escaping (Result<RouletteRandomMovieResponseModel, SessionServiceError>) -> Void
+        completion: @escaping (Result<RouletteRandomMovieResponseModel, ServiceError>) -> Void
     )
     func startVotingSessionStatus(
         sessionCode: String,
         deviceId: String,
-        completion: @escaping (Result<MessageResponseModel, SessionServiceError>) -> Void
+        completion: @escaping (Result<MessageResponseModel, ServiceError>) -> Void
     )
     func putLikeToMovieInSession(
         sessionCode: String,
         deviceId: String,
         movieId: String,
-        completion: @escaping (Result<SessionLikeResponseModel, SessionServiceError>) -> Void
+        completion: @escaping (Result<SessionLikeResponseModel, ServiceError>) -> Void
     )
     func deleteLikeForMovieInSession(
         sessionCode: String,
         deviceId: String,
         movieId: String,
-        completion: @escaping (Result<MessageResponseModel, SessionServiceError>) -> Void
+        completion: @escaping (Result<MessageResponseModel, ServiceError>) -> Void
     )
     func getSessionInfo(
         sessionCode: String,
         deviceId: String,
-        completion: @escaping (Result<SessionInfoResponseModel, SessionServiceError>) -> Void
+        completion: @escaping (Result<SessionInfoResponseModel, ServiceError>) -> Void
     )
     func getSessionMoviesList(
         sessionCode: String,
-        completion: @escaping (Result<[MovieResponseModel], SessionServiceError>) -> Void
+        completion: @escaping (Result<[MovieResponseModel], ServiceError>) -> Void
     )
     func getSessionsList(
         deviceId: String,
-        completion: @escaping (Result<[SessionsListResponseModel], SessionServiceError>) -> Void
+        completion: @escaping (Result<[SessionsListResponseModel], ServiceError>) -> Void
     )
     func createSession(
         deviceId: String,
         genresOrCollections: CreateSessionRequestModel,
-        completion: @escaping (Result<CreateSessionResponseModel, SessionServiceError>) -> Void
+        completion: @escaping (Result<CreateSessionResponseModel, ServiceError>) -> Void
     )
 }
 
@@ -105,7 +93,7 @@ final class SessionService: SessionServiceProtocol {
     func connectUserToSession(
         sessionCode: String,
         deviceId: String,
-        completion: @escaping (Result<MessageResponseModel, SessionServiceError>) -> Void
+        completion: @escaping (Result<MessageResponseModel, ServiceError>) -> Void
     ) {
             provider.request(.connectUserToSession(sessionCode: sessionCode, deviceId: deviceId)) { result in
 
@@ -145,7 +133,7 @@ final class SessionService: SessionServiceProtocol {
     func disconnectUserFromSession(
         sessionCode: String,
         deviceId: String,
-        completion: @escaping (Result<MessageResponseModel, SessionServiceError>) -> Void
+        completion: @escaping (Result<MessageResponseModel, ServiceError>) -> Void
     ) {
             provider.request(.disconnectUserFromSession(sessionCode: sessionCode, deviceId: deviceId)) { result in
 
@@ -185,7 +173,7 @@ final class SessionService: SessionServiceProtocol {
     func getSessionMatchedMovies(
         sessionCode: String,
         deviceId: String,
-        completion: @escaping (Result<[MovieResponseModel], SessionServiceError>) -> Void
+        completion: @escaping (Result<[MovieResponseModel], ServiceError>) -> Void
     ) {
             provider.request(.getSessionMatchedMovies(sessionCode: sessionCode, deviceId: deviceId)) { result in
                 switch result {
@@ -230,7 +218,7 @@ final class SessionService: SessionServiceProtocol {
     func getRouletteRandomMovie(
         sessionCode: String,
         deviceId: String,
-        completion: @escaping (Result<RouletteRandomMovieResponseModel, SessionServiceError>) -> Void
+        completion: @escaping (Result<RouletteRandomMovieResponseModel, ServiceError>) -> Void
     ) {
         provider.request(.getRouletteRandomMovie(sessionCode: sessionCode, deviceId: deviceId)) { result in
             switch result {
@@ -275,7 +263,7 @@ final class SessionService: SessionServiceProtocol {
     func startVotingSessionStatus(
         sessionCode: String,
         deviceId: String,
-        completion: @escaping (Result<MessageResponseModel, SessionServiceError>) -> Void
+        completion: @escaping (Result<MessageResponseModel, ServiceError>) -> Void
     ) {
         provider.request(.startVotingSessionStatus(sessionCode: sessionCode, deviceId: deviceId)) { result in
             switch result {
@@ -321,7 +309,7 @@ final class SessionService: SessionServiceProtocol {
         sessionCode: String,
         deviceId: String,
         movieId: String,
-        completion: @escaping (Result<SessionLikeResponseModel, SessionServiceError>) -> Void
+        completion: @escaping (Result<SessionLikeResponseModel, ServiceError>) -> Void
     ) {
         provider.request(
             .putLikeToMovieInSession(
@@ -381,7 +369,7 @@ final class SessionService: SessionServiceProtocol {
         sessionCode: String,
         deviceId: String,
         movieId: String,
-        completion: @escaping (Result<MessageResponseModel, SessionServiceError>) -> Void
+        completion: @escaping (Result<MessageResponseModel, ServiceError>) -> Void
     ) {
         provider.request(
             .deleteLikeForMovieInSession(
@@ -440,7 +428,7 @@ final class SessionService: SessionServiceProtocol {
     func getSessionInfo(
         sessionCode: String,
         deviceId: String,
-        completion: @escaping (Result<SessionInfoResponseModel, SessionServiceError>) -> Void
+        completion: @escaping (Result<SessionInfoResponseModel, ServiceError>) -> Void
     ) {
         provider.request(.getSessionInfo(sessionCode: sessionCode, deviceId: deviceId)) { result in
             switch result {
@@ -484,7 +472,7 @@ final class SessionService: SessionServiceProtocol {
 
     func getSessionMoviesList(
         sessionCode: String,
-        completion: @escaping (Result<[MovieResponseModel], SessionServiceError>) -> Void
+        completion: @escaping (Result<[MovieResponseModel], ServiceError>) -> Void
     ) {
             provider.request(.getSessionMoviesList(sessionCode: sessionCode)) { result in
                 switch result {
@@ -528,7 +516,7 @@ final class SessionService: SessionServiceProtocol {
 
     func getSessionsList(
         deviceId: String,
-        completion: @escaping (Result<[SessionsListResponseModel], SessionServiceError>) -> Void
+        completion: @escaping (Result<[SessionsListResponseModel], ServiceError>) -> Void
     ) {
             provider.request(.getSessionsList(deviceId: deviceId)) { result in
                 switch result {
@@ -573,7 +561,7 @@ final class SessionService: SessionServiceProtocol {
     func createSession(
         deviceId: String,
         genresOrCollections: CreateSessionRequestModel,
-        completion: @escaping (Result<CreateSessionResponseModel, SessionServiceError>) -> Void
+        completion: @escaping (Result<CreateSessionResponseModel, ServiceError>) -> Void
     ) {
         let createSessionRequest = CreateSessionRequestModel(
             genres: genresOrCollections.genres,
