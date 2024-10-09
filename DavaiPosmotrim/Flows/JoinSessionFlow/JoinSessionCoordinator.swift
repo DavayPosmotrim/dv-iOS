@@ -18,7 +18,9 @@ final class JoinSessionCoordinator: BaseCoordinator {
     }
 
     func showStartSessionScreen() {
-        if UserDefaults.standard.value(forKey: Resources.MovieSelectionOnboarding.movieSelectionOnboardingUserDefaultsKey) == nil {
+        if UserDefaults.standard.value(
+            forKey: Resources.MovieSelectionOnboarding.movieSelectionOnboardingUserDefaultsKey
+        ) == nil {
             showMovieSelectionOnboardingScreen()
         } else {
             showSelectionMovieScreen()
