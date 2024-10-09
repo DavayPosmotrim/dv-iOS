@@ -7,11 +7,21 @@
 
 import UIKit
 
+// swiftlint:disable file_length
+
 final class CreateSessionViewController: UIViewController {
 
-    // MARK: - Public Properties
+    // MARK: - Public properties
 
     var presenter: CreateSessionPresenterProtocol
+    var isServerReachable: Bool?
+    var didLoadCollections = false
+    var didLoadGenres = false
+
+    // MARK: - Private properties
+
+    private var loadingVC: CustomLoadingViewController?
+    private var networkReachabilityHandler: NetworkReachabilityHandler
 
     // MARK: - Layout variables
 
@@ -112,9 +122,14 @@ final class CreateSessionViewController: UIViewController {
 
     // MARK: - Initializers
 
-    init(presenter: CreateSessionPresenter) {
+    init(
+        presenter: CreateSessionPresenter,
+        networkReachabilityHandler: NetworkReachabilityHandler = NetworkReachabilityHandler()
+    ) {
         self.presenter = presenter
+        self.networkReachabilityHandler = networkReachabilityHandler
         super.init(nibName: nil, bundle: nil)
+        self.networkReachabilityHandler.delegate = self
     }
 
     required init?(coder: NSCoder) {
@@ -123,13 +138,23 @@ final class CreateSessionViewController: UIViewController {
 
     // MARK: - Lifecycle
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        loadData(with: segmentControl.selectedSegmentIndex)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .whiteBackground
-        loadData()
         setupUI()
         setupSubviews()
         setupConstraints()
+        networkReachabilityHandler.setupNetworkReachability()
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        networkReachabilityHandler.stopListening()
     }
 
     // MARK: - Actions
@@ -148,25 +173,43 @@ final class CreateSessionViewController: UIViewController {
     @objc private func segmentControlValueChanged(_ sender: UISegmentedControl) {
         tableView.isHidden = sender.selectedSegmentIndex != 0
         collectionView.isHidden = sender.selectedSegmentIndex == 0
+
+        loadData(with: sender.selectedSegmentIndex)
     }
 }
 
     // MARK: - Private methods
 
 private extension CreateSessionViewController {
-    private func loadData() {
-        let loadingVC = CustomLoadingViewController.show(in: self)
-        let dispatchGroup = DispatchGroup()
-        dispatchGroup.enter()
-        presenter.getCollections { [weak self] in
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
-                dispatchGroup.leave()
+
+    func loadData(with index: Int) {
+        switch index {
+        case .zero:
+            if !didLoadCollections {
+                loadCollections()
+            }
+        default:
+            if !didLoadGenres {
+                loadGenres()
             }
         }
-        dispatchGroup.enter()
-        presenter.getGenres { [weak self] in
-            DispatchQueue.main.async {
+    }
+
+    func loadCollections() {
+        self.presenter.getCollections { [weak self] isSuccess in
+            self?.isServerReachable = isSuccess
+            if isSuccess {
+                self?.didLoadCollections = isSuccess
+                self?.tableView.reloadData()
+            }
+        }
+    }
+
+    func loadGenres() {
+        self.presenter.getGenres { [weak self] isSuccess in
+            self?.isServerReachable = isSuccess
+            if isSuccess {
+                self?.didLoadGenres = isSuccess
                 if let collectionView = self?.collectionView as? ReusableUICollectionView {
                     collectionView.updateCollectionView()
                 }
@@ -174,11 +217,7 @@ private extension CreateSessionViewController {
                     name: NSNotification.Name(Resources.ReusableCollectionView.updateCollectionView),
                     object: nil
                 )
-                dispatchGroup.leave()
             }
-        }
-        dispatchGroup.notify(queue: .main) {
-            loadingVC.hide()
         }
     }
 
@@ -248,7 +287,7 @@ private extension CreateSessionViewController {
         ])
     }
 
-    private func showNotification(title: String, duration: TimeInterval) {
+    func showNotification(title: String, duration: TimeInterval) {
         UIView.transition(
             with: customWarningNotification,
             duration: 0.2,
@@ -279,17 +318,19 @@ private extension CreateSessionViewController {
     }
 }
 
-// MARK: - CustomNavigationBarDelegate
+    // MARK: - CustomNavigationBarDelegate
 
 extension CreateSessionViewController: CustomNavigationBarDelegate {
+
     func backButtonTapped() {
         presenter.backButtonTapped()
     }
 }
 
-// MARK: - CreateSessionTableViewCellDelegate
+    // MARK: - CreateSessionTableViewCellDelegate
 
 extension CreateSessionViewController: CreateSessionTableViewCellDelegate {
+
     func tableViewCellTitleAdded(id: UUID?) {
         presenter.didAddCollection(id: id)
     }
@@ -299,9 +340,10 @@ extension CreateSessionViewController: CreateSessionTableViewCellDelegate {
     }
 }
 
-// MARK: - CreateSessionCollectionCellDelegate
+    // MARK: - CreateSessionCollectionCellDelegate
 
 extension CreateSessionViewController: CreateSessionCollectionCellDelegate {
+
     func collectionCellTitleAdded(id: UUID?) {
         presenter.didAddGenres(id: id)
     }
@@ -311,9 +353,10 @@ extension CreateSessionViewController: CreateSessionCollectionCellDelegate {
     }
 }
 
-// MARK: - UITableViewDataSource
+    // MARK: - UITableViewDataSource
 
 extension CreateSessionViewController: UITableViewDataSource {
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.getSelectionsMoviesCount() + 2
     }
@@ -344,9 +387,10 @@ extension CreateSessionViewController: UITableViewDataSource {
     }
 }
 
-// MARK: - UITableViewDelegate
+    // MARK: - UITableViewDelegate
 
 extension CreateSessionViewController: UITableViewDelegate {
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
         case 0:
@@ -367,9 +411,10 @@ extension CreateSessionViewController: UITableViewDelegate {
     }
 }
 
-// MARK: - UICollectionViewDataSource
+    // MARK: - UICollectionViewDataSource
 
 extension CreateSessionViewController: UICollectionViewDataSource {
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return presenter.getGenresMoviesCount()
     }
@@ -390,13 +435,55 @@ extension CreateSessionViewController: UICollectionViewDataSource {
     }
 }
 
-// MARK: - UICollectionViewDelegate
+    // MARK: - UICollectionViewDelegate
 
 extension CreateSessionViewController: UICollectionViewDelegate {
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? CreateSessionCollectionCell else {
             return
         }
         cell.isSelectedCollectionCell.toggle()
+    }
+}
+
+    // MARK: - NetworkReachabilityHandlerDelegate
+
+extension CreateSessionViewController: NetworkReachabilityHandlerDelegate {
+
+    func didChangeNetworkStatus(isReachable: Bool?) {
+        isServerReachable = isReachable
+    }
+}
+
+    // MARK: - CreateSessionViewProtocol
+
+extension CreateSessionViewController: CreateSessionViewProtocol {
+
+    func showLoader() {
+        loadingVC = CustomLoadingViewController.show(in: self)
+    }
+
+    func hideLoader() {
+        loadingVC?.hide()
+        loadingVC = nil
+    }
+
+    func showNetworkError() {
+        let viewController = MistakesViewController(type: .noInternet) { [weak self] in
+            guard let self else { return }
+            self.dismiss(animated: true)
+        }
+        viewController.modalPresentationStyle = .fullScreen
+        present(viewController, animated: true)
+    }
+
+    func showServerError() {
+        let viewController = MistakesViewController(type: .serverError) { [weak self] in
+            guard let self else { return }
+            self.dismiss(animated: true)
+        }
+        viewController.modalPresentationStyle = .fullScreen
+        present(viewController, animated: true)
     }
 }

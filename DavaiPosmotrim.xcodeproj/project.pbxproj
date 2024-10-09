@@ -11,6 +11,7 @@
 		C9156A892CA31AA000840603 /* SessionServiceAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9156A882CA31AA000840603 /* SessionServiceAPI.swift */; };
 		C9156A8B2CA36B5F00840603 /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9156A8A2CA36B5F00840603 /* SessionService.swift */; };
 		C952F4062CA6068A0002001D /* MovieResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C952F4052CA6068A0002001D /* MovieResponseModel.swift */; };
+		C97BE9792CB038A400784880 /* CreateSessionViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97BE9782CB038A400784880 /* CreateSessionViewProtocol.swift */; };
 		C98BD4462CA6F3C600A9BD84 /* RouletteRandomMovieResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BD4452CA6F3C500A9BD84 /* RouletteRandomMovieResponseModel.swift */; };
 		C98BD4482CA772EE00A9BD84 /* MessageResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BD4472CA772EE00A9BD84 /* MessageResponseModel.swift */; };
 		C98BD44A2CA7EF5D00A9BD84 /* SessionLikeResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BD4492CA7EF5D00A9BD84 /* SessionLikeResponseModel.swift */; };
@@ -89,7 +90,6 @@
 		C9D1ADAF2C9DA8E50031B2C3 /* CreateSessionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1ACD42C9DA8E40031B2C3 /* CreateSessionTableViewCell.swift */; };
 		C9D1ADB02C9DA8E50031B2C3 /* CreateSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1ACD52C9DA8E40031B2C3 /* CreateSessionViewController.swift */; };
 		C9D1ADB12C9DA8E50031B2C3 /* EmptyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1ACD62C9DA8E40031B2C3 /* EmptyTableViewCell.swift */; };
-		C9D1ADB22C9DA8E50031B2C3 /* MovieMockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1ACD72C9DA8E40031B2C3 /* MovieMockData.swift */; };
 		C9D1ADB32C9DA8E50031B2C3 /* InvitingUsersCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1ACD92C9DA8E40031B2C3 /* InvitingUsersCoordinator.swift */; };
 		C9D1ADB42C9DA8E50031B2C3 /* InvitingUsersFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1ACDA2C9DA8E40031B2C3 /* InvitingUsersFactory.swift */; };
 		C9D1ADB52C9DA8E50031B2C3 /* InvitingUsersPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1ACDB2C9DA8E40031B2C3 /* InvitingUsersPresenter.swift */; };
@@ -184,17 +184,13 @@
 		C9D1AE102C9DA8E50031B2C3 /* WebSocketsSessionStatusModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AD492C9DA8E40031B2C3 /* WebSocketsSessionStatusModel.swift */; };
 		C9D1AE112C9DA8E50031B2C3 /* WebSocketsUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AD4A2C9DA8E40031B2C3 /* WebSocketsUserModel.swift */; };
 		C9D1AE122C9DA8E50031B2C3 /* CollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AD4C2C9DA8E40031B2C3 /* CollectionModel.swift */; };
-		C9D1AE132C9DA8E50031B2C3 /* CustomSessionCreateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AD4D2C9DA8E40031B2C3 /* CustomSessionCreateModel.swift */; };
-		C9D1AE142C9DA8E50031B2C3 /* CustomSessionCreateRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AD4E2C9DA8E40031B2C3 /* CustomSessionCreateRequestModel.swift */; };
 		C9D1AE152C9DA8E50031B2C3 /* CustomUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AD4F2C9DA8E40031B2C3 /* CustomUserModel.swift */; };
 		C9D1AE162C9DA8E50031B2C3 /* CustomUserRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AD502C9DA8E40031B2C3 /* CustomUserRequestModel.swift */; };
 		C9D1AE172C9DA8E50031B2C3 /* GenreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AD512C9DA8E40031B2C3 /* GenreModel.swift */; };
 		C9D1AE182C9DA8E50031B2C3 /* MovieDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AD522C9DA8E40031B2C3 /* MovieDetailModel.swift */; };
 		C9D1AE192C9DA8E50031B2C3 /* MovieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AD532C9DA8E40031B2C3 /* MovieModel.swift */; };
 		C9D1AE1A2C9DA8E50031B2C3 /* MovieRouletteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AD542C9DA8E40031B2C3 /* MovieRouletteModel.swift */; };
-		C9D1AE1B2C9DA8E50031B2C3 /* PatchedCustomSessionCreateRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AD552C9DA8E40031B2C3 /* PatchedCustomSessionCreateRequestModel.swift */; };
 		C9D1AE1C2C9DA8E50031B2C3 /* SessionResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AD562C9DA8E40031B2C3 /* SessionResultModel.swift */; };
-		C9D1AE1D2C9DA8E50031B2C3 /* StatusEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AD572C9DA8E40031B2C3 /* StatusEnum.swift */; };
 		C9D1AE1E2C9DA8E50031B2C3 /* NetworkReachabilityHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AD592C9DA8E40031B2C3 /* NetworkReachabilityHandler.swift */; };
 		C9D1AE1F2C9DA8E50031B2C3 /* NetworkReachabilityHandlerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AD5A2C9DA8E40031B2C3 /* NetworkReachabilityHandlerDelegate.swift */; };
 		C9D1AE202C9DA8E50031B2C3 /* AppCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AD5C2C9DA8E40031B2C3 /* AppCoordinatorProtocol.swift */; };
@@ -211,6 +207,7 @@
 		C9156A882CA31AA000840603 /* SessionServiceAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionServiceAPI.swift; sourceTree = "<group>"; };
 		C9156A8A2CA36B5F00840603 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
 		C952F4052CA6068A0002001D /* MovieResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieResponseModel.swift; sourceTree = "<group>"; };
+		C97BE9782CB038A400784880 /* CreateSessionViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionViewProtocol.swift; sourceTree = "<group>"; };
 		C98BD4452CA6F3C500A9BD84 /* RouletteRandomMovieResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouletteRandomMovieResponseModel.swift; sourceTree = "<group>"; };
 		C98BD4472CA772EE00A9BD84 /* MessageResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageResponseModel.swift; sourceTree = "<group>"; };
 		C98BD4492CA7EF5D00A9BD84 /* SessionLikeResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionLikeResponseModel.swift; sourceTree = "<group>"; };
@@ -290,7 +287,6 @@
 		C9D1ACD42C9DA8E40031B2C3 /* CreateSessionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateSessionTableViewCell.swift; sourceTree = "<group>"; };
 		C9D1ACD52C9DA8E40031B2C3 /* CreateSessionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateSessionViewController.swift; sourceTree = "<group>"; };
 		C9D1ACD62C9DA8E40031B2C3 /* EmptyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyTableViewCell.swift; sourceTree = "<group>"; };
-		C9D1ACD72C9DA8E40031B2C3 /* MovieMockData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieMockData.swift; sourceTree = "<group>"; };
 		C9D1ACD92C9DA8E40031B2C3 /* InvitingUsersCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitingUsersCoordinator.swift; sourceTree = "<group>"; };
 		C9D1ACDA2C9DA8E40031B2C3 /* InvitingUsersFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitingUsersFactory.swift; sourceTree = "<group>"; };
 		C9D1ACDB2C9DA8E40031B2C3 /* InvitingUsersPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitingUsersPresenter.swift; sourceTree = "<group>"; };
@@ -385,17 +381,13 @@
 		C9D1AD492C9DA8E40031B2C3 /* WebSocketsSessionStatusModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocketsSessionStatusModel.swift; sourceTree = "<group>"; };
 		C9D1AD4A2C9DA8E40031B2C3 /* WebSocketsUserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocketsUserModel.swift; sourceTree = "<group>"; };
 		C9D1AD4C2C9DA8E40031B2C3 /* CollectionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionModel.swift; sourceTree = "<group>"; };
-		C9D1AD4D2C9DA8E40031B2C3 /* CustomSessionCreateModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSessionCreateModel.swift; sourceTree = "<group>"; };
-		C9D1AD4E2C9DA8E40031B2C3 /* CustomSessionCreateRequestModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSessionCreateRequestModel.swift; sourceTree = "<group>"; };
 		C9D1AD4F2C9DA8E40031B2C3 /* CustomUserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomUserModel.swift; sourceTree = "<group>"; };
 		C9D1AD502C9DA8E40031B2C3 /* CustomUserRequestModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomUserRequestModel.swift; sourceTree = "<group>"; };
 		C9D1AD512C9DA8E40031B2C3 /* GenreModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenreModel.swift; sourceTree = "<group>"; };
 		C9D1AD522C9DA8E40031B2C3 /* MovieDetailModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieDetailModel.swift; sourceTree = "<group>"; };
 		C9D1AD532C9DA8E40031B2C3 /* MovieModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieModel.swift; sourceTree = "<group>"; };
 		C9D1AD542C9DA8E40031B2C3 /* MovieRouletteModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieRouletteModel.swift; sourceTree = "<group>"; };
-		C9D1AD552C9DA8E40031B2C3 /* PatchedCustomSessionCreateRequestModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatchedCustomSessionCreateRequestModel.swift; sourceTree = "<group>"; };
 		C9D1AD562C9DA8E40031B2C3 /* SessionResultModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionResultModel.swift; sourceTree = "<group>"; };
-		C9D1AD572C9DA8E40031B2C3 /* StatusEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusEnum.swift; sourceTree = "<group>"; };
 		C9D1AD592C9DA8E40031B2C3 /* NetworkReachabilityHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkReachabilityHandler.swift; sourceTree = "<group>"; };
 		C9D1AD5A2C9DA8E40031B2C3 /* NetworkReachabilityHandlerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkReachabilityHandlerDelegate.swift; sourceTree = "<group>"; };
 		C9D1AD5C2C9DA8E40031B2C3 /* AppCoordinatorProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinatorProtocol.swift; sourceTree = "<group>"; };
@@ -648,7 +640,7 @@
 				C9D1ACD42C9DA8E40031B2C3 /* CreateSessionTableViewCell.swift */,
 				C9D1ACD52C9DA8E40031B2C3 /* CreateSessionViewController.swift */,
 				C9D1ACD62C9DA8E40031B2C3 /* EmptyTableViewCell.swift */,
-				C9D1ACD72C9DA8E40031B2C3 /* MovieMockData.swift */,
+				C97BE9782CB038A400784880 /* CreateSessionViewProtocol.swift */,
 			);
 			path = CreateSessionFlow;
 			sourceTree = "<group>";
@@ -910,17 +902,13 @@
 			children = (
 				C9D1AD4B2C9DA8E40031B2C3 /* WebSocketsModels */,
 				C9D1AD4C2C9DA8E40031B2C3 /* CollectionModel.swift */,
-				C9D1AD4D2C9DA8E40031B2C3 /* CustomSessionCreateModel.swift */,
-				C9D1AD4E2C9DA8E40031B2C3 /* CustomSessionCreateRequestModel.swift */,
 				C9D1AD4F2C9DA8E40031B2C3 /* CustomUserModel.swift */,
 				C9D1AD502C9DA8E40031B2C3 /* CustomUserRequestModel.swift */,
 				C9D1AD512C9DA8E40031B2C3 /* GenreModel.swift */,
 				C9D1AD522C9DA8E40031B2C3 /* MovieDetailModel.swift */,
 				C9D1AD532C9DA8E40031B2C3 /* MovieModel.swift */,
 				C9D1AD542C9DA8E40031B2C3 /* MovieRouletteModel.swift */,
-				C9D1AD552C9DA8E40031B2C3 /* PatchedCustomSessionCreateRequestModel.swift */,
 				C9D1AD562C9DA8E40031B2C3 /* SessionResultModel.swift */,
-				C9D1AD572C9DA8E40031B2C3 /* StatusEnum.swift */,
 				C952F4052CA6068A0002001D /* MovieResponseModel.swift */,
 				C98BD4452CA6F3C500A9BD84 /* RouletteRandomMovieResponseModel.swift */,
 				C98BD4472CA772EE00A9BD84 /* MessageResponseModel.swift */,
@@ -1101,7 +1089,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9D1AE042C9DA8E50031B2C3 /* SplashScreenPresenter.swift in Sources */,
-				C9D1AE132C9DA8E50031B2C3 /* CustomSessionCreateModel.swift in Sources */,
 				C9D1AE222C9DA8E50031B2C3 /* UserService.swift in Sources */,
 				C9D1ADE32C9DA8E50031B2C3 /* RouletteViewController.swift in Sources */,
 				C9D1ADEA2C9DA8E50031B2C3 /* SelectionMovieMockData.swift in Sources */,
@@ -1130,6 +1117,7 @@
 				C9D1AD7D2C9DA8E40031B2C3 /* CustomRolesCollectionCell.swift in Sources */,
 				C9D1ADC42C9DA8E50031B2C3 /* JoinSessionSceneFactory.swift in Sources */,
 				C9D1AD7A2C9DA8E40031B2C3 /* CustomRatingCollectionCell.swift in Sources */,
+				C97BE9792CB038A400784880 /* CreateSessionViewProtocol.swift in Sources */,
 				C9D1AE232C9DA8E50031B2C3 /* UserServiceApi.swift in Sources */,
 				C9D1ADEC2C9DA8E50031B2C3 /* SelectionMoviesCoordinator.swift in Sources */,
 				C9D1ADC12C9DA8E50031B2C3 /* JoinSessionCoordinator.swift in Sources */,
@@ -1171,7 +1159,6 @@
 				C9D1ADC32C9DA8E50031B2C3 /* JoinSessionPresenterProtocol.swift in Sources */,
 				C9D1AE0F2C9DA8E50031B2C3 /* WebSocketsSessionResultModel.swift in Sources */,
 				C9D1ADAF2C9DA8E50031B2C3 /* CreateSessionTableViewCell.swift in Sources */,
-				C9D1AE1B2C9DA8E50031B2C3 /* PatchedCustomSessionCreateRequestModel.swift in Sources */,
 				C9D1ADB32C9DA8E50031B2C3 /* InvitingUsersCoordinator.swift in Sources */,
 				C9D1AD762C9DA8E40031B2C3 /* CustomMovieDetails.swift in Sources */,
 				C9D1ADF52C9DA8E50031B2C3 /* SessionsListCell.swift in Sources */,
@@ -1182,7 +1169,6 @@
 				C9D1AD862C9DA8E40031B2C3 /* ReusableLikedMoviesCell.swift in Sources */,
 				C9D1ADC02C9DA8E50031B2C3 /* JoinSessionAuthViewProtocol.swift in Sources */,
 				C9D1AE0B2C9DA8E50031B2C3 /* ContentAPI.swift in Sources */,
-				C9D1AE1D2C9DA8E50031B2C3 /* StatusEnum.swift in Sources */,
 				C9D1ADAB2C9DA8E50031B2C3 /* CreateSessionCoordinator.swift in Sources */,
 				C9D1ADD92C9DA8E50031B2C3 /* RouletteOnboardingViewController.swift in Sources */,
 				C9D1AD932C9DA8E50031B2C3 /* AppDelegate.swift in Sources */,
@@ -1206,7 +1192,6 @@
 				C9D1AE0C2C9DA8E50031B2C3 /* ContentService.swift in Sources */,
 				C9D1AE1E2C9DA8E50031B2C3 /* NetworkReachabilityHandler.swift in Sources */,
 				C9D1AD882C9DA8E40031B2C3 /* ReusableOnboardingView.swift in Sources */,
-				C9D1ADB22C9DA8E50031B2C3 /* MovieMockData.swift in Sources */,
 				C9D1ADFF2C9DA8E50031B2C3 /* SessionsListPresenter.swift in Sources */,
 				C9D1ADEE2C9DA8E50031B2C3 /* SelectionMoviesPresenter.swift in Sources */,
 				C9D1ADAA2C9DA8E50031B2C3 /* CreateSessionCollectionCell.swift in Sources */,
@@ -1253,7 +1238,6 @@
 				C9D1AE242C9DA8E50031B2C3 /* WebSocketsAPI.swift in Sources */,
 				C9D1ADEF2C9DA8E50031B2C3 /* SelectionMoviesPresenterProtocol.swift in Sources */,
 				C9D1ADDD2C9DA8E50031B2C3 /* RouletteCollectionViewCell.swift in Sources */,
-				C9D1AE142C9DA8E50031B2C3 /* CustomSessionCreateRequestModel.swift in Sources */,
 				C9D1ADE62C9DA8E50031B2C3 /* DismissSelectionMoviesViewController.swift in Sources */,
 				C9D1ADDE2C9DA8E50031B2C3 /* RouletteCoordinator.swift in Sources */,
 				C9D1AD7E2C9DA8E40031B2C3 /* LeftAllignedLayout.swift in Sources */,

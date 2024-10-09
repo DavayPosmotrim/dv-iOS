@@ -12,17 +12,25 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
     // MARK: - Public Properties
 
     weak var coordinator: CreateSessionCoordinator?
-    private let contentService: ContentServiceProtocol
+    weak var view: CreateSessionViewProtocol?
 
     // MARK: - Private Properties
 
+    private let contentService: ContentServiceProtocol
+    private var sessionService: SessionServiceProtocol
     private var createSession = CreateSessionModel(collectionsMovie: [], genresMovie: [])
     private var selectionsMovies: [TableViewCellModel] = []
     private var genresMovies: [CollectionsCellModel] = []
 
-    init(coordinator: CreateSessionCoordinator, contentService: ContentServiceProtocol) {
+    init(
+        coordinator: CreateSessionCoordinator,
+        contentService: ContentServiceProtocol,
+        sessionService: SessionServiceProtocol = SessionService()
+    ) {
         self.coordinator = coordinator
         self.contentService = contentService
+        self.sessionService = sessionService
+
     }
 
     // MARK: - Public Methods
@@ -56,7 +64,11 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
               let collection = selectionsMovies.first(where: { $0.id == id }) else {
             return
         }
-        let newCollection = CollectionsMovie(id: collection.id, title: collection.title)
+        let newCollection = CollectionsMovie(
+            id: collection.id,
+            slug: collection.slug,
+            title: collection.title
+        )
         createSession.collectionsMovie.append(newCollection)
     }
 
@@ -88,77 +100,136 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
     }
 
     func didTapNextButton(segmentIndex: Int) {
-        postCreatingSession(segmentIndex: segmentIndex)
-        coordinator?.showInvitingUsersFlow()
+        createSession(segmentIndex: segmentIndex) { isSuccess in
+            self.view?.isServerReachable = isSuccess
+            if isSuccess {
+                self.coordinator?.showInvitingUsersFlow()
+            } else {
+                print("Failed to create session")
+            }
+        }
+    }
+
+    private func presentErrorAfterDelay(error: @escaping () -> Void) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            error()
+        }
     }
 }
 
-// MARK: - ContnetService Methods
+    // MARK: - ContentService
 
 extension CreateSessionPresenter {
-    func getGenres(completion: @escaping () -> Void) {
+
+    func getGenres(completion: @escaping (Bool) -> Void) {
         guard let deviceId = UserDefaults.standard.string(
             forKey: Resources.Authentication.savedDeviceID
         ) else { return }
 
+        view?.showLoader()
         contentService.getGenres(with: deviceId) { result in
+            DispatchQueue.main.async {
+                self.view?.hideLoader()
                 switch result {
                 case .success(let genres):
+                    completion(true)
                     self.genresMovies = genres.map { CollectionsCellModel(title: $0.name) }
                 case .failure(let error):
-                    // TODO: - обработать ошибки
-                    print("Failed to get genres: \(error.localizedDescription)")
+                    switch error {
+                    case .networkError:
+                        self.presentErrorAfterDelay {
+                            self.view?.showNetworkError()
+                        }
+                    case .serverError:
+                        self.presentErrorAfterDelay {
+                            self.view?.showServerError()
+                        }
+                    }
+                    completion(false)
                 }
-                completion()
             }
-        }
-
-    func getCollections(completion: @escaping () -> Void) {
-        guard let deviceId = UserDefaults.standard.string(
-            forKey: Resources.Authentication.savedDeviceID
-        ) else { return }
-
-        contentService.getCollections(with: deviceId) { result in
-            switch result {
-            case .success(let collections):
-                self.selectionsMovies = collections.map { TableViewCellModel(
-                    title: $0.name,
-                    movieImage: $0.cover ?? ""
-                ) }
-            case .failure(let error):
-                // TODO: - обработать ошибки
-                print("Failed to get collections: \(error.localizedDescription)")
-            }
-            completion()
         }
     }
 
-    private func postCreatingSession(segmentIndex: Int) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let currentDate = dateFormatter.string(from: Date())
-        let status: StatusEnumModel = .waiting
+    func getCollections(completion: @escaping (Bool) -> Void) {
+        guard let deviceId = UserDefaults.standard.string(
+            forKey: Resources.Authentication.savedDeviceID
+        ) else { return }
+
+        view?.showLoader()
+        contentService.getCollections(with: deviceId) { result in
+            DispatchQueue.main.async {
+                self.view?.hideLoader()
+                switch result {
+                case .success(let collections):
+                    self.selectionsMovies = collections.map {
+                        TableViewCellModel(
+                            title: $0.name,
+                            slug: $0.slug ?? "",
+                            movieImage: $0.cover ?? ""
+                        )
+                    }
+                    completion(true)
+                case .failure(let error):
+                    switch error {
+                    case .networkError:
+                        self.presentErrorAfterDelay {
+                            self.view?.showNetworkError()
+                        }
+                    case .serverError:
+                        self.presentErrorAfterDelay {
+                            self.view?.showServerError()
+                        }
+                    }
+                    completion(false)
+                }
+            }
+        }
+    }
+}
+
+    // MARK: - SessionService
+
+extension CreateSessionPresenter {
+
+    private func createSession(segmentIndex: Int, completion: @escaping (Bool) -> Void) {
+        guard let deviceId = UserDefaults.standard.string(
+            forKey: Resources.Authentication.savedDeviceID
+        ) else { return }
+
         let genres: [String]
         let collections: [String]
         if segmentIndex == 0 {
             genres = []
-            collections = createSession.collectionsMovie.map { $0.title }
+            collections = createSession.collectionsMovie.map { $0.slug }
         } else {
             genres = createSession.genresMovie.map { $0.title }
             collections = []
         }
 
-        let requestModel = CustomSessionCreateRequestModel(
-            date: currentDate,
-            genres: genres,
-            collections: collections,
-            status: status
-        )
-        // TODO: - проверка на формирование POST запроса
-        if let jsonData = try? JSONEncoder().encode(requestModel),
-           let jsonString = String(data: jsonData, encoding: .utf8) {
-        } else {
-            print("Не удалось преобразовать модель в JSON.")
+        let requestModel = CreateSessionRequestModel(genres: genres, collections: collections)
+
+        view?.showLoader()
+        sessionService.createSession(deviceId: deviceId, genresOrCollections: requestModel) { result in
+            DispatchQueue.main.async {
+                self.view?.hideLoader()
+                switch result {
+                case .success:
+                    completion(true)
+                case .failure(let error):
+                    completion(false)
+                    switch error {
+                    case .networkError:
+                        self.presentErrorAfterDelay {
+                            self.view?.showNetworkError()
+                        }
+                    case .serverError:
+                        self.presentErrorAfterDelay {
+                            self.view?.showServerError()
+                        }
+                    }
+                }
+            }
         }
     }
 }

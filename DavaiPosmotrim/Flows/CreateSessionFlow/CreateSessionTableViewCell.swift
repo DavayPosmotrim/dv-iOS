@@ -82,6 +82,12 @@ final class CreateSessionTableViewCell: UITableViewCell {
         gradientLayer.frame = linearGradientView.bounds
     }
 
+    override func prepareForReuse() {
+        movieImageView.image = nil
+        movieImageView.kf.indicatorType = .none
+        movieImageView.contentMode = .scaleToFill
+    }
+
     func configureCell(model: TableViewCellModel) {
         modelId = model.id
         titleLabel.text = model.title
@@ -89,13 +95,16 @@ final class CreateSessionTableViewCell: UITableViewCell {
         let memoryOnlyOptions: KingfisherOptionsInfoItem = .cacheMemoryOnly
         movieImageView.kf.indicatorType = .activity
         movieImageView.kf.setImage(with: imageURL, options: [memoryOnlyOptions]) { [weak self] result in
+            guard let self else { return }
             switch result {
             case .success(let value):
-                self?.movieImageView.image = value.image
+                self.movieImageView.image = value.image
             case .failure(let error):
+                self.movieImageView.image = .noImagePlug
+                self.movieImageView.contentMode = .scaleAspectFit
                 print("Error loading image: \(error)")
             }
-            self?.movieImageView.kf.indicatorType = .none
+            self.movieImageView.kf.indicatorType = .none
         }
         contentView.backgroundColor = .baseBackground
         setupSubviews()

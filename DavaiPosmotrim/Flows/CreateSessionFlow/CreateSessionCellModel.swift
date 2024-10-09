@@ -10,6 +10,7 @@ import Foundation
 struct TableViewCellModel {
     let id = UUID()
     let title: String
+    let slug: String
     let movieImage: String
 }
 
@@ -25,6 +26,7 @@ struct CreateSessionModel {
 
 struct CollectionsMovie {
     let id: UUID
+    let slug: String
     let title: String
 }
 
