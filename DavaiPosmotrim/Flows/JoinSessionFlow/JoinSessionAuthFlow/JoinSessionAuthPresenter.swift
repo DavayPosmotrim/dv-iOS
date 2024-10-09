@@ -63,7 +63,7 @@ extension JoinSessionAuthPresenter {
             switch result {
             case .success(let response):
                 completion(true)
-                print(response.message)
+                print(response.users)
             case .failure(let error):
                 completion(false)
                 switch error {

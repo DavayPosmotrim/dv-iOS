@@ -11,6 +11,7 @@
 		C9156A892CA31AA000840603 /* SessionServiceAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9156A882CA31AA000840603 /* SessionServiceAPI.swift */; };
 		C9156A8B2CA36B5F00840603 /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9156A8A2CA36B5F00840603 /* SessionService.swift */; };
 		C928883B2CB67F7A00EEA829 /* ServiceErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C928883A2CB67F7A00EEA829 /* ServiceErrors.swift */; };
+		C928883F2CB6C69700EEA829 /* ConnectUserResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C928883E2CB6C69700EEA829 /* ConnectUserResponseModel.swift */; };
 		C952F4062CA6068A0002001D /* MovieResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C952F4052CA6068A0002001D /* MovieResponseModel.swift */; };
 		C97BE9792CB038A400784880 /* CreateSessionViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97BE9782CB038A400784880 /* CreateSessionViewProtocol.swift */; };
 		C98BD4462CA6F3C600A9BD84 /* RouletteRandomMovieResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BD4452CA6F3C500A9BD84 /* RouletteRandomMovieResponseModel.swift */; };
@@ -208,6 +209,7 @@
 		C9156A882CA31AA000840603 /* SessionServiceAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionServiceAPI.swift; sourceTree = "<group>"; };
 		C9156A8A2CA36B5F00840603 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
 		C928883A2CB67F7A00EEA829 /* ServiceErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceErrors.swift; sourceTree = "<group>"; };
+		C928883E2CB6C69700EEA829 /* ConnectUserResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectUserResponseModel.swift; sourceTree = "<group>"; };
 		C952F4052CA6068A0002001D /* MovieResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieResponseModel.swift; sourceTree = "<group>"; };
 		C97BE9782CB038A400784880 /* CreateSessionViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionViewProtocol.swift; sourceTree = "<group>"; };
 		C98BD4452CA6F3C500A9BD84 /* RouletteRandomMovieResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouletteRandomMovieResponseModel.swift; sourceTree = "<group>"; };
@@ -920,6 +922,7 @@
 				C98BD44D2CA822FF00A9BD84 /* SessionsListResponseModel.swift */,
 				C98BD44F2CA82AC100A9BD84 /* CreateSessionRequestModel.swift */,
 				C98BD4512CA82FE900A9BD84 /* CreateSessionResponseModel.swift */,
+				C928883E2CB6C69700EEA829 /* ConnectUserResponseModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1091,6 +1094,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C928883F2CB6C69700EEA829 /* ConnectUserResponseModel.swift in Sources */,
 				C9D1AE042C9DA8E50031B2C3 /* SplashScreenPresenter.swift in Sources */,
 				C9D1AE222C9DA8E50031B2C3 /* UserService.swift in Sources */,
 				C9D1ADE32C9DA8E50031B2C3 /* RouletteViewController.swift in Sources */,

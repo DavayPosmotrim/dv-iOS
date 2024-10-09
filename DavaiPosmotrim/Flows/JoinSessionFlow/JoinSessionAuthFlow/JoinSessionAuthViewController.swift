@@ -85,7 +85,6 @@ final class JoinSessionAuthViewController: UIViewController {
                     completion(isSuccess)
                     if isSuccess {
                         self.presenter.saveSessionCode(code: code)
-                        print(code)
                     }
                 }
             },

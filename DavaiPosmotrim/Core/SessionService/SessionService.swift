@@ -26,7 +26,7 @@ protocol SessionServiceProtocol {
     func connectUserToSession(
         sessionCode: String,
         deviceId: String,
-        completion: @escaping (Result<MessageResponseModel, ServiceError>) -> Void
+        completion: @escaping (Result<ConnectUserResponseModel, ServiceError>) -> Void
     )
     func disconnectUserFromSession(
         sessionCode: String,
@@ -93,14 +93,14 @@ final class SessionService: SessionServiceProtocol {
     func connectUserToSession(
         sessionCode: String,
         deviceId: String,
-        completion: @escaping (Result<MessageResponseModel, ServiceError>) -> Void
+        completion: @escaping (Result<ConnectUserResponseModel, ServiceError>) -> Void
     ) {
             provider.request(.connectUserToSession(sessionCode: sessionCode, deviceId: deviceId)) { result in
 
                 switch result {
                 case .success(let response):
                     do {
-                        let message = try JSONDecoder().decode(MessageResponseModel.self, from: response.data)
+                        let message = try JSONDecoder().decode(ConnectUserResponseModel.self, from: response.data)
                         completion(.success(message))
                     } catch {
                         completion(.failure(.networkError(error)))
