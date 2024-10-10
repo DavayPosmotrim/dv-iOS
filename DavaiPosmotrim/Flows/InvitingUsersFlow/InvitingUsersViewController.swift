@@ -250,6 +250,8 @@ final class InvitingUsersViewController: UIViewController {
         ])
     }
 
+    // swiftlint:disable multiple_closures_with_trailing_closure
+
     private func showWarning(title: String, imageView: UIImage?, color: UIColor, delay: TimeInterval) {
         UIView.transition(
             with: self.customWarningNotification,
@@ -279,6 +281,9 @@ final class InvitingUsersViewController: UIViewController {
             }
         }
     }
+
+    // swiftlint:enable multiple_closures_with_trailing_closure
+
 }
 
     // MARK: - UICollectionViewDataSource
