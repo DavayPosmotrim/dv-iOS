@@ -110,10 +110,16 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
         }
     }
 
+    // MARK: - Private Methods
+
     private func presentErrorAfterDelay(error: @escaping () -> Void) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             error()
         }
+    }
+
+    private func saveSessionCode(code: String) {
+        UserDefaults.standard.setValue(code, forKey: Resources.Authentication.sessionCode)
     }
 }
 
@@ -214,8 +220,9 @@ extension CreateSessionPresenter {
             DispatchQueue.main.async {
                 self.view?.hideLoader()
                 switch result {
-                case .success:
+                case .success(let response):
                     completion(true)
+                    self.saveSessionCode(code: response.id)
                 case .failure(let error):
                     completion(false)
                     switch error {

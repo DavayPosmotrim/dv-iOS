@@ -16,7 +16,14 @@ final class InvitingUsersPresenter: InvitingUsersPresenterProtocol {
 
     // MARK: - Private Properties
 
-    private let code = "GIGd281"
+    private var code: String {
+        guard let code = UserDefaults.standard.string(
+            forKey: Resources.Authentication.sessionCode
+        ) else {
+            return ""
+        }
+        return code
+    }
 
     private var namesArray = [ReusableCollectionCellModel]() {
         didSet {
