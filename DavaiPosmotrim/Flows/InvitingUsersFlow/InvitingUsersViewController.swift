@@ -13,6 +13,12 @@ final class InvitingUsersViewController: UIViewController {
 
     var presenter: InvitingUsersPresenterProtocol?
 
+    // MARK: - Stored properties
+
+    private var isServerReachable: Bool?
+    private var loadingVC: CustomLoadingViewController?
+    private var networkReachabilityHandler: NetworkReachabilityHandler
+
     // MARK: - Private properties
 
     private let collectionModel = ReusableCollectionModel(
@@ -135,13 +141,24 @@ final class InvitingUsersViewController: UIViewController {
         setupButtonsStacksView()
         setupConstraints()
         presenter?.viewDidLoad()
+        networkReachabilityHandler.setupNetworkReachability()
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        networkReachabilityHandler.stopListening()
     }
 
     // MARK: - Initializers
 
-    init(presenter: InvitingUsersPresenterProtocol) {
+    init(
+        presenter: InvitingUsersPresenterProtocol,
+        networkReachabilityHandler: NetworkReachabilityHandler = NetworkReachabilityHandler()
+    ) {
         self.presenter = presenter
+        self.networkReachabilityHandler = networkReachabilityHandler
         super.init(nibName: nil, bundle: nil)
+        self.networkReachabilityHandler.delegate = self
     }
 
     required init?(coder: NSCoder) {
@@ -264,9 +281,10 @@ final class InvitingUsersViewController: UIViewController {
     }
 }
 
-// MARK: - UICollectionViewDataSource
+    // MARK: - UICollectionViewDataSource
 
 extension InvitingUsersViewController: UICollectionViewDataSource {
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let presenter else { return .zero}
         return presenter.getNamesCount()
@@ -288,9 +306,10 @@ extension InvitingUsersViewController: UICollectionViewDataSource {
     }
 }
 
-// MARK: - InvitingUsersViewProtocol
+    // MARK: - InvitingUsersViewProtocol
 
 extension InvitingUsersViewController: InvitingUsersViewProtocol {
+
     func showFewUsersWarning() {
         showWarning(
             title: Resources.InvitingSession.fewUsersWarningText,
@@ -340,12 +359,31 @@ extension InvitingUsersViewController: InvitingUsersViewProtocol {
         activityViewController.popoverPresentationController?.sourceView = self.view
         self.present(activityViewController, animated: true, completion: nil)
     }
+
+    func showLoader() {
+        loadingVC = CustomLoadingViewController.show(in: self)
+    }
+
+    func hideLoader() {
+        loadingVC?.hide()
+        loadingVC = nil
+    }
 }
 
-// MARK: - DismissJoinSessionDelegate
+    // MARK: - DismissJoinSessionDelegate
 
 extension InvitingUsersViewController: DismissJoinSessionDelegate {
+
     func finishJoinSessionFlow() {
         presenter?.quitSessionButtonTapped()
+    }
+}
+
+    // MARK: - NetworkReachabilityHandlerDelegate
+
+extension InvitingUsersViewController: NetworkReachabilityHandlerDelegate {
+
+    func didChangeNetworkStatus(isReachable: Bool?) {
+        isServerReachable = isReachable
     }
 }
