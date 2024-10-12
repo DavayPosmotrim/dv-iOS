@@ -8,7 +8,7 @@
 import UIKit
 
 struct ReusableCollectionCellModel: Identifiable, Equatable, Hashable {
-    let id = UUID()
+    let id: String
     let title: String
 }
 
@@ -17,7 +17,7 @@ final class ReusableUICollectionViewCell: UICollectionViewCell {
     // MARK: - Stored properties
 
     static let reuseIdentifier = "ReusableUICollectionViewCell"
-    private var cellId: UUID?
+    private var cellId: String?
 
     // MARK: - Lazy properties
 

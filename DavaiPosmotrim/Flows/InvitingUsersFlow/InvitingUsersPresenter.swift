@@ -31,14 +31,22 @@ final class InvitingUsersPresenter: InvitingUsersPresenterProtocol {
         }
     }
 
+    // MARK: - Initializers
+
     init(coordinator: InvitingUsersCoordinator) {
         self.coordinator = coordinator
     }
 
     // MARK: - Public methods
 
-    func viewDidLoad() {
-        createSession()
+    func viewDidAppear() {
+        view?.showLoader()
+        connectToUsersWebSocket {
+            DispatchQueue.main.async {
+                self.view?.hideLoader()
+            }
+            self.addCreatorUserInArray()
+        }
     }
 
     func getNamesCount() -> Int {
@@ -54,8 +62,11 @@ final class InvitingUsersPresenter: InvitingUsersPresenterProtocol {
     }
 
     func startButtonTapped() {
-        //TODO: - после подключения сети доделать проверку на количество юзеров и в зависимости от этого показывать варнинг или стартовать сеанс
-        namesArray.count > 1 ? coordinator?.showStartSessionScreen() : view?.showFewUsersWarning()
+        if namesArray.count > 1 {
+            coordinator?.showStartSessionScreen()
+        } else {
+            view?.showFewUsersWarning()
+        }
     }
 
     func codeButtonTapped() {
@@ -85,22 +96,74 @@ final class InvitingUsersPresenter: InvitingUsersPresenterProtocol {
         )
     }
 
-    private func createSession() {
-        DispatchQueue.global().async {
-            let downloadedNames = [
-                ReusableCollectionCellModel(title: "Александр (вы)"),
-                ReusableCollectionCellModel(title: "Юрий"),
-                ReusableCollectionCellModel(title: "Сергей"),
-                ReusableCollectionCellModel(title: "Эльдар"),
-                ReusableCollectionCellModel(title: "Максим")
-            ]
+    private func addCreatorUserInArray() {
+        guard let deviceId = UserDefaults.standard.string(forKey: Resources.Authentication.savedDeviceID),
+              let name = UserDefaults.standard.string(forKey: Resources.Authentication.savedNameUserDefaultsKey)
+        else { return }
 
-            let delayInSeconds: TimeInterval = 2
+        let updatedName = "\(name)" + Resources.InvitingSession.creatorUserMark
+        let creatorUser = ReusableCollectionCellModel(id: deviceId, title: updatedName)
+        namesArray.append(creatorUser)
+    }
+}
 
-            downloadedNames.enumerated().forEach() { index, name in
-                DispatchQueue.global().asyncAfter(deadline: .now() + delayInSeconds * Double(index)) { [weak self] in
-                    self?.namesArray.append(name)
-                }
+    // MARK: - WebSocketsManager
+
+extension InvitingUsersPresenter {
+
+    func connectToUsersWebSocket(
+        completion: @escaping () -> Void
+    ) {
+        guard let sessionID = UserDefaults.standard.string(
+            forKey: Resources.Authentication.sessionCode
+        ) else {
+            return
+        }
+        let webSocketsManager = WebSocketsAPI.createWebSocketManager(for: .usersUpdate, sessionID: sessionID)
+        let messageHandler: (String) -> Void = { [weak self] message in
+            guard let data = message.data(using: .utf8),
+                  let self
+            else {
+                return
+            }
+            DispatchQueue.main.async {
+                self.view?.showLoader()
+            }
+            do {
+                let decodedData = try JSONDecoder().decode(WebSocketsUserModel.self, from: data)
+                decodeDataFromResponse(with: decodedData)
+            } catch {
+                // TODO: add server error handling
+            }
+            DispatchQueue.main.async {
+                self.view?.hideLoader()
+            }
+        }
+        webSocketsManager.stringMessageReceived = messageHandler
+        completion()
+    }
+
+    func decodeDataFromResponse(with model: WebSocketsUserModel) {
+        guard let deviceId = UserDefaults.standard.string(
+            forKey: Resources.Authentication.savedDeviceID
+        ) else { return }
+
+        var array = model.message
+
+        let newUserIDs = Set(array.map { $0.deviceId.uppercased() })
+        namesArray.removeAll { existingUser in
+            !newUserIDs.contains(existingUser.id.uppercased())
+        }
+
+        array.removeAll { $0.deviceId.uppercased() == deviceId }
+
+        for item in array {
+            let newUser = ReusableCollectionCellModel(id: item.deviceId, title: item.name)
+            let exists = namesArray.contains { existingUser in
+                existingUser.id.uppercased() == newUser.id.uppercased()
+            }
+            if !exists {
+                namesArray.append(newUser)
             }
         }
     }

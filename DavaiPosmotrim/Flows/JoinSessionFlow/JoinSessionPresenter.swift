@@ -45,11 +45,11 @@ final class JoinSessionPresenter: JoinSessionPresenterProtocol {
     func downloadNamesArrayFromServer() {
         DispatchQueue.global().async {
             let downloadedNames = [
-                ReusableCollectionCellModel(title: "Эльдар(вы)"),
-                ReusableCollectionCellModel(title: "Юрий"),
-                ReusableCollectionCellModel(title: "Сергей"),
-                ReusableCollectionCellModel(title: "Александр"),
-                ReusableCollectionCellModel(title: "Максим")
+                ReusableCollectionCellModel(id: "", title: "Эльдар(вы)"),
+                ReusableCollectionCellModel(id: "", title: "Юрий"),
+                ReusableCollectionCellModel(id: "", title: "Сергей"),
+                ReusableCollectionCellModel(id: "", title: "Александр"),
+                ReusableCollectionCellModel(id: "", title: "Максим")
             ]
 
             let delayInSeconds: TimeInterval = 2
@@ -75,7 +75,7 @@ final class JoinSessionPresenter: JoinSessionPresenterProtocol {
         namesArray.append(name)
     }
 
-    func deleteNameFromArray(with id: UUID?) {
+    func deleteNameFromArray(with id: String?) {
         guard let id else { return }
         namesArray.removeAll { $0.id == id }
     }

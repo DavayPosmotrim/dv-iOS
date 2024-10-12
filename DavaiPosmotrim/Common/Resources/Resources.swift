@@ -107,6 +107,7 @@ enum Resources {
 
         static let inviteMessageText = "Выбор фильма зависит от вас! Код для подключения к сеансу: "
         static let downloadAppText = "Ссылки для скачивания приложения: \n"
+        static let creatorUserMark = " (Вы)"
     }
 
     enum MainFlow {

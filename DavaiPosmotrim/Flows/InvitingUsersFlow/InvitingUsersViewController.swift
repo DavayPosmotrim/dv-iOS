@@ -7,15 +7,17 @@
 
 import UIKit
 
+// swiftlint:disable file_length
+
 final class InvitingUsersViewController: UIViewController {
 
     // MARK: - Public Properties
 
     var presenter: InvitingUsersPresenterProtocol?
+    var isServerReachable: Bool?
 
     // MARK: - Stored properties
 
-    private var isServerReachable: Bool?
     private var loadingVC: CustomLoadingViewController?
     private var networkReachabilityHandler: NetworkReachabilityHandler
 
@@ -140,8 +142,12 @@ final class InvitingUsersViewController: UIViewController {
         setupSubViews()
         setupButtonsStacksView()
         setupConstraints()
-        presenter?.viewDidLoad()
         networkReachabilityHandler.setupNetworkReachability()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        presenter?.viewDidAppear()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -373,6 +379,15 @@ extension InvitingUsersViewController: InvitingUsersViewProtocol {
         loadingVC?.hide()
         loadingVC = nil
     }
+
+    func showNetworkError() {
+        let viewController = MistakesViewController(type: .noInternet) { [weak self] in
+            guard let self else { return }
+            self.dismiss(animated: true)
+        }
+        viewController.modalPresentationStyle = .fullScreen
+        present(viewController, animated: true)
+    }
 }
 
     // MARK: - DismissJoinSessionDelegate
@@ -392,3 +407,5 @@ extension InvitingUsersViewController: NetworkReachabilityHandlerDelegate {
         isServerReachable = isReachable
     }
 }
+
+// swiftlint:enable file_length

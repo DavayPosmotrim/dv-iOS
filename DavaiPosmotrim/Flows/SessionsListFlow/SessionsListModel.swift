@@ -30,10 +30,10 @@ extension SessionModel {
             matches: 1,
             imageName: "Mok_5",
             users: [
-                ReusableCollectionCellModel(title: "Артём (вы)"),
-                ReusableCollectionCellModel(title: "Анна"),
-                ReusableCollectionCellModel(title: "Никита"),
-                ReusableCollectionCellModel(title: "Руслан")
+                ReusableCollectionCellModel(id: "", title: "Артём (вы)"),
+                ReusableCollectionCellModel(id: "", title: "Анна"),
+                ReusableCollectionCellModel(id: "", title: "Никита"),
+                ReusableCollectionCellModel(id: "", title: "Руслан")
             ],
             movies: mockMoviesData
         ),
@@ -42,7 +42,10 @@ extension SessionModel {
             date: "22 сентября 2023",
             matches: 12,
             imageName: "Mok_6",
-            users: [ReusableCollectionCellModel(title: "Артём (вы)"), ReusableCollectionCellModel(title: "Анна")],
+            users: [
+                ReusableCollectionCellModel(id: "", title: "Артём (вы)"),
+                ReusableCollectionCellModel(id: "", title: "Анна")
+            ],
             movies: mockMoviesData
         ),
         SessionModel(
@@ -51,9 +54,9 @@ extension SessionModel {
             matches: 3,
             imageName: "Mok_3",
             users: [
-                ReusableCollectionCellModel(title: "Артём (вы)"),
-                ReusableCollectionCellModel(title: "Анна"),
-                ReusableCollectionCellModel(title: "Никита")
+                ReusableCollectionCellModel(id: "", title: "Артём (вы)"),
+                ReusableCollectionCellModel(id: "", title: "Анна"),
+                ReusableCollectionCellModel(id: "", title: "Никита")
             ],
             movies: mockMoviesData
         ),
@@ -62,7 +65,10 @@ extension SessionModel {
             date: "22 сентября 2023",
             matches: 5555555,
             imageName: nil,
-            users: [ReusableCollectionCellModel(title: "Артём (вы)"), ReusableCollectionCellModel(title: "Анна")],
+            users: [
+                ReusableCollectionCellModel(id: "", title: "Артём (вы)"),
+                ReusableCollectionCellModel(id: "", title: "Анна")
+                   ],
             movies: mockMoviesData
         )
     ]
