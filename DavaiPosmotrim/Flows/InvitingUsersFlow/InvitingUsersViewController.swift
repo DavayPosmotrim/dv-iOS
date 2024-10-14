@@ -375,10 +375,9 @@ extension InvitingUsersViewController: InvitingUsersViewProtocol {
         loadingVC = CustomLoadingViewController.show(in: self)
     }
 
-    func hideLoader(completion: (() -> Void)?) {
+    func hideLoader() {
         loadingVC?.hide()
         loadingVC = nil
-        completion?()
     }
 
     func showNetworkError() {

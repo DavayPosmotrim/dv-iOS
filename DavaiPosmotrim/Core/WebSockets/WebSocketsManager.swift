@@ -24,6 +24,7 @@ final class WebSocketsManager {
     private var webSocket: URLSessionWebSocketTask?
     private let urlSession: URLSession
     private var isConnected = false
+    private var isDisconnecting = false
     private var connectionAttempts = 0
     private let maxConnectionAttempts = 5
 
@@ -68,6 +69,7 @@ final class WebSocketsManager {
 
     func disconnect() {
         isConnected = false
+        isDisconnecting = true
         webSocket?.cancel(with: .goingAway, reason: nil)
     }
 }
@@ -96,7 +98,7 @@ private extension WebSocketsManager {
                 print("Error receiving message: \(error.localizedDescription)")
                 if self.isConnected {
                     self.handleDisconnect()
-                } else {
+                } else if !self.isDisconnecting {
                     self.errorAction?()
                 }
             }
@@ -117,6 +119,7 @@ private extension WebSocketsManager {
             print("Max reconnect attempts reached. Giving up.")
             errorAction?()
         }
+        isDisconnecting = false
     }
 
     func reconnect() {

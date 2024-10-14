@@ -18,6 +18,7 @@ final class InvitingUsersPresenter: InvitingUsersPresenterProtocol {
 
     private var webSocketsManager: WebSocketsManager?
     private var isCreatorUserInArray = false
+    private var sessionService: SessionServiceProtocol
 
     private var code: String {
         guard let code = UserDefaults.standard.string(
@@ -36,8 +37,12 @@ final class InvitingUsersPresenter: InvitingUsersPresenterProtocol {
 
     // MARK: - Initializers
 
-    init(coordinator: InvitingUsersCoordinator) {
+    init(
+        coordinator: InvitingUsersCoordinator,
+        sessionService: SessionServiceProtocol = SessionService()
+    ) {
         self.coordinator = coordinator
+        self.sessionService = sessionService
     }
 
     // MARK: - Public methods
@@ -46,7 +51,7 @@ final class InvitingUsersPresenter: InvitingUsersPresenterProtocol {
         view?.showLoader()
         connectToUsersWebSocket {
             DispatchQueue.main.async {
-                self.view?.hideLoader(completion: nil)
+                self.view?.hideLoader()
             }
             if !self.isCreatorUserInArray {
                 self.addCreatorUserInArray()
@@ -85,12 +90,16 @@ final class InvitingUsersPresenter: InvitingUsersPresenterProtocol {
 
     func cancelButtonTapped() {
         view?.showCancelSessionDialog()
-        webSocketsManager?.disconnect()
     }
 
     func quitSessionButtonTapped() {
-        coordinator?.finish()
-        //TODO: - настроить отмену сессии, когда подключим сеть
+        disconnectUserFromSession { [weak self] isSuccess in
+            self?.view?.isServerReachable = isSuccess
+            if isSuccess {
+                self?.webSocketsManager?.disconnect()
+                self?.coordinator?.finish()
+            }
+        }
     }
 
     // MARK: - Private methods
@@ -111,6 +120,12 @@ final class InvitingUsersPresenter: InvitingUsersPresenterProtocol {
         let creatorUser = ReusableCollectionCellModel(id: deviceId, title: updatedName)
         namesArray.append(creatorUser)
         isCreatorUserInArray = true
+    }
+
+    private func presentErrorAfterDelay(error: @escaping () -> Void) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            error()
+        }
     }
 }
 
@@ -139,21 +154,18 @@ extension InvitingUsersPresenter {
                 decodeDataFromResponse(with: decodedData)
             } catch {
                 DispatchQueue.main.async {
-                    self.view?.hideLoader {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            self.view?.showNetworkError()
-                        }
+                    self.presentErrorAfterDelay {
+                        self.view?.showNetworkError()
                     }
                 }
             }
         }
 
-        let errorHandler: () -> Void = {
+        let errorHandler: () -> Void = { [weak self] in
+            guard let self else { return }
             DispatchQueue.main.async {
-                self.view?.hideLoader {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        self.view?.showServerError()
-                    }
+                self.presentErrorAfterDelay {
+                    self.view?.showServerError()
                 }
             }
         }
@@ -191,6 +203,45 @@ extension InvitingUsersPresenter {
             }
             if !exists {
                 namesArray.append(newUser)
+            }
+        }
+    }
+}
+
+    // MARK: - SessionService
+
+extension InvitingUsersPresenter {
+
+    func disconnectUserFromSession(completion: @escaping (Bool) -> Void) {
+        guard
+            let deviceId = UserDefaults.standard.string(
+                forKey: Resources.Authentication.savedDeviceID),
+            let sessionCode = UserDefaults.standard.string(
+                forKey: Resources.Authentication.sessionCode
+            )
+        else { return }
+
+        sessionService.disconnectUserFromSession(sessionCode: sessionCode, deviceId: deviceId) { [weak self] result in
+            guard let self else { return }
+
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let response):
+                    completion(true)
+                    print(response.message)
+                case .failure(let error):
+                    completion(false)
+                    switch error {
+                    case .networkError:
+                        self.presentErrorAfterDelay {
+                            self.view?.showNetworkError()
+                        }
+                    case .serverError:
+                        self.presentErrorAfterDelay {
+                            self.view?.showServerError()
+                        }
+                    }
+                }
             }
         }
     }

@@ -8,7 +8,7 @@
 import Foundation
 
 protocol InvitingUsersViewProtocol: AnyObject {
-    var isServerReachable: Bool? { get }
+    var isServerReachable: Bool? { get set }
 
     func showFewUsersWarning()
     func showCodeCopyWarning()
@@ -16,7 +16,7 @@ protocol InvitingUsersViewProtocol: AnyObject {
     func copyCodeToClipboard(_ code: String)
     func shareCode(_ code: String)
     func showLoader()
-    func hideLoader(completion: (() -> Void)?)
+    func hideLoader()
     func showNetworkError()
     func showServerError()
 }
