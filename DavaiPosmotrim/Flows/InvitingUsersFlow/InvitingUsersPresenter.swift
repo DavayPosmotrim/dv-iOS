@@ -16,6 +16,9 @@ final class InvitingUsersPresenter: InvitingUsersPresenterProtocol {
 
     // MARK: - Private Properties
 
+    private var webSocketsManager: WebSocketsManager?
+    private var isCreatorUserInArray = false
+
     private var code: String {
         guard let code = UserDefaults.standard.string(
             forKey: Resources.Authentication.sessionCode
@@ -43,9 +46,11 @@ final class InvitingUsersPresenter: InvitingUsersPresenterProtocol {
         view?.showLoader()
         connectToUsersWebSocket {
             DispatchQueue.main.async {
-                self.view?.hideLoader()
+                self.view?.hideLoader(completion: nil)
             }
-            self.addCreatorUserInArray()
+            if !self.isCreatorUserInArray {
+                self.addCreatorUserInArray()
+            }
         }
     }
 
@@ -80,6 +85,7 @@ final class InvitingUsersPresenter: InvitingUsersPresenterProtocol {
 
     func cancelButtonTapped() {
         view?.showCancelSessionDialog()
+        webSocketsManager?.disconnect()
     }
 
     func quitSessionButtonTapped() {
@@ -104,6 +110,7 @@ final class InvitingUsersPresenter: InvitingUsersPresenterProtocol {
         let updatedName = "\(name)" + Resources.InvitingSession.creatorUserMark
         let creatorUser = ReusableCollectionCellModel(id: deviceId, title: updatedName)
         namesArray.append(creatorUser)
+        isCreatorUserInArray = true
     }
 }
 
@@ -119,27 +126,47 @@ extension InvitingUsersPresenter {
         ) else {
             return
         }
-        let webSocketsManager = WebSocketsAPI.createWebSocketManager(for: .usersUpdate, sessionID: sessionID)
+
         let messageHandler: (String) -> Void = { [weak self] message in
             guard let data = message.data(using: .utf8),
                   let self
             else {
                 return
             }
-            DispatchQueue.main.async {
-                self.view?.showLoader()
-            }
+
             do {
                 let decodedData = try JSONDecoder().decode(WebSocketsUserModel.self, from: data)
                 decodeDataFromResponse(with: decodedData)
             } catch {
-                // TODO: add server error handling
-            }
-            DispatchQueue.main.async {
-                self.view?.hideLoader()
+                DispatchQueue.main.async {
+                    self.view?.hideLoader {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            self.view?.showNetworkError()
+                        }
+                    }
+                }
             }
         }
-        webSocketsManager.stringMessageReceived = messageHandler
+
+        let errorHandler: () -> Void = {
+            DispatchQueue.main.async {
+                self.view?.hideLoader {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        self.view?.showServerError()
+                    }
+                }
+            }
+        }
+
+        let model = WebSocketsModel(
+            stringAction: messageHandler,
+            dataAction: nil,
+            errorAction: errorHandler
+        )
+
+        webSocketsManager = WebSocketsAPI.createWebSocketManager(for: .usersUpdate, sessionID: sessionID)
+        webSocketsManager?.configureSocket(with: model)
+
         completion()
     }
 

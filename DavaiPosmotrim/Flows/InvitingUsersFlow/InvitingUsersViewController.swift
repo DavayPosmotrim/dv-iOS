@@ -375,13 +375,23 @@ extension InvitingUsersViewController: InvitingUsersViewProtocol {
         loadingVC = CustomLoadingViewController.show(in: self)
     }
 
-    func hideLoader() {
+    func hideLoader(completion: (() -> Void)?) {
         loadingVC?.hide()
         loadingVC = nil
+        completion?()
     }
 
     func showNetworkError() {
         let viewController = MistakesViewController(type: .noInternet) { [weak self] in
+            guard let self else { return }
+            self.dismiss(animated: true)
+        }
+        viewController.modalPresentationStyle = .fullScreen
+        present(viewController, animated: true)
+    }
+
+    func showServerError() {
+        let viewController = MistakesViewController(type: .serverError) { [weak self] in
             guard let self else { return }
             self.dismiss(animated: true)
         }

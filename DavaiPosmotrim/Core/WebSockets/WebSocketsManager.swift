@@ -7,12 +7,19 @@
 
 import Foundation
 
+struct WebSocketsModel {
+    let stringAction: ((String) -> Void)?
+    let dataAction: ((Data) -> Void)?
+    let errorAction: (() -> Void)?
+}
+
 final class WebSocketsManager {
 
     // MARK: - Stored properties
 
-    var stringMessageReceived: ((String) -> Void)?
-    var dataMessageReceived: ((Data) -> Void)?
+    private var stringMessageReceived: ((String) -> Void)?
+    private var dataMessageReceived: ((Data) -> Void)?
+    private var errorAction: (() -> Void)?
 
     private var webSocket: URLSessionWebSocketTask?
     private let urlSession: URLSession
@@ -29,6 +36,12 @@ final class WebSocketsManager {
 
     // MARK: - Public methods
 
+    func configureSocket(with model: WebSocketsModel) {
+        stringMessageReceived = model.stringAction
+        dataMessageReceived = model.dataAction
+        errorAction = model.errorAction
+    }
+
     func connect(to urlString: String) {
         guard
             !isConnected,
@@ -42,7 +55,6 @@ final class WebSocketsManager {
 
         webSocket?.sendPing { error in
             if let error = error {
-                // TODO: Handle errors
                 print("Connection failed: \(error.localizedDescription)")
                 self.handleDisconnect()
             } else {
@@ -81,10 +93,11 @@ private extension WebSocketsManager {
                 self.receiveMessages()
 
             case .failure(let error):
-                // TODO: Handle errors
                 print("Error receiving message: \(error.localizedDescription)")
                 if self.isConnected {
                     self.handleDisconnect()
+                } else {
+                    self.errorAction?()
                 }
             }
         }
@@ -101,8 +114,8 @@ private extension WebSocketsManager {
                 self.reconnect()
             }
         } else {
-            // TODO: Handle errors
             print("Max reconnect attempts reached. Giving up.")
+            errorAction?()
         }
     }
 

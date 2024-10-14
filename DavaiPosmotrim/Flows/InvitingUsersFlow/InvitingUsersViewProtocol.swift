@@ -16,6 +16,7 @@ protocol InvitingUsersViewProtocol: AnyObject {
     func copyCodeToClipboard(_ code: String)
     func shareCode(_ code: String)
     func showLoader()
-    func hideLoader()
+    func hideLoader(completion: (() -> Void)?)
     func showNetworkError()
+    func showServerError()
 }
