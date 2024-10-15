@@ -10,7 +10,7 @@ import Foundation
 protocol InvitingUsersPresenterProtocol: AnyObject {
     func getNamesCount() -> Int
     func getNamesAtIndex(index: Int) -> ReusableCollectionCellModel
-    func viewDidLoad()
+    func viewDidAppear()
     func startButtonTapped()
     func codeButtonTapped()
     func inviteButtonTapped()

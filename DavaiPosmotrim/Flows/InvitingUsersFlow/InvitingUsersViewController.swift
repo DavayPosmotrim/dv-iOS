@@ -7,11 +7,19 @@
 
 import UIKit
 
+// swiftlint:disable file_length
+
 final class InvitingUsersViewController: UIViewController {
 
     // MARK: - Public Properties
 
     var presenter: InvitingUsersPresenterProtocol?
+    var isServerReachable: Bool?
+
+    // MARK: - Stored properties
+
+    private var loadingVC: CustomLoadingViewController?
+    private var networkReachabilityHandler: NetworkReachabilityHandler
 
     // MARK: - Private properties
 
@@ -134,14 +142,29 @@ final class InvitingUsersViewController: UIViewController {
         setupSubViews()
         setupButtonsStacksView()
         setupConstraints()
-        presenter?.viewDidLoad()
+        networkReachabilityHandler.setupNetworkReachability()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        presenter?.viewDidAppear()
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        networkReachabilityHandler.stopListening()
     }
 
     // MARK: - Initializers
 
-    init(presenter: InvitingUsersPresenterProtocol) {
+    init(
+        presenter: InvitingUsersPresenterProtocol,
+        networkReachabilityHandler: NetworkReachabilityHandler = NetworkReachabilityHandler()
+    ) {
         self.presenter = presenter
+        self.networkReachabilityHandler = networkReachabilityHandler
         super.init(nibName: nil, bundle: nil)
+        self.networkReachabilityHandler.delegate = self
     }
 
     required init?(coder: NSCoder) {
@@ -233,6 +256,8 @@ final class InvitingUsersViewController: UIViewController {
         ])
     }
 
+    // swiftlint:disable multiple_closures_with_trailing_closure
+
     private func showWarning(title: String, imageView: UIImage?, color: UIColor, delay: TimeInterval) {
         UIView.transition(
             with: self.customWarningNotification,
@@ -262,11 +287,15 @@ final class InvitingUsersViewController: UIViewController {
             }
         }
     }
+
+    // swiftlint:enable multiple_closures_with_trailing_closure
+
 }
 
-// MARK: - UICollectionViewDataSource
+    // MARK: - UICollectionViewDataSource
 
 extension InvitingUsersViewController: UICollectionViewDataSource {
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let presenter else { return .zero}
         return presenter.getNamesCount()
@@ -288,9 +317,10 @@ extension InvitingUsersViewController: UICollectionViewDataSource {
     }
 }
 
-// MARK: - InvitingUsersViewProtocol
+    // MARK: - InvitingUsersViewProtocol
 
 extension InvitingUsersViewController: InvitingUsersViewProtocol {
+
     func showFewUsersWarning() {
         showWarning(
             title: Resources.InvitingSession.fewUsersWarningText,
@@ -340,12 +370,51 @@ extension InvitingUsersViewController: InvitingUsersViewProtocol {
         activityViewController.popoverPresentationController?.sourceView = self.view
         self.present(activityViewController, animated: true, completion: nil)
     }
+
+    func showLoader() {
+        loadingVC = CustomLoadingViewController.show(in: self)
+    }
+
+    func hideLoader() {
+        loadingVC?.hide()
+        loadingVC = nil
+    }
+
+    func showNetworkError() {
+        let viewController = MistakesViewController(type: .noInternet) { [weak self] in
+            guard let self else { return }
+            self.dismiss(animated: true)
+        }
+        viewController.modalPresentationStyle = .fullScreen
+        present(viewController, animated: true)
+    }
+
+    func showServerError() {
+        let viewController = MistakesViewController(type: .serverError) { [weak self] in
+            guard let self else { return }
+            self.dismiss(animated: true)
+        }
+        viewController.modalPresentationStyle = .fullScreen
+        present(viewController, animated: true)
+    }
 }
 
-// MARK: - DismissJoinSessionDelegate
+    // MARK: - DismissJoinSessionDelegate
 
 extension InvitingUsersViewController: DismissJoinSessionDelegate {
+
     func finishJoinSessionFlow() {
         presenter?.quitSessionButtonTapped()
     }
 }
+
+    // MARK: - NetworkReachabilityHandlerDelegate
+
+extension InvitingUsersViewController: NetworkReachabilityHandlerDelegate {
+
+    func didChangeNetworkStatus(isReachable: Bool?) {
+        isServerReachable = isReachable
+    }
+}
+
+// swiftlint:enable file_length

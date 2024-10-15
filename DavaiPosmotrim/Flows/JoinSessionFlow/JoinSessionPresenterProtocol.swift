@@ -13,6 +13,6 @@ protocol JoinSessionPresenterProtocol: AnyObject {
     func getNamesAtIndex(index: Int) -> ReusableCollectionCellModel
     func downloadNamesArrayFromServer()
     func addNameToArray(name: ReusableCollectionCellModel)
-    func deleteNameFromArray(with id: UUID?)
+    func deleteNameFromArray(with id: String?)
     func checkCreatedCodeProperty() -> String
 }

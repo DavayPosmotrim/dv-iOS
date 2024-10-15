@@ -8,9 +8,15 @@
 import Foundation
 
 protocol InvitingUsersViewProtocol: AnyObject {
+    var isServerReachable: Bool? { get set }
+
     func showFewUsersWarning()
     func showCodeCopyWarning()
     func showCancelSessionDialog()
     func copyCodeToClipboard(_ code: String)
     func shareCode(_ code: String)
+    func showLoader()
+    func hideLoader()
+    func showNetworkError()
+    func showServerError()
 }
