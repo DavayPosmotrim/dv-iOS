@@ -221,6 +221,8 @@ extension InvitingUsersPresenter {
             )
         else { return }
 
+        // TODO: - add loadingVC to show loader while processing request
+
         sessionService.disconnectUserFromSession(sessionCode: sessionCode, deviceId: deviceId) { [weak self] result in
             guard let self else { return }
 

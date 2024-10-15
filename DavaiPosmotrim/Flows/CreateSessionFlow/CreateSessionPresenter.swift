@@ -104,8 +104,6 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
             self.view?.isServerReachable = isSuccess
             if isSuccess {
                 self.coordinator?.showInvitingUsersFlow()
-            } else {
-                print("Failed to create session")
             }
         }
     }
