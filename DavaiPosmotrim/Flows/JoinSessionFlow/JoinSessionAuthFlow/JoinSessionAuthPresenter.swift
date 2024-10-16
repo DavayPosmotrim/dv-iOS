@@ -46,6 +46,17 @@ final class JoinSessionAuthPresenter: JoinSessionAuthPresenterProtocol {
     }
 }
 
+private extension JoinSessionAuthPresenter {
+
+    func saveUsersToUserDefaults(users: [CustomUserModel]) {
+        guard let encodedData = try? JSONEncoder().encode(users) else { return }
+        UserDefaults.standard.set(
+            encodedData,
+            forKey: Resources.Authentication.connectedUsers
+        )
+    }
+}
+
     // MARK: - SessionService
 
 extension JoinSessionAuthPresenter {
@@ -63,7 +74,7 @@ extension JoinSessionAuthPresenter {
             switch result {
             case .success(let response):
                 completion(true)
-                print(response.users)
+                saveUsersToUserDefaults(users: response.users)
             case .failure(let error):
                 completion(false)
                 switch error {

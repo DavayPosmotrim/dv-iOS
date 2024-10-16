@@ -9,10 +9,15 @@ import UIKit
 
 final class JoinSessionViewController: UIViewController {
 
-    // MARK: - Stored properties
+    // MARK: - Public properties
 
     var presenter: JoinSessionPresenterProtocol?
+    var isServerReachable: Bool?
 
+    // MARK: - Private properties
+
+    private var loadingVC: CustomLoadingViewController?
+    private var networkReachabilityHandler: NetworkReachabilityHandler
     private let collectionModel = ReusableCollectionModel(
         image: UIImage.addUserPlug,
         upperText: Resources.JoinSession.upperLabelText,
@@ -37,7 +42,7 @@ final class JoinSessionViewController: UIViewController {
 
         var combinedString = ""
         if let presenter {
-            combinedString = Resources.JoinSession.sessionNameLabelText + presenter.checkCreatedCodeProperty()
+            combinedString = Resources.JoinSession.sessionNameLabelText + presenter.code
         }
 
         label.text = combinedString
@@ -84,15 +89,24 @@ final class JoinSessionViewController: UIViewController {
 
         setupSubViews()
         setupConstraints()
+    }
 
-        presenter?.downloadNamesArrayFromServer()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        showLoader()
+        presenter?.connectToWebSockets()
     }
 
     // MARK: - Initializers
 
-    init(presenter: JoinSessionPresenter) {
+    init(
+        presenter: JoinSessionPresenter,
+        networkReachabilityHandler: NetworkReachabilityHandler = NetworkReachabilityHandler()
+    ) {
         self.presenter = presenter
+        self.networkReachabilityHandler = networkReachabilityHandler
         super.init(nibName: nil, bundle: nil)
+        self.networkReachabilityHandler.delegate = self
     }
 
     required init?(coder: NSCoder) {
@@ -183,7 +197,33 @@ extension JoinSessionViewController: UICollectionViewDataSource {
     // MARK: - JoinSessionViewProtocol
 
 extension JoinSessionViewController: JoinSessionViewProtocol {
-// TODO: - add code to use viewController's methods in presenter
+
+    func showLoader() {
+        loadingVC = CustomLoadingViewController.show(in: self)
+    }
+
+    func hideLoader() {
+        loadingVC?.hide()
+        loadingVC = nil
+    }
+
+    func showNetworkError() {
+        let viewController = MistakesViewController(type: .noInternet) { [weak self] in
+            guard let self else { return }
+            self.dismiss(animated: true)
+        }
+        viewController.modalPresentationStyle = .fullScreen
+        present(viewController, animated: true)
+    }
+
+    func showServerError() {
+        let viewController = MistakesViewController(type: .serverError) { [weak self] in
+            guard let self else { return }
+            self.dismiss(animated: true)
+        }
+        viewController.modalPresentationStyle = .fullScreen
+        present(viewController, animated: true)
+    }
 }
 
     // MARK: - DismissJoinSessionDelegate
@@ -191,6 +231,15 @@ extension JoinSessionViewController: JoinSessionViewProtocol {
 extension JoinSessionViewController: DismissJoinSessionDelegate {
     func finishJoinSessionFlow() {
         guard let presenter else { return }
-        presenter.joinSessionFinish()
+        presenter.quitSessionButtonTapped()
+    }
+}
+
+    // MARK: - NetworkReachabilityHandlerDelegate
+
+extension JoinSessionViewController: NetworkReachabilityHandlerDelegate {
+
+    func didChangeNetworkStatus(isReachable: Bool?) {
+        isServerReachable = isReachable
     }
 }

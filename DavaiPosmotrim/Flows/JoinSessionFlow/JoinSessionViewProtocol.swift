@@ -8,5 +8,10 @@
 import Foundation
 
 protocol JoinSessionViewProtocol: AnyObject {
-    // TODO: - add code to use viewController's methods in presenter
+    var isServerReachable: Bool? { get set }
+
+    func showLoader()
+    func hideLoader()
+    func showNetworkError()
+    func showServerError()
 }

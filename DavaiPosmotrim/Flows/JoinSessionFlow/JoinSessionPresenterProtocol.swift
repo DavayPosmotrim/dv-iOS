@@ -8,11 +8,11 @@
 import Foundation
 
 protocol JoinSessionPresenterProtocol: AnyObject {
-    func joinSessionFinish()
+    var code: String { get }
+
+    func quitSessionButtonTapped()
     func getNamesCount() -> Int
     func getNamesAtIndex(index: Int) -> ReusableCollectionCellModel
     func downloadNamesArrayFromServer()
-    func addNameToArray(name: ReusableCollectionCellModel)
-    func deleteNameFromArray(with id: String?)
-    func checkCreatedCodeProperty() -> String
+    func connectToWebSockets()
 }
