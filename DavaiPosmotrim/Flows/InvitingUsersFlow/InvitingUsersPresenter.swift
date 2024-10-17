@@ -73,7 +73,14 @@ final class InvitingUsersPresenter: InvitingUsersPresenterProtocol {
 
     func startButtonTapped() {
         if namesArray.count > 1 {
-            coordinator?.showStartSessionScreen()
+            startVotingSessionStatus { isSuccess in
+                self.view?.isServerReachable = isSuccess
+                if isSuccess {
+                    self.triggerActionAfterDelay {
+                        self.coordinator?.showStartSessionScreen()
+                    }
+                }
+            }
         } else {
             view?.showFewUsersWarning()
         }
@@ -122,7 +129,7 @@ final class InvitingUsersPresenter: InvitingUsersPresenterProtocol {
         isCreatorUserInArray = true
     }
 
-    private func presentErrorAfterDelay(error: @escaping () -> Void) {
+    private func triggerActionAfterDelay(error: @escaping () -> Void) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             error()
         }
@@ -145,16 +152,13 @@ extension InvitingUsersPresenter {
         let messageHandler: (String) -> Void = { [weak self] message in
             guard let data = message.data(using: .utf8),
                   let self
-            else {
-                return
-            }
-
+            else { return }
             do {
                 let decodedData = try JSONDecoder().decode(WebSocketsUserModel.self, from: data)
                 decodeDataFromResponse(with: decodedData)
             } catch {
                 DispatchQueue.main.async {
-                    self.presentErrorAfterDelay {
+                    self.triggerActionAfterDelay {
                         self.view?.showNetworkError()
                     }
                 }
@@ -164,7 +168,7 @@ extension InvitingUsersPresenter {
         let errorHandler: () -> Void = { [weak self] in
             guard let self else { return }
             DispatchQueue.main.async {
-                self.presentErrorAfterDelay {
+                self.triggerActionAfterDelay {
                     self.view?.showServerError()
                 }
             }
@@ -235,11 +239,46 @@ extension InvitingUsersPresenter {
                     completion(false)
                     switch error {
                     case .networkError:
-                        self.presentErrorAfterDelay {
+                        self.triggerActionAfterDelay {
                             self.view?.showNetworkError()
                         }
                     case .serverError:
-                        self.presentErrorAfterDelay {
+                        self.triggerActionAfterDelay {
+                            self.view?.showServerError()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    func startVotingSessionStatus(completion: @escaping (Bool) -> Void) {
+        guard
+            let deviceId = UserDefaults.standard.string(
+                forKey: Resources.Authentication.savedDeviceID),
+            let sessionCode = UserDefaults.standard.string(
+                forKey: Resources.Authentication.sessionCode
+            )
+        else { return }
+
+        view?.showLoader()
+
+        sessionService.startVotingSessionStatus(sessionCode: sessionCode, deviceId: deviceId) { result in
+            DispatchQueue.main.async {
+                self.view?.hideLoader()
+                switch result {
+                case .success(let response):
+                    completion(true)
+                    print(response.message)
+                case .failure(let error):
+                    completion(false)
+                    switch error {
+                    case .networkError:
+                        self.triggerActionAfterDelay {
+                            self.view?.showNetworkError()
+                        }
+                    case .serverError:
+                        self.triggerActionAfterDelay {
                             self.view?.showServerError()
                         }
                     }

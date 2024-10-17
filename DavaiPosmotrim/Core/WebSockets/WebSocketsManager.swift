@@ -13,6 +13,20 @@ struct WebSocketsModel {
     let errorAction: (() -> Void)?
 }
 
+enum WebSocketType {
+    case usersWebSocket
+    case sessionStatusWebSocket
+    case matchesWebSocket
+    case rouletteWebSocket
+    case sessionResultWebSocket
+}
+
+enum SessionStatusModel: String {
+    case waiting
+    case voting
+    case closed
+}
+
 final class WebSocketsManager {
 
     // MARK: - Stored properties
