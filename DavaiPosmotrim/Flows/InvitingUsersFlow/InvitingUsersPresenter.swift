@@ -76,7 +76,7 @@ final class InvitingUsersPresenter: InvitingUsersPresenterProtocol {
             startVotingSessionStatus { isSuccess in
                 self.view?.isServerReachable = isSuccess
                 if isSuccess {
-                    self.presentActionAfterDelay {
+                    self.triggerActionAfterDelay {
                         self.coordinator?.showStartSessionScreen()
                     }
                 }
@@ -129,7 +129,7 @@ final class InvitingUsersPresenter: InvitingUsersPresenterProtocol {
         isCreatorUserInArray = true
     }
 
-    private func presentActionAfterDelay(error: @escaping () -> Void) {
+    private func triggerActionAfterDelay(error: @escaping () -> Void) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             error()
         }
@@ -152,16 +152,13 @@ extension InvitingUsersPresenter {
         let messageHandler: (String) -> Void = { [weak self] message in
             guard let data = message.data(using: .utf8),
                   let self
-            else {
-                return
-            }
-
+            else { return }
             do {
                 let decodedData = try JSONDecoder().decode(WebSocketsUserModel.self, from: data)
                 decodeDataFromResponse(with: decodedData)
             } catch {
                 DispatchQueue.main.async {
-                    self.presentActionAfterDelay {
+                    self.triggerActionAfterDelay {
                         self.view?.showNetworkError()
                     }
                 }
@@ -171,7 +168,7 @@ extension InvitingUsersPresenter {
         let errorHandler: () -> Void = { [weak self] in
             guard let self else { return }
             DispatchQueue.main.async {
-                self.presentActionAfterDelay {
+                self.triggerActionAfterDelay {
                     self.view?.showServerError()
                 }
             }
@@ -242,11 +239,11 @@ extension InvitingUsersPresenter {
                     completion(false)
                     switch error {
                     case .networkError:
-                        self.presentActionAfterDelay {
+                        self.triggerActionAfterDelay {
                             self.view?.showNetworkError()
                         }
                     case .serverError:
-                        self.presentActionAfterDelay {
+                        self.triggerActionAfterDelay {
                             self.view?.showServerError()
                         }
                     }
@@ -277,11 +274,11 @@ extension InvitingUsersPresenter {
                     completion(false)
                     switch error {
                     case .networkError:
-                        self.presentActionAfterDelay {
+                        self.triggerActionAfterDelay {
                             self.view?.showNetworkError()
                         }
                     case .serverError:
-                        self.presentActionAfterDelay {
+                        self.triggerActionAfterDelay {
                             self.view?.showServerError()
                         }
                     }

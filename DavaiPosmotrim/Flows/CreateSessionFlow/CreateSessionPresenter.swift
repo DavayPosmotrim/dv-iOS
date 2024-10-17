@@ -110,7 +110,7 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
 
     // MARK: - Private Methods
 
-    private func presentErrorAfterDelay(error: @escaping () -> Void) {
+    private func triggerActionAfterDelay(error: @escaping () -> Void) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             error()
         }
@@ -141,11 +141,11 @@ extension CreateSessionPresenter {
                 case .failure(let error):
                     switch error {
                     case .networkError:
-                        self.presentErrorAfterDelay {
+                        self.triggerActionAfterDelay {
                             self.view?.showNetworkError()
                         }
                     case .serverError:
-                        self.presentErrorAfterDelay {
+                        self.triggerActionAfterDelay {
                             self.view?.showServerError()
                         }
                     }
@@ -177,11 +177,11 @@ extension CreateSessionPresenter {
                 case .failure(let error):
                     switch error {
                     case .networkError:
-                        self.presentErrorAfterDelay {
+                        self.triggerActionAfterDelay {
                             self.view?.showNetworkError()
                         }
                     case .serverError:
-                        self.presentErrorAfterDelay {
+                        self.triggerActionAfterDelay {
                             self.view?.showServerError()
                         }
                     }
@@ -225,11 +225,11 @@ private extension CreateSessionPresenter {
                     completion(false)
                     switch error {
                     case .networkError:
-                        self.presentErrorAfterDelay {
+                        self.triggerActionAfterDelay {
                             self.view?.showNetworkError()
                         }
                     case .serverError:
-                        self.presentErrorAfterDelay {
+                        self.triggerActionAfterDelay {
                             self.view?.showServerError()
                         }
                     }

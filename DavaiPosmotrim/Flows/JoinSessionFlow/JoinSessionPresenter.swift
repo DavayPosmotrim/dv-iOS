@@ -96,7 +96,7 @@ final class JoinSessionPresenter: JoinSessionPresenterProtocol {
         )
     }
 
-    private func presentErrorAfterDelay(error: @escaping () -> Void) {
+    private func triggerActionAfterDelay(error: @escaping () -> Void) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             error()
         }
@@ -157,10 +157,7 @@ private extension JoinSessionPresenter {
         let messageHandler: (String) -> Void = { [weak self] message in
             guard let data = message.data(using: .utf8),
                   let self
-            else {
-                return
-            }
-
+            else { return }
             do {
                 switch type {
                 case .usersWebSocket:
@@ -174,7 +171,7 @@ private extension JoinSessionPresenter {
                 }
             } catch {
                 DispatchQueue.main.async {
-                    self.presentErrorAfterDelay {
+                    self.triggerActionAfterDelay {
                         self.view?.showNetworkError()
                     }
                 }
@@ -184,7 +181,7 @@ private extension JoinSessionPresenter {
         let errorHandler: () -> Void = { [weak self] in
             guard let self else { return }
             DispatchQueue.main.async {
-                self.presentErrorAfterDelay {
+                self.triggerActionAfterDelay {
                     self.view?.showServerError()
                 }
             }
@@ -262,11 +259,11 @@ private extension JoinSessionPresenter {
                     completion(false)
                     switch error {
                     case .networkError:
-                        self.presentErrorAfterDelay {
+                        self.triggerActionAfterDelay {
                             self.view?.showNetworkError()
                         }
                     case .serverError:
-                        self.presentErrorAfterDelay {
+                        self.triggerActionAfterDelay {
                             self.view?.showServerError()
                         }
                     }
