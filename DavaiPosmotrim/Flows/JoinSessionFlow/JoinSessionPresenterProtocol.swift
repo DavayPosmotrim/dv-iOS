@@ -13,6 +13,5 @@ protocol JoinSessionPresenterProtocol: AnyObject {
     func quitSessionButtonTapped()
     func getNamesCount() -> Int
     func getNamesAtIndex(index: Int) -> ReusableCollectionCellModel
-    func downloadNamesArrayFromServer()
     func connectToWebSockets()
 }

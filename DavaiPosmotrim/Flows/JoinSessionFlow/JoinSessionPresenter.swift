@@ -14,6 +14,16 @@ final class JoinSessionPresenter: JoinSessionPresenterProtocol {
     private var sessionService: SessionServiceProtocol
     private var webSocketsManager: WebSocketsManager?
     private var isConnectedUsersInArray = false
+    private var sessionStatus: String? {
+        didSet {
+            let votingStatus = SessionStatusModel.voting.rawValue
+            if sessionStatus == votingStatus {
+                DispatchQueue.main.async {
+                    self.coordinator?.showStartSessionScreen()
+                }
+            }
+        }
+    }
     private var namesArray = [ReusableCollectionCellModel]() {
         didSet {
             updateReusableCollection()
@@ -55,41 +65,14 @@ final class JoinSessionPresenter: JoinSessionPresenterProtocol {
     }
 
     func connectToWebSockets() {
-        connectToUsersWebSocket {
-            DispatchQueue.main.async {
-                self.view?.hideLoader()
-            }
+        connectToWebSocket(type: .usersWebSocket) {
             if !self.isConnectedUsersInArray {
                 self.decodeConnectedUsers()
             }
         }
-    }
-
-    // Метод для имитации присоединения пользователей
-    func downloadNamesArrayFromServer() {
-        DispatchQueue.global().async {
-            let downloadedNames = [
-                ReusableCollectionCellModel(id: "", title: "Эльдар(вы)"),
-                ReusableCollectionCellModel(id: "", title: "Юрий"),
-                ReusableCollectionCellModel(id: "", title: "Сергей"),
-                ReusableCollectionCellModel(id: "", title: "Александр"),
-                ReusableCollectionCellModel(id: "", title: "Максим")
-            ]
-
-            let delayInSeconds: TimeInterval = 2
-            let dispatchGroup = DispatchGroup()
-
-            downloadedNames.enumerated().forEach { index, name in
-                dispatchGroup.enter()
-                DispatchQueue.global().asyncAfter(deadline: .now() + delayInSeconds * Double(index)) {
-                    self.namesArray.append(name)
-                    dispatchGroup.leave()
-                }
-            }
-
-            dispatchGroup.notify(queue: .main) {
-                // TODO: - add line below to voting session status completion
-//                self.coordinator?.showStartSessionScreen()
+        connectToWebSocket(type: .sessionStatusWebSocket) {
+            DispatchQueue.main.async {
+                self.view?.hideLoader()
             }
         }
     }
@@ -102,27 +85,6 @@ final class JoinSessionPresenter: JoinSessionPresenterProtocol {
                 self?.coordinator?.finish()
             }
         }
-    }
-
-    // TODO: - handle case when user connected while network connection is lost
-
-    private func decodeConnectedUsers() {
-        guard let deviceId = UserDefaults.standard.string(
-            forKey: Resources.Authentication.savedDeviceID
-        ) else { return }
-
-        let connectedUsers = getConnectedUsers()
-        for item in connectedUsers {
-            if item.deviceId.uppercased() == deviceId {
-                let updatedName = "\(item.name)" + Resources.InvitingSession.creatorUserMark
-                let updatedUser = ReusableCollectionCellModel(id: deviceId, title: updatedName)
-                namesArray.append(updatedUser)
-            } else {
-                let newUser = ReusableCollectionCellModel(id: item.deviceId, title: item.name)
-                namesArray.append(newUser)
-            }
-        }
-        isConnectedUsersInArray = true
     }
 
     // MARK: - Private methods
@@ -153,13 +115,37 @@ final class JoinSessionPresenter: JoinSessionPresenterProtocol {
 
         return decodedUsers
     }
+
+    // TODO: - handle case when user connected while network connection is lost
+
+    private func decodeConnectedUsers() {
+        guard let deviceId = UserDefaults.standard.string(
+            forKey: Resources.Authentication.savedDeviceID
+        ) else { return }
+
+        let connectedUsers = getConnectedUsers()
+        for item in connectedUsers {
+            if item.deviceId.uppercased() == deviceId {
+                let updatedName = "\(item.name)" + Resources.InvitingSession.creatorUserMark
+                let updatedUser = ReusableCollectionCellModel(id: deviceId, title: updatedName)
+                namesArray.append(updatedUser)
+            } else {
+                let newUser = ReusableCollectionCellModel(id: item.deviceId, title: item.name)
+                namesArray.append(newUser)
+            }
+        }
+        isConnectedUsersInArray = true
+    }
 }
 
     // MARK: - WebSocketsManager
 
-extension JoinSessionPresenter {
+private extension JoinSessionPresenter {
 
-    func connectToUsersWebSocket(
+    // swiftlint: disable function_body_length
+
+    func connectToWebSocket(
+        type: WebSocketType,
         completion: @escaping () -> Void
     ) {
         guard let sessionID = UserDefaults.standard.string(
@@ -176,8 +162,16 @@ extension JoinSessionPresenter {
             }
 
             do {
-                let decodedData = try JSONDecoder().decode(WebSocketsUserModel.self, from: data)
-                decodeDataFromResponse(with: decodedData)
+                switch type {
+                case .usersWebSocket:
+                    let decodedData = try JSONDecoder().decode(WebSocketsUserModel.self, from: data)
+                    decodeUsersFromResponse(with: decodedData)
+                case .sessionStatusWebSocket:
+                    let decodedData = try JSONDecoder().decode(WebSocketsSessionStatusModel.self, from: data)
+                    sessionStatus = decodedData.message
+                default:
+                    break
+                }
             } catch {
                 DispatchQueue.main.async {
                     self.presentErrorAfterDelay {
@@ -202,18 +196,27 @@ extension JoinSessionPresenter {
             errorAction: errorHandler
         )
 
-        webSocketsManager = WebSocketsAPI.createWebSocketManager(for: .usersUpdate, sessionID: sessionID)
-        webSocketsManager?.configureSocket(with: model)
+        switch type {
+        case .usersWebSocket:
+            webSocketsManager = WebSocketsAPI.createWebSocketManager(for: .usersUpdate, sessionID: sessionID)
+        case.sessionStatusWebSocket:
+            webSocketsManager = WebSocketsAPI.createWebSocketManager(for: .sessionStatusUpdate, sessionID: sessionID)
+        default:
+            break
+        }
 
+        webSocketsManager?.configureSocket(with: model)
         completion()
     }
 
-    func decodeDataFromResponse(with model: WebSocketsUserModel) {
+    // swiftlint: enable function_body_length
+
+    func decodeUsersFromResponse(with response: WebSocketsUserModel) {
         guard let deviceId = UserDefaults.standard.string(
             forKey: Resources.Authentication.savedDeviceID
         ) else { return }
 
-        var array = model.message
+        var array = response.message
 
         let newUserIDs = Set(array.map { $0.deviceId.uppercased() })
         namesArray.removeAll { existingUser in
@@ -236,7 +239,7 @@ extension JoinSessionPresenter {
 
     // MARK: - SessionService
 
-extension JoinSessionPresenter {
+private extension JoinSessionPresenter {
 
     func disconnectUserFromSession(completion: @escaping (Bool) -> Void) {
         guard
