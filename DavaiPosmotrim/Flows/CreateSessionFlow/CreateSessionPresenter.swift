@@ -194,9 +194,9 @@ extension CreateSessionPresenter {
 
     // MARK: - SessionService
 
-extension CreateSessionPresenter {
+private extension CreateSessionPresenter {
 
-    private func createSession(segmentIndex: Int, completion: @escaping (Bool) -> Void) {
+    func createSession(segmentIndex: Int, completion: @escaping (Bool) -> Void) {
         guard let deviceId = UserDefaults.standard.string(
             forKey: Resources.Authentication.savedDeviceID
         ) else { return }
