@@ -21,6 +21,7 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
     private var createSession = CreateSessionModel(collectionsMovie: [], genresMovie: [])
     private var selectionsMovies: [TableViewCellModel] = []
     private var genresMovies: [CollectionsCellModel] = []
+    private var moviesList: [Int] = []
 
     init(
         coordinator: CreateSessionCoordinator,
@@ -103,6 +104,7 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
         createSession(segmentIndex: segmentIndex) { isSuccess in
             self.view?.isServerReachable = isSuccess
             if isSuccess {
+                self.getFirstMovieInfo { _ in }
                 self.coordinator?.showInvitingUsersFlow()
             }
         }
@@ -118,6 +120,24 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
 
     private func saveSessionCode(code: String) {
         UserDefaults.standard.setValue(code, forKey: Resources.Authentication.sessionCode)
+    }
+
+    private func saveMoviesList(movies: [Int]) {
+        guard let encodedData = try? JSONEncoder().encode(movies) else { return }
+        UserDefaults.standard.set(
+            encodedData,
+            forKey: Resources.CreateSession.savedMoviesList
+        )
+        print("Received movies were saved")
+    }
+
+    private func saveFirstMovie(movie: MovieDetailModel) {
+        guard let encodedData = try? JSONEncoder().encode(movie) else { return }
+        UserDefaults.standard.set(
+            encodedData,
+            forKey: Resources.CreateSession.savedFirstMovie
+        )
+        print("First movie is saved")
     }
 }
 
@@ -190,6 +210,38 @@ extension CreateSessionPresenter {
             }
         }
     }
+
+    func getFirstMovieInfo(completion: @escaping (Bool) -> Void) {
+        guard
+            let deviceId = UserDefaults.standard.string(
+                forKey: Resources.Authentication.savedDeviceID),
+            let firstMovieId = moviesList.first
+        else { return }
+
+        contentService.getMovieInfo(with: firstMovieId, deviceId: deviceId) { [weak self] result in
+            guard let self else { return }
+
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let response):
+                    self.saveFirstMovie(movie: response)
+                    completion(true)
+                case .failure(let error):
+                    completion(false)
+                    switch error {
+                    case .networkError:
+                        self.triggerActionAfterDelay {
+                            self.view?.showNetworkError()
+                        }
+                    case .serverError:
+                        self.triggerActionAfterDelay {
+                            self.view?.showServerError()
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
     // MARK: - SessionService
@@ -219,8 +271,11 @@ private extension CreateSessionPresenter {
                 self.view?.hideLoader()
                 switch result {
                 case .success(let response):
-                    completion(true)
+                    print("Received movies list: \(response.movies)")
+                    self.moviesList = response.movies
+                    self.saveMoviesList(movies: self.moviesList)
                     self.saveSessionCode(code: response.id)
+                    completion(true)
                 case .failure(let error):
                     completion(false)
                     switch error {

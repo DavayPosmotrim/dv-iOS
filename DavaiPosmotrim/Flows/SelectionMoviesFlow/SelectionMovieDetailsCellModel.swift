@@ -8,11 +8,11 @@
 import Foundation
 
 struct SelectionMovieDetailsCellModel {
-    let description: String
-    let ratingKp: Float
-    let ratingImdb: Float
-    let votesKp: Int
-    let votesImdb: Int
-    let directors: [String]
-    let actors: [String]
+    let description: String?
+    let ratingKp: Double?
+    let ratingImdb: Double?
+    let votesKp: Int?
+    let votesImdb: Int?
+    let directors: [String?]
+    let actors: [String?]
 }

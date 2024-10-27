@@ -9,17 +9,22 @@ import Foundation
 
 let selectionMovieMockData = [
     SelectionMovieCellModel(
+        id: 1,
         movieImage: "Mok_7",
         nameMovieRu: "В диких условиях",
-        ratingMovie: "7.9",
+        ratingMovie: 7.9,
         nameMovieEn: "Into the Wild",
-        yearMovie: "2007 год",
+        yearMovie: 2007,
         countryMovie: ["США"],
-        timeMovie: "2 ч 28 мин",
+        timeMovie: 148,
         genre: [
             CollectionsCellModel(title: "Исторический"),
             CollectionsCellModel(title: "Биография"),
-            CollectionsCellModel(title: "Драма")
+            CollectionsCellModel(title: "Драма"),
+            CollectionsCellModel(title: "Сосиска"),
+            CollectionsCellModel(title: "Пюрешка"),
+            CollectionsCellModel(title: "Котлетки"),
+            CollectionsCellModel(title: "Пахлава"),
         ],
         details: SelectionMovieDetailsCellModel(
             description: "После окончания колледжа Эмори один из его ведущих студентов и атлетов Кристофер МакКэндлесс оставляет все свое имущество, отдает накопленные за время учебы 24 тыс. ",
@@ -32,13 +37,14 @@ let selectionMovieMockData = [
         )
     ),
     SelectionMovieCellModel(
+        id: 2,
         movieImage: "Mok_8",
         nameMovieRu: "Дюна",
-        ratingMovie: "5.5",
+        ratingMovie: 5.5,
         nameMovieEn: "Dune",
-        yearMovie: "2021 год",
+        yearMovie: 2021,
         countryMovie: ["США", "Канада", "Венгрия"],
-        timeMovie: "2 ч 35 мин",
+        timeMovie: 155,
         genre: [
             CollectionsCellModel(title: "Фантастика"),
             CollectionsCellModel(title: "Боевик"),
@@ -60,13 +66,14 @@ let selectionMovieMockData = [
             actors: ["Тимоти Шаломе", "Джош Борлин", "Ребекка Фергюсон", "Оскар Айзек"])
     ),
     SelectionMovieCellModel(
+        id: 3,
         movieImage: "Mok_9",
         nameMovieRu: "Даллаский клуб покупателей",
-        ratingMovie: "9.0",
+        ratingMovie: 9.0,
         nameMovieEn: "Dallas Buyers Club",
-        yearMovie: "2013 год",
+        yearMovie: 2013,
         countryMovie: ["США"],
-        timeMovie: "1 ч 58 мин",
+        timeMovie: 118,
         genre: [
             CollectionsCellModel(title: "Драма"),
             CollectionsCellModel(title: "Биография")

@@ -17,8 +17,8 @@ final class RouletteViewController: UIViewController {
     private var targetVelocity: CGFloat = .random(in: 50...55)
     private var velocityAdjustment: CGFloat = 0.08
     private var displayLink: CADisplayLink?
-    private var matchedCellID: UUID?
-    private var serverID: UUID?
+    private var matchedCellID: Int?
+    private var serverID: Int?
 
     private let usersCollectionModel = ReusableCollectionModel(
         image: nil,

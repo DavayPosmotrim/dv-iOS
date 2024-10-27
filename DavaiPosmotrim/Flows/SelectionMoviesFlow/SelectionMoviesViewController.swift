@@ -12,9 +12,14 @@ final class SelectionMoviesViewController: UIViewController {
     // MARK: - Public Properties
 
     var presenter: SelectionMoviesPresenter
+    var isServerReachable: Bool?
+
+    // MARK: - Private Properties
+
     private var matchSelectionVC: MatchSelectionMoviesViewController?
     private var customNavBarModel: CustomNavBarModel?
     private var customNavBarRightButtonModel: CustomNavBarRightButtonModel?
+    private var loadingVC: CustomLoadingViewController?
 
     // MARK: - Layout variables
 
@@ -51,8 +56,8 @@ final class SelectionMoviesViewController: UIViewController {
     }()
 
     private lazy var customMovieDetails: CustomMovieDetails = {
-        let firstDecsription = presenter.getFirstMovie()
-        let view = CustomMovieDetails(model: firstDecsription.details, viewHeightValue: view.frame.height)
+        let firstDescription = presenter.getFirstMovie()
+        let view = CustomMovieDetails(model: firstDescription.details, viewHeightValue: view.frame.height)
         return view
     }()
 
@@ -72,15 +77,22 @@ final class SelectionMoviesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .whiteBackground
-        setupNavBarModel()
-        setupRightButtonModel()
-        setupSubviews()
-        setupConstraints()
+        showLoader()
+        presenter.loadData()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        hideLoader()
+        setupNavBarModel()
+        setupRightButtonModel()
+        setupSubviews()
+        setupConstraints()
     }
 
     // MARK: - Actions
@@ -182,6 +194,8 @@ private extension SelectionMoviesViewController {
         )
     }
 
+    // swiftlint: disable multiple_closures_with_trailing_closure
+
     func animateSwipe(direction: CGFloat) {
         guard let currentMovieId = presenter.currentMovieId else {
             return
@@ -202,6 +216,8 @@ private extension SelectionMoviesViewController {
             self.presenter.swipeNextMovie(withId: currentMovieId, direction: direction)
         }
     }
+
+    // swiftlint: enable multiple_closures_with_trailing_closure
 
     func animateComeBack() {
         let originalFrame = self.centralPaddingView.frame
@@ -229,6 +245,8 @@ private extension SelectionMoviesViewController {
         )
     }
 
+    // swiftlint: disable multiple_closures_with_trailing_closure
+
     func animateMatchViewControllerToHeartIcon() {
         guard let matchVC = matchSelectionVC else { return }
         let heartIconFrame = customNavBar.getRightButtonFrameIn(view: view)
@@ -244,6 +262,8 @@ private extension SelectionMoviesViewController {
             self.presenter.updateRandomMatchCount()
         }
     }
+
+    // swiftlint: enable multiple_closures_with_trailing_closure
 }
 
 // MARK: - SelectionMoviesViewProtocol
@@ -264,6 +284,8 @@ extension SelectionMoviesViewController: SelectionMoviesViewProtocol {
         animateComeBack()
     }
 
+    // swiftlint: disable multiple_closures_with_trailing_closure
+
     func animateOffscreen(direction: CGFloat, completion: @escaping () -> Void) {
         let viewWidth = centralPaddingView.bounds.width
         let screenWidth = UIScreen.main.bounds.width
@@ -283,6 +305,8 @@ extension SelectionMoviesViewController: SelectionMoviesViewProtocol {
             completion()
         }
     }
+
+    // swiftlint: enable multiple_closures_with_trailing_closure
 
     func showCancelSessionDialog(alertType: AlertType) {
         guard let navigationController else { return }
@@ -307,16 +331,43 @@ extension SelectionMoviesViewController: SelectionMoviesViewProtocol {
             self?.animateMatchViewControllerToHeartIcon()
         }
     }
+
+    func showLoader() {
+        loadingVC = CustomLoadingViewController.show(in: self)
+    }
+
+    func hideLoader() {
+        loadingVC?.hide()
+        loadingVC = nil
+    }
+
+    func showNetworkError() {
+        let viewController = MistakesViewController(type: .noInternet) { [weak self] in
+            guard let self else { return }
+            self.dismiss(animated: true)
+        }
+        viewController.modalPresentationStyle = .fullScreen
+        present(viewController, animated: true)
+    }
+
+    func showServerError() {
+        let viewController = MistakesViewController(type: .serverError) { [weak self] in
+            guard let self else { return }
+            self.dismiss(animated: true)
+        }
+        viewController.modalPresentationStyle = .fullScreen
+        present(viewController, animated: true)
+    }
 }
 
 // MARK: - CustomMovieSelectionDelegate
 
 extension SelectionMoviesViewController: CustomMovieSelectionDelegate {
-    func noButtonTapped(withId id: UUID) {
+    func noButtonTapped(withId id: Int) {
         presenter.noButtonTapped(withId: id)
     }
 
-    func yesButtonTapped(withId id: UUID) {
+    func yesButtonTapped(withId id: Int) {
         presenter.yesButtonTapped(withId: id)
     }
 

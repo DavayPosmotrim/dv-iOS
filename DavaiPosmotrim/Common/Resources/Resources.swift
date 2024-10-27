@@ -127,6 +127,9 @@ enum Resources {
     }
 
     enum CreateSession {
+        static let savedMoviesList = "savedMoviesList"
+        static let savedFirstMovie = "savedFirstMovie"
+
         static let nextButtonText = "Продолжить".uppercased()
         static let customNavBarTitle = "Создать сеанс"
         static let customNavBarSubtitle = "Выберите понравившиеся подборки"

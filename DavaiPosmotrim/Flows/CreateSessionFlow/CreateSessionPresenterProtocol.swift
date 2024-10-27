@@ -21,4 +21,5 @@ protocol CreateSessionPresenterProtocol: AnyObject {
     func didRemoveGenres(id: UUID?)
     func getGenres(completion: @escaping (Bool) -> Void)
     func getCollections(completion: @escaping (Bool) -> Void)
+    func getFirstMovieInfo(completion: @escaping (Bool) -> Void)
 }
