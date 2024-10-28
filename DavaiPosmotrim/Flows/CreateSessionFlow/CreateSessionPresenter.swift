@@ -128,7 +128,6 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
             encodedData,
             forKey: Resources.CreateSession.savedMoviesList
         )
-        print("Received movies were saved")
     }
 
     private func saveFirstMovie(movie: MovieDetailModel) {
@@ -137,7 +136,6 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
             encodedData,
             forKey: Resources.CreateSession.savedFirstMovie
         )
-        print("First movie is saved")
     }
 }
 
@@ -271,7 +269,6 @@ private extension CreateSessionPresenter {
                 self.view?.hideLoader()
                 switch result {
                 case .success(let response):
-                    print("Received movies list: \(response.movies)")
                     self.moviesList = response.movies
                     self.saveMoviesList(movies: self.moviesList)
                     self.saveSessionCode(code: response.id)

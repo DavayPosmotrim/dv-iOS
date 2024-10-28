@@ -50,6 +50,11 @@ final class SelectionMoviesPresenter: SelectionMoviesPresenterProtocol {
         guard !isLoading else { return }
         isLoading = true
 
+        if let firstMovieId = firstMovie?.id,
+           let indexToRemove = downloadedMoviesList?.firstIndex(of: firstMovieId) {
+            downloadedMoviesList?.remove(at: indexToRemove)
+        }
+
         self.currentPage = 1
         self.loadMoviesForCurrentPage()
     }
