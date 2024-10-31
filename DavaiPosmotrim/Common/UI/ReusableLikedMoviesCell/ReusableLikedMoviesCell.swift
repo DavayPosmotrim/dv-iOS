@@ -6,7 +6,7 @@
 //
 
 struct ReusableLikedMoviesCellModel: Identifiable, Equatable, Hashable {
-    let id = UUID()
+    let id: Int
     let title: String
     let imageName: String?
 }
@@ -18,7 +18,7 @@ final class ReusableLikedMoviesCell: UICollectionViewCell {
     // MARK: - Stored properties
 
     static let reuseIdentifier = "ReusableLikedMoviesCell"
-    private var cellId: UUID?
+    var cellId: Int?
 
     // MARK: - Lazy properties
 
@@ -84,19 +84,32 @@ final class ReusableLikedMoviesCell: UICollectionViewCell {
         cellId = model.id
         titleLabel.text = model.title
 
-        if let imageName = model.imageName, !imageName.isEmpty {
-            imageView.image = UIImage(named: imageName)
-            imageView.isHidden = false
-            placeholderImageView.isHidden = true
-            gradientView.isHidden = false
-            titleLabel.textColor = .whiteText
-        } else {
-            imageView.isHidden = true
-            placeholderImageView.isHidden = false
-            gradientView.isHidden = true
-            titleLabel.textColor = .baseText
+        guard let encodedImagePath = model.imageName,
+              let decodedImagePath = encodedImagePath.removingPercentEncoding
+        else {
+            toggleVisibility(didLoadImage: false)
+            return
         }
-
+        let imagePath = String(decodedImagePath.dropFirst())
+        let imageURL = URL(string: imagePath)
+        let activityIndicator = RotatingIndicator(image: UIImage.loader, size: 45)
+        imageView.kf.indicatorType = .custom(indicator: activityIndicator)
+        imageView.kf.setImage(
+            with: imageURL,
+            options: [
+                .transition(.fade(1)),
+                .cacheMemoryOnly
+            ]) { [weak self] result in
+                guard let self else { return }
+                switch result {
+                case .success(let value):
+                    self.imageView.image = value.image
+                    toggleVisibility(didLoadImage: true)
+                case .failure:
+                    toggleVisibility(didLoadImage: false)
+                }
+                self.imageView.kf.indicatorType = .none
+            }
         updateGradientHeight()
     }
 }
@@ -141,6 +154,13 @@ private extension ReusableLikedMoviesCell {
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
         ])
+    }
+
+    func toggleVisibility(didLoadImage: Bool) {
+        imageView.isHidden = !didLoadImage
+        placeholderImageView.isHidden = didLoadImage
+        gradientView.isHidden = !didLoadImage
+        titleLabel.textColor = !didLoadImage ? .baseText : .whiteText
     }
 
     func updateGradientHeight() {

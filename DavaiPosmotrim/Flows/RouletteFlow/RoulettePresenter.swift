@@ -24,7 +24,7 @@ final class RoulettePresenter: RoulettePresenterProtocol {
         usersArray.count
     }
 
-    var movieIDs: [UUID] {
+    var movieIDs: [Int] {
         return rouletteMoviesArray.map { $0.id }
     }
 
@@ -77,7 +77,7 @@ final class RoulettePresenter: RoulettePresenterProtocol {
         return rouletteMoviesArray[safeIndex]
     }
 
-    func getMovieByID(id: UUID) -> SelectionMovieCellModel? {
+    func getMovieByID(id: Int) -> SelectionMovieCellModel? {
         return rouletteMoviesArray.first { $0.id == id }
     }
 
@@ -122,7 +122,7 @@ final class RoulettePresenter: RoulettePresenterProtocol {
         }
     }
 
-    func getRouletteMovieID() -> UUID? {
+    func getRouletteMovieID() -> Int? {
         let middleIndex = movieIDs.count / 2
         let serverID = movieIDs[middleIndex]
 

@@ -58,15 +58,15 @@ final class CustomRatingCollectionCell: UICollectionViewCell {
 
     // MARK: - Public Methods
 
-    func configureKinopoiskRatingCell(ratingNumber: Float, votes: Int) {
-        rating.text = String(ratingNumber)
+    func configureKinopoiskRatingCell(ratingNumber: Double, votes: Int) {
+        rating.text = String(format: "%.1f", ratingNumber)
         votesAmount.text = formatInt(votes) + (Resources.MovieDetails.howManyVotesText)
         name.text = Resources.MovieDetails.kinoPoiskRatingText
         configureBackground(ratingNumber)
     }
 
-    func configureIMDBRatingCell(ratingNumber: Float, votes: Int) {
-        rating.text = String(ratingNumber)
+    func configureIMDBRatingCell(ratingNumber: Double, votes: Int) {
+        rating.text = String(format: "%.1f", ratingNumber)
         votesAmount.text = formatInt(votes) + (Resources.MovieDetails.howManyVotesText)
         name.text = Resources.MovieDetails.iMDBRatingText
         configureBackground(ratingNumber)
@@ -82,7 +82,7 @@ final class CustomRatingCollectionCell: UICollectionViewCell {
         return newNumber
     }
 
-    private func configureBackground(_ number: Float) {
+    private func configureBackground(_ number: Double) {
         if number >= 7.0 {
             contentView.backgroundColor = .baseSecondaryAccent
         } else if number >= 5.0 {

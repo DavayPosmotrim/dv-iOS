@@ -95,6 +95,7 @@ final class JoinSessionViewController: UIViewController {
         super.viewDidAppear(animated)
         showLoader()
         presenter?.connectToWebSockets()
+        presenter?.getSessionInfoToSave()
     }
 
     // MARK: - Initializers

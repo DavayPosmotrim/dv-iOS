@@ -8,10 +8,16 @@
 import Foundation
 
 protocol SelectionMoviesViewProtocol: AnyObject {
+    var isServerReachable: Bool? { get set }
+
     func updateMatchCountLabel(withRandomCount count: Int)
     func animateOffscreen(direction: CGFloat, completion: @escaping () -> Void)
     func showNextMovie(_ nextModel: SelectionMovieCellModel)
     func showPreviousMovie(_ nextModel: SelectionMovieCellModel)
     func showCancelSessionDialog(alertType: AlertType)
     func showMatch(matchModel: SelectionMovieCellModel)
+    func showLoader()
+    func hideLoader()
+    func showNetworkError()
+    func showServerError()
 }

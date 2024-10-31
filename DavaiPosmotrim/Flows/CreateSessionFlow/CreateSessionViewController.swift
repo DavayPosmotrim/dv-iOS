@@ -196,7 +196,7 @@ private extension CreateSessionViewController {
     }
 
     func loadCollections() {
-        self.presenter.getCollections { [weak self] isSuccess in
+        presenter.getCollections { [weak self] isSuccess in
             self?.isServerReachable = isSuccess
             if isSuccess {
                 self?.didLoadCollections = isSuccess
@@ -206,7 +206,7 @@ private extension CreateSessionViewController {
     }
 
     func loadGenres() {
-        self.presenter.getGenres { [weak self] isSuccess in
+        presenter.getGenres { [weak self] isSuccess in
             self?.isServerReachable = isSuccess
             if isSuccess {
                 self?.didLoadGenres = isSuccess
@@ -254,32 +254,40 @@ private extension CreateSessionViewController {
             backgroundView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             backgroundView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+
             customNavBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             customNavBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             customNavBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+
             customWarningNotification.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             customWarningNotification.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             customWarningNotification.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+
             upperPaddingView.heightAnchor.constraint(equalToConstant: 96),
             upperPaddingView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             upperPaddingView.topAnchor.constraint(equalTo: customNavBar.bottomAnchor),
             upperPaddingView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+
             segmentControl.leadingAnchor.constraint(equalTo: upperPaddingView.leadingAnchor, constant: 16),
             segmentControl.topAnchor.constraint(equalTo: upperPaddingView.topAnchor, constant: 24),
             segmentControl.trailingAnchor.constraint(equalTo: upperPaddingView.trailingAnchor, constant: -16),
             segmentControl.bottomAnchor.constraint(equalTo: upperPaddingView.bottomAnchor, constant: -16),
+
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.topAnchor.constraint(equalTo: upperPaddingView.bottomAnchor, constant: 16),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: lowerPaddingView.topAnchor, constant: -16),
+
             lowerPaddingView.heightAnchor.constraint(equalToConstant: 84),
             lowerPaddingView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             lowerPaddingView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             lowerPaddingView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+
             nextButton.heightAnchor.constraint(equalToConstant: 48),
             nextButton.leadingAnchor.constraint(equalTo: lowerPaddingView.leadingAnchor, constant: 16),
             nextButton.topAnchor.constraint(equalTo: lowerPaddingView.topAnchor, constant: 16),

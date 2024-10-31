@@ -8,14 +8,14 @@
 import Foundation
 
 struct SelectionMovieCellModel {
-    let id = UUID()
-    let movieImage: String
+    let id: Int
+    let movieImage: String?
     let nameMovieRu: String
-    let ratingMovie: String
-    let nameMovieEn: String
-    let yearMovie: String
-    let countryMovie: [String]
-    let timeMovie: String
+    let ratingMovie: Double?
+    let nameMovieEn: String?
+    let yearMovie: Int?
+    let countryMovie: [String]?
+    let timeMovie: Int?
     let genre: [CollectionsCellModel]
     let details: SelectionMovieDetailsCellModel
 }

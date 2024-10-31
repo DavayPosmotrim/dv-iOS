@@ -127,6 +127,9 @@ enum Resources {
     }
 
     enum CreateSession {
+        static let savedMoviesList = "savedMoviesList"
+        static let savedFirstMovie = "savedFirstMovie"
+
         static let nextButtonText = "Продолжить".uppercased()
         static let customNavBarTitle = "Создать сеанс"
         static let customNavBarSubtitle = "Выберите понравившиеся подборки"
@@ -145,6 +148,7 @@ enum Resources {
 
     enum RouletteFlow {
         static let isRouletteOnboardingShown = "RouletteOnboardingIsShown"
+        static let savedRouletteMovieId = "savedRouletteMovieId"
 
         static let titleLabelText = "Доверьтесь случаю"
         static let upperLabelText = "Если понравилось много фильмов и тяжело определиться, что же посмотреть."
@@ -238,6 +242,8 @@ enum Resources {
     }
 
     enum SessionsList {
+        static let savedSessionResult = "savedSessionResult"
+
         static let title = "Понравившиеся фильмы"
         // swiftlint:disable:next nesting
         enum Sessions {

@@ -14,13 +14,21 @@ final class SelectionMoviesCoordinator: BaseCoordinator {
     }
 
     func showMatchFlow() {
-            let coincidencesCoordinator = CoincidencesCoordinator(
-                type: .coincidencesSession,
-                finishDelegate: self,
-                navigationController: navigationController
-            )
-            addChild(coincidencesCoordinator)
-            coincidencesCoordinator.start()
+        let coincidencesCoordinator = CoincidencesCoordinator(
+            type: .coincidencesSession,
+            finishDelegate: self,
+            navigationController: navigationController
+        )
+        addChild(coincidencesCoordinator)
+        coincidencesCoordinator.start()
+    }
+
+    func showRouletteFlow() {
+        let rouletteCoordinator = RouletteCoordinator(
+            type: .roulette,
+            navigationController: navigationController)
+        addChild(rouletteCoordinator)
+        rouletteCoordinator.start()
     }
 
     override func finish() {

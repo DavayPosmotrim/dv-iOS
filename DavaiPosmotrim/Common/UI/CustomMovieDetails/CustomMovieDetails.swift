@@ -195,7 +195,7 @@ extension CustomMovieDetails: UICollectionViewDataSource {
             ) as? CustomMovieDescriptionCollectionCell else {
                 return UICollectionViewCell()
             }
-            cell.configure(text: data.description)
+            cell.configure(text: data.description ?? "N/A")
             return cell
         case 1:
             guard let cell = collectionView.dequeueReusableCell(
@@ -204,7 +204,7 @@ extension CustomMovieDetails: UICollectionViewDataSource {
             ) as? CustomRolesCollectionCell else {
                 return UICollectionViewCell()
             }
-            let mainRole = data.actors[indexPath.row]
+            let mainRole = data.actors[indexPath.row] ?? "N/A"
             cell.configure(name: mainRole)
             return cell
         case 2:
@@ -214,7 +214,7 @@ extension CustomMovieDetails: UICollectionViewDataSource {
             ) as? CustomRolesCollectionCell else {
                 return UICollectionViewCell()
             }
-            let mainRole = data.directors[indexPath.row]
+            let mainRole = data.directors[indexPath.row] ?? "N/A"
             cell.configure(name: mainRole)
             return cell
         case 3:
@@ -225,10 +225,10 @@ extension CustomMovieDetails: UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
             cell.configure(
-                ratingKp: data.ratingKp,
-                ratingImdb: data.ratingImdb,
-                votesKp: data.votesKp,
-                votesImdb: data.votesImdb
+                ratingKp: data.ratingKp ?? .zero,
+                ratingImdb: data.ratingImdb ?? .zero,
+                votesKp: data.votesKp ?? .zero,
+                votesImdb: data.votesImdb ?? .zero
             )
             return cell
         default:

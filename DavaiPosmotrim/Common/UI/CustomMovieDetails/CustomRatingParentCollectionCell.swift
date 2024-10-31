@@ -9,8 +9,8 @@ import UIKit
 
 final class CustomRatingParentCollectionCell: UICollectionViewCell {
 
-    private var ratingKp: Float = 0
-    private var ratingImdb: Float = 0
+    private var ratingKp: Double = 0
+    private var ratingImdb: Double = 0
     private var votesKp: Int = 0
     private var votesImdb: Int = 0
 
@@ -55,8 +55,8 @@ final class CustomRatingParentCollectionCell: UICollectionViewCell {
     // MARK: - Public Methods
 
     func configure(
-        ratingKp: Float,
-        ratingImdb: Float,
+        ratingKp: Double,
+        ratingImdb: Double,
         votesKp: Int,
         votesImdb: Int
     ) {

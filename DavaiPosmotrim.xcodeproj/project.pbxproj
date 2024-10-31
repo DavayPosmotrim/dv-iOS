@@ -12,6 +12,7 @@
 		C9156A8B2CA36B5F00840603 /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9156A8A2CA36B5F00840603 /* SessionService.swift */; };
 		C928883B2CB67F7A00EEA829 /* ServiceErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C928883A2CB67F7A00EEA829 /* ServiceErrors.swift */; };
 		C928883F2CB6C69700EEA829 /* ConnectUserResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C928883E2CB6C69700EEA829 /* ConnectUserResponseModel.swift */; };
+		C93DFF7D2CC86F1A00EC37B4 /* RotatingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93DFF7C2CC86F1A00EC37B4 /* RotatingIndicator.swift */; };
 		C952F4062CA6068A0002001D /* MovieResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C952F4052CA6068A0002001D /* MovieResponseModel.swift */; };
 		C97BE9792CB038A400784880 /* CreateSessionViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97BE9782CB038A400784880 /* CreateSessionViewProtocol.swift */; };
 		C98BD4462CA6F3C600A9BD84 /* RouletteRandomMovieResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BD4452CA6F3C500A9BD84 /* RouletteRandomMovieResponseModel.swift */; };
@@ -210,6 +211,7 @@
 		C9156A8A2CA36B5F00840603 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
 		C928883A2CB67F7A00EEA829 /* ServiceErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceErrors.swift; sourceTree = "<group>"; };
 		C928883E2CB6C69700EEA829 /* ConnectUserResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectUserResponseModel.swift; sourceTree = "<group>"; };
+		C93DFF7C2CC86F1A00EC37B4 /* RotatingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotatingIndicator.swift; sourceTree = "<group>"; };
 		C952F4052CA6068A0002001D /* MovieResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieResponseModel.swift; sourceTree = "<group>"; };
 		C97BE9782CB038A400784880 /* CreateSessionViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionViewProtocol.swift; sourceTree = "<group>"; };
 		C98BD4452CA6F3C500A9BD84 /* RouletteRandomMovieResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouletteRandomMovieResponseModel.swift; sourceTree = "<group>"; };
@@ -565,6 +567,7 @@
 				C9D1ACAF2C9DA8E40031B2C3 /* CustomWarningNotification.swift */,
 				C9D1ACB02C9DA8E40031B2C3 /* ReusableAuthView.swift */,
 				C9D1ACB12C9DA8E40031B2C3 /* RoundedButton.swift */,
+				C93DFF7C2CC86F1A00EC37B4 /* RotatingIndicator.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1187,6 +1190,7 @@
 				C9D1ADF22C9DA8E50031B2C3 /* SelectionMoviesViewProtocol.swift in Sources */,
 				C9D1ADB02C9DA8E50031B2C3 /* CreateSessionViewController.swift in Sources */,
 				C9D1AE012C9DA8E50031B2C3 /* SessionsListViewController.swift in Sources */,
+				C93DFF7D2CC86F1A00EC37B4 /* RotatingIndicator.swift in Sources */,
 				C9D1ADFB2C9DA8E50031B2C3 /* SessionMoviesViewController.swift in Sources */,
 				C9D1ADE52C9DA8E50031B2C3 /* DismissSelectionMoviesDelegate.swift in Sources */,
 				C9D1ADD62C9DA8E50031B2C3 /* OnboardingPresenterProtocol.swift in Sources */,

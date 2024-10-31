@@ -8,5 +8,11 @@
 import Foundation
 
 protocol CoincidencesViewProtocol: AnyObject {
+    var isServerReachable: Bool? { get set }
+
     func updateUIElements()
+    func showLoader()
+    func hideLoader()
+    func showNetworkError()
+    func showServerError()
 }

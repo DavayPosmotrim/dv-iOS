@@ -37,7 +37,7 @@ final class CreateSessionTableViewCell: UITableViewCell {
         imageView.layer.cornerRadius = 16
         imageView.layer.borderWidth = 8
         imageView.layer.borderColor = UIColor.whiteBackground.cgColor
-        imageView.contentMode = .scaleToFill
+        imageView.contentMode = .scaleAspectFill
         imageView.layer.masksToBounds = true
         return imageView
     }()
@@ -67,7 +67,7 @@ final class CreateSessionTableViewCell: UITableViewCell {
         view.clipsToBounds = true
         let gradientLayer = CAGradientLayer()
         let startColor: UIColor = .black.withAlphaComponent(.zero)
-        let endColor: UIColor = .black
+        let endColor: UIColor = .black.withAlphaComponent(0.6)
         gradientLayer.colors = [startColor.cgColor, endColor.cgColor]
         gradientLayer.frame = view.bounds
         view.layer.addSublayer(gradientLayer)
@@ -92,20 +92,25 @@ final class CreateSessionTableViewCell: UITableViewCell {
         modelId = model.id
         titleLabel.text = model.title
         let imageURL = URL(string: model.movieImage)
-        let memoryOnlyOptions: KingfisherOptionsInfoItem = .cacheMemoryOnly
-        movieImageView.kf.indicatorType = .activity
-        movieImageView.kf.setImage(with: imageURL, options: [memoryOnlyOptions]) { [weak self] result in
-            guard let self else { return }
-            switch result {
-            case .success(let value):
-                self.movieImageView.image = value.image
-            case .failure(let error):
-                self.movieImageView.image = .noImagePlug
-                self.movieImageView.contentMode = .scaleAspectFit
-                print("Error loading image: \(error)")
+
+        let activityIndicator = RotatingIndicator(image: UIImage.loader, size: 45)
+        movieImageView.kf.indicatorType = .custom(indicator: activityIndicator)
+        movieImageView.kf.setImage(
+            with: imageURL,
+            options: [
+                .transition(.fade(1)),
+                .cacheMemoryOnly
+            ]) { [weak self] result in
+                guard let self else { return }
+                switch result {
+                case .success(let value):
+                    self.movieImageView.image = value.image
+                case .failure:
+                    self.movieImageView.image = .noImagePlugWithText
+                    self.movieImageView.contentMode = .scaleAspectFit
+                }
+                self.movieImageView.kf.indicatorType = .none
             }
-            self.movieImageView.kf.indicatorType = .none
-        }
         contentView.backgroundColor = .baseBackground
         setupSubviews()
         setupConstraints()
@@ -133,7 +138,7 @@ final class CreateSessionTableViewCell: UITableViewCell {
             movieImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
 
             linearGradientView.leadingAnchor.constraint(equalTo: movieImageView.leadingAnchor, constant: 8),
-            linearGradientView.topAnchor.constraint(equalTo: movieImageView.centerYAnchor),
+            linearGradientView.topAnchor.constraint(equalTo: titleLabel.topAnchor, constant: -16),
             linearGradientView.trailingAnchor.constraint(equalTo: movieImageView.trailingAnchor, constant: -8),
             linearGradientView.bottomAnchor.constraint(equalTo: movieImageView.bottomAnchor, constant: -8),
 

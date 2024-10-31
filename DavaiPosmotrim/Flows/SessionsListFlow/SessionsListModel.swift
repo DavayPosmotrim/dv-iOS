@@ -74,20 +74,17 @@ extension SessionModel {
     ]
 
     static let mockMoviesData: [ReusableLikedMoviesCellModel] = [
-        ReusableLikedMoviesCellModel(title: "Into the wild", imageName: "Mok_7"),
-        ReusableLikedMoviesCellModel(title: "Дюна", imageName: "Mok_8"),
-        ReusableLikedMoviesCellModel(title: "Даласский клуб покупателей", imageName: "Mok_9"),
-        ReusableLikedMoviesCellModel(title: "Властелин колец: Две крепости", imageName: nil),
-        ReusableLikedMoviesCellModel(title: "Into the wild", imageName: "Mok_7"),
-        ReusableLikedMoviesCellModel(title: "Дюна", imageName: "Mok_8"),
-        ReusableLikedMoviesCellModel(
-            title: "Очень длинное название фильма. Такое длинное, что такие, наверное, просто не смотрят",
-            imageName: "Mok_9"
-        ),
-        ReusableLikedMoviesCellModel(title: "Властелин колец: Братство кольца", imageName: nil),
-        ReusableLikedMoviesCellModel(title: "1917", imageName: nil),
-        ReusableLikedMoviesCellModel(title: "Грань будущего", imageName: nil),
-        ReusableLikedMoviesCellModel(title: "Звездные войны: Возвращение джедая", imageName: "Mok_8"),
-        ReusableLikedMoviesCellModel(title: "Властелин колец: Возвращение короля", imageName: "Mok_7")
+        ReusableLikedMoviesCellModel(id: 1, title: "Into the wild", imageName: "Mok_7"),
+        ReusableLikedMoviesCellModel(id: 2, title: "Дюна", imageName: "Mok_8"),
+        ReusableLikedMoviesCellModel(id: 3, title: "Даласский клуб покупателей", imageName: "Mok_9"),
+        ReusableLikedMoviesCellModel(id: 4, title: "Властелин колец: Две крепости", imageName: nil),
+        ReusableLikedMoviesCellModel(id: 5, title: "Into the wild", imageName: "Mok_7"),
+        ReusableLikedMoviesCellModel(id: 6, title: "Дюна", imageName: "Mok_8"),
+        ReusableLikedMoviesCellModel(id: 7, title: "Очень длинное название фильма. Такое длинное, что такие, наверное, просто не смотрят", imageName: "Mok_9"),
+        ReusableLikedMoviesCellModel(id: 8, title: "Властелин колец: Братство кольца", imageName: nil),
+        ReusableLikedMoviesCellModel(id: 9, title: "1917", imageName: nil),
+        ReusableLikedMoviesCellModel(id: 10, title: "Грань будущего", imageName: nil),
+        ReusableLikedMoviesCellModel(id: 11, title: "Звездные войны: Возвращение джедая", imageName: "Mok_8"),
+        ReusableLikedMoviesCellModel(id: 12, title: "Властелин колец: Возвращение короля", imageName: "Mok_7")
     ]
 }
