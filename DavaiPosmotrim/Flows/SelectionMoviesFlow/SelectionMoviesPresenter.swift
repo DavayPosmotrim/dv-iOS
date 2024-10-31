@@ -7,6 +7,9 @@
 
 import Foundation
 
+// swiftlint: disable file_length
+// swiftlint: disable type_body_length
+
 final class SelectionMoviesPresenter: SelectionMoviesPresenterProtocol {
 
     // MARK: - Public Properties
@@ -19,12 +22,13 @@ final class SelectionMoviesPresenter: SelectionMoviesPresenterProtocol {
     private var selectionsMovie = [SelectionMovieCellModel]()
     private var currentIndex: Int = 0
     private var likedMovies: [Int] = []
+    private var dislikedMovies: [Int] = []
     private(set) var currentMovieId: Int?
     private var isGetPreviousMovie = true
-    // TODO: - для теста showMatch() пока нет сети
-    private var moviesViewedCount: Int = 0
     private var matchCount: Int = 0
     private let contentService: ContentServiceProtocol
+    private var sessionService: SessionServiceProtocol
+    private var webSocketsManager: WebSocketsManager?
 
     private var firstMovie: MovieDetailModel?
     private var newMovie: MovieDetailModel?
@@ -33,18 +37,62 @@ final class SelectionMoviesPresenter: SelectionMoviesPresenterProtocol {
     private var currentPage: Int = 1
     private var isLoading = false
 
+    private var sessionStatus: String? {
+        didSet {
+            let closedStatus = SessionStatusModel.closed.rawValue
+            if sessionStatus == closedStatus {
+                if rouletteMovieId != nil {
+                    DispatchQueue.main.async {
+                        self.coordinator?.showRouletteFlow()
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.kickOutAll()
+                    }
+                }
+                webSocketsManager?.disconnect()
+            }
+        }
+    }
+
+    private var rouletteMovieId: Int? {
+        didSet {
+            UserDefaults.standard.set(
+                rouletteMovieId,
+                forKey: Resources.RouletteFlow.savedRouletteMovieId
+            )
+        }
+    }
+    private var sessionResult: SessionResultModel? {
+        didSet {
+            UserDefaults.standard.set(
+                sessionResult,
+                forKey: Resources.SessionsList.savedSessionResult
+            )
+        }
+    }
+
     init(
         coordinator: SelectionMoviesCoordinator,
-        contentService: ContentServiceProtocol = ContentService()
+        contentService: ContentServiceProtocol = ContentService(),
+        sessionService: SessionServiceProtocol = SessionService()
     ) {
         self.coordinator = coordinator
         self.contentService = contentService
+        self.sessionService = sessionService
 
         firstMovie = getFirstMovieFromUserDefaults()
         downloadedMoviesList = getMoviesListFromUserDefaults()
     }
 
     // MARK: - Public Methods
+
+    func connectToWebSockets() {
+        connectToWebSocket(type: .matchesWebSocket)
+        connectToWebSocket(type: .sessionStatusWebSocket)
+        connectToWebSocket(type: .rouletteWebSocket)
+        connectToWebSocket(type: .sessionResultWebSocket)
+    }
 
     func loadData() {
         guard !isLoading else { return }
@@ -125,7 +173,7 @@ final class SelectionMoviesPresenter: SelectionMoviesPresenterProtocol {
     }
 
     func noButtonTapped(withId id: Int) {
-        removeFromLikedMovies(withId: id)
+        addToDislikedMovies(with: id)
         view?.animateOffscreen(direction: -1) { [self] in
             guard let nextModel = getNextMovie() else {
                 return
@@ -135,45 +183,35 @@ final class SelectionMoviesPresenter: SelectionMoviesPresenterProtocol {
     }
 
     func yesButtonTapped(withId id: Int) {
-        addToLikedMovies(withId: id)
-        view?.animateOffscreen(direction: 1) { [self] in
-            checkIfIndexesMatch(withId: id)
-            guard let nextModel = getNextMovie() else {
-                return
+        let stringId = "\(id)"
+        putLikeToMovieInSession(movieId: stringId) { isSuccess in
+            if isSuccess {
+                self.addToLikedMovies(withId: id)
+                self.view?.animateOffscreen(direction: 1) { [self] in
+                    guard let nextModel = getNextMovie() else {
+                        return
+                    }
+                    view?.showNextMovie(nextModel)
+                }
             }
-            view?.showNextMovie(nextModel)
-        }
-    }
-
-    func checkIfIndexesMatch(withId id: Int) {
-        // TODO: - для теста showMatch() пока нет сети
-        moviesViewedCount += 1
-        if moviesViewedCount == 2 && currentMovieId == id {
-            view?.showMatch(matchModel: selectionsMovie[currentIndex])
         }
     }
 
     func swipeNextMovie(withId id: Int, direction: CGFloat) {
+        let stringId = "\(id)"
         if direction > 0 {
-            addToLikedMovies(withId: id)
-            checkIfIndexesMatch(withId: id)
+            putLikeToMovieInSession(movieId: stringId) { isSuccess in
+                if isSuccess {
+                    self.addToLikedMovies(withId: id)
+                }
+            }
         } else {
-            removeFromLikedMovies(withId: id)
+            addToDislikedMovies(with: id)
         }
         guard let nextModel = getNextMovie() else {
             return
         }
         view?.showNextMovie(nextModel)
-    }
-
-    func addToLikedMovies(withId id: Int) {
-        likedMovies.append(id)
-    }
-
-    func removeFromLikedMovies(withId id: Int) {
-        if likedMovies.contains(id) {
-            likedMovies.removeAll { $0 == id }
-        }
     }
 
     func didTapMatchRightButton() {
@@ -189,8 +227,12 @@ final class SelectionMoviesPresenter: SelectionMoviesPresenterProtocol {
     }
 
     func kickOutAll() {
-        //TODO: - настроить отмену сессии у остальных пользователей, когда подключим сеть
-        view?.showCancelSessionDialog(alertType: .oneButton)
+        disconnectUserFromSession { isSuccess in
+            self.view?.isServerReachable = isSuccess
+            if isSuccess {
+                self.view?.showCancelSessionDialog(alertType: .oneButton)
+            }
+        }
     }
 
     // MARK: - Private methods
@@ -219,6 +261,20 @@ final class SelectionMoviesPresenter: SelectionMoviesPresenterProtocol {
         currentMovieId = selectionsMovie[currentIndex].id
         isGetPreviousMovie = false
         return selectionsMovie[currentIndex]
+    }
+
+    private func addToLikedMovies(withId id: Int) {
+        likedMovies.append(id)
+    }
+
+    private func addToDislikedMovies(with id: Int) {
+        dislikedMovies.append(id)
+    }
+
+    private func removeFromDislikedMovies(withId id: Int) {
+        if dislikedMovies.contains(id) {
+            dislikedMovies.removeAll { $0 == id }
+        }
     }
 
     private func getMoviesListFromUserDefaults() -> [Int] {
@@ -287,13 +343,95 @@ final class SelectionMoviesPresenter: SelectionMoviesPresenterProtocol {
     }
 }
 
-    // MARK: - ContentService
+    // MARK: - SessionService
 
-extension SelectionMoviesPresenter {
+private extension SelectionMoviesPresenter {
 
-    func getMovieInfo(for id: Int, completion: @escaping (Bool) -> Void) {
+    func putLikeToMovieInSession(movieId: String, completion: @escaping (Bool) -> Void) {
         guard
             let deviceId = UserDefaults.standard.string(
+                forKey: Resources.Authentication.savedDeviceID
+            ),
+            let sessionCode = UserDefaults.standard.string(
+                forKey: Resources.Authentication.sessionCode
+            )
+        else { return }
+
+        sessionService.putLikeToMovieInSession(
+            sessionCode: sessionCode,
+            deviceId: deviceId,
+            movieId: movieId
+        ) { [weak self] result in
+            guard let self else { return }
+
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let response):
+                    print(response)
+                    completion(true)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    completion(false)
+                    switch error {
+                    case .networkError:
+                        self.triggerActionAfterDelay {
+                            self.view?.showNetworkError()
+                        }
+                    case .serverError:
+                        self.triggerActionAfterDelay {
+                            self.view?.showServerError()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    func disconnectUserFromSession(completion: @escaping (Bool) -> Void) {
+        guard
+            let deviceId = UserDefaults.standard.string(
+                forKey: Resources.Authentication.savedDeviceID
+            ),
+            let sessionCode = UserDefaults.standard.string(
+                forKey: Resources.Authentication.sessionCode
+            )
+        else { return }
+
+        sessionService.disconnectUserFromSession(
+            sessionCode: sessionCode,
+            deviceId: deviceId
+        ) { [weak self] result in
+            guard let self else { return }
+
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let response):
+                    print(response)
+                    completion(true)
+                case .failure(let error):
+                    completion(false)
+                    switch error {
+                    case .networkError:
+                        self.triggerActionAfterDelay {
+                            self.view?.showNetworkError()
+                        }
+                    case .serverError:
+                        self.triggerActionAfterDelay {
+                            self.view?.showServerError()
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+    // MARK: - ContentService
+
+private extension SelectionMoviesPresenter {
+
+    func getMovieInfo(for id: Int, completion: @escaping (Bool) -> Void) {
+        guard let deviceId = UserDefaults.standard.string(
                 forKey: Resources.Authentication.savedDeviceID)
         else { return }
 
@@ -322,3 +460,101 @@ extension SelectionMoviesPresenter {
         }
     }
 }
+
+    // MARK: - WebSocketsManager
+
+private extension SelectionMoviesPresenter {
+
+    // swiftlint: disable function_body_length
+    // swiftlint: disable cyclomatic_complexity
+
+    func connectToWebSocket(type: WebSocketType) {
+        guard let sessionID = UserDefaults.standard.string(
+            forKey: Resources.Authentication.sessionCode
+        ) else {
+            return
+        }
+
+        let messageHandler: (String) -> Void = { [weak self] message in
+            guard let data = message.data(using: .utf8),
+                  let self
+            else { return }
+            do {
+                switch type {
+                case .matchesWebSocket:
+                    let decodedData = try JSONDecoder().decode(WebSocketsMovieIDModel.self, from: data)
+                    let matchedId = decodedData.message
+                    if let matchedMovie = selectionsMovie.first(where: { $0.id == matchedId }) {
+                        DispatchQueue.main.async { [self] in
+                            self.view?.showMatch(matchModel: matchedMovie)
+                        }
+                    }
+                case .sessionStatusWebSocket:
+                    let decodedData = try JSONDecoder().decode(WebSocketsSessionStatusModel.self, from: data)
+                    sessionStatus = decodedData.message
+                case .rouletteWebSocket:
+                    let decodedData = try JSONDecoder().decode(WebSocketsMovieIDModel.self, from: data)
+                    rouletteMovieId = decodedData.message
+                case .sessionResultWebSocket:
+                    let decodedData = try JSONDecoder().decode(WebSocketsSessionResultModel.self, from: data)
+                    sessionResult = decodedData.message
+                default:
+                    break
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    self.triggerActionAfterDelay {
+                        self.view?.showNetworkError()
+                    }
+                }
+            }
+        }
+
+        let errorHandler: () -> Void = { [weak self] in
+            guard let self else { return }
+            DispatchQueue.main.async {
+                self.triggerActionAfterDelay {
+                    self.view?.showServerError()
+                }
+            }
+        }
+
+        let model = WebSocketsModel(
+            stringAction: messageHandler,
+            dataAction: nil,
+            errorAction: errorHandler
+        )
+
+        switch type {
+        case .matchesWebSocket:
+            webSocketsManager = WebSocketsAPI.createWebSocketManager(
+                for: .moviesMatchesUpdate,
+                sessionID: sessionID
+            )
+        case .sessionStatusWebSocket:
+            webSocketsManager = WebSocketsAPI.createWebSocketManager(
+                for: .sessionStatusUpdate,
+                sessionID: sessionID
+            )
+        case .rouletteWebSocket:
+            webSocketsManager = WebSocketsAPI.createWebSocketManager(
+                for: .rouletteUpdate,
+                sessionID: sessionID
+            )
+        case .sessionResultWebSocket:
+            webSocketsManager = WebSocketsAPI.createWebSocketManager(
+                for: .sessionResultUpdate,
+                sessionID: sessionID
+            )
+        default:
+            break
+        }
+
+        webSocketsManager?.configureSocket(with: model)
+    }
+}
+
+// swiftlint: enable type_body_length
+// swiftlint: enable function_body_length
+// swiftlint: enable cyclomatic_complexity
+// swiftlint: enable file_length

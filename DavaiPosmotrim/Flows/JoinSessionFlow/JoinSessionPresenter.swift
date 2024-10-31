@@ -12,13 +12,16 @@ final class JoinSessionPresenter: JoinSessionPresenterProtocol {
     // MARK: - Private Properties
 
     private var sessionService: SessionServiceProtocol
+    private var contentService: ContentServiceProtocol
     private var webSocketsManager: WebSocketsManager?
     private var isConnectedUsersInArray = false
+    private var moviesList = [Int]()
     private var sessionStatus: String? {
         didSet {
             let votingStatus = SessionStatusModel.voting.rawValue
             if sessionStatus == votingStatus {
                 DispatchQueue.main.async {
+                    self.webSocketsManager?.disconnect()
                     self.coordinator?.showStartSessionScreen()
                 }
             }
@@ -48,9 +51,11 @@ final class JoinSessionPresenter: JoinSessionPresenterProtocol {
 
     init(
         coordinator: JoinSessionCoordinator,
+        contentService: ContentServiceProtocol = ContentService(),
         sessionService: SessionServiceProtocol = SessionService()
     ) {
         self.coordinator = coordinator
+        self.contentService = contentService
         self.sessionService = sessionService
     }
 
@@ -87,6 +92,15 @@ final class JoinSessionPresenter: JoinSessionPresenterProtocol {
         }
     }
 
+    func getSessionInfoToSave() {
+        getSessionInfo { isSuccess in
+            self.view?.isServerReachable = isSuccess
+            if isSuccess {
+                self.getFirstMovieInfo()
+            }
+        }
+    }
+
     // MARK: - Private methods
 
     private func updateReusableCollection() {
@@ -114,6 +128,22 @@ final class JoinSessionPresenter: JoinSessionPresenterProtocol {
         else { return [] }
 
         return decodedUsers
+    }
+
+    private func saveMoviesList(movies: [Int]) {
+        guard let encodedData = try? JSONEncoder().encode(movies) else { return }
+        UserDefaults.standard.set(
+            encodedData,
+            forKey: Resources.CreateSession.savedMoviesList
+        )
+    }
+
+    private func saveFirstMovie(movie: MovieDetailModel) {
+        guard let encodedData = try? JSONEncoder().encode(movie) else { return }
+        UserDefaults.standard.set(
+            encodedData,
+            forKey: Resources.CreateSession.savedFirstMovie
+        )
     }
 
     // TODO: - handle case when user connected while network connection is lost
@@ -234,6 +264,41 @@ private extension JoinSessionPresenter {
     }
 }
 
+    // MARK: - ContentService
+
+private extension JoinSessionPresenter {
+
+    func getFirstMovieInfo() {
+        guard
+            let deviceId = UserDefaults.standard.string(
+                forKey: Resources.Authentication.savedDeviceID),
+            let firstMovieId = moviesList.first
+        else { return }
+
+        contentService.getMovieInfo(with: firstMovieId, deviceId: deviceId) { [weak self] result in
+            guard let self else { return }
+
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let response):
+                    self.saveFirstMovie(movie: response)
+                case .failure(let error):
+                    switch error {
+                    case .networkError:
+                        self.triggerActionAfterDelay {
+                            self.view?.showNetworkError()
+                        }
+                    case .serverError:
+                        self.triggerActionAfterDelay {
+                            self.view?.showServerError()
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
     // MARK: - SessionService
 
 private extension JoinSessionPresenter {
@@ -255,6 +320,40 @@ private extension JoinSessionPresenter {
                 case .success(let response):
                     completion(true)
                     print(response.message)
+                case .failure(let error):
+                    completion(false)
+                    switch error {
+                    case .networkError:
+                        self.triggerActionAfterDelay {
+                            self.view?.showNetworkError()
+                        }
+                    case .serverError:
+                        self.triggerActionAfterDelay {
+                            self.view?.showServerError()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    func getSessionInfo(completion: @escaping (Bool) -> Void) {
+        guard
+            let deviceId = UserDefaults.standard.string(
+                forKey: Resources.Authentication.savedDeviceID
+            ),
+            let sessionCode = UserDefaults.standard.string(
+                forKey: Resources.Authentication.sessionCode
+            )
+        else { return }
+
+        sessionService.getSessionInfo(sessionCode: sessionCode, deviceId: deviceId) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let response):
+                    self.moviesList = response.movies ?? []
+                    self.saveMoviesList(movies: self.moviesList)
+                    completion(true)
                 case .failure(let error):
                     completion(false)
                     switch error {

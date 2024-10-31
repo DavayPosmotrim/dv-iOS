@@ -9,12 +9,18 @@ import UIKit
 
 final class CoincidencesViewController: UIViewController {
 
+    // MARK: - Public Properties
+
+    var isServerReachable: Bool?
+
     // MARK: - Stored Properties
 
     private var presenter: CoincidencesPresenterProtocol
     private var customNavBarModel: CustomNavBarModel?
     private var customNavBarRightButtonModel: CustomNavBarRightButtonModel?
     private var paddingViewHeightAnchor: NSLayoutConstraint?
+    private var loadingVC: CustomLoadingViewController?
+    private var networkReachabilityHandler: NetworkReachabilityHandler
 
     private let params = CellGeometricParams(
         cellCount: 2,
@@ -85,9 +91,14 @@ final class CoincidencesViewController: UIViewController {
 
     // MARK: - Initializers
 
-    init(presenter: CoincidencesPresenterProtocol) {
+    init(
+        presenter: CoincidencesPresenterProtocol,
+        networkReachabilityHandler: NetworkReachabilityHandler = NetworkReachabilityHandler()
+    ) {
         self.presenter = presenter
+        self.networkReachabilityHandler = networkReachabilityHandler
         super.init(nibName: nil, bundle: nil)
+        networkReachabilityHandler.delegate = self
     }
 
     required init?(coder: NSCoder) {
@@ -106,7 +117,12 @@ final class CoincidencesViewController: UIViewController {
         setupSubviews()
         setupConstraints()
 
-        presenter.downloadMoviesArrayFromServer()
+        presenter.downloadMatchedMoviesArray()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        hideLoader()
     }
 }
 
@@ -199,6 +215,33 @@ extension CoincidencesViewController: CoincidencesViewProtocol {
         }
         collectionView.reloadData()
     }
+
+    func showLoader() {
+        loadingVC = CustomLoadingViewController.show(in: self)
+    }
+
+    func hideLoader() {
+        loadingVC?.hide()
+        loadingVC = nil
+    }
+
+    func showNetworkError() {
+        let viewController = MistakesViewController(type: .noInternet) { [weak self] in
+            guard let self else { return }
+            self.dismiss(animated: true)
+        }
+        viewController.modalPresentationStyle = .fullScreen
+        present(viewController, animated: true)
+    }
+
+    func showServerError() {
+        let viewController = MistakesViewController(type: .serverError) { [weak self] in
+            guard let self else { return }
+            self.dismiss(animated: true)
+        }
+        viewController.modalPresentationStyle = .fullScreen
+        present(viewController, animated: true)
+    }
 }
 
     // MARK: - UICollectionViewDataSource
@@ -261,7 +304,10 @@ extension CoincidencesViewController: UICollectionViewDelegateFlowLayout {
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        presenter.coincidencesCellTapped()
+        guard let cell = collectionView.cellForItem(at: indexPath) as? ReusableLikedMoviesCell,
+              let cellId = cell.cellId
+        else { return }
+        presenter.coincidencesCellTapped(for: cellId)
     }
 }
 
@@ -274,5 +320,14 @@ extension CoincidencesViewController: UIScrollViewDelegate {
         paddingView.transform = CGAffineTransform(translationX: 0, y: min(-offset.y - scrollView.contentInset.top, 0))
 
         paddingViewHeightAnchor?.constant = max(0, offset.y + 40)
+    }
+}
+
+// MARK: - NetworkReachabilityHandlerDelegate
+
+extension CoincidencesViewController: NetworkReachabilityHandlerDelegate {
+
+    func didChangeNetworkStatus(isReachable: Bool?) {
+        isServerReachable = isReachable
     }
 }

@@ -8,6 +8,7 @@
 import Foundation
 
 protocol SelectionMoviesPresenterProtocol: AnyObject {
+    func connectToWebSockets()
     func loadData()
     func updateRandomMatchCount()
     func noButtonTapped(withId id: Int)
@@ -16,8 +17,6 @@ protocol SelectionMoviesPresenterProtocol: AnyObject {
     func comeBackButtonTapped()
     func canGetPreviousMovie() -> Bool
     func getFirstMovie() -> SelectionMovieCellModel
-    func addToLikedMovies(withId id: Int)
-    func removeFromLikedMovies(withId id: Int)
     func didTapMatchRightButton()
     func cancelButtonTapped()
     func cancelButtonAlertTapped()

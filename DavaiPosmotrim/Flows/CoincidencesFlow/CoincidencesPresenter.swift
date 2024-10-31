@@ -24,6 +24,12 @@ final class CoincidencesPresenter: CoincidencesPresenterProtocol {
 
     // MARK: - Private Properties
 
+    private var sessionService: SessionServiceProtocol
+    private var contentService: ContentServiceProtocol
+    private var matchedMovie: MovieDetailModel?
+    private var matchedMovies: [MovieResponseModel]?
+    private var decodedMoviesForCells = [SelectionMovieCellModel]()
+
     private let delayInSeconds: TimeInterval = 1
 
     private var moviesArray = [ReusableLikedMoviesCellModel]() {
@@ -37,8 +43,14 @@ final class CoincidencesPresenter: CoincidencesPresenterProtocol {
 
     // MARK: - Initializers
 
-    init(coordinator: CoincidencesCoordinator) {
+    init(
+        coordinator: CoincidencesCoordinator,
+        contentService: ContentServiceProtocol = ContentService(),
+        sessionService: SessionServiceProtocol = SessionService()
+    ) {
         self.coordinator = coordinator
+        self.contentService = contentService
+        self.sessionService = sessionService
     }
 
     // MARK: - Public methods
@@ -53,49 +65,168 @@ final class CoincidencesPresenter: CoincidencesPresenterProtocol {
         coordinator.showRouletteFlow()
     }
 
-    func coincidencesCellTapped() {
-        guard let coordinator,
-              let viewModel = getMovieInfo(from: selectionMovieMockData) else { return }
-        coordinator.showCoincidencesInfo(with: viewModel)
+    func coincidencesCellTapped(for movieId: Int) {
+        guard let coordinator, let viewModel = decodedMoviesForCells.first(where: { $0.id == movieId })
+        else { return }
+            coordinator.showCoincidencesInfo(with: viewModel)
     }
 
     func getMoviesAtIndex(index: Int) -> ReusableLikedMoviesCellModel {
         moviesArray[index]
     }
 
-    // Метод для имитации загрузки фильмов
-    func downloadMoviesArrayFromServer() {
-        let downloadedMovies = [
-            ReusableLikedMoviesCellModel(title: "Into the wild", imageName: "Mok_7"),
-            ReusableLikedMoviesCellModel(title: "Дюна", imageName: "Mok_8"),
-            ReusableLikedMoviesCellModel(title: "Даласский клуб покупателей", imageName: "Mok_9"),
-            ReusableLikedMoviesCellModel(title: "Властелин колец: Две крепости", imageName: nil),
-            ReusableLikedMoviesCellModel(title: "Into the wild", imageName: "Mok_7"),
-            ReusableLikedMoviesCellModel(title: "Дюна", imageName: "Mok_8"),
-            ReusableLikedMoviesCellModel(title: "Очень длинное название фильма. Такое длинное, что такие, наверное, просто не смотрят", imageName: "Mok_9"),
-            ReusableLikedMoviesCellModel(title: "Властелин колец: Братство кольца", imageName: nil),
-            ReusableLikedMoviesCellModel(title: "1917", imageName: nil),
-            ReusableLikedMoviesCellModel(title: "Грань будущего", imageName: nil),
-            ReusableLikedMoviesCellModel(title: "Звездные войны: Возвращение джедая", imageName: "Mok_8"),
-            ReusableLikedMoviesCellModel(title: "Властелин колец: Возвращение короля", imageName: "Mok_7")
-        ]
-
-        for movie in downloadedMovies {
-            self.moviesArray.append(movie)
+    func downloadMatchedMoviesArray() {
+        view?.showLoader()
+        getSessionMatchedMovies { isSuccess in
+            self.view?.isServerReachable = isSuccess
+            if isSuccess {
+                guard let matchedMovies = self.matchedMovies else { return }
+                self.decodeMatchedMoviesArray(for: matchedMovies)
+                for movie in matchedMovies {
+                    self.getMovieInfo(movieId: movie.id) { isSuccess in
+                        if isSuccess {
+                            guard let matchedMovie = self.matchedMovie else { return }
+                            let decodedMovie = self.decodeMatchedMovie(for: matchedMovie)
+                            self.decodedMoviesForCells.append(decodedMovie)
+                        }
+                    }
+                }
+            }
         }
-    }
-
-    // TODO: - rewrite method to get movie from UserDefaults according to it's id
-
-    func getMovieInfo(from array: [SelectionMovieCellModel]) -> SelectionMovieCellModel? {
-        return array.randomElement()
     }
 
     func showRouletteOnboarding() {
         guard let coordinator else { return }
         if UserDefaults.standard.value(forKey: Resources.RouletteFlow.isRouletteOnboardingShown) == nil &&
-     moviesCount >= 3 {
+            moviesCount >= 3 {
             coordinator.showRouletteOnboarding()
+        }
+    }
+
+    // MARK: - Private methods
+
+    private func triggerActionAfterDelay(error: @escaping () -> Void) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            error()
+        }
+    }
+
+    private func decodeMatchedMovie(for matchedMovie: MovieDetailModel) -> SelectionMovieCellModel {
+        var genres = [CollectionsCellModel]()
+        for item in matchedMovie.genres {
+            let genre = CollectionsCellModel(title: item.name)
+            genres.append(genre)
+        }
+
+        let movie = SelectionMovieCellModel(
+            id: matchedMovie.id,
+            movieImage: matchedMovie.poster,
+            nameMovieRu: matchedMovie.name,
+            ratingMovie: matchedMovie.ratingKp,
+            nameMovieEn: matchedMovie.alternativeName ?? "",
+            yearMovie: matchedMovie.year,
+            countryMovie: matchedMovie.countries,
+            timeMovie: matchedMovie.movieLength,
+            genre: genres,
+            details: SelectionMovieDetailsCellModel(
+                description: matchedMovie.description,
+                ratingKp: matchedMovie.ratingKp,
+                ratingImdb: matchedMovie.ratingImdb,
+                votesKp: matchedMovie.votesKp,
+                votesImdb: matchedMovie.votesImdb,
+                directors: matchedMovie.directors,
+                actors: matchedMovie.actors
+            )
+        )
+        return movie
+    }
+
+    private func decodeMatchedMoviesArray(for array: [MovieResponseModel]) {
+        for movie in array {
+            let decodedMovie = ReusableLikedMoviesCellModel(
+                id: movie.id,
+                title: movie.name,
+                imageName: movie.poster
+            )
+            moviesArray.append(decodedMovie)
+        }
+    }
+}
+
+    // MARK: - ContentService
+
+private extension CoincidencesPresenter {
+
+    func getMovieInfo(movieId: Int, completion: @escaping (Bool) -> Void) {
+        guard
+            let deviceId = UserDefaults.standard.string(
+                forKey: Resources.Authentication.savedDeviceID)
+        else { return }
+
+        contentService.getMovieInfo(with: movieId, deviceId: deviceId) { [weak self] result in
+            guard let self else { return }
+
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let response):
+                    self.matchedMovie = response
+                    completion(true)
+                case .failure(let error):
+                    completion(false)
+                    switch error {
+                    case .networkError:
+                        self.triggerActionAfterDelay {
+                            self.view?.showNetworkError()
+                        }
+                    case .serverError:
+                        self.triggerActionAfterDelay {
+                            self.view?.showServerError()
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+    // MARK: - SessionService
+
+private extension CoincidencesPresenter {
+
+    func getSessionMatchedMovies(completion: @escaping (Bool) -> Void) {
+        guard
+            let deviceId = UserDefaults.standard.string(
+                forKey: Resources.Authentication.savedDeviceID),
+            let sessionCode = UserDefaults.standard.string(
+                forKey: Resources.Authentication.sessionCode
+            )
+        else { return }
+
+        sessionService.getSessionMatchedMovies(
+            sessionCode: sessionCode,
+            deviceId: deviceId
+        ) { [weak self] result in
+            guard let self else { return }
+
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let response):
+                    self.matchedMovies = response
+                    completion(true)
+                case .failure(let error):
+                    completion(false)
+                    switch error {
+                    case .networkError:
+                        self.triggerActionAfterDelay {
+                            self.view?.showNetworkError()
+                        }
+                    case .serverError:
+                        self.triggerActionAfterDelay {
+                            self.view?.showServerError()
+                        }
+                    }
+                }
+            }
         }
     }
 }

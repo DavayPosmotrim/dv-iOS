@@ -221,12 +221,6 @@ private extension CreateSessionViewController {
         }
     }
 
-    func loadFirstMovie() {
-        presenter.getFirstMovieInfo { [weak self] isSuccess in
-            self?.isServerReachable = isSuccess
-        }
-    }
-
     func setupUI() {
         tableView.register(EmptyTableViewCell.self, forCellReuseIdentifier: EmptyTableViewCell.reuseIdentifier)
         tableView.register(

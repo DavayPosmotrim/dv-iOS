@@ -79,6 +79,11 @@ final class SelectionMoviesViewController: UIViewController {
         view.backgroundColor = .whiteBackground
         showLoader()
         presenter.loadData()
+        setupNavBarModel()
+        setupRightButtonModel()
+        setupSubviews()
+        setupConstraints()
+        presenter.connectToWebSockets()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -89,10 +94,6 @@ final class SelectionMoviesViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         hideLoader()
-        setupNavBarModel()
-        setupRightButtonModel()
-        setupSubviews()
-        setupConstraints()
     }
 
     // MARK: - Actions
@@ -381,8 +382,6 @@ extension SelectionMoviesViewController: CustomMovieSelectionDelegate {
 extension SelectionMoviesViewController: DismissSelectionMoviesDelegate {
     func closeAlertTypeTwoButtons() {
         presenter.kickOutAll()
-        //TODO: - раскоментить presenter.cancelButtonAlertTapped(), когда правильно настроим метод presenter.kickOutAll()
-//        presenter.cancelButtonAlertTapped()
     }
 
     func closeAlertTypeOneButton() {

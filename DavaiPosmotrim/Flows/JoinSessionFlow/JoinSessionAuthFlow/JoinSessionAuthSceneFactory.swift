@@ -8,7 +8,9 @@
 import Foundation
 
 struct JoinSessionAuthSceneFactory {
-    static func makeJoinSessionAuthViewController(with coordinator: JoinSessionAuthCoordinator) -> JoinSessionAuthViewController {
+    static func makeJoinSessionAuthViewController(
+        with coordinator: JoinSessionAuthCoordinator
+    ) -> JoinSessionAuthViewController {
         let presenter = JoinSessionAuthPresenter(coordinator: coordinator)
         let viewController = JoinSessionAuthViewController(presenter: presenter)
         presenter.view = viewController

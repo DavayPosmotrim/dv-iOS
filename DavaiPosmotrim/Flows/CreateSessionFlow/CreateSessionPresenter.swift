@@ -104,7 +104,7 @@ final class CreateSessionPresenter: CreateSessionPresenterProtocol {
         createSession(segmentIndex: segmentIndex) { isSuccess in
             self.view?.isServerReachable = isSuccess
             if isSuccess {
-                self.getFirstMovieInfo { _ in }
+                self.getFirstMovieInfo()
                 self.coordinator?.showInvitingUsersFlow()
             }
         }
@@ -209,7 +209,7 @@ extension CreateSessionPresenter {
         }
     }
 
-    func getFirstMovieInfo(completion: @escaping (Bool) -> Void) {
+    func getFirstMovieInfo() {
         guard
             let deviceId = UserDefaults.standard.string(
                 forKey: Resources.Authentication.savedDeviceID),
@@ -223,9 +223,7 @@ extension CreateSessionPresenter {
                 switch result {
                 case .success(let response):
                     self.saveFirstMovie(movie: response)
-                    completion(true)
                 case .failure(let error):
-                    completion(false)
                     switch error {
                     case .networkError:
                         self.triggerActionAfterDelay {

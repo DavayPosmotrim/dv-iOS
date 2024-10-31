@@ -465,11 +465,9 @@ private extension CustomMovieSelection {
 
     func setElementsHeight() {
         let contentHeight = collectionView.collectionViewLayout.collectionViewContentSize.height
-        print(contentHeight)
         collectionViewHeightConstraint?.constant = contentHeight
 
         let height = calculatePaddingHeight(for: contentHeight)
-        print(height)
         paddingViewHeightConstraint?.constant = height
     }
 
