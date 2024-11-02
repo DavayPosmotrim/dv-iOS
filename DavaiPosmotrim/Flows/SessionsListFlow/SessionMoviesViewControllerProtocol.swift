@@ -8,4 +8,6 @@
 import Foundation
 
 protocol SessionMoviesViewControllerProtocol: AnyObject {
+    func showNetworkError()
+    func showServerError()
 }

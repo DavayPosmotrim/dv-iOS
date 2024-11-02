@@ -15,6 +15,5 @@ protocol SessionsListPresenterProtocol: AnyObject {
 
     // MARK: - Methods
     func viewDidLoad()
-    func updateSessionsList()
     func showSessionMovies(by sessionIndex: Int)
 }

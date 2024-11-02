@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class SessionsListCell: UICollectionViewCell {
 
@@ -100,6 +101,7 @@ final class SessionsListCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = .radiusMedium
         imageView.layer.masksToBounds = true
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     private lazy var placeholderStackView: UIStackView = {
@@ -195,18 +197,54 @@ private extension SessionsListCell {
     }
 
     func setupValues(for viewModel: SessionModel) {
-        dateLabel.text = viewModel.date
+        dateLabel.text = convertDateString(dateString: viewModel.date)
         usersListLabel.text = viewModel.users.map { $0.title }.joined(separator: ", ")
         matchCountLabel.text = String(viewModel.matches)
         hasImage = viewModel.imageName != nil
 
-        if let imageName = viewModel.imageName {
-            movieImageView.image = UIImage(named: imageName)
-        }
+        guard let encodedImagePath = viewModel.imageName,
+              let decodedImagePath = encodedImagePath.removingPercentEncoding
+        else { return }
+
+        let imagePath = String(decodedImagePath.dropFirst())
+        let imageURL = URL(string: imagePath)
+        let activityIndicator = RotatingIndicator(image: UIImage.loader, size: 60)
+        movieImageView.kf.indicatorType = .custom(indicator: activityIndicator)
+        movieImageView.kf.setImage(
+            with: imageURL,
+            options: [
+                .transition(.fade(1)),
+                .cacheMemoryOnly
+            ]) { [weak self] result in
+                guard let self else { return }
+                switch result {
+                case .success(let value):
+                    self.movieImageView.image = value.image
+                default:
+                    break
+                }
+                self.movieImageView.kf.indicatorType = .none
+            }
     }
 
     func hidePlaceholder(_ isShowing: Bool) {
         movieImageView.isHidden = !isShowing
         placeholderStackView.isHidden = isShowing
+    }
+
+    func convertDateString(dateString: String) -> String? {
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = "yyyy-MM-dd"
+        inputFormatter.locale = Locale(identifier: "en_US_POSIX")
+
+        guard let date = inputFormatter.date(from: dateString) else {
+            return nil
+        }
+
+        let outputFormatter = DateFormatter()
+        outputFormatter.dateFormat = "d MMMM YYYY"
+        outputFormatter.locale = Locale(identifier: "ru_RU")
+
+        return outputFormatter.string(from: date)
     }
 }

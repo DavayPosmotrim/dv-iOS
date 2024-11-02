@@ -83,14 +83,7 @@ final class SessionsListViewController: UIViewController, SessionsListViewContro
 extension SessionsListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: false)
-        // TODO: - add code later
-        guard let cell = collectionView.cellForItem(at: indexPath) as? SessionsListCell else { return }
-        if indexPath.row == presenter.sessionsCount - 1 {
-            presenter.updateSessionsList()
-        } else {
-            // TODO: - wait new MainCoordinator
-            presenter.showSessionMovies(by: indexPath.row)
-        }
+        presenter.showSessionMovies(by: indexPath.row)
     }
 }
 

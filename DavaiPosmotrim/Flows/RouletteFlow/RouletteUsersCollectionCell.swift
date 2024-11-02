@@ -8,7 +8,7 @@
 import UIKit
 
 struct RouletteUsersCollectionCellModel: Identifiable, Equatable, Hashable {
-    let id = UUID()
+    let id: String
     let title: String
     var isConnected: Bool
 }
@@ -18,7 +18,7 @@ final class RouletteUsersCollectionCell: UICollectionViewCell {
     // MARK: - Stored properties
 
     static let reuseIdentifier = "RouletteUsersCollectionCell"
-    private var cellId: UUID?
+    private var cellId: String?
     private var isConnected: Bool = false {
         didSet {
             updateBackgroundColor()
@@ -53,8 +53,8 @@ final class RouletteUsersCollectionCell: UICollectionViewCell {
     // MARK: - Public methods
 
     func configureCell(with model: RouletteUsersCollectionCellModel) {
-        titleLabel.text = model.title
         cellId = model.id
+        titleLabel.text = model.title
         isConnected = model.isConnected
     }
 

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SelectionMovieDetailsCellModel {
+struct SelectionMovieDetailsCellModel: Codable {
     let description: String?
     let ratingKp: Double?
     let ratingImdb: Double?

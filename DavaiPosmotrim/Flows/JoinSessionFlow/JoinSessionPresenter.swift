@@ -22,6 +22,7 @@ final class JoinSessionPresenter: JoinSessionPresenterProtocol {
             if sessionStatus == votingStatus {
                 DispatchQueue.main.async {
                     self.webSocketsManager?.disconnect()
+                    self.saveUsersArray(for: self.namesArray)
                     self.coordinator?.showStartSessionScreen()
                 }
             }
@@ -75,11 +76,7 @@ final class JoinSessionPresenter: JoinSessionPresenterProtocol {
                 self.decodeConnectedUsers()
             }
         }
-        connectToWebSocket(type: .sessionStatusWebSocket) {
-            DispatchQueue.main.async {
-                self.view?.hideLoader()
-            }
-        }
+        connectToWebSocket(type: .sessionStatusWebSocket) { }
     }
 
     func quitSessionButtonTapped() {
@@ -143,6 +140,14 @@ final class JoinSessionPresenter: JoinSessionPresenterProtocol {
         UserDefaults.standard.set(
             encodedData,
             forKey: Resources.CreateSession.savedFirstMovie
+        )
+    }
+
+    private func saveUsersArray(for array: [ReusableCollectionCellModel]) {
+        guard let encodedData = try? JSONEncoder().encode(array) else { return }
+        UserDefaults.standard.set(
+            encodedData,
+            forKey: Resources.InvitingSession.savedUsersArray
         )
     }
 
@@ -302,6 +307,8 @@ private extension JoinSessionPresenter {
     // MARK: - SessionService
 
 private extension JoinSessionPresenter {
+
+    // TODO: - add loader while processing disconnect request
 
     func disconnectUserFromSession(completion: @escaping (Bool) -> Void) {
         guard

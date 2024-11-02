@@ -20,13 +20,15 @@ final class SelectionMoviesPresenter: SelectionMoviesPresenterProtocol {
     // MARK: - Private Properties
 
     private var selectionsMovie = [SelectionMovieCellModel]()
+    private var matchedMovies = [SelectionMovieCellModel]()
+    private var sessionResultArray = [SessionResultModel]()
     private var currentIndex: Int = 0
     private var likedMovies: [Int] = []
     private var dislikedMovies: [Int] = []
     private(set) var currentMovieId: Int?
     private var isGetPreviousMovie = true
     private var matchCount: Int = 0
-    private let contentService: ContentServiceProtocol
+    private var contentService: ContentServiceProtocol
     private var sessionService: SessionServiceProtocol
     private var webSocketsManager: WebSocketsManager?
 
@@ -63,14 +65,8 @@ final class SelectionMoviesPresenter: SelectionMoviesPresenterProtocol {
             )
         }
     }
-    private var sessionResult: SessionResultModel? {
-        didSet {
-            UserDefaults.standard.set(
-                sessionResult,
-                forKey: Resources.SessionsList.savedSessionResult
-            )
-        }
-    }
+
+    // MARK: - Initializers
 
     init(
         coordinator: SelectionMoviesCoordinator,
@@ -341,6 +337,32 @@ final class SelectionMoviesPresenter: SelectionMoviesPresenterProtocol {
         let decodedMovie = decodeNewMovie(for: firstMovie)
         selectionsMovie.append(decodedMovie)
     }
+
+    private func saveMatchedArray(with matchedMovie: SelectionMovieCellModel) {
+        if let savedData = UserDefaults.standard.data(forKey: Resources.SelectionMovies.saveMatchedArray),
+           let decodedData = try? JSONDecoder().decode([SelectionMovieCellModel].self, from: savedData) {
+            matchedMovies = decodedData
+        }
+        matchedMovies.append(matchedMovie)
+        guard let encodedData = try? JSONEncoder().encode(matchedMovies) else { return }
+        UserDefaults.standard.set(
+            encodedData,
+            forKey: Resources.SelectionMovies.saveMatchedArray
+        )
+    }
+
+    private func saveSessions(with sessionResult: SessionResultModel) {
+        if let savedData = UserDefaults.standard.data(forKey: Resources.SessionsList.savedSessionResult),
+           let decodedData = try? JSONDecoder().decode([SessionResultModel].self, from: savedData) {
+            sessionResultArray = decodedData
+        }
+        sessionResultArray.append(sessionResult)
+        guard let encodedData = try? JSONEncoder().encode(sessionResultArray) else { return }
+        UserDefaults.standard.set(
+            encodedData,
+            forKey: Resources.SessionsList.savedSessionResult
+        )
+    }
 }
 
     // MARK: - SessionService
@@ -485,6 +507,7 @@ private extension SelectionMoviesPresenter {
                     let decodedData = try JSONDecoder().decode(WebSocketsMovieIDModel.self, from: data)
                     let matchedId = decodedData.message
                     if let matchedMovie = selectionsMovie.first(where: { $0.id == matchedId }) {
+                        saveMatchedArray(with: matchedMovie)
                         DispatchQueue.main.async { [self] in
                             self.view?.showMatch(matchModel: matchedMovie)
                         }
@@ -497,7 +520,7 @@ private extension SelectionMoviesPresenter {
                     rouletteMovieId = decodedData.message
                 case .sessionResultWebSocket:
                     let decodedData = try JSONDecoder().decode(WebSocketsSessionResultModel.self, from: data)
-                    sessionResult = decodedData.message
+                    saveSessions(with: decodedData.message)
                 default:
                     break
                 }

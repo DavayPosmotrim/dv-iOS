@@ -91,6 +91,8 @@ enum Resources {
     }
 
     enum InvitingSession {
+        static let savedUsersArray = "savedUsersArray"
+
         static let lowerLabelText = """
         Если вы пригласили друзей – дождитесь, когда
         они подключатся, прежде чем начать сеанс.
@@ -210,6 +212,8 @@ enum Resources {
 	}
 
     enum SelectionMovies {
+        static let saveMatchedArray = "saveMatchedArray"
+
         static let titleNavBarText = "Выберите фильм"
         static let rightButtonLabelText = "0"
         static let customLabelUpperText = "Покинуть сеанс?"

@@ -7,6 +7,10 @@
 
 import Foundation
 
+// swiftlint: disable type_name
+
 protocol MovieSelectionOnboardingPresenterProtocol: AnyObject {
     func nextButtonTapped()
 }
+
+// swiftlint: enable type_name

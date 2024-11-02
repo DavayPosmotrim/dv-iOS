@@ -26,7 +26,6 @@ final class CoincidencesPresenter: CoincidencesPresenterProtocol {
 
     private var sessionService: SessionServiceProtocol
     private var contentService: ContentServiceProtocol
-    private var matchedMovie: MovieDetailModel?
     private var matchedMovies: [MovieResponseModel]?
     private var decodedMoviesForCells = [SelectionMovieCellModel]()
 
@@ -51,6 +50,8 @@ final class CoincidencesPresenter: CoincidencesPresenterProtocol {
         self.coordinator = coordinator
         self.contentService = contentService
         self.sessionService = sessionService
+
+        decodedMoviesForCells = getMatchedMoviesFromUserDefaults()
     }
 
     // MARK: - Public methods
@@ -82,15 +83,6 @@ final class CoincidencesPresenter: CoincidencesPresenterProtocol {
             if isSuccess {
                 guard let matchedMovies = self.matchedMovies else { return }
                 self.decodeMatchedMoviesArray(for: matchedMovies)
-                for movie in matchedMovies {
-                    self.getMovieInfo(movieId: movie.id) { isSuccess in
-                        if isSuccess {
-                            guard let matchedMovie = self.matchedMovie else { return }
-                            let decodedMovie = self.decodeMatchedMovie(for: matchedMovie)
-                            self.decodedMoviesForCells.append(decodedMovie)
-                        }
-                    }
-                }
             }
         }
     }
@@ -111,36 +103,6 @@ final class CoincidencesPresenter: CoincidencesPresenterProtocol {
         }
     }
 
-    private func decodeMatchedMovie(for matchedMovie: MovieDetailModel) -> SelectionMovieCellModel {
-        var genres = [CollectionsCellModel]()
-        for item in matchedMovie.genres {
-            let genre = CollectionsCellModel(title: item.name)
-            genres.append(genre)
-        }
-
-        let movie = SelectionMovieCellModel(
-            id: matchedMovie.id,
-            movieImage: matchedMovie.poster,
-            nameMovieRu: matchedMovie.name,
-            ratingMovie: matchedMovie.ratingKp,
-            nameMovieEn: matchedMovie.alternativeName ?? "",
-            yearMovie: matchedMovie.year,
-            countryMovie: matchedMovie.countries,
-            timeMovie: matchedMovie.movieLength,
-            genre: genres,
-            details: SelectionMovieDetailsCellModel(
-                description: matchedMovie.description,
-                ratingKp: matchedMovie.ratingKp,
-                ratingImdb: matchedMovie.ratingImdb,
-                votesKp: matchedMovie.votesKp,
-                votesImdb: matchedMovie.votesImdb,
-                directors: matchedMovie.directors,
-                actors: matchedMovie.actors
-            )
-        )
-        return movie
-    }
-
     private func decodeMatchedMoviesArray(for array: [MovieResponseModel]) {
         for movie in array {
             let decodedMovie = ReusableLikedMoviesCellModel(
@@ -151,41 +113,19 @@ final class CoincidencesPresenter: CoincidencesPresenterProtocol {
             moviesArray.append(decodedMovie)
         }
     }
-}
 
-    // MARK: - ContentService
-
-private extension CoincidencesPresenter {
-
-    func getMovieInfo(movieId: Int, completion: @escaping (Bool) -> Void) {
+    private func getMatchedMoviesFromUserDefaults() -> [SelectionMovieCellModel] {
         guard
-            let deviceId = UserDefaults.standard.string(
-                forKey: Resources.Authentication.savedDeviceID)
-        else { return }
+            let savedData = UserDefaults.standard.data(
+                forKey: Resources.SelectionMovies.saveMatchedArray
+            ),
+            let decodedData = try? JSONDecoder().decode(
+                [SelectionMovieCellModel].self,
+                from: savedData
+            )
+        else { return [] }
 
-        contentService.getMovieInfo(with: movieId, deviceId: deviceId) { [weak self] result in
-            guard let self else { return }
-
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let response):
-                    self.matchedMovie = response
-                    completion(true)
-                case .failure(let error):
-                    completion(false)
-                    switch error {
-                    case .networkError:
-                        self.triggerActionAfterDelay {
-                            self.view?.showNetworkError()
-                        }
-                    case .serverError:
-                        self.triggerActionAfterDelay {
-                            self.view?.showServerError()
-                        }
-                    }
-                }
-            }
-        }
+        return decodedData
     }
 }
 

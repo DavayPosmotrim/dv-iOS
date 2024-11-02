@@ -76,6 +76,7 @@ final class InvitingUsersPresenter: InvitingUsersPresenterProtocol {
             startVotingSessionStatus { isSuccess in
                 self.view?.isServerReachable = isSuccess
                 if isSuccess {
+                    self.saveUsersArray(for: self.namesArray)
                     self.triggerActionAfterDelay {
                         self.coordinator?.showStartSessionScreen()
                     }
@@ -133,6 +134,14 @@ final class InvitingUsersPresenter: InvitingUsersPresenterProtocol {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             error()
         }
+    }
+
+    private func saveUsersArray(for array: [ReusableCollectionCellModel]) {
+        guard let encodedData = try? JSONEncoder().encode(array) else { return }
+        UserDefaults.standard.set(
+            encodedData,
+            forKey: Resources.InvitingSession.savedUsersArray
+        )
     }
 }
 
@@ -214,7 +223,9 @@ extension InvitingUsersPresenter {
 
     // MARK: - SessionService
 
-extension InvitingUsersPresenter {
+private extension InvitingUsersPresenter {
+
+    // TODO: - add loader while processing disconnect request
 
     func disconnectUserFromSession(completion: @escaping (Bool) -> Void) {
         guard
@@ -224,8 +235,6 @@ extension InvitingUsersPresenter {
                 forKey: Resources.Authentication.sessionCode
             )
         else { return }
-
-        // TODO: - add loadingVC to show loader while processing request
 
         sessionService.disconnectUserFromSession(sessionCode: sessionCode, deviceId: deviceId) { [weak self] result in
             guard let self else { return }

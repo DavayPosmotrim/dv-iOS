@@ -136,6 +136,8 @@ final class MainViewController: UIViewController {
         setupConstraints()
         setupAuthNotificationObserver()
         setupTableViewHeightConstraint()
+
+        presenter?.cleanSavedData()
     }
 
     override func viewWillAppear(_ animated: Bool) {

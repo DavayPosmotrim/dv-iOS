@@ -11,4 +11,6 @@ protocol RouletteViewProtocol: AnyObject {
     func startRouletteScroll()
     func hideUsersView()
     func updateUsersCollectionViewHeight(with titles: [String])
+    func showNetworkError()
+    func showServerError()
 }
