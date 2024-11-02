@@ -47,4 +47,10 @@ final class MainPresenter: MainPresenterProtocol {
         }
         return userName
     }
+
+    func cleanSavedData() {
+        UserDefaults.standard.removeObject(forKey: Resources.SelectionMovies.saveMatchedArray)
+        UserDefaults.standard.removeObject(forKey: Resources.RouletteFlow.savedRouletteMovieId)
+        UserDefaults.standard.removeObject(forKey: Resources.InvitingSession.savedUsersArray)
+    }
 }

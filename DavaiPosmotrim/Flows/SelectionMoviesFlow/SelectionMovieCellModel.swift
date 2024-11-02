@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SelectionMovieCellModel {
+struct SelectionMovieCellModel: Codable {
     let id: Int
     let movieImage: String?
     let nameMovieRu: String

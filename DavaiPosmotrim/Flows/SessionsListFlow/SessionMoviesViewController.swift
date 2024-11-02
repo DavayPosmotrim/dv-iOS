@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class SessionMoviesViewController: UIViewController, SessionMoviesViewControllerProtocol {
+final class SessionMoviesViewController: UIViewController {
 
     // MARK: - Public properties
     var presenter: SessionMoviesPresenterProtocol
@@ -32,6 +32,7 @@ final class SessionMoviesViewController: UIViewController, SessionMoviesViewCont
         }
     }
 
+    private var loadingVC: CustomLoadingViewController?
     private lazy var dataSource = configureDataSource()
 
     // MARK: - View properties
@@ -64,9 +65,15 @@ final class SessionMoviesViewController: UIViewController, SessionMoviesViewCont
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        showLoader()
         presenter.viewDidLoad()
         setupUI()
         applySnapshot()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        hideLoader()
     }
 }
 
@@ -75,12 +82,40 @@ extension SessionMoviesViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard Section(rawValue: indexPath.section) != .users,
-            let cell = collectionView.cellForItem(at: indexPath) as? ReusableLikedMoviesCell else { return }
+              let cell = collectionView.cellForItem(at: indexPath) as? ReusableLikedMoviesCell,
+              let cellId = cell.cellId
+        else { return }
+        presenter.showMovie(by: cellId)
+    }
+}
 
-        // TODO: - change random to real index later
-        let index = Int.random(in: 0...selectionMovieMockData.count)
+extension SessionMoviesViewController: SessionMoviesViewControllerProtocol {
 
-        presenter.showMovie(by: index)
+    func showLoader() {
+        loadingVC = CustomLoadingViewController.show(in: self)
+    }
+
+    func hideLoader() {
+        loadingVC?.hide()
+        loadingVC = nil
+    }
+
+    func showNetworkError() {
+        let viewController = MistakesViewController(type: .noInternet) { [weak self] in
+            guard let self else { return }
+            self.dismiss(animated: true)
+        }
+        viewController.modalPresentationStyle = .fullScreen
+        present(viewController, animated: true)
+    }
+
+    func showServerError() {
+        let viewController = MistakesViewController(type: .serverError) { [weak self] in
+            guard let self else { return }
+            self.dismiss(animated: true)
+        }
+        viewController.modalPresentationStyle = .fullScreen
+        present(viewController, animated: true)
     }
 }
 

@@ -120,7 +120,6 @@
 		C9D1ADCB2C9DA8E50031B2C3 /* MainSceneFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1ACF52C9DA8E40031B2C3 /* MainSceneFactory.swift */; };
 		C9D1ADCC2C9DA8E50031B2C3 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1ACF62C9DA8E40031B2C3 /* MainTableViewCell.swift */; };
 		C9D1ADCD2C9DA8E50031B2C3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1ACF72C9DA8E40031B2C3 /* MainViewController.swift */; };
-		C9D1ADCE2C9DA8E50031B2C3 /* MatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1ACF92C9DA8E40031B2C3 /* MatchViewController.swift */; };
 		C9D1ADCF2C9DA8E50031B2C3 /* MovieSelectionOnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1ACFB2C9DA8E40031B2C3 /* MovieSelectionOnboardingCoordinator.swift */; };
 		C9D1ADD02C9DA8E50031B2C3 /* MovieSelectionOnboardingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1ACFC2C9DA8E40031B2C3 /* MovieSelectionOnboardingPresenter.swift */; };
 		C9D1ADD12C9DA8E50031B2C3 /* MovieSelectionOnboardingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1ACFD2C9DA8E40031B2C3 /* MovieSelectionOnboardingProtocol.swift */; };
@@ -148,7 +147,6 @@
 		C9D1ADE72C9DA8E50031B2C3 /* MatchSelectionMoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AD192C9DA8E40031B2C3 /* MatchSelectionMoviesViewController.swift */; };
 		C9D1ADE82C9DA8E50031B2C3 /* SelectionMovieCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AD1A2C9DA8E40031B2C3 /* SelectionMovieCellModel.swift */; };
 		C9D1ADE92C9DA8E50031B2C3 /* SelectionMovieDetailsCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AD1B2C9DA8E40031B2C3 /* SelectionMovieDetailsCellModel.swift */; };
-		C9D1ADEA2C9DA8E50031B2C3 /* SelectionMovieMockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AD1C2C9DA8E40031B2C3 /* SelectionMovieMockData.swift */; };
 		C9D1ADEC2C9DA8E50031B2C3 /* SelectionMoviesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AD1E2C9DA8E40031B2C3 /* SelectionMoviesCoordinator.swift */; };
 		C9D1ADED2C9DA8E50031B2C3 /* SelectionMoviesFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AD1F2C9DA8E40031B2C3 /* SelectionMoviesFactory.swift */; };
 		C9D1ADEE2C9DA8E50031B2C3 /* SelectionMoviesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D1AD202C9DA8E40031B2C3 /* SelectionMoviesPresenter.swift */; };
@@ -320,7 +318,6 @@
 		C9D1ACF52C9DA8E40031B2C3 /* MainSceneFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainSceneFactory.swift; sourceTree = "<group>"; };
 		C9D1ACF62C9DA8E40031B2C3 /* MainTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
 		C9D1ACF72C9DA8E40031B2C3 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		C9D1ACF92C9DA8E40031B2C3 /* MatchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchViewController.swift; sourceTree = "<group>"; };
 		C9D1ACFB2C9DA8E40031B2C3 /* MovieSelectionOnboardingCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieSelectionOnboardingCoordinator.swift; sourceTree = "<group>"; };
 		C9D1ACFC2C9DA8E40031B2C3 /* MovieSelectionOnboardingPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieSelectionOnboardingPresenter.swift; sourceTree = "<group>"; };
 		C9D1ACFD2C9DA8E40031B2C3 /* MovieSelectionOnboardingProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieSelectionOnboardingProtocol.swift; sourceTree = "<group>"; };
@@ -348,7 +345,6 @@
 		C9D1AD192C9DA8E40031B2C3 /* MatchSelectionMoviesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchSelectionMoviesViewController.swift; sourceTree = "<group>"; };
 		C9D1AD1A2C9DA8E40031B2C3 /* SelectionMovieCellModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionMovieCellModel.swift; sourceTree = "<group>"; };
 		C9D1AD1B2C9DA8E40031B2C3 /* SelectionMovieDetailsCellModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionMovieDetailsCellModel.swift; sourceTree = "<group>"; };
-		C9D1AD1C2C9DA8E40031B2C3 /* SelectionMovieMockData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionMovieMockData.swift; sourceTree = "<group>"; };
 		C9D1AD1E2C9DA8E40031B2C3 /* SelectionMoviesCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionMoviesCoordinator.swift; sourceTree = "<group>"; };
 		C9D1AD1F2C9DA8E40031B2C3 /* SelectionMoviesFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionMoviesFactory.swift; sourceTree = "<group>"; };
 		C9D1AD202C9DA8E40031B2C3 /* SelectionMoviesPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionMoviesPresenter.swift; sourceTree = "<group>"; };
@@ -716,14 +712,6 @@
 			path = MainFlow;
 			sourceTree = "<group>";
 		};
-		C9D1ACFA2C9DA8E40031B2C3 /* MatchFlow */ = {
-			isa = PBXGroup;
-			children = (
-				C9D1ACF92C9DA8E40031B2C3 /* MatchViewController.swift */,
-			);
-			path = MatchFlow;
-			sourceTree = "<group>";
-		};
 		C9D1AD002C9DA8E40031B2C3 /* MovieSelectionOnboardingFlow */ = {
 			isa = PBXGroup;
 			children = (
@@ -799,7 +787,6 @@
 				C9D1AD192C9DA8E40031B2C3 /* MatchSelectionMoviesViewController.swift */,
 				C9D1AD1A2C9DA8E40031B2C3 /* SelectionMovieCellModel.swift */,
 				C9D1AD1B2C9DA8E40031B2C3 /* SelectionMovieDetailsCellModel.swift */,
-				C9D1AD1C2C9DA8E40031B2C3 /* SelectionMovieMockData.swift */,
 				C9D1AD1E2C9DA8E40031B2C3 /* SelectionMoviesCoordinator.swift */,
 				C9D1AD1F2C9DA8E40031B2C3 /* SelectionMoviesFactory.swift */,
 				C9D1AD202C9DA8E40031B2C3 /* SelectionMoviesPresenter.swift */,
@@ -863,7 +850,6 @@
 				C9D1ACDF2C9DA8E40031B2C3 /* InvitingUsersFlow */,
 				C9D1ACF02C9DA8E40031B2C3 /* JoinSessionFlow */,
 				C9D1ACF82C9DA8E40031B2C3 /* MainFlow */,
-				C9D1ACFA2C9DA8E40031B2C3 /* MatchFlow */,
 				C9D1AD002C9DA8E40031B2C3 /* MovieSelectionOnboardingFlow */,
 				C9D1AD062C9DA8E40031B2C3 /* OnboardingFlow */,
 				C9D1AD152C9DA8E40031B2C3 /* RouletteFlow */,
@@ -1102,12 +1088,10 @@
 				C9D1AE222C9DA8E50031B2C3 /* UserService.swift in Sources */,
 				C9D1ADE32C9DA8E50031B2C3 /* RouletteViewController.swift in Sources */,
 				C928883B2CB67F7A00EEA829 /* ServiceErrors.swift in Sources */,
-				C9D1ADEA2C9DA8E50031B2C3 /* SelectionMovieMockData.swift in Sources */,
 				C9D1ADDF2C9DA8E50031B2C3 /* RoulettePresenter.swift in Sources */,
 				C9D1AE202C9DA8E50031B2C3 /* AppCoordinatorProtocol.swift in Sources */,
 				C9D1ADA22C9DA8E50031B2C3 /* CoincidencesMovieInfoViewController.swift in Sources */,
 				C9D1AD8D2C9DA8E50031B2C3 /* CustomNavigationBar.swift in Sources */,
-				C9D1ADCE2C9DA8E50031B2C3 /* MatchViewController.swift in Sources */,
 				C98BD4522CA82FE900A9BD84 /* CreateSessionResponseModel.swift in Sources */,
 				C9D1ADAE2C9DA8E50031B2C3 /* CreateSessionPresenterProtocol.swift in Sources */,
 				C9D1ADCA2C9DA8E50031B2C3 /* MainPresenterProtocol.swift in Sources */,

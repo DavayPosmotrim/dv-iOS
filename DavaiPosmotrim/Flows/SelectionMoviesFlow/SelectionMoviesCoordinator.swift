@@ -28,7 +28,7 @@ final class SelectionMoviesCoordinator: BaseCoordinator {
             type: .roulette,
             navigationController: navigationController)
         addChild(rouletteCoordinator)
-        rouletteCoordinator.start()
+        rouletteCoordinator.startThroughWebSocket()
     }
 
     override func finish() {

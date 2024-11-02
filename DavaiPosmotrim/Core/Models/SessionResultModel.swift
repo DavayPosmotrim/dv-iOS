@@ -9,8 +9,8 @@ import Foundation
 
 struct SessionResultModel: Codable {
     let id: String
-    let users: [String]
-    let matchedMovies: [MovieDetailModel]
+    let users: [UserModel]
+    let matchedMovies: [MovieResponseModel]
     let date: String
     let image: String
     let matchedMoviesCount: Int
@@ -23,4 +23,8 @@ struct SessionResultModel: Codable {
         case image
         case matchedMoviesCount = "matched_movies_count"
     }
+}
+
+struct UserModel: Codable {
+    let name: String
 }

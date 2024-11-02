@@ -17,6 +17,10 @@ final class RouletteCoordinator: BaseCoordinator {
         finishDelegate?.didFinish(self)
     }
 
+    func startThroughWebSocket() {
+        showWebSocketRoulette()
+    }
+
     func showRouletteStartViewController(with delegate: RouletteStartViewControllerDelegate?) {
         let viewController = RouletteStartViewController()
         viewController.modalTransitionStyle = .crossDissolve
@@ -53,6 +57,11 @@ final class RouletteCoordinator: BaseCoordinator {
 private extension RouletteCoordinator {
     func showRoulette() {
         let viewController = RouletteSceneFactory.makeRouletteViewController(with: self)
+        navigationController.pushViewController(viewController, animated: true)
+    }
+
+    func showWebSocketRoulette() {
+        let viewController = RouletteSceneFactory.makeWebSocketRouletteViewController(with: self)
         navigationController.pushViewController(viewController, animated: true)
     }
 }

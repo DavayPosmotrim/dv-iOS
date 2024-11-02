@@ -12,7 +12,16 @@ struct RouletteSceneFactory {
         with coordinator: RouletteCoordinator
     ) -> RouletteViewController {
         let presenter = RoulettePresenter(coordinator: coordinator)
-        let viewController = RouletteViewController(presenter: presenter)
+        let viewController = RouletteViewController(presenter: presenter, event: .noWebSocket)
+        presenter.view = viewController
+        return viewController
+    }
+
+    static func makeWebSocketRouletteViewController(
+        with coordinator: RouletteCoordinator
+    ) -> RouletteViewController {
+        let presenter = RoulettePresenter(coordinator: coordinator)
+        let viewController = RouletteViewController(presenter: presenter, event: .webSocket)
         presenter.view = viewController
         return viewController
     }

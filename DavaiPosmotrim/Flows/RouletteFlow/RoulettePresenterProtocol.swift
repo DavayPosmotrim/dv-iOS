@@ -16,6 +16,7 @@ protocol RoulettePresenterProtocol: AnyObject {
     func getMovieByID(id: Int) -> SelectionMovieCellModel?
     func getNamesAtIndex(index: Int) -> RouletteUsersCollectionCellModel
     func getConnectedProperty(index: Int) -> Bool
+    func getRouletteRandomMovie()
     func downloadMoviesArray()
     func downloadUsersArray()
     func getRouletteMovieID() -> Int?

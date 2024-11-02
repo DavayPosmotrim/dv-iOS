@@ -7,9 +7,9 @@
 
 import UIKit
 
-struct ReusableCollectionCellModel: Identifiable, Equatable, Hashable {
+struct ReusableCollectionCellModel: Codable, Identifiable, Equatable, Hashable {
     let id: String
-    let title: String
+    var title: String
 }
 
 final class ReusableUICollectionViewCell: UICollectionViewCell {

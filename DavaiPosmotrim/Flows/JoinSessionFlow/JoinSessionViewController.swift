@@ -87,15 +87,17 @@ final class JoinSessionViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .baseBackground
 
+        showLoader()
         setupSubViews()
         setupConstraints()
+
+        presenter?.connectToWebSockets()
+        presenter?.getSessionInfoToSave()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        showLoader()
-        presenter?.connectToWebSockets()
-        presenter?.getSessionInfoToSave()
+        hideLoader()
     }
 
     // MARK: - Initializers

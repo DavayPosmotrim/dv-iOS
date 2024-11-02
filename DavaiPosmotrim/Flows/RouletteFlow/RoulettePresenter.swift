@@ -30,6 +30,8 @@ final class RoulettePresenter: RoulettePresenterProtocol {
 
     // MARK: - Private Properties
 
+    private var randomMovieId: Int?
+    private var sessionService: SessionServiceProtocol
     private var downloadedMoviesArray = [SelectionMovieCellModel]()
     private var rouletteMoviesArray = [SelectionMovieCellModel]()
     private var usersArray = [RouletteUsersCollectionCellModel]() {
@@ -45,8 +47,12 @@ final class RoulettePresenter: RoulettePresenterProtocol {
 
     // MARK: - Initializers
 
-    init(coordinator: RouletteCoordinator) {
+    init(
+        coordinator: RouletteCoordinator,
+        sessionService: SessionServiceProtocol = SessionService()
+    ) {
         self.coordinator = coordinator
+        self.sessionService = sessionService
     }
 
     // MARK: - Public methods
@@ -90,9 +96,8 @@ final class RoulettePresenter: RoulettePresenterProtocol {
                return connectedUsersArray[index]
     }
 
-    // Метод для имитации загрузки фильмов
     func downloadMoviesArray() {
-        let downloadedMovies = selectionMovieMockData
+        let downloadedMovies = getMatchedMoviesFromUserDefaults()
 
         for movie in downloadedMovies {
             downloadedMoviesArray.append(movie)
@@ -101,32 +106,38 @@ final class RoulettePresenter: RoulettePresenterProtocol {
         parseDataInRouletteArray(from: downloadedMoviesArray, count: 20)
     }
 
-    // Метод для имитации загрузки списка пользователей
     func downloadUsersArray() {
-        let downloadedNames = [
-            RouletteUsersCollectionCellModel(title: "Эльдар(вы)", isConnected: false),
-            RouletteUsersCollectionCellModel(title: "Юрий", isConnected: false),
-            RouletteUsersCollectionCellModel(title: "Сергей", isConnected: false),
-            RouletteUsersCollectionCellModel(title: "Александр", isConnected: false),
-            RouletteUsersCollectionCellModel(title: "Максим", isConnected: false)
-        ]
+        guard let deviceId = UserDefaults.standard.string(
+            forKey: Resources.Authentication.savedDeviceID
+        ) else { return }
 
-        var titlesArray = [String]()
-
-        for name in downloadedNames {
-            usersArray.append(name)
-            titlesArray.append(name.title)
+        let downloadedUsers = getConnectedUsers()
+        let isConnected = false
+        var decodedUsers = downloadedUsers.map {
+            RouletteUsersCollectionCellModel(id: $0.id, title: $0.title, isConnected: isConnected)
         }
+
+        if let index = decodedUsers.firstIndex(where: { $0.id.uppercased() == deviceId }) {
+            let userToMove = decodedUsers.remove(at: index)
+            decodedUsers.insert(userToMove, at: 0)
+        }
+
+        let titlesArray = decodedUsers.map { $0.title }
+        usersArray = decodedUsers
+
         DispatchQueue.main.async {
             self.view?.updateUsersCollectionViewHeight(with: titlesArray)
         }
     }
 
     func getRouletteMovieID() -> Int? {
-        let middleIndex = movieIDs.count / 2
-        let serverID = movieIDs[middleIndex]
+        guard let serverId = UserDefaults.standard.value(
+            forKey: Resources.RouletteFlow.savedRouletteMovieId
+        ) else {
+            return randomMovieId
+        }
 
-        return serverID
+        return serverId as? Int
     }
 
     // Метод для имитации подключения пользователей
@@ -166,6 +177,14 @@ final class RoulettePresenter: RoulettePresenterProtocol {
         )
     }
 
+    private func triggerActionAfterDelay(error: @escaping () -> Void) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            error()
+        }
+    }
+
+    // TODO: - fix bug with dividing by 0 in downloadMoviesArray method when there's more matches when count number
+
     private func parseDataInRouletteArray(from sourceArray: [SelectionMovieCellModel], count: Int) {
         let shuffledArray = sourceArray.shuffled()
         let selectedCount = min(count, sourceArray.count)
@@ -185,5 +204,74 @@ final class RoulettePresenter: RoulettePresenterProtocol {
             randomElements = Array(shuffledArray.prefix(selectedCount))
         }
         rouletteMoviesArray = Array(randomElements)
+    }
+
+    private func getConnectedUsers() -> [ReusableCollectionCellModel] {
+        guard
+            let savedData = UserDefaults.standard.data(
+                forKey: Resources.InvitingSession.savedUsersArray
+            ),
+            let decodedUsers = try? JSONDecoder().decode(
+                [ReusableCollectionCellModel].self,
+                from: savedData
+            )
+        else { return [] }
+
+        return decodedUsers
+    }
+
+    private func getMatchedMoviesFromUserDefaults() -> [SelectionMovieCellModel] {
+        guard
+            let savedData = UserDefaults.standard.data(
+                forKey: Resources.SelectionMovies.saveMatchedArray
+            ),
+            let decodedData = try? JSONDecoder().decode(
+                [SelectionMovieCellModel].self,
+                from: savedData
+            )
+        else { return [] }
+
+        return decodedData
+    }
+}
+
+    // MARK: - SessionService
+
+extension RoulettePresenter {
+
+    func getRouletteRandomMovie() {
+        guard
+            let deviceId = UserDefaults.standard.string(
+                forKey: Resources.Authentication.savedDeviceID
+            ),
+            let sessionCode = UserDefaults.standard.string(
+                forKey: Resources.Authentication.sessionCode
+            )
+        else { return }
+
+        sessionService.getRouletteRandomMovie(
+            sessionCode: sessionCode,
+            deviceId: deviceId
+        ) { [weak self] result in
+            guard let self else { return }
+
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let response):
+                    self.randomMovieId = response.randomMovieId
+                case .failure(let error):
+                    switch error {
+                    case .networkError:
+                        self.triggerActionAfterDelay {
+                            self.view?.showNetworkError()
+                        }
+                    case .serverError:
+                        self.triggerActionAfterDelay {
+                            self.view?.showServerError()
+                        }
+                    }
+                }
+            }
+        }
     }
 }

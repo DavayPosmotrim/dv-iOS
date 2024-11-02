@@ -14,8 +14,8 @@ struct TableViewCellModel {
     let movieImage: String
 }
 
-struct CollectionsCellModel {
-    let id = UUID()
+struct CollectionsCellModel: Codable {
+    var id = UUID()
     let title: String
 }
 

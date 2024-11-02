@@ -7,11 +7,19 @@
 
 import UIKit
 
+enum Event {
+    case noWebSocket
+    case webSocket
+}
+
+// swiftlint: disable file_length
+
 final class RouletteViewController: UIViewController {
 
     // MARK: - Stored Properties
 
     private var presenter: RoulettePresenterProtocol
+    private var event: Event
     private var scrollTimer: Timer?
     private var isScrolling = false
     private var targetVelocity: CGFloat = .random(in: 50...55)
@@ -82,8 +90,12 @@ final class RouletteViewController: UIViewController {
 
     // MARK: - Initializers
 
-    init(presenter: RoulettePresenterProtocol) {
+    init(
+        presenter: RoulettePresenterProtocol,
+        event: Event
+    ) {
         self.presenter = presenter
+        self.event = event
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -98,18 +110,23 @@ final class RouletteViewController: UIViewController {
 
         view.backgroundColor = .baseBackground
 
-        setupSubviews()
-        setupConstraints()
-
         presenter.downloadMoviesArray()
         serverID = presenter.getRouletteMovieID()
+
+        setupSubviews()
+        setupConstraints()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
         startScrolling()
-        presenter.startRouletteController(with: self)
+        if event == .noWebSocket {
+            presenter.startRouletteController(with: self)
+        } else {
+            presenter.downloadUsersArray()
+            presenter.connectUsers()
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -140,6 +157,7 @@ final class RouletteViewController: UIViewController {
 // MARK: - Private methods
 
 private extension RouletteViewController {
+
     func setupSubviews() {
         [movieCardCollectionView, paddingView].forEach {
             view.addSubview($0)
@@ -196,6 +214,7 @@ private extension RouletteViewController {
     // MARK: - UICollectionViewDataSource
 
 extension RouletteViewController: UICollectionViewDataSource {
+
     func collectionView(
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
@@ -236,6 +255,7 @@ extension RouletteViewController: UICollectionViewDataSource {
     // MARK: - UICollectionViewDelegateFlowLayout
 
 extension RouletteViewController: UICollectionViewDelegateFlowLayout {
+
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
@@ -261,6 +281,7 @@ extension RouletteViewController: UICollectionViewDelegateFlowLayout {
     // MARK: - RouletteViewProtocol
 
 extension RouletteViewController: RouletteViewProtocol {
+
     func startRouletteScroll() {
         movieCardCollectionView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
 
@@ -318,16 +339,36 @@ extension RouletteViewController: RouletteViewProtocol {
 
         usersCollectionView.heightAnchor.constraint(equalToConstant: totalHeight).isActive = true
     }
+
+    func showNetworkError() {
+        let viewController = MistakesViewController(type: .noInternet) { [weak self] in
+            guard let self else { return }
+            self.dismiss(animated: true)
+        }
+        viewController.modalPresentationStyle = .fullScreen
+        present(viewController, animated: true)
+    }
+
+    func showServerError() {
+        let viewController = MistakesViewController(type: .serverError) { [weak self] in
+            guard let self else { return }
+            self.dismiss(animated: true)
+        }
+        viewController.modalPresentationStyle = .fullScreen
+        present(viewController, animated: true)
+    }
 }
 
     // MARK: - RouletteStartViewControllerDelegate
 
 extension RouletteViewController: RouletteStartViewControllerDelegate {
+
     func didTapCancelButton() {
         presenter.finishRoulette()
     }
 
     func didTapBeginButton() {
+        presenter.getRouletteRandomMovie()
         presenter.downloadUsersArray()
         presenter.connectUsers()
     }
@@ -391,3 +432,5 @@ extension RouletteViewController {
         }
     }
 }
+
+// swiftlint: enable file_length
